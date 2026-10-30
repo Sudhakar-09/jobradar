@@ -36,5 +36,6 @@ Phase 0 — Scaffold is implemented. Phase 1 — Profile & packs is the next pha
 - The current local virtual environment has incomplete `jobradar` package metadata: `uv run pytest`
   failed while replacing its installed metadata, and the direct test run passed 9 tests but failed
   `test_jobradar_package_is_installed_and_importable`.
-- This checkout has no Git remote configured, so pushing commits requires configuring the intended
-  private GitHub repository as a remote.
+- The intended private GitHub repository is configured as `origin`, but this environment has no
+  GitHub CLI authentication and Git cannot prompt for credentials. The latest commit is local and
+  still needs an authenticated push.
