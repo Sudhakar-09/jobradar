@@ -12,15 +12,19 @@ checkout is `C:\dev\jobradar`; do not continue work from the retained OneDrive c
   development tasks.
   - `1765857143ed297833ed7db58765161b51da464c` — `Phase 0: scaffold`
   - `6dd87894c9baaa862ec25d630a428eaef7447b39` — `chore: phase 0 follow-ups`
+- Durable project memory and session instructions, including the C-drive location decision.
+  - `648e70fe2b84e00c0e794e8f622fbc0b34ed73f4` — `docs: add progress and decision logs`
+  - `9cca1aa` — `docs: add universal Copilot session instructions`
 - Relocated the active checkout to `C:\dev\jobradar`; the original OneDrive checkout was retained.
 - Recreated the environment with `uv sync --link-mode=copy`; all 10 tests pass, including the
   installed-package metadata test.
 - Started PostgreSQL and Redis, applied Alembic migrations, and verified `/health` and `/ready`
   return `ok`.
+- Authenticated GitHub CLI with the required `workflow` scope and pushed `main` to `origin`.
 
 ## In progress
 
-- Approve the GitHub CLI OAuth `workflow` scope, then push the prepared commits to `origin`.
+- None. `main` tracks `origin/main`; the current project changes have been pushed.
 
 ## Next steps
 
@@ -41,7 +45,4 @@ checkout is `C:\dev\jobradar`; do not continue work from the retained OneDrive c
   security as partial or deferred in `PRODUCT_STANDARDS.md`.
 - Other running containers occupy host ports 5432 and 6379; this checkout uses ignored local
   `.env` overrides on ports 5433 and 6380. Do not stop the unrelated containers.
-- GitHub CLI sign-in and Git credential setup succeeded, but the token currently has only `gist`,
-  `read:org`, and `repo` scopes. GitHub rejects the push because `.github/workflows/ci.yml` requires
-  the additional `workflow` scope; its browser approval is still pending.
 - The previous OneDrive checkout remains on disk and must not be used for future work.
