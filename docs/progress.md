@@ -30,10 +30,11 @@ checkout is `C:\dev\jobradar`; do not continue work from the retained OneDrive c
   - Validation: all 22 tests pass, Ruff passes, mypy passes, and `jobradar profile show` prints
     validated JSON. The test run set `REDIS_PORT=6379` to isolate the pre-existing local `.env`
     override described below.
+  - `9d028e8` — `Phase 1: profile and packs`
 
 ## In progress
 
-- Phase 1 changes are complete; commit and push are pending.
+- None. `main` tracks `origin/main`; the current project changes have been pushed.
 
 ## Next steps
 
