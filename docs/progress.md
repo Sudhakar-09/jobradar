@@ -20,8 +20,7 @@ checkout is `C:\dev\jobradar`; do not continue work from the retained OneDrive c
 
 ## In progress
 
-- Complete GitHub device authorization, then configure Git credential management and push the
-  prepared commits to `origin`.
+- Approve the GitHub CLI OAuth `workflow` scope, then push the prepared commits to `origin`.
 
 ## Next steps
 
@@ -42,4 +41,7 @@ checkout is `C:\dev\jobradar`; do not continue work from the retained OneDrive c
   security as partial or deferred in `PRODUCT_STANDARDS.md`.
 - Other running containers occupy host ports 5432 and 6379; this checkout uses ignored local
   `.env` overrides on ports 5433 and 6380. Do not stop the unrelated containers.
+- GitHub CLI sign-in and Git credential setup succeeded, but the token currently has only `gist`,
+  `read:org`, and `repo` scopes. GitHub rejects the push because `.github/workflows/ci.yml` requires
+  the additional `workflow` scope; its browser approval is still pending.
 - The previous OneDrive checkout remains on disk and must not be used for future work.
