@@ -13,6 +13,10 @@ dependencies = [
     "structlog>=24.4",
 ]
 
+[build-system]
+requires = ["uv_build>=0.9.0,<0.14"]
+build-backend = "uv_build"
+
 [dependency-groups]
 dev = [
     "mypy>=1.13",
@@ -22,10 +26,13 @@ dev = [
 ]
 
 [tool.uv]
-package = false
+package = true
+
+[tool.uv.build-backend]
+module-name = "jobradar"
+module-root = "src"
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
 testpaths = ["tests"]
 
 [tool.ruff]

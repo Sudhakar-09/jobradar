@@ -11,15 +11,14 @@ Requirements: Windows 11, Python 3.12, uv, Git, Docker Desktop with WSL2, and VS
 From PowerShell in the repository root:
 
 ```powershell
-uv sync --group dev
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tasks.ps1 dev
 if (-not (Test-Path .env)) { Copy-Item .env.example .env }
-docker compose up -d
-$env:PYTHONPATH = "src"
-uv run alembic upgrade head
-uv run ruff check .
-uv run mypy src
-uv run pytest
-uv run uvicorn jobradar.api.app:app --host 127.0.0.1 --port 8000
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tasks.ps1 up
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tasks.ps1 migrate
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tasks.ps1 lint
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tasks.ps1 typecheck
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tasks.ps1 test
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tasks.ps1 api
 ```
 
 In a second PowerShell window, check the API with:
@@ -36,6 +35,13 @@ development only; use a private `.env` for local overrides and never commit real
 Run the configured checks with `uv run ruff check .`, `uv run mypy src`, and `uv run pytest`.
 Run `uv run pre-commit run --all-files` and install repository hooks with
 `uv run pre-commit install`.
+
+The PowerShell task runner supports `dev`, `test`, `lint`, `typecheck`, `migrate`, `up`, `down`,
+and `api`. The application package is installed by `uv sync`, so no `PYTHONPATH` override is
+needed. To launch the API directly, run `uv run uvicorn jobradar.api.app:app`.
+If PowerShell blocks local scripts, invoke a task with a process-scoped policy override, for example
+`powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tasks.ps1 lint`; this does not change the
+persistent execution policy.
 
 ## Phase 0 standards review
 
