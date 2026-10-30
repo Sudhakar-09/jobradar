@@ -31,6 +31,13 @@ engineering documentation listed below must be completed first. The active check
   - Tests disable local dotenv loading. Validation: `uv run pytest` passes all 23 tests without
     environment overrides; Ruff and mypy also pass.
   - `9d028e8` — `Phase 1: profile and packs`
+- Follow-up requested 2026-10-30:
+  - Verified `.github/copilot-instructions.md` and `AGENTS.md` both point to `CLAUDE.md`.
+  - Changed active target packs to UAE and Java Backend and recorded the user decision.
+  - Disabled dotenv loading for tests; `uv run pytest`, Ruff, and mypy pass without overrides.
+  - Recorded why the local host Redis port is 6380 and made the engineering docs a gate before
+    Phase 2.
+  - `cf59d0a` — `chore: align target packs and isolate tests`
 
 ## In progress
 
