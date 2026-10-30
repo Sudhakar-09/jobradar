@@ -13,3 +13,5 @@ available in the repository.
 - **LinkedIn and Indeed applications:** LinkedIn Easy Apply and Indeed Apply are one-tap lanes only.
   The system prepares materials and links for the user; it does not automate submission.
 - **Repository visibility:** the GitHub repository is intended to be private.
+- **Project location:** project lives at `C:\dev\jobradar`, never in OneDrive. The OneDrive copy
+  remains only as a retained backup and must not be used for ongoing work.
