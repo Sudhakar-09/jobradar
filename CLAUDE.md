@@ -32,6 +32,10 @@ Primary user: one person (the owner). Architecture must still be multi-user-read
 7. **Respect sources.** Use official/public APIs where they exist, cache responses,
    rate-limit politely, set a clear User-Agent.
 8. **Every module has tests.** Connectors are tested against saved fixture responses, not live sites.
+9. **Durable project memory.** At the end of every task: update `docs/progress.md` (and
+   `docs/decisions-log.md` if a decision was made), commit, and push. At the start of every new
+   session: read `CLAUDE.md`, `docs/progress.md` and `docs/decisions-log.md`, then summarize the
+   state before doing anything.
 
 ## 3. Tech stack
 
