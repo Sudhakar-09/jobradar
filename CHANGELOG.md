@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Added validated profile and answer-bank YAML loaders, market/role/persona pack schemas, India and
+  United States market packs, and a Software Engineer role pack.
+- Added the `jobradar profile show` CLI and a conservative plain-text resume parser.
+
 ## 0.1.0 - 2026-10-30
 
 - Scaffolded the Python 3.12 project, quality tools, settings, and JSON logging.

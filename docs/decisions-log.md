@@ -15,3 +15,8 @@ available in the repository.
 - **Repository visibility:** the GitHub repository is intended to be private.
 - **Project location:** project lives at `C:\dev\jobradar`, never in OneDrive. The OneDrive copy
   remains only as a retained backup and must not be used for ongoing work.
+- **Phase 1 market and role packs:** use United States as the additional market and Software
+  Engineer as the initial role pack; India remains the base market. These starter packs do not
+  assert that they are the user's complete job-search preferences.
+- **Profile parsing:** declare PyYAML directly for YAML loading. The initial resume parser supports
+  UTF-8 plain text only and extracts explicit labels rather than inferring profile facts.

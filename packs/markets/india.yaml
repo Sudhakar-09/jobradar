@@ -1,0 +1,15 @@
+code: india
+name: India
+currency: INR
+job_boards:
+  - Naukri
+  - Company career pages
+  - Public professional networks
+cv_format: in
+photo_on_cv: false
+salary_convention: Annual compensation; distinguish fixed pay from CTC when stated.
+visa_routes: []
+sponsor_register_source: null
+notice_period_norm: Varies by employer and contract; use the candidate's stated notice period.
+language_notes: Use language requirements from each individual job posting.
+last_verified: null

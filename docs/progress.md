@@ -2,7 +2,7 @@
 
 ## Current phase
 
-Phase 0 — Scaffold is implemented. Phase 1 — Profile & packs is the next phase. The active
+Phase 1 — Profile & packs is implemented and validated. Phase 2 — Discovery is next. The active
 checkout is `C:\dev\jobradar`; do not continue work from the retained OneDrive copy.
 
 ## Done (with commit hashes)
@@ -21,22 +21,29 @@ checkout is `C:\dev\jobradar`; do not continue work from the retained OneDrive c
 - Started PostgreSQL and Redis, applied Alembic migrations, and verified `/health` and `/ready`
   return `ok`.
 - Authenticated GitHub CLI with the required `workflow` scope and pushed `main` to `origin`.
+- Phase 1 — Profile & packs:
+  - Added Pydantic schemas and YAML loaders for profiles, answer banks, market packs, role packs,
+    and persona packs.
+  - Added India and United States market packs and a Software Engineer role pack.
+  - Added `jobradar profile show` and a plain-text resume parser that reads only explicit labels.
+  - Added tests for loaders, validation, pack loading, resume parsing, and the CLI.
+  - Validation: all 22 tests pass, Ruff passes, mypy passes, and `jobradar profile show` prints
+    validated JSON. The test run set `REDIS_PORT=6379` to isolate the pre-existing local `.env`
+    override described below.
 
 ## In progress
 
-- None. `main` tracks `origin/main`; the current project changes have been pushed.
+- Phase 1 changes are complete; commit and push are pending.
 
 ## Next steps
 
-- Start Phase 1 — Profile & packs:
-  - Add profile and answer-bank loaders.
-  - Add validated pack schemas and India plus one target-market and one role pack.
-  - Add resume parsing into a structured profile.
-  - Meet the phase acceptance criterion: `jobradar profile show` prints the validated profile.
+- Start Phase 2 — Discovery:
+ - Implement the connector base plus Greenhouse, Lever, Ashby, Adzuna, and Remotive.
+ - Add the jobs table, deduplication, source-run tracking, fixture tests, and CLI discovery.
 
 ## Open questions/decisions waiting on me
 
-- The target market and role pack for Phase 1 have not yet been selected or recorded.
+- None.
 
 ## Known issues
 

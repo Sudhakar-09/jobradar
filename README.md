@@ -1,8 +1,38 @@
 # JobRadar
 
-JobRadar is a self-hosted job search operating system. Phase 0 provides the Python environment,
-PostgreSQL and Redis services, structured logging, migrations, and liveness/readiness endpoints.
+JobRadar is a self-hosted job search operating system. Phase 0 provides the development scaffold;
+Phase 1 adds validated profile, answer-bank, and pack loading, plus conservative plain-text resume
+parsing.
 See [the product standards](docs/PRODUCT_STANDARDS.md) for the product-wide design requirements.
+
+## Phase 1 — Profile and packs
+
+The committed profile and answer-bank files are generic examples. Copy them to the ignored local
+configuration paths before adding personal information:
+
+```powershell
+Copy-Item .\config\profile.example.yaml .\config\profile.yaml
+Copy-Item .\config\answer_bank.example.yaml .\config\answer_bank.yaml
+```
+
+The profile loader rejects unknown fields. `salary_expectations` is keyed by currency, with
+optional `minimum` and `maximum` values; leave unknown facts unset. Answer-bank entries require a
+canonical question and a user-provided answer.
+
+Validate and display the example profile, or supply a local profile explicitly:
+
+```powershell
+uv run jobradar profile show
+uv run jobradar profile show --profile .\config\profile.yaml
+```
+
+The market and role packs in `packs\` are validated with strict Pydantic schemas. Market packs
+without a `last_verified` date, or with a date older than 90 days, produce a warning.
+
+`jobradar profile parse-resume <path>` accepts a UTF-8 plain-text file and extracts only explicitly
+labeled fields (such as `Name:`, `Skills:`, and `Years of Experience:`). It does not infer missing
+facts; unsupported or ambiguous values are left unset or reported as errors. Review its output
+before saving it as a profile.
 
 ## Phase 0 setup
 

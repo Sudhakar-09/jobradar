@@ -9,6 +9,7 @@ dependencies = [
     "fastapi[standard]>=0.115",
     "psycopg[binary]>=3.2",
     "pydantic-settings>=2.7",
+    "pyyaml>=6.0",
     "sqlalchemy>=2.0",
     "structlog>=24.4",
 ]
@@ -32,6 +33,9 @@ package = true
 module-name = "jobradar"
 module-root = "src"
 
+[project.scripts]
+jobradar = "jobradar.cli:main"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
@@ -52,5 +56,5 @@ module = "jobradar.core.*"
 strict = true
 
 [[tool.mypy.overrides]]
-module = ["celery", "kombu"]
+module = ["celery", "kombu", "yaml"]
 ignore_missing_imports = true
