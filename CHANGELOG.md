@@ -3,8 +3,10 @@
 ## Unreleased
 
 - Added validated profile and answer-bank YAML loaders, market/role/persona pack schemas, India and
-  United States market packs, and a Software Engineer role pack.
+  UAE market packs, and a Java Backend role pack.
 - Added the `jobradar profile show` CLI and a conservative plain-text resume parser.
+- Disabled local `.env` loading in tests and documented engineering-documentation and resume-parser
+  prerequisites before Phase 2.
 
 ## 0.1.0 - 2026-10-30
 

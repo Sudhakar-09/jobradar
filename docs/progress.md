@@ -2,8 +2,9 @@
 
 ## Current phase
 
-Phase 1 — Profile & packs is implemented and validated. Phase 2 — Discovery is next. The active
-checkout is `C:\dev\jobradar`; do not continue work from the retained OneDrive copy.
+Phase 1 — Profile & packs is implemented and validated. Phase 2 — Discovery has not started; the
+engineering documentation listed below must be completed first. The active checkout is
+`C:\dev\jobradar`; do not continue work from the retained OneDrive copy.
 
 ## Done (with commit hashes)
 
@@ -24,12 +25,11 @@ checkout is `C:\dev\jobradar`; do not continue work from the retained OneDrive c
 - Phase 1 — Profile & packs:
   - Added Pydantic schemas and YAML loaders for profiles, answer banks, market packs, role packs,
     and persona packs.
-  - Added India and United States market packs and a Software Engineer role pack.
+  - Added India and UAE market packs and a Java Backend role pack, based on the user's target.
   - Added `jobradar profile show` and a plain-text resume parser that reads only explicit labels.
   - Added tests for loaders, validation, pack loading, resume parsing, and the CLI.
-  - Validation: all 22 tests pass, Ruff passes, mypy passes, and `jobradar profile show` prints
-    validated JSON. The test run set `REDIS_PORT=6379` to isolate the pre-existing local `.env`
-    override described below.
+  - Tests disable local dotenv loading. Validation: `uv run pytest` passes all 23 tests without
+    environment overrides; Ruff and mypy also pass.
   - `9d028e8` — `Phase 1: profile and packs`
 
 ## In progress
@@ -38,7 +38,12 @@ checkout is `C:\dev\jobradar`; do not continue work from the retained OneDrive c
 
 ## Next steps
 
-- Start Phase 2 — Discovery:
+- Before Phase 2 — Discovery:
+  - Complete the skipped engineering documentation: PRD, HLD, LLD, API contract, coding standards,
+    and UX. This is a hard prerequisite; do not begin Phase 2 until these documents are complete.
+  - Replace the plain-text resume parser placeholder with LLM-based PDF and DOCX parsing after the
+    LLM wrapper exists; add `pypdf` and `python-docx` at that time.
+- After the prerequisite work, start Phase 2 — Discovery:
  - Implement the connector base plus Greenhouse, Lever, Ashby, Adzuna, and Remotive.
  - Add the jobs table, deduplication, source-run tracking, fixture tests, and CLI discovery.
 
@@ -51,6 +56,11 @@ checkout is `C:\dev\jobradar`; do not continue work from the retained OneDrive c
 - Phase 0 standards review marks environment separation, expanded health/recovery, queue
   reliability, telemetry propagation, CI security/coverage, integration testing, and operational
   security as partial or deferred in `PRODUCT_STANDARDS.md`.
-- Other running containers occupy host ports 5432 and 6379; this checkout uses ignored local
-  `.env` overrides on ports 5433 and 6380. Do not stop the unrelated containers.
+- This checkout's ignored `.env` sets the host ports to PostgreSQL 5433 and Redis 6380 because
+  unrelated containers already bind host ports 5432 and 6379. Docker maps these host ports to
+  the containers' normal ports (5432 and 6379); do not stop the unrelated containers. Tests now
+  disable `.env` loading so their results do not depend on these local overrides.
 - The previous OneDrive checkout remains on disk and must not be used for future work.
+- The engineering documentation listed under Next steps is a release gate before Phase 2.
+- The plain-text resume parser is a placeholder until the LLM wrapper and PDF/DOCX parsing are
+  available.

@@ -1,0 +1,18 @@
+code: uae
+name: United Arab Emirates
+currency: AED
+job_boards:
+  - Company career pages
+  - Bayt
+  - GulfTalent
+cv_format: international
+photo_on_cv: false
+salary_convention: Compensation may be quoted monthly or annually; confirm whether allowances and benefits are included.
+visa_routes:
+  - name: UAE employer-sponsored work permit and residence process
+    summary: Employer sponsorship and eligibility requirements apply; verify current UAE government requirements.
+    sponsor_required: true
+sponsor_register_source: null
+notice_period_norm: Varies by employer and contract; use the candidate's stated notice period.
+language_notes: Use language requirements from each individual job posting.
+last_verified: null

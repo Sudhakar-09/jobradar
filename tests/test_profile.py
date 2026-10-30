@@ -66,15 +66,16 @@ def test_profile_loader_requires_yaml_mapping(tmp_path: Path) -> None:
         load_profile(path)
 
 
-def test_load_phase_one_packs() -> None:
+def test_load_target_market_and_role_packs() -> None:
     india = load_market_pack(ROOT / "packs" / "markets" / "india.yaml")
-    united_states = load_market_pack(ROOT / "packs" / "markets" / "united_states.yaml")
-    software_engineer = load_role_pack(ROOT / "packs" / "roles" / "software_engineer.yaml")
+    uae = load_market_pack(ROOT / "packs" / "markets" / "uae.yaml")
+    java_backend = load_role_pack(ROOT / "packs" / "roles" / "java_backend.yaml")
 
     assert india.currency == "INR"
-    assert united_states.currency == "USD"
+    assert uae.currency == "AED"
     assert isinstance(india, MarketPack)
-    assert isinstance(software_engineer, RolePack)
+    assert isinstance(java_backend, RolePack)
+    assert java_backend.code == "java_backend"
 
 
 def test_market_pack_rejects_invalid_currency(tmp_path: Path) -> None:

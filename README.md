@@ -26,8 +26,9 @@ uv run jobradar profile show
 uv run jobradar profile show --profile .\config\profile.yaml
 ```
 
-The market and role packs in `packs\` are validated with strict Pydantic schemas. Market packs
-without a `last_verified` date, or with a date older than 90 days, produce a warning.
+The market and role packs in `packs\` are validated with strict Pydantic schemas. The current
+target packs cover India, UAE, and Java Backend. Market packs without a `last_verified` date, or
+with a date older than 90 days, produce a warning.
 
 `jobradar profile parse-resume <path>` accepts a UTF-8 plain-text file and extracts only explicitly
 labeled fields (such as `Name:`, `Skills:`, and `Years of Experience:`). It does not infer missing
