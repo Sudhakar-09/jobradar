@@ -1,12 +1,78 @@
 """Role pack schema: job-search knowledge per role (PRD §4.2, ADR-0021)."""
 
-from typing import Annotated, Self
+import re
+import unicodedata
+from typing import Annotated, Final, Literal, Self
 
 from pydantic import Field, StringConstraints, model_validator
 
 from jobradar.core.packs.common import LocaleCode, NonEmptyString, PackModel, Provenance, Slug
 
 IscoCode = Annotated[str, StringConstraints(pattern=r"^\d{1,4}$")]  # ISCO-08 group code
+SeniorityLevel = Literal["junior", "mid", "senior", "staff", "executive"]
+SENIORITY_ORDER: Final[tuple[SeniorityLevel, ...]] = (
+    "junior",
+    "mid",
+    "senior",
+    "staff",
+    "executive",
+)
+_NON_WORD: Final = re.compile(r"[^\w]+")
+
+
+def _words(text: str) -> str:
+    """Folded text as space-separated words, padded so phrases match on word boundaries."""
+    folded = unicodedata.normalize("NFKD", text).casefold()
+    plain = "".join(ch for ch in folded if not unicodedata.combining(ch))
+    return f" {_NON_WORD.sub(' ', plain).strip()} "
+
+
+def _has(text_words: str, phrase: str) -> bool:
+    return _words(phrase) in text_words
+
+
+class DescriptionMatch(PackModel):
+    """Terms a posting's description must contain for a conditional title alias to count."""
+
+    all_of: list[NonEmptyString] = Field(min_length=1)  # every term must appear
+    any_of: list[NonEmptyString] = Field(default_factory=list)  # one must appear, when listed
+
+    def matches(self, description: str | None) -> bool:
+        """Whether the description shows the required work."""
+        words = _words(description or "")
+        has_all = all(_has(words, term) for term in self.all_of)
+        return has_all and (not self.any_of or any(_has(words, term) for term in self.any_of))
+
+
+class ConditionalAlias(PackModel):
+    """A generic title that counts for this role only when the description shows the role."""
+
+    title: NonEmptyString
+    requires_description: DescriptionMatch
+
+
+class SeniorityBand(PackModel):
+    """How one seniority level shows in titles, and the usual years of experience."""
+
+    title_words: list[NonEmptyString] = Field(default_factory=list)
+    years: tuple[int, int] | None = None  # set from the owner's input; None until then
+
+
+class SenioritySignals(PackModel):
+    """Title words per level; titles without any of them are ``default_level``."""
+
+    default_level: SeniorityLevel = "mid"
+    levels: dict[SeniorityLevel, SeniorityBand]
+
+    def level_for(self, title: str) -> SeniorityLevel:
+        """The highest level whose title words appear in the title, else the default level."""
+        words = _words(title)
+        found = [
+            level
+            for level in SENIORITY_ORDER
+            if level in self.levels and any(_has(words, w) for w in self.levels[level].title_words)
+        ]
+        return found[-1] if found else self.default_level
 
 
 class CredentialRequirement(PackModel):
@@ -37,6 +103,9 @@ class RolePack(PackModel):
     isco_08: IscoCode
     title_aliases: list[NonEmptyString]
     title_aliases_by_locale: dict[LocaleCode, list[NonEmptyString]] = Field(default_factory=dict)
+    # Generic titles ("Software Engineer") that count only with a description match (Phase 3).
+    conditional_title_aliases: list[ConditionalAlias] = Field(default_factory=list)
+    seniority_signals: SenioritySignals | None = None
     core_skills: list[NonEmptyString]
     adjacent_roles: list[NonEmptyString] = Field(default_factory=list)
     signal_documents: list[NonEmptyString]

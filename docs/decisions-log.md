@@ -316,3 +316,12 @@ available in the repository.
   `mid` accepted as starting defaults (`owner_accepted_on`).
 - **Follow-ups (owner, 2026-10-31):** one follow-up, 7–10 days after applying, then the ghosting
   rules apply. Persona `mid` `followup_days: [7]` and its tip now agree; lifecycle LLD updated.
+- **Generic titles and seniority (owner, 2026-10-31):** (3) "Software Engineer", "Backend
+  Engineer", "Software Developer", "SDE" (and "Software Development Engineer") count for
+  `java_backend` only when the description shows Java plus Spring/JVM work
+  (`conditional_title_aliases`, "requires description match", applied by Phase 3 matching).
+  (4) Role packs gain `seniority_signals`: for a `mid` profile Staff/Principal/Architect/Director
+  are ineligible, Senior/Lead an eligible stretch with a score penalty, plain/II/mid titles the
+  target; I placed "III" under senior and "Head of"/"VP"/"CTO" under executive (for the owner to
+  confirm). Year ranges per level wait for the owner's years of experience. Both share the role
+  schema change, so they are one commit.

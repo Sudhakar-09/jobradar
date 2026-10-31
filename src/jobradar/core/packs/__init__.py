@@ -23,15 +23,28 @@ from jobradar.core.packs.market import (
     VisaRoute,
 )
 from jobradar.core.packs.persona import PersonaPack
-from jobradar.core.packs.role import CredentialRequirement, HiringPatterns, RolePack
+from jobradar.core.packs.role import (
+    SENIORITY_ORDER,
+    ConditionalAlias,
+    CredentialRequirement,
+    DescriptionMatch,
+    HiringPatterns,
+    RolePack,
+    SeniorityBand,
+    SeniorityLevel,
+    SenioritySignals,
+)
 
 __all__ = [
     "PACK_STALE_AFTER",
+    "SENIORITY_ORDER",
     "SENSITIVE_CV_FIELDS",
+    "ConditionalAlias",
     "CredentialRecognition",
     "CredentialRequirement",
     "CvField",
     "CvNorms",
+    "DescriptionMatch",
     "HiringPatterns",
     "LocaleSpec",
     "MarketPack",
@@ -43,6 +56,9 @@ __all__ = [
     "RolePack",
     "SalaryBasis",
     "SalaryPeriod",
+    "SeniorityBand",
+    "SeniorityLevel",
+    "SenioritySignals",
     "VisaRoute",
     "load_market_pack",
     "load_market_packs",

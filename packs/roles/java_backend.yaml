@@ -8,6 +8,27 @@ title_aliases:
   - Backend Software Engineer (Java)
   - Java Software Engineer
 title_aliases_by_locale: {}
+# Generic titles: count only when the description shows Java backend work (owner decision
+# 2026-10-31; "requires description match"; applied by Phase 3 matching).
+conditional_title_aliases:
+  - &java_backend_work
+    title: Software Engineer
+    requires_description: {all_of: [java], any_of: [spring, spring boot, jvm, hibernate, quarkus, micronaut]}
+  - {<<: *java_backend_work, title: Backend Engineer}
+  - {<<: *java_backend_work, title: Software Developer}
+  - {<<: *java_backend_work, title: SDE}
+  - {<<: *java_backend_work, title: Software Development Engineer}
+# Seniority from title words (owner decision 2026-10-31). For a `mid` profile: mid = target,
+# senior (incl. lead) = eligible stretch with a score penalty, staff and executive = ineligible.
+# Titles without a seniority word count as mid. Years per level: pending the owner's input.
+seniority_signals:
+  default_level: mid
+  levels:
+    junior: {title_words: [junior, jr, graduate, entry level, trainee, intern]}
+    mid: {title_words: [ii, "2", mid, mid level, intermediate]}
+    senior: {title_words: [senior, sr, lead, iii]}
+    staff: {title_words: [staff, principal, architect, distinguished]}
+    executive: {title_words: [director, head of, vp, vice president, cto]}
 core_skills:
   - Java
   - Backend software development

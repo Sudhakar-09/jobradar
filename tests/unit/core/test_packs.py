@@ -16,6 +16,7 @@ from jobradar.core.packs import (
     load_market_pack,
     load_market_packs,
     load_persona_packs,
+    load_role_pack,
     load_role_packs,
     source_policy_problems,
 )
@@ -223,3 +224,52 @@ def test_stale_market_pack_logs_warning(tmp_path: Path) -> None:
         load_market_pack(path)
 
     assert any(log["event"] == "packs.verification_stale" for log in logs)
+
+
+JAVA_ROLE = load_role_pack(PACKS / "roles" / "java_backend.yaml")
+
+
+@pytest.mark.parametrize(
+    ("title", "level"),
+    [
+        ("Software Engineer", "mid"),
+        ("Software Engineer II", "mid"),
+        ("Java Developer (m/w/d)", "mid"),
+        ("Senior Software Engineer", "senior"),
+        ("Tech Lead - Payments", "senior"),
+        ("Staff Engineer", "staff"),
+        ("Principal Java Developer", "staff"),
+        ("Solutions Architect", "staff"),
+        ("Engineering Director", "executive"),
+        ("Head of Backend", "executive"),
+        ("Graduate Software Engineer", "junior"),
+    ],
+)
+def test_java_backend_seniority_from_title(title: str, level: str) -> None:
+    assert JAVA_ROLE.seniority_signals is not None
+    assert JAVA_ROLE.seniority_signals.level_for(title) == level
+
+
+@pytest.mark.parametrize(
+    ("description", "counts"),
+    [
+        ("Requirements: Java 21, Spring Boot, PostgreSQL.", True),
+        ("You know Java and the JVM well.", True),
+        ("We build in JavaScript, TypeScript and React.", False),  # JavaScript is not Java
+        ("Java or Python; any backend stack.", False),  # no Spring/JVM evidence
+        (None, False),
+    ],
+)
+def test_generic_titles_need_java_backend_work_in_the_description(
+    description: str | None, counts: bool
+) -> None:
+    aliases = {alias.title: alias for alias in JAVA_ROLE.conditional_title_aliases}
+
+    assert set(aliases) == {
+        "Software Engineer",
+        "Backend Engineer",
+        "Software Developer",
+        "SDE",
+        "Software Development Engineer",
+    }
+    assert aliases["Software Engineer"].requires_description.matches(description) is counts
