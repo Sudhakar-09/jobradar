@@ -57,7 +57,11 @@ class UserScope:
     token_scopes: frozenset[str] = frozenset()   # empty for web sessions (full user rights)
     correlation_id: UUID
 
-SYSTEM_SCOPE: Final = ...                  # for shared-corpus work only; cannot touch user tables
+@dataclass(frozen=True, slots=True)
+class SystemScope:                         # shared-corpus work only; cannot touch user tables
+    task: str
+    correlation_id: UUID
+def system_scope(task: str) -> SystemScope: ...
 
 # core/clock.py
 class Clock(Protocol):
@@ -70,7 +74,9 @@ def new_id() -> UUID: ...                  # UUIDv7
 class JobRadarError(Exception): code: ClassVar[str]
 class NotFoundError(JobRadarError)          # also used for cross-tenant access (never 403-leak existence)
 class ValidationFailedError(JobRadarError)
+class UnsafeUrlError(ValidationFailedError)     # outbound URL not https / non-public address
 class PermissionDeniedError(JobRadarError)
+class PolicyDeniedError(PermissionDeniedError)   # source policy forbids the access mode
 class ConflictError(JobRadarError)
 class ConcurrencyConflictError(ConflictError)
 class InvalidTransitionError(ConflictError)
@@ -81,6 +87,20 @@ class ExternalServiceError(JobRadarError): service: str; retryable: bool
 class RateLimitedError(ExternalServiceError): retry_after: float | None
 class SchemaDriftError(ExternalServiceError)
 class LlmOutputInvalidError(JobRadarError)
+
+# core/http.py — the only outbound HTTP client (implemented Phase 2b)
+class PoliteClient:                        # policy check per mode, https only, SSRF guard on
+    async def get(self, url, *, mode: AccessMode, params=None, headers=None) -> httpx.Response
+    async def get_json(self, url, *, mode: AccessMode, params=None, headers=None) -> object
+                                           # every hop, token-bucket rate limit per policy,
+                                           # connect/read/total timeouts, size cap, retries with
+                                           # jitter honouring Retry-After, User-Agent + contact
+
+# core/db.py — scoped sessions (implemented Phase 2b)
+async with user_session(scope) as session: ...    # sets app.user_id for RLS
+async with system_session(scope) as session: ...  # no user bound: RLS hides user rows
+# core/aio.py — run(coro): selector event loop on Windows (psycopg async requirement)
+# core/logging.py — redact_pii processor: PII keys → "[redacted]", emails masked
 class BudgetExceededError(QuotaExceededError)
 
 # core/llm.py (gateway used by every LLM-using module)

@@ -77,15 +77,27 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
     upgraded.
   - Tests moved to `tests/unit/core/` (64 tests pass; coverage 95 % overall, 97 % critical).
   - Docs: new `docs/lld/packs.md`; ownership of `SourcePolicy`/`AccessMode` moved to `core`.
-- Next: 2b core building blocks.
+- **2b done — core building blocks** (`feat(core): …`):
+  - `core.errors` (JobRadarError hierarchy incl. PolicyDeniedError, UnsafeUrlError),
+    `core.scope` (UserScope, SystemScope), `core.clock` (SystemClock, FrozenClock),
+    `core.ids` (UUIDv7), `core.aio` (selector loop on Windows for psycopg async).
+  - `core.http.PoliteClient`: source-policy check per access mode, https only, non-public
+    address block on every redirect hop, per-policy token bucket, connect/read/total timeouts,
+    10 MB decoded-size cap, retries with jitter honouring Retry-After (capped), User-Agent with
+    optional contact; logs host + path only. Residual DNS-rebinding risk noted for Phase 7 egress
+    proxy.
+  - `core.logging.redact_pii` processor (PII keys redacted, emails masked) in the JSON pipeline.
+  - `core.db`: async engine with statement/lock timeouts, `user_session` (sets `app.user_id`),
+    `system_session`.
+  - New settings documented in `.env.example`. Dependencies declared: `httpx`, `tenacity`
+    (stack-approved), `sqlalchemy[asyncio]` extra. 104 tests pass; coverage 95 % / 96 %.
+- Next: 2c Phase 2 tables, migrations and RLS, with database integration tests.
 
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:
 1. ~~Pack schemas and UAE pack (US-1.2 AC2/AC3)~~ — done in 2a.
-2. Core building blocks the phase needs: `core.errors`, `core.scope`, `core.clock`, `core.ids`,
-   `core.http` (shared httpx client with timeouts, retries, User-Agent, SSRF guard), log PII
-   processor, async DB session with `SET LOCAL app.user_id`.
+2. ~~Core building blocks~~ — done in 2b.
 3. Migration `0002_phase2_discovery` (database.md §9): users (minimal), companies, source_runs,
    jobs, job_sources, alert_inboxes, alert_messages, company_suggestions, consents,
    settings_flags, audit_log, dead_letters; DB roles and RLS; integration tests in CI.
