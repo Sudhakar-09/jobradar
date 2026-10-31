@@ -218,6 +218,10 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   provenance, catalogue and Indeed parser; Germany fails provenance, catalogue and StepStone /
   XING / Indeed parsers; `java_backend` fails provenance. 343 tests pass, coverage 96 %.
 
+- **UAE pack verified (2026-10-31):** per-value record (8 official, 15 secondary, 2 unverified
+  for owner review), pack corrections applied; conformance now fails only on the 2 unverified
+  values until the owner accepts or removes them.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:

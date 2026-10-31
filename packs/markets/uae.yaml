@@ -14,7 +14,9 @@ money:
   compensation_model: uae_package
   notes: >-
     Usually quoted monthly as a package (basic plus allowances such as housing and transport);
-    confirm whether a figure is basic or the full package. No personal income tax applies.
+    confirm whether a figure is basic or the full package: end-of-service gratuity is computed on
+    the basic wage only. No personal income tax applies. Employer health insurance is mandatory
+    for private-sector staff in all emirates from 1 January 2025.
 
 locales:
   - {code: en-AE, rtl: false}
@@ -25,7 +27,7 @@ cv:
   format: international_gulf
   term: CV
   length_pages: [1, 2]
-  photo_customary: true
+  photo_customary: true  # common practice per guides; still off by default (owner decision)
   fields_default_on: [nationality, current_location, visa_status, notice_period]
   fields_default_off: [photo, date_of_birth, marital_status, driving_licence]
   section_order: [summary, skills, experience, education, certifications]
@@ -33,10 +35,13 @@ cv:
 visa_routes:
   - name: UAE employer-sponsored work permit and residence visa
     summary: >-
-      Employment needs a work permit and residence visa sponsored by the employer; eligibility
-      requirements apply. Verify current UAE government requirements.
+      Employment needs a work permit and residence visa sponsored by the employer. Mainland
+      private-sector work permits are issued by MoHRE (Federal Decree-Law No. 33 of 2021, Art. 6);
+      residence visas by ICP or GDRFA Dubai. In free zones the free-zone authority sponsors the
+      visa; DIFC and ADGM have their own employment law. Green (self-sponsored) and Golden visas
+      are exceptions to employer sponsorship.
     sponsor_required: true
-    official_url: https://www.mohre.gov.ae/
+    official_url: https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/residence-visa-for-working-in-the-uae
 sponsor_register_source: null
 nationality_restricted_programmes: [Emiratisation]
 
@@ -67,14 +72,33 @@ sources:
     access_modes: [alert_email, one_tap]
 
 notice_period_norm: >-
-  Varies by employer and contract; employers often prefer short notice. Use the candidate's
-  stated notice period and earliest joining date.
+  Under the UAE Labour Law (Federal Decree-Law No. 33 of 2021, Art. 43) the contractual notice
+  period is 30 to 90 days; 30 days is common and employers often prefer short notice or immediate
+  joiners. Probation and DIFC/ADGM rules differ. Use the candidate's stated notice period and
+  earliest joining date.
 hiring_seasons: []
 language_notes: >-
+  Arabic is the official language and employment contracts are issued in Arabic and English.
   English is the main business language for most professional roles; some roles require Arabic.
   Use language requirements from each individual job posting.
 credential_recognition: []
 
 provenance:
-  last_verified: null
-  references: []
+  last_verified: 2026-10-31  # per-value record: packs/verification/uae.yaml
+  references:
+    - title: UAE fact sheet (u.ae)
+      url: https://u.ae/en/about-the-uae/fact-sheet
+    - title: Taxation (u.ae)
+      url: https://u.ae/en/information-and-services/finance-and-investment/taxation
+    - title: Work visa (u.ae)
+      url: https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/residence-visa-for-working-in-the-uae
+    - title: Work permits (u.ae)
+      url: https://u.ae/en/information-and-services/jobs/Sector-of-employment/employment-in-the-private-sector/work-permits
+    - title: Job offers and the employment process (u.ae)
+      url: https://u.ae/en/information-and-services/jobs/Sector-of-employment/employment-in-the-private-sector/Job-offers-and-the-employment-process
+    - title: Terminating employment contracts (u.ae)
+      url: https://u.ae/en/information-and-services/jobs/Sector-of-employment/employment-in-the-private-sector/terminating-employment-contracts
+    - title: Payment of wages (u.ae)
+      url: https://u.ae/en/information-and-services/jobs/Sector-of-employment/employment-in-the-private-sector/payment-of-wages
+    - title: Employing Emiratis in the private sector (u.ae)
+      url: https://u.ae/en/information-and-services/jobs/Sector-of-employment/employment-in-the-private-sector/emiratis-employment-in-private-sector

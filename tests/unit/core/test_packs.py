@@ -196,9 +196,14 @@ def test_pack_file_must_be_a_mapping(tmp_path: Path) -> None:
         load_market_pack(path)
 
 
-def test_unverified_market_pack_logs_warning() -> None:
+def test_unverified_market_pack_logs_warning(tmp_path: Path) -> None:
+    data = _uae_data()
+    data["provenance"] = {"last_verified": None, "references": []}
+    path = tmp_path / "uae.yaml"
+    path.write_text(yaml.safe_dump(data), encoding="utf-8")
+
     with structlog.testing.capture_logs() as logs:
-        load_market_pack(PACKS / "markets" / "uae.yaml")
+        load_market_pack(path)
 
     assert {
         "event": "packs.verification_missing",

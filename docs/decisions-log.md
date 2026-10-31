@@ -260,3 +260,14 @@ available in the repository.
   language of title-only alert jobs. Current status: all markets fail `provenance` until their
   packs are verified against official sources; India and Germany also lack approved company
   lists and an Indeed parser; Germany lacks StepStone and XING parsers.
+- **UAE pack verified (2026-10-31):** 25 values recorded in `packs/verification/uae.yaml` —
+  8 verified on official sources (u.ae, MoHRE: no personal income tax, AED peg 3.6725, work
+  permit + residence visa route, Emiratisation quotas, notice 30–90 days under Art. 43 of
+  Decree-Law 33/2021, basic vs package for gratuity, mandatory employer health insurance),
+  15 secondary (CV norms, job boards, monthly quoting, language), 2 unverified awaiting the
+  owner (education/annual-flight allowances being common; no public sponsor register).
+  Pack corrected: visa route official URL → u.ae work-visa page; summary names MoHRE / ICP /
+  GDRFA, free zones, DIFC/ADGM and Green/Golden visas; concrete notice period; gratuity on basic
+  wage; Arabic contracts note. Photo stays off by default although customary (owner decision).
+  mohre.gov.ae and centralbank.ae blocked direct fetches; those facts rest on u.ae pages and
+  search excerpts of the official pages.

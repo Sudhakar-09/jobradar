@@ -63,7 +63,10 @@ def test_every_pack_gets_a_report() -> None:
 
 
 def test_uae_passes_once_its_pack_is_verified(tmp_path: Path) -> None:
-    unverified = check_market(market("uae", verified=False), replace(INPUTS, packs_dir=tmp_path))
+    never_checked = market("uae").model_copy(
+        update={"provenance": Provenance(last_verified=None, references=[])}
+    )
+    unverified = check_market(never_checked, replace(INPUTS, packs_dir=tmp_path))
     assert failing(unverified) == {"provenance", "verification"}
     assert check_market(market("uae"), record(tmp_path, "uae")).passed
 

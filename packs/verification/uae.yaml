@@ -1,0 +1,188 @@
+# Verification record for packs/markets/uae.yaml (core.packs.verification).
+# Researched 2026-10-31 against official UAE sources (u.ae, MoHRE) where possible;
+# 'secondary' values rest on reputable non-official sources and are flagged for review.
+pack: uae
+kind: market
+items:
+- field: money.currency
+  claim: AED
+  status: verified
+  source_title: Fact sheet (u.ae)
+  source_url: https://u.ae/en/about-the-uae/fact-sheet
+  checked_on: '2026-10-31'
+  notes: Official abbreviation of the dirham is AED.
+- field: config fx.aed_usd (peg 3.6725)
+  claim: AED pegged to USD at 3.6725
+  status: verified
+  source_title: Fact sheet (u.ae)
+  source_url: https://u.ae/en/about-the-uae/fact-sheet
+  checked_on: '2026-10-31'
+  notes: 'u.ae: pegged since Feb 2002, 1 USD = AED 3.6725; CBUAE FX tables (May/Jun 2026) list 3.6725
+    (seen via search; centralbank.ae blocked direct fetch).'
+- field: money.default_period, money.quoted_periods
+  claim: Salaries usually quoted monthly (also yearly)
+  status: secondary
+  source_title: Payment of salaries/wages (u.ae)
+  source_url: https://u.ae/en/information-and-services/jobs/Sector-of-employment/employment-in-the-private-sector/payment-of-wages
+  checked_on: '2026-10-31'
+  notes: Officially wages are paid monthly; quoting monthly in job ads is market convention.
+- field: money.quoted_bases, money.default_basis
+  claim: Package = basic + allowances; basic vs package matters
+  status: verified
+  source_title: MoHRE FAQ (Federal Decree-Law No. 33 of 2021)
+  source_url: https://www.mohre.gov.ae/en/laws-and-regulations/Laws/faq.aspx
+  checked_on: '2026-10-31'
+  notes: Basic wage excludes allowances; end-of-service gratuity is computed on the last basic wage (via
+    search excerpts; mohre.gov.ae refused direct connections).
+- field: money.common_allowances (housing, transport)
+  claim: Housing and transport allowances are common
+  status: secondary
+  source_title: MoHRE FAQ / UAE salary guides
+  source_url: https://www.mohre.gov.ae/en/laws-and-regulations/Laws/faq.aspx
+  checked_on: '2026-10-31'
+  notes: Allowances are recognised in law; which ones are typical is market convention.
+- field: money.common_allowances (education, annual_flight)
+  claim: Education and annual flight allowances are common
+  status: unverified
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Widely cited in market practice; no official or reputable source found in this pass.
+- field: money.common_allowances (medical_insurance)
+  claim: Employer medical insurance
+  status: verified
+  source_title: The Basic Health Insurance Scheme (MoHRE)
+  source_url: https://mohre.gov.ae/en/guidance-and-awareness-portal-new/the-basic-health-insurance-scheme
+  checked_on: '2026-10-31'
+  notes: Mandatory for private-sector workers in all emirates from 1 Jan 2025 (via search excerpt; page
+    unreachable).
+- field: money.income_tax
+  claim: No personal income tax
+  status: verified
+  source_title: Taxation (u.ae)
+  source_url: https://u.ae/en/information-and-services/finance-and-investment/taxation
+  checked_on: '2026-10-31'
+  notes: '''The UAE does not levy income tax on individuals.'' 9% corporate tax may apply to individuals''
+    business income over AED 1M; VAT 5%.'
+- field: visa_routes[0]
+  claim: Work permit and residence visa sponsored by the employer
+  status: verified
+  source_title: Work visa (u.ae)
+  source_url: https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/residence-visa-for-working-in-the-uae
+  checked_on: '2026-10-31'
+  notes: Employer applies; MoHRE issues work permits (Decree-Law 33/2021 Art. 6); ICP / GDRFA Dubai issue
+    residence visas; free-zone authorities sponsor in free zones; Green and Golden visas are exceptions.
+- field: visa_routes[0].official_url
+  claim: u.ae work visa page (changed from mohre.gov.ae)
+  status: verified
+  source_title: Work visa (u.ae)
+  source_url: https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/residence-visa-for-working-in-the-uae
+  checked_on: '2026-10-31'
+  notes: Covers the whole route; MoHRE covers only mainland work permits.
+- field: visa_routes[0] process
+  claim: Offer, work permit, visa, contract registered with MoHRE
+  status: verified
+  source_title: Job offers and the employment process (u.ae)
+  source_url: https://u.ae/en/information-and-services/jobs/Sector-of-employment/employment-in-the-private-sector/Job-offers-and-the-employment-process
+  checked_on: '2026-10-31'
+  notes: Contract registered with MoHRE within 14 days of arrival.
+- field: nationality_restricted_programmes
+  claim: Emiratisation (MoHRE quotas, Nafis)
+  status: verified
+  source_title: Employing Emiratis in the private sector (u.ae)
+  source_url: https://u.ae/en/information-and-services/jobs/Sector-of-employment/employment-in-the-private-sector/emiratis-employment-in-private-sector
+  checked_on: '2026-10-31'
+  notes: +2% a year Emiratis in skilled roles at 50+ employee firms; quotas, not a list of reserved jobs.
+- field: cv.photo_customary
+  claim: Photo customary on UAE CVs
+  status: secondary
+  source_title: UAE resume guide (VisualCV)
+  source_url: https://www.visualcv.com/international/uae-resume/
+  checked_on: '2026-10-31'
+  notes: Secondary sources disagree (expected vs optional). Pack keeps the photo off by default (owner
+    decision, privacy).
+- field: cv.fields_default_on
+  claim: Nationality, location, visa status and notice period near the top
+  status: secondary
+  source_title: Crafting a CV for the UAE (Naukrigulf)
+  source_url: https://www.naukrigulf.com/career-tips/crafting-a-cv-for-the-uae-navigating-the-job-market-with-confidence
+  checked_on: '2026-10-31'
+  notes: Guides agree; via search excerpts.
+- field: cv.fields_default_off
+  claim: DOB, marital status, driving licence off by default
+  status: secondary
+  source_title: UAE resume guide (VisualCV)
+  source_url: https://www.visualcv.com/international/uae-resume/
+  checked_on: '2026-10-31'
+  notes: Mixed advice; default off is a privacy choice (ADR-0010).
+- field: cv.length_pages
+  claim: 1-2 pages
+  status: secondary
+  source_title: UAE resume guide (VisualCV)
+  source_url: https://www.visualcv.com/international/uae-resume/
+  checked_on: '2026-10-31'
+  notes: '''Usually kept to about two pages''.'
+- field: cv.term, cv.format, cv.section_order
+  claim: '''CV'', Gulf format, summary first'
+  status: secondary
+  source_title: Gulf GCC CV guide (VisualCV)
+  source_url: https://visualcv.com/international/gulf-gcc-cv
+  checked_on: '2026-10-31'
+  notes: Style convention.
+- field: notice_period_norm
+  claim: Contractual notice 30-90 days (Art. 43)
+  status: verified
+  source_title: Terminating employment contracts (u.ae)
+  source_url: https://u.ae/en/information-and-services/jobs/Sector-of-employment/employment-in-the-private-sector/terminating-employment-contracts
+  checked_on: '2026-10-31'
+  notes: 'Federal Decree-Law No. 33 of 2021 Art. 43: not less than 30 and not more than 90 days; DIFC/ADGM
+    differ.'
+- field: language_notes
+  claim: Arabic official; English widely used; contracts in Arabic and English
+  status: secondary
+  source_title: Fact sheet (u.ae)
+  source_url: https://u.ae/en/about-the-uae/fact-sheet
+  checked_on: '2026-10-31'
+  notes: Arabic official per u.ae; English as main business language is not stated officially.
+- field: locales
+  claim: en-AE default; ar-AE right-to-left
+  status: secondary
+  source_title: Fact sheet (u.ae)
+  source_url: https://u.ae/en/about-the-uae/fact-sheet
+  checked_on: '2026-10-31'
+  notes: Arabic official, English widely used; CLDR codes not checked.
+- field: sources.linkedin
+  claim: LinkedIn operates in the UAE
+  status: secondary
+  source_title: LinkedIn UAE
+  source_url: https://ae.linkedin.com/
+  checked_on: '2026-10-31'
+  notes: ''
+- field: sources.naukrigulf
+  claim: Naukrigulf job board
+  status: secondary
+  source_title: Naukrigulf
+  source_url: https://www.naukrigulf.com/career-tips/crafting-a-cv-for-the-uae-navigating-the-job-market-with-confidence
+  checked_on: '2026-10-31'
+  notes: ''
+- field: sources.bayt
+  claim: Bayt job board
+  status: secondary
+  source_title: Best job sites in the UAE (Bayut blog)
+  source_url: https://www.bayut.com/mybayut/best-job-sites-uae
+  checked_on: '2026-10-31'
+  notes: ''
+- field: sources.gulftalent
+  claim: GulfTalent job board
+  status: secondary
+  source_title: Best job sites in the UAE (Bayut blog)
+  source_url: https://www.bayut.com/mybayut/best-job-sites-uae
+  checked_on: '2026-10-31'
+  notes: ''
+- field: sponsor_register_source
+  claim: No public register of licensed sponsors (null)
+  status: unverified
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: None found; absence cannot be proven.
