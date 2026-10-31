@@ -619,3 +619,6 @@ bodies, job descriptions.
   `jobradar companies suggestions list|probe|accept ID --country CC [--ats --slug]|reject ID`.
 - Candidate names live in `config/company_candidates/<market>.txt`; probe output for review in
   `config/company_candidates/<market>.probe.yaml`; approved entries go to `config/companies.yaml`.
+- Employers on Workday or unknown systems are one-tap via alert emails only (owner decision
+  2026-10-31): `detect_board` never names a board for them, the probe never tries them, and
+  their suggestions cannot be accepted without a supported ATS board.

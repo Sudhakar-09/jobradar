@@ -216,3 +216,8 @@ available in the repository.
   Phase 3 eligibility rule `excluded_industries` (reason `eligibility.excluded_industry`); the
   pure check `core.industries.excluded_industries` exists now, and the Phase 3 migration adds
   `profiles.excluded_industries` and `companies.industries`.
+- **Workday and unknown hiring systems (owner, 2026-10-31):** employers on Workday or any system
+  outside the five supported ATSs stay **one-tap via alert emails**: no connector, probe or
+  suggestion reads their boards (`*.myworkdayjobs.com` and unknown hosts allow `one_tap` only;
+  `ATS_ORDER` has no Workday). Their jobs reach JobRadar through job-alert emails, and the user
+  applies on the employer's site. Pinned by `tests/unit/connectors/test_one_tap_systems.py`.

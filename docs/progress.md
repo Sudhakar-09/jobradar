@@ -177,6 +177,10 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   (10 UAE crypto companies tagged), unknown codes rejected. Enforced by the Phase 3 eligibility
   rule `excluded_industries` (LLD, database plan, OpenAPI and PRD US-3.2 updated).
 
+- **Workday / unknown systems (review item 4) done:** confirmed one-tap via alert emails only;
+  no code reads Workday boards; pinned by tests (source policies, connectors, probe, link
+  detection).
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:
