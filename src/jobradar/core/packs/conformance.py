@@ -27,6 +27,7 @@ from jobradar.core.packs.loader import (
 from jobradar.core.packs.market import MarketPack
 from jobradar.core.packs.persona import PersonaPack
 from jobradar.core.packs.role import RolePack
+from jobradar.core.packs.verification import load_verification
 from jobradar.core.source_policies import AccessMode, load_source_policies
 
 MIN_CITIES: Final = 3  # a market's gazetteer must name at least its main cities
@@ -89,6 +90,20 @@ def _provenance(provenance: Provenance, today: date) -> CheckResult:
     if not provenance.references:
         problems.append("no official references")
     return _check("provenance", problems)
+
+
+def _verification(kind: str, code: str, inputs: ConformanceInputs) -> CheckResult:
+    """Every factual value checked against a source (`packs/verification/<code>.yaml`)."""
+    path = inputs.packs_dir / "verification" / f"{code}.yaml"
+    if not path.is_file():
+        return CheckResult("verification", passed=False, detail=f"no {path.name} record")
+    record = load_verification(path)
+    problems = [f"{item.field}: {item.status.value}" for item in record.blocking()]
+    if record.kind != kind or record.pack != code:
+        problems.append(f"record is for {record.kind} {record.pack}")
+    flagged = len(record.flagged())
+    detail = "; ".join(problems) or f"{len(record.items)} values, {flagged} on secondary sources"
+    return CheckResult("verification", not problems, detail)
 
 
 def _visa_routes(pack: MarketPack, inputs: ConformanceInputs) -> CheckResult:
@@ -184,6 +199,7 @@ def check_market(pack: MarketPack, inputs: ConformanceInputs) -> PackReport:
         pack.code,
         [
             _provenance(pack.provenance, inputs.today),
+            _verification("market", pack.code, inputs),
             _visa_routes(pack, inputs),
             _gazetteer(pack, inputs),
             _languages(pack, inputs),

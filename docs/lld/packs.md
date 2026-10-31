@@ -127,3 +127,12 @@ Rollout gate (`admin.set_global_flag`): turning on `market.<code>.enabled` or
 (conformance_failing)` naming the failing checks; every flag change is written to `audit_log`
 with its reason (`jobradar flags set KEY VALUE --reason …`). The CI artifact described in
 `admin.md` replaces the live run when the app is deployed (Phase 7).
+
+## Verification records (added 2026-10-31)
+
+`packs/verification/<code>.yaml` lists every factual value of a pack (and its dated data) with
+`status` (`verified` = official government/authority source, `secondary` = reputable
+non-official source, flagged; `contradicted`, `unverified`), `source_url`, `source_title`,
+`checked_on` and notes. Conformance check `verification` fails when the record is missing or a
+value is contradicted or unverified without `owner_accepted_on`; secondary values are counted in
+the detail for review. Model: `core.packs.verification`.
