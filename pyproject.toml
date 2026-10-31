@@ -134,6 +134,9 @@ ban-relative-imports = "all"
 "src/jobradar/core/http.py" = ["TID251"]
 
 [tool.ruff.format]
+# Code blocks in docs/ are design illustrations (LLD interfaces), not code; ruff >= 0.17 would
+# reformat Python blocks inside Markdown.
+exclude = ["docs/**"]
 docstring-code-format = true
 
 [tool.mypy]

@@ -37,9 +37,11 @@ jobs:
       - name: import-linter (api → services → repositories → models → core)
         run: uv run lint-imports
       - name: Pattern checks (hardcoded URLs, PII in logs, debugger calls)
-        run: >-
-          uv run pre-commit run --all-files --show-diff-on-failure
-          no-hardcoded-urls no-pii-in-logs no-print-debugging
+        # pre-commit runs one hook id per invocation.
+        run: |
+          for hook in no-hardcoded-urls no-pii-in-logs no-print-debugging; do
+            uv run pre-commit run "$hook" --all-files --show-diff-on-failure
+          done
 
   tests:
     name: Tests
