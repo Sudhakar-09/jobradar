@@ -340,3 +340,7 @@ available in the repository.
 - **Years of experience corrected (owner, 2026-10-31):** 4 years (profile `years_exp: 4`, was
   3.5). `java_backend` ranges unchanged — mid 2–5 still contains 4: "3+"/"4+" target, "5+"
   stretch, "8+" ineligible. III = senior and Head of / VP / CTO = executive reconfirmed.
+- **Experience corrected again (owner, 2026-10-31):** 3.3 years (profile `years_exp: 3.3`).
+  `java_backend` ranges set for the owner: mid 2–5 (postings asking up to "4+ years" = target),
+  senior 5–7 ("5+"/"6+" = stretch with a score penalty), staff 7–15 ("7+" = ineligible); junior
+  0–2 and executive 10+ unchanged. Title placements unchanged.

@@ -277,7 +277,16 @@ def test_generic_titles_need_java_backend_work_in_the_description(
 
 @pytest.mark.parametrize(
     ("min_years", "level"),
-    [(0, "junior"), (2, "mid"), (3.5, "mid"), (5, "senior"), (8, "staff"), (12, "staff")],
+    [
+        (0, "junior"),
+        (2, "mid"),
+        (3.3, "mid"),
+        (4, "mid"),
+        (5, "senior"),
+        (6, "senior"),
+        (7, "staff"),
+        (12, "staff"),
+    ],
 )
 def test_java_backend_seniority_from_years(min_years: float, level: str) -> None:
     assert JAVA_ROLE.seniority_signals is not None
