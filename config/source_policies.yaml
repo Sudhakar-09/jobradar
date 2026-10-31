@@ -36,7 +36,8 @@ policies:
     name: Workable job boards
     hosts: [apply.workable.com]
     modes: [ats_feed, extension_assist]
-    rate_limit: {per_minute: 20, burst: 5}
+    # Lowered from 20/min on 2026-10-31: Workable answered most probe requests at 20/min with 429.
+    rate_limit: {per_minute: 10, burst: 3}
     notes: Public account job widget endpoint, no key needed. server_apply pending terms review.
     last_reviewed: 2026-10-30
 
