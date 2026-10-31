@@ -14,10 +14,14 @@ from jobradar.core.scope import SystemScope
 from jobradar.core.settings import get_settings
 from jobradar.normalizer.repository import JobRecord, JobRepository
 from jobradar.normalizer.rules import (
+    LanguageRules,
+    LanguageSignals,
     LocationAliases,
     content_hash,
     dedupe_hash,
     detect_location,
+    language_signals,
+    load_language_rules,
     load_location_aliases,
 )
 
@@ -35,6 +39,17 @@ class IngestResult:
 def location_aliases() -> LocationAliases:
     """The process-wide location alias table (`config/locations.yaml`)."""
     return load_location_aliases(get_settings().config_dir / "locations.yaml")
+
+
+@lru_cache(maxsize=1)
+def language_rules() -> LanguageRules:
+    """The process-wide language requirement phrases (`config/language_requirements.yaml`)."""
+    return load_language_rules(get_settings().config_dir / "language_requirements.yaml")
+
+
+def job_language_signals(raw: RawJob) -> LanguageSignals:
+    """Languages a raw job requires or prefers, and the language it is written in."""
+    return language_signals(raw.title, raw.description, language_rules())
 
 
 def job_country(raw: RawJob) -> str | None:

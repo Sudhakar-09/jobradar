@@ -386,7 +386,7 @@ sequenceDiagram
 | `residency` | `residency_required = true` and user isn't resident | `eligibility.residents_only` |
 | `nationality_restricted` | `nationality_restricted = true` | `eligibility.nationality_restricted` |
 | `credential` | role pack requires a credential in this market and the profile lacks it | `eligibility.credential_missing` (params: credential, market) |
-| `language` | `languages_required` not covered by the profile at the needed level | `eligibility.language_missing` |
+| `language` | a language the posting requires is not in the profile's `languages`. Required = requirement phrases plus the language the posting is written in (`normalizer.language_signals`, `config/language_requirements.yaml`); a language named only as a plus never blocks | `eligibility.language_missing` (params: language) |
 | `experience` | job seniority is two or more levels from the profile seniority | `eligibility.experience_mismatch` |
 | `excluded_keywords` | title or description matches a user exclusion | `eligibility.excluded_keyword` |
 | `excluded_industries` | the job's catalogue company is tagged with an industry the user excludes (`core.industries.excluded_industries`; untagged companies never match) | `eligibility.excluded_industry` (params: industry) |
@@ -448,8 +448,10 @@ freshness       = exp(-age_days / matching.freshness_half_life_days)           #
 company_quality = (companies.quality_score or 50) / 100
 strategy_weight = plan.market_weights[market] × plan.role_weights[role]
                   × plan.sources[source].weight × Π(1 - soft_penalty_i)
+language_fit    = 1.0 if the posting is written in one of the profile's languages,
+                  0.9 if its language is unknown (never below an eligible job's floor)
 rank_score      = (fit_score / 100) × (0.5 + 0.5 × freshness)
-                  × (0.5 + 0.5 × company_quality) × strategy_weight
+                  × (0.5 + 0.5 × company_quality) × strategy_weight × language_fit
 tier-1 jobs     : fit replaced by similarity, capped at 0.6 so they never outrank a scored job
 ```
 Weights come from `strategy.current_plan(scope)` (computed from packs until Phase 9, stored

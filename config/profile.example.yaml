@@ -9,6 +9,8 @@ locations: []
 salary_expectations: {}
 notice_period_days: null
 visa_status: {}
+# ISO 639-1 codes of languages you can work in (e.g. [en, de]); postings requiring other
+# languages are ineligible, and postings written in your languages rank higher.
 languages: []
 # Industries never to match (codes from config/industries.yaml), e.g. [crypto, gambling].
 excluded_industries: []

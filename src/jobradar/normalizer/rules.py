@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Final
 
 import yaml
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 LEGAL_SUFFIXES: Final = frozenset(
     {
@@ -130,6 +130,97 @@ def detect_location(
     if found:
         return Location(country=country or found[0], city=found[1])
     return Location(country=country, city=city_hint.strip() if city_hint else None)
+
+
+class LanguageEntry(BaseModel):
+    """Phrases and common words of one language (`config/language_requirements.yaml`)."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    name: str
+    required_phrases: list[str]
+    preferred_phrases: list[str]
+    stopwords: list[str]
+
+
+class LanguageDetection(BaseModel):
+    """Thresholds for telling which language a posting is written in."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    min_stopword_hits: int = Field(ge=1)
+    min_share: float = Field(gt=0.5, le=1)
+
+
+class LanguageRules(BaseModel):
+    """`config/language_requirements.yaml`."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    detection: LanguageDetection
+    languages: dict[str, LanguageEntry]
+
+
+def load_language_rules(path: Path) -> LanguageRules:
+    """Load and validate the language requirement phrases."""
+    return LanguageRules.model_validate(yaml.safe_load(path.read_text(encoding="utf-8")))
+
+
+@dataclass(frozen=True, slots=True)
+class LanguageSignals:
+    """What a posting says about languages: written in, required, merely preferred."""
+
+    posting_language: str | None
+    required: frozenset[str]
+    preferred: frozenset[str]
+
+
+_SENTENCE_END: Final = re.compile(r"[.!?;\n•·]+")  # sentence ends and bullets
+
+
+def _phrase_in(words: str, phrases: list[str]) -> bool:
+    return any(_contains(words, " ".join(_words(phrase))) for phrase in phrases)
+
+
+def _posting_language(tokens: list[str], rules: LanguageRules) -> str | None:
+    hits = {
+        code: sum(1 for token in tokens if token in set(entry.stopwords))
+        for code, entry in rules.languages.items()
+    }
+    total = sum(hits.values())
+    if total < rules.detection.min_stopword_hits:
+        return None
+    code, best = max(hits.items(), key=lambda item: item[1])
+    return code if best / total >= rules.detection.min_share else None
+
+
+def language_signals(title: str, description: str | None, rules: LanguageRules) -> LanguageSignals:
+    """Languages a posting requires or prefers, and the language it is written in.
+
+    Sentence by sentence: a sentence naming a language as a plus makes it preferred, otherwise a
+    requirement phrase makes it required. A posting written in a language requires it too.
+    Unknown stays unknown — nothing is guessed from the company or location.
+    """
+    text = f"{title}. {description or ''}"
+    required: set[str] = set()
+    preferred: set[str] = set()
+    for sentence in _SENTENCE_END.split(text):
+        words = " ".join(_words(sentence))
+        if not words:
+            continue
+        for code, entry in rules.languages.items():
+            if _phrase_in(words, entry.preferred_phrases):
+                preferred.add(code)
+            elif _phrase_in(words, entry.required_phrases):
+                required.add(code)
+    posting = _posting_language(_words(text), rules)
+    if posting is not None:
+        required.add(posting)
+    return LanguageSignals(
+        posting_language=posting,
+        required=frozenset(required),
+        preferred=frozenset(preferred - required),
+    )
 
 
 def _sha256(value: str) -> bytes:

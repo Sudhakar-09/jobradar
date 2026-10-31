@@ -203,6 +203,11 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   rollout list, normalizer LLD (`germany_gross` model in Phase 3) updated. Germany company list
   and Germany conformance follow. 287 tests pass.
 
+- **Language filter (owner, 2026-10-31):** `config/language_requirements.yaml` and
+  `normalizer.language_signals` detect required / preferred languages and the posting language
+  (English and German); owner profile `languages: [en]`; matching LLD: German-required postings
+  ineligible, English postings rank higher.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:

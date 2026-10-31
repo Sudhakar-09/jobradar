@@ -236,3 +236,10 @@ available in the repository.
   alerts exist (anonymized fixture rule). German cities added to `config/locations.yaml`;
   Adzuna maps `germany` → `de` for when it is enabled. Germany joins the 2h conformance suite.
   A Germany company list is built like the UAE and India ones.
+- **Language filter (owner, 2026-10-31):** the owner works in English only (profile
+  `languages: [en]`, ISO 639-1 codes). Postings that require German — by requirement phrases
+  such as "fluent German" / "sehr gute Deutschkenntnisse", or by being written in German — are
+  ineligible (`language` rule, reason `eligibility.language_missing`); "German is a plus" never
+  blocks. Postings written in one of the user's languages rank higher (`language_fit` 1.0 vs 0.9
+  for unknown). Phrases and stopwords are config (`config/language_requirements.yaml`); the pure
+  detector `normalizer.language_signals` exists now, the eligibility rule lands in Phase 3.

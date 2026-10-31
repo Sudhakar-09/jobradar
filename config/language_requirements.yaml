@@ -1,0 +1,93 @@
+# Language signals in job postings (normalizer `language_signals`; matching eligibility rule
+# `language`). Config, not code: adding a language means adding an entry here.
+#
+# - required_phrases: wording that makes the language a requirement.
+# - preferred_phrases: wording that makes it only a plus; always names the language. Checked per
+#   sentence; wins over a required phrase in the same sentence ("fluent German is a plus").
+# - stopwords: very common words, used to tell which language a posting is written in. A posting
+#   written in a language counts as requiring it.
+# Phrases and words are matched case-insensitively as whole words, accents folded (ß → ss).
+detection:
+  min_stopword_hits: 8  # fewer hits in total: posting language unknown
+  min_share: 0.6  # the leading language needs at least this share of all hits
+languages:
+  de:
+    name: German
+    required_phrases:
+      - fluent german
+      - fluency in german
+      - fluent in german
+      - business fluent german
+      - business-fluent german
+      - native german
+      - german native speaker
+      - excellent german
+      - very good german
+      - proficient in german
+      - proficiency in german
+      - german is required
+      - german is a must
+      - german language skills are required
+      - german (c1)
+      - german (c2)
+      - german (b2)
+      - german c1
+      - german b2
+      - c1 german
+      - b2 german
+      - german and english
+      - english and german
+      - fliessend deutsch
+      - fliessende deutschkenntnisse
+      - sehr gute deutschkenntnisse
+      - gute deutschkenntnisse
+      - verhandlungssichere deutschkenntnisse
+      - verhandlungssicheres deutsch
+      - deutsch in wort und schrift
+      - deutsch auf c1
+      - deutschkenntnisse auf c1
+      - deutsch (c1)
+      - deutsch c1
+      - deutsch- und englischkenntnisse
+      - deutsch und englisch
+    preferred_phrases:
+      - german is a plus
+      - german is a bonus
+      - german is nice to have
+      - german would be a plus
+      - german is an advantage
+      - german is beneficial
+      - german is not required
+      - no german required
+      - basic german
+      - deutschkenntnisse sind von vorteil
+      - deutschkenntnisse von vorteil
+      - deutsch von vorteil
+      - deutschkenntnisse wunschenswert
+      - deutschkenntnisse sind wunschenswert
+    stopwords: [und, der, die, das, mit, fur, wir, sie, ein, eine, ist, zu, von, auf, im, den,
+                bei, oder, als, unser, unsere, deine, dich, du, ihr, ihre, sowie, wird, werden]
+  en:
+    name: English
+    required_phrases:
+      - fluent english
+      - fluency in english
+      - fluent in english
+      - excellent english
+      - very good english
+      - business fluent english
+      - english (c1)
+      - english c1
+      - sehr gute englischkenntnisse
+      - fliessend englisch
+      - verhandlungssichere englischkenntnisse
+      - deutsch- und englischkenntnisse
+      - deutsch und englisch
+      - german and english
+      - english and german
+    preferred_phrases:
+      - english is a plus
+      - englischkenntnisse sind von vorteil
+      - englischkenntnisse von vorteil
+    stopwords: [the, and, with, for, you, we, are, our, to, of, in, will, your, is, be, as, "on",
+                this, that, who, have, an]
