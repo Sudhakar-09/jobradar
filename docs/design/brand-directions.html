@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JobRadar — Brand directions</title>
+<!-- Fonts load from Google Fonts; without a connection the page falls back to system fonts. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Noto+Sans+Arabic:wght@400..700&family=Geist:wght@400..700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500..700&family=Noto+Naskh+Arabic:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Page chrome (neutral; not part of any direction) ---------- */
+:root {
+  --page-bg: #f4f4f5; --page-fg: #18181b; --page-muted: #52525b; --page-line: #d4d4d8; --page-card: #ffffff;
+}
+:root[data-theme="dark"] {
+  --page-bg: #09090b; --page-fg: #fafafa; --page-muted: #a1a1aa; --page-line: #27272a; --page-card: #18181b;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--page-bg); color: var(--page-fg);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.page-header {
+  position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px;
+  align-items: center; justify-content: space-between; padding: 12px 16px;
+  background: color-mix(in srgb, var(--page-bg) 88%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--page-line);
+}
+.page-header h1 { font-size: 16px; margin: 0; font-weight: 650; }
+.page-header p { margin: 0; color: var(--page-muted); font-size: 13px; }
+.page-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.page-controls button {
+  font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--page-line); background: var(--page-card); color: var(--page-fg);
+}
+.page-controls button[aria-pressed="true"] { background: var(--page-fg); color: var(--page-bg); }
+.page-controls button:focus-visible { outline: 2px solid var(--page-fg); outline-offset: 2px; }
+.directions {
+  display: grid; gap: 16px; padding: 16px; max-width: 1680px; margin: 0 auto;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1180px) { .directions { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.page-footer { max-width: 1680px; margin: 0 auto; padding: 0 16px 32px; color: var(--page-muted); font-size: 13px; }
+
+/* ---------- Direction tokens ---------- */
+/* A — Calm Compass */
+.dir-a {
+  --font-ui: "Inter", system-ui, sans-serif; --font-display: var(--font-ui); --font-arabic: "Noto Sans Arabic", "Inter", sans-serif;
+  --display-weight: 650; --display-tracking: -0.02em;
+  --r-sm: 8px; --r-md: 10px; --r-lg: 14px; --r-pill: 10px;
+  --dur-fast: 160ms; --dur: 220ms; --dur-slow: 320ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1); --ease-emph: cubic-bezier(0.2, 0, 0, 1);
+  --press-scale: 0.98; --lift: translateY(-2px);
+  --shadow-1: 0 1px 2px rgb(16 40 34 / 0.06), 0 1px 1px rgb(16 40 34 / 0.04);
+  --shadow-2: 0 8px 24px rgb(16 40 34 / 0.10);
+  --bg: #F6F8F7; --surface: #FFFFFF; --surface-2: #ECF2F0; --line: #D3DFDB;
+  --text: #132420; --muted: #4B5E59; --primary: #0F766E; --on-primary: #FFFFFF; --primary-soft: #D7EEEA;
+  --accent: #A84B0C; --success: #137336; --warning: #A15C07; --danger: #B91C1C; --info: #1D4ED8;
+}
+[data-theme="dark"] .dir-a {
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4); --shadow-2: 0 10px 28px rgb(0 0 0 / 0.45);
+  --bg: #0B1513; --surface: #111E1B; --surface-2: #182824; --line: #26403A;
+  --text: #E4EFEB; --muted: #9DB4AD; --primary: #2DD4BF; --on-primary: #04302B; --primary-soft: #133B35;
+  --accent: #F4A65A; --success: #4ADE80; --warning: #FBBF24; --danger: #F87171; --info: #7AB0FF;
+}
+/* B — Bright Momentum */
+.dir-b {
+  --font-ui: "Geist", "Inter", system-ui, sans-serif; --font-display: var(--font-ui); --font-arabic: "IBM Plex Sans Arabic", "Geist", sans-serif;
+  --display-weight: 700; --display-tracking: -0.03em;
+  --r-sm: 10px; --r-md: 14px; --r-lg: 20px; --r-pill: 999px;
+  --dur-fast: 180ms; --dur: 260ms; --dur-slow: 380ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1); --ease-emph: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --press-scale: 0.95; --lift: translateY(-3px);
+  --shadow-1: 0 1px 2px rgb(30 27 75 / 0.06), 0 2px 6px rgb(30 27 75 / 0.05);
+  --shadow-2: 0 14px 32px rgb(79 70 229 / 0.16);
+  --bg: #FAFAFF; --surface: #FFFFFF; --surface-2: #F0EFFB; --line: #DDDAF2;
+  --text: #16143A; --muted: #55527A; --primary: #4F46E5; --on-primary: #FFFFFF; --primary-soft: #E5E3FD;
+  --accent: #B93A1F; --success: #047857; --warning: #A15C07; --danger: #BE123C; --info: #0369A1;
+}
+[data-theme="dark"] .dir-b {
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.45); --shadow-2: 0 14px 36px rgb(0 0 0 / 0.5);
+  --bg: #0F0E1F; --surface: #17162C; --surface-2: #211F3B; --line: #322F55;
+  --text: #ECEBFF; --muted: #A9A6D1; --primary: #A5B4FC; --on-primary: #1E1B4B; --primary-soft: #2A2752;
+  --accent: #FF9A6B; --success: #34D399; --warning: #FBBF24; --danger: #FB7185; --info: #38BDF8;
+}
+/* C — Quiet Confidence */
+.dir-c {
+  --font-ui: "Inter", system-ui, sans-serif; --font-display: "Source Serif 4", Georgia, serif; --font-arabic: "Noto Naskh Arabic", "Noto Sans Arabic", serif;
+  --display-weight: 600; --display-tracking: -0.01em;
+  --r-sm: 4px; --r-md: 6px; --r-lg: 8px; --r-pill: 6px;
+  --dur-fast: 120ms; --dur: 160ms; --dur-slow: 240ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1); --ease-emph: cubic-bezier(0.4, 0, 0.2, 1);
+  --press-scale: 0.99; --lift: none;
+  --shadow-1: 0 0 0 1px rgb(28 27 25 / 0.06); --shadow-2: 0 4px 16px rgb(28 27 25 / 0.08);
+  --bg: #FAF9F6; --surface: #FFFFFF; --surface-2: #F2F0EB; --line: #E2DED6;
+  --text: #1C1B19; --muted: #57534E; --primary: #1F2328; --on-primary: #FFFFFF; --primary-soft: #E9E6DF;
+  --accent: #166534; --success: #047857; --warning: #A15C07; --danger: #B42318; --info: #1E40AF;
+}
+[data-theme="dark"] .dir-c {
+  --shadow-1: 0 0 0 1px rgb(255 255 255 / 0.06); --shadow-2: 0 6px 20px rgb(0 0 0 / 0.5);
+  --bg: #121211; --surface: #1A1A18; --surface-2: #242421; --line: #34322E;
+  --text: #EDEBE6; --muted: #A8A39A; --primary: #F2F0EB; --on-primary: #1A1A18; --primary-soft: #2C2B27;
+  --accent: #6EE7A0; --success: #34D399; --warning: #FACC15; --danger: #F87171; --info: #93C5FD;
+}
+/* Reduced motion: real preference or the page toggle */
+@media (prefers-reduced-motion: reduce) { .dir { --dur-fast: 1ms; --dur: 1ms; --dur-slow: 1ms; --press-scale: 1; --lift: none; } }
+:root[data-motion="reduced"] .dir { --dur-fast: 1ms; --dur: 1ms; --dur-slow: 1ms; --press-scale: 1; --lift: none; }
+
+/* ---------- Shared component styles, driven only by the tokens above ---------- */
+.dir {
+  position: relative; overflow: hidden; background: var(--bg); color: var(--text);
+  font-family: var(--font-ui); border-radius: var(--r-lg); border: 1px solid var(--line);
+  padding: 20px; display: flex; flex-direction: column; gap: 18px;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.dir h2, .dir h3 { font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); margin: 0; }
+.dir h2 { font-size: 26px; line-height: 1.15; }
+.dir h3 { font-size: 15px; letter-spacing: 0; font-family: var(--font-ui); font-weight: 650; }
+.eyebrow { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.brand-row { display: flex; align-items: center; gap: 12px; }
+.logo { width: 40px; height: 40px; flex: none; }
+.tagline { margin: 4px 0 0; color: var(--muted); }
+.section { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 16px; box-shadow: var(--shadow-1); display: flex; flex-direction: column; gap: 12px; }
+.section > h3 { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.section > h3 .muted { font-weight: 400; font-size: 12px; }
+ul.traits { margin: 0; padding-inline-start: 18px; display: grid; gap: 4px; font-size: 14px; }
+dl.specs { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 0; font-size: 13px; }
+dl.specs dt { color: var(--muted); }
+dl.specs dd { margin: 0; }
+
+/* swatches */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+.swatch { border-radius: var(--r-md); border: 1px solid var(--line); overflow: hidden; font-size: 11px; background: var(--surface); }
+.swatch .chip { height: 34px; display: grid; place-items: center; font-weight: 650; font-size: 12px; }
+.swatch .meta { padding: 6px 8px; display: grid; gap: 1px; }
+.swatch .meta b { font-weight: 600; }
+.aa { font-variant-numeric: tabular-nums; }
+.aa.pass { color: var(--success); } .aa.fail { color: var(--danger); }
+
+/* type sample */
+.type-sample .display { font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); font-size: 30px; line-height: 1.1; margin: 0; }
+.type-sample p { margin: 0; }
+
+/* buttons */
+.btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  font: inherit; font-weight: 600; font-size: 14px; line-height: 1; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: var(--r-pill);
+  border: 1px solid transparent; background: var(--surface-2); color: var(--text);
+  transition: transform var(--dur-fast) var(--ease-emph), background-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.btn:hover { transform: var(--lift); box-shadow: var(--shadow-1); }
+.btn:active { transform: scale(var(--press-scale)); }
+.btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.btn-primary { background: var(--primary); color: var(--on-primary); }
+.btn-primary:hover { box-shadow: var(--shadow-2); }
+.btn-secondary { background: var(--surface); border-color: var(--line); }
+.btn-ghost { background: transparent; color: var(--muted); }
+.btn-ghost:hover { color: var(--text); background: var(--surface-2); box-shadow: none; }
+.btn-danger { background: transparent; color: var(--danger); border-color: color-mix(in srgb, var(--danger) 35%, transparent); }
+.btn svg { width: 16px; height: 16px; }
+
+/* job card */
+.job { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; }
+.job h4 { margin: 0; font-size: 16px; font-weight: 650; }
+.job .company { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.tag { font-size: 12px; font-weight: 550; padding: 3px 8px; border-radius: var(--r-pill); background: var(--surface-2); color: var(--muted); }
+.tag.ok { color: var(--success); background: color-mix(in srgb, var(--success) 12%, var(--surface)); }
+.tag.warn { color: var(--warning); background: color-mix(in srgb, var(--warning) 12%, var(--surface)); }
+.tag.info { color: var(--info); background: color-mix(in srgb, var(--info) 12%, var(--surface)); }
+.why { grid-column: 1 / -1; margin: 0; font-size: 14px; padding: 10px 12px; border-radius: var(--r-md); background: var(--primary-soft); }
+.pay { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 13px; }
+.pay div { background: var(--surface-2); border-radius: var(--r-md); padding: 8px 10px; }
+.pay strong { display: block; font-size: 15px; font-variant-numeric: tabular-nums; }
+.job .actions { grid-column: 1 / -1; }
+.score { position: relative; width: 64px; height: 64px; }
+.score svg { width: 64px; height: 64px; transform: rotate(-90deg); }
+.score .track { stroke: var(--surface-2); }
+.score .bar { stroke: var(--primary); stroke-linecap: round; transition: stroke-dashoffset calc(var(--dur-slow) * 3) var(--ease); }
+.score .value { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; }
+.score .label { position: absolute; bottom: -16px; inset-inline: 0; text-align: center; font-size: 11px; color: var(--muted); }
+
+/* pipeline */
+.board { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.col { background: var(--surface-2); border-radius: var(--r-md); padding: 8px; min-height: 180px; display: flex; flex-direction: column; gap: 8px; }
+.col header { display: flex; justify-content: space-between; font-size: 12px; font-weight: 650; color: var(--muted); padding: 2px 4px; }
+.col header .count { font-variant-numeric: tabular-nums; }
+.pcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 10px; box-shadow: var(--shadow-1); font-size: 13px; display: grid; gap: 4px; will-change: transform; }
+.pcard b { font-size: 13px; }
+.pcard .row { display: flex; justify-content: space-between; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; }
+.move { font: inherit; font-size: 12px; font-weight: 600; border: 0; background: transparent; color: var(--primary); cursor: pointer; padding: 2px 4px; border-radius: var(--r-sm); }
+.move:focus-visible { outline: 2px solid var(--primary); }
+
+/* chart */
+.chart svg { width: 100%; height: auto; display: block; }
+.chart .grid line { stroke: var(--line); }
+.chart .axis text { fill: var(--muted); font-size: 10px; font-family: var(--font-ui); }
+.chart .bar { fill: var(--primary); transform-box: fill-box; transform-origin: bottom; transition: transform var(--dur-slow) var(--ease); }
+.chart .bar.now { fill: var(--accent); }
+.chart .val { fill: var(--text); font-size: 10px; font-weight: 600; font-family: var(--font-ui); }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-inline-end: 6px; vertical-align: -1px; }
+
+/* toast */
+.toast-zone { position: absolute; inset-inline: 16px; bottom: 16px; display: flex; justify-content: center; pointer-events: none; z-index: 5; }
+.toast {
+  pointer-events: auto; display: flex; align-items: center; gap: 10px; padding: 10px 12px; max-width: 420px; width: 100%;
+  background: var(--text); color: var(--bg); border-radius: var(--r-md); box-shadow: var(--shadow-2); font-size: 14px;
+  transform: translateY(16px); opacity: 0; transition: transform var(--dur) var(--ease-emph), opacity var(--dur) var(--ease);
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast .icon { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--success); color: var(--surface); flex: none; }
+.toast .undo { margin-inline-start: auto; font: inherit; font-weight: 650; background: transparent; border: 0; color: inherit; text-decoration: underline; cursor: pointer; }
+
+/* RTL sample */
+.rtl { font-family: var(--font-arabic); }
+.rtl h4 { font-family: var(--font-arabic); }
+.rtl .pay strong { direction: ltr; unicode-bidi: isolate; text-align: start; }
+
+/* celebration */
+.celebrate { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 6; }
+.spark { position: absolute; width: 8px; height: 8px; border-radius: 2px; opacity: 0; animation: spark calc(var(--dur-slow) * 3) var(--ease) forwards; }
+@keyframes spark { 0% { opacity: 1; transform: translate(0, 0) rotate(0); } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(220deg); } }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+</style>
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>JobRadar — three brand directions</h1>
+    <p>Same components, same layout; only the tokens differ. Pick one direction (or name what to mix).</p>
+  </div>
+  <div class="page-controls" role="group" aria-label="Preview controls">
+    <button type="button" id="themeBtn" aria-pressed="false">Dark mode</button>
+    <button type="button" id="motionBtn" aria-pressed="false">Reduced motion</button>
+    <button type="button" id="replayBtn">Replay animations</button>
+  </div>
+</header>
+
+<main class="directions" id="directions"></main>
+
+<p class="page-footer">
+  All colour pairs used for text are checked live against WCAG 2.2 AA (4.5:1) for the current theme; the
+  ratio shown on each swatch is against the direction's surface colour. Fonts come from Google Fonts.
+  Sample data is fictional.
+</p>
+
+<template id="direction-template">
+  <section class="dir" aria-labelledby="">
+    <div class="brand-row">
+      <svg class="logo" viewBox="0 0 40 40" aria-hidden="true"></svg>
+      <div>
+        <p class="eyebrow" data-slot="letter"></p>
+        <h2 data-slot="name"></h2>
+      </div>
+    </div>
+    <p class="tagline" data-slot="tagline"></p>
+
+    <div class="section">
+      <h3>Personality</h3>
+      <ul class="traits" data-slot="traits"></ul>
+      <p class="small" data-slot="why"></p>
+      <dl class="specs" data-slot="specs"></dl>
+    </div>
+
+    <div class="section">
+      <h3>Colour <span class="muted" data-slot="theme-label"></span></h3>
+      <div class="swatches" data-slot="swatches"></div>
+    </div>
+
+    <div class="section type-sample">
+      <h3>Typography</h3>
+      <p class="display">Good morning — 6 new matches</p>
+      <p>Three of them sponsor UAE work visas, and one is at a company you saved last week.</p>
+      <p class="small muted" data-slot="fonts"></p>
+    </div>
+
+    <div class="section">
+      <h3>Buttons</h3>
+      <div class="btn-row">
+        <button class="btn btn-primary" type="button" data-action="toast">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Apply
+        </button>
+        <button class="btn btn-secondary" type="button">Save</button>
+        <button class="btn btn-ghost" type="button">Skip</button>
+        <button class="btn btn-danger" type="button">Withdraw</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Job card <span class="muted">score reveal</span></h3>
+      <article class="job">
+        <div>
+          <h4>Senior Java Backend Engineer</h4>
+          <p class="company">Fictional Logistics Co · Dubai, UAE · Hybrid</p>
+          <div class="tags">
+            <span class="tag ok">Visa sponsored</span>
+            <span class="tag info">Spring Boot · Kafka</span>
+            <span class="tag warn">30-day notice preferred</span>
+          </div>
+        </div>
+        <div class="score" data-score="86">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle class="track" cx="32" cy="32" r="27" fill="none" stroke-width="6"/>
+            <circle class="bar" cx="32" cy="32" r="27" fill="none" stroke-width="6"/>
+          </svg>
+          <span class="value" aria-label="Fit score 86 out of 100">0</span>
+          <span class="label">fit</span>
+        </div>
+        <p class="why">Why: 6 of 7 core skills match, including the Kafka work in your last role.</p>
+        <div class="pay">
+          <div><span class="muted">Offered (tax-free)</span><strong>AED 22,000 / mo</strong></div>
+          <div><span class="muted">Your India in-hand (est.)</span><strong>₹2,18,000 / mo</strong></div>
+        </div>
+        <div class="btn-row actions">
+          <button class="btn btn-primary" type="button" data-action="celebrate">Mark interview</button>
+          <button class="btn btn-ghost" type="button">Why not 100?</button>
+        </div>
+      </article>
+    </div>
+
+    <div class="section">
+      <h3>Pipeline <span class="muted">move a card</span></h3>
+      <div class="board">
+        <div class="col" data-col="applied">
+          <header><span>Applied</span><span class="count">3</span></header>
+        </div>
+        <div class="col" data-col="interview">
+          <header><span>Interview</span><span class="count">1</span></header>
+        </div>
+      </div>
+    </div>
+
+    <div class="section chart">
+      <h3>Interviews per week</h3>
+      <div data-slot="chart"></div>
+      <div class="legend"><span><i style="background:var(--primary)"></i>Past weeks</span><span><i style="background:var(--accent)"></i>This week</span></div>
+    </div>
+
+    <div class="section rtl" dir="rtl" lang="ar">
+      <h3>عيّنة باتجاه من اليمين إلى اليسار</h3>
+      <article class="job">
+        <div>
+          <h4>مهندس برمجيات خلفية (Java)</h4>
+          <p class="company">شركة لوجستية افتراضية · دبي، الإمارات · هجين</p>
+          <div class="tags">
+            <span class="tag ok">تشمل التأشيرة</span>
+            <span class="tag info">Spring Boot · Kafka</span>
+          </div>
+        </div>
+        <div class="score" data-score="86">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle class="track" cx="32" cy="32" r="27" fill="none" stroke-width="6"/>
+            <circle class="bar" cx="32" cy="32" r="27" fill="none" stroke-width="6"/>
+          </svg>
+          <span class="value" aria-label="نسبة التوافق 86 من 100">0</span>
+          <span class="label">التوافق</span>
+        </div>
+        <p class="why">السبب: ستّ من سبع مهارات أساسية متطابقة.</p>
+        <div class="pay">
+          <div><span class="muted">الراتب الشهري (معفى من الضريبة)</span><strong>AED 22,000</strong></div>
+          <div><span class="muted">مقارنة بالهند (تقديري)</span><strong>₹2,18,000</strong></div>
+        </div>
+        <div class="btn-row actions">
+          <button class="btn btn-primary" type="button" data-action="toast-ar">تقدَّم الآن</button>
+          <button class="btn btn-secondary" type="button">احفظ</button>
+        </div>
+      </article>
+    </div>
+
+    <div class="toast-zone" aria-live="polite"></div>
+    <div class="celebrate" aria-hidden="true"></div>
+  </section>
+</template>
+
+<script>
+"use strict";
+const DIRECTIONS = [
+  {
+    key: "a", letter: "Direction A", name: "Calm Compass",
+    tagline: "A steady guide that makes a stressful search feel manageable.",
+    traits: ["Calm, clear and reassuring", "Confident without being loud", "Feels like a trusted advisor, not a slot machine"],
+    why: "Teal and soft greens read as calm and trustworthy across cultures; generous spacing and gentle motion lower stress. Works for every field, from nurses to engineers to executives.",
+    specs: [["Radius", "8 / 10 / 14 px — friendly but structured"], ["Motion", "Gentle: 160–320 ms, ease-out, small lifts, no bounce"], ["Logo idea", "A radar sweep inside a rounded compass"]],
+    fonts: "UI: Inter (variable) · Arabic: Noto Sans Arabic · Display: Inter 650",
+    logo: '<rect x="2" y="2" width="36" height="36" rx="10" fill="var(--primary)"/><circle cx="20" cy="20" r="11" fill="none" stroke="var(--on-primary)" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="none" stroke="var(--on-primary)" stroke-width="2" opacity=".8"/><path d="M20 20 L29 13" stroke="var(--on-primary)" stroke-width="2.5" stroke-linecap="round"/><circle cx="29" cy="13" r="2.4" fill="var(--on-primary)"/>'
+  },
+  {
+    key: "b", letter: "Direction B", name: "Bright Momentum",
+    tagline: "Energy and encouragement: every step forward is worth celebrating.",
+    traits: ["Optimistic, warm and motivating", "Playful details, serious substance", "Celebrates progress, never volume"],
+    why: "Indigo signals focus and trust, a warm coral accent adds hope; rounder shapes and springy motion make progress feel rewarding, which keeps people going during long searches.",
+    specs: [["Radius", "10 / 14 / 20 px, pill buttons — soft and approachable"], ["Motion", "Springy: 180–380 ms, slight overshoot on key moments"], ["Logo idea", "A rising arc with a ping — upward momentum"]],
+    fonts: "UI: Geist (variable) · Arabic: IBM Plex Sans Arabic · Display: Geist 700",
+    logo: '<rect x="2" y="2" width="36" height="36" rx="18" fill="var(--primary)"/><path d="M10 26 Q20 8 30 14" fill="none" stroke="var(--on-primary)" stroke-width="3" stroke-linecap="round"/><circle cx="30" cy="14" r="3.5" fill="var(--accent)"/><circle cx="30" cy="14" r="6.5" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity=".6"/>'
+  },
+  {
+    key: "c", letter: "Direction C", name: "Quiet Confidence",
+    tagline: "Editorial, precise and grown-up — a professional's private desk.",
+    traits: ["Understated, precise and discreet", "Editorial typography, ink-on-paper feel", "Respects senior and executive users"],
+    why: "Warm paper neutrals and ink black feel serious and private; a forest-green accent marks progress. Crisp, minimal motion suits people who want facts, not fanfare — and reads well in any culture.",
+    specs: [["Radius", "4 / 6 / 8 px — crisp and tailored"], ["Motion", "Crisp: 120–240 ms, fades and slides only"], ["Logo idea", "A serif wordmark with a single radar dot"]],
+    fonts: "UI: Inter (variable) · Display: Source Serif 4 · Arabic: Noto Naskh Arabic (display) + Noto Sans Arabic",
+    logo: '<rect x="2" y="2" width="36" height="36" rx="6" fill="var(--primary)"/><text x="20" y="27" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="20" font-weight="700" fill="var(--on-primary)">J</text><circle cx="29" cy="12" r="3" fill="var(--accent)"/>'
+  }
+];
+const SWATCHES = [
+  ["Primary", "primary", "on-primary"], ["Accent", "accent"], ["Text", "text"], ["Muted", "muted"],
+  ["Success", "success"], ["Warning", "warning"], ["Danger", "danger"], ["Info", "info"]
+];
+const PIPELINE = {
+  applied: [["Backend Engineer", "Fictional Pay · Bengaluru", "Applied 3 d ago"], ["Java Developer", "Example Bank · Dubai", "Applied 5 d ago"], ["Platform Engineer", "Sample Retail · Pune", "Applied 1 w ago"]],
+  interview: [["Senior Backend Engineer", "Demo Airlines · Dubai", "Round 2 · Tue"]]
+};
+const WEEKS = [["W38", 0], ["W39", 1], ["W40", 1], ["W41", 2], ["W42", 2], ["W43", 3]];
+
+const root = document.documentElement;
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const prefersReduced = () => reducedMotionQuery.matches || root.dataset.motion === "reduced";
+
+function hexToRgb(value) {
+  const hex = value.trim().replace("#", "");
+  return [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+}
+function luminance(hex) {
+  const [r, g, b] = hexToRgb(hex).map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+function contrast(a, b) {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+function buildChart(container) {
+  const w = 300, h = 140, pad = { l: 22, r: 6, t: 14, b: 22 };
+  const max = 4, bw = 28;
+  const step = (w - pad.l - pad.r) / WEEKS.length;
+  const y = (v) => pad.t + (h - pad.t - pad.b) * (1 - v / max);
+  let svg = `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Interviews per week: ${WEEKS.map(([wk, v]) => `${wk} ${v}`).join(", ")}">`;
+  svg += '<g class="grid">' + [0, 1, 2, 3, 4].map((v) => `<line x1="${pad.l}" x2="${w - pad.r}" y1="${y(v)}" y2="${y(v)}"/>`).join("") + "</g>";
+  svg += '<g class="axis">' + [0, 2, 4].map((v) => `<text x="${pad.l - 6}" y="${y(v) + 3}" text-anchor="end">${v}</text>`).join("");
+  svg += WEEKS.map(([wk], i) => `<text x="${pad.l + step * i + step / 2}" y="${h - 6}" text-anchor="middle">${wk}</text>`).join("") + "</g>";
+  WEEKS.forEach(([, v], i) => {
+    const x = pad.l + step * i + (step - bw) / 2;
+    const top = y(v), height = Math.max(y(0) - top, 1);
+    const now = i === WEEKS.length - 1 ? " now" : "";
+    svg += `<rect class="bar${now}" x="${x}" y="${top}" width="${bw}" height="${height}" rx="4" style="transform:scaleY(0);transition-delay:${i * 60}ms"/>`;
+    svg += `<text class="val" x="${x + bw / 2}" y="${top - 4}" text-anchor="middle">${v}</text>`;
+  });
+  container.innerHTML = svg + "</svg>";
+}
+
+function pipelineCard(col, [title, company, meta]) {
+  const card = document.createElement("div");
+  card.className = "pcard";
+  const target = col === "applied" ? "Interview" : "Applied";
+  card.innerHTML = `<b></b><span></span><div class="row"><span></span><button type="button" class="move"></button></div>`;
+  card.querySelector("b").textContent = title;
+  card.querySelector("span").textContent = company;
+  card.querySelector(".row span").textContent = meta;
+  setMoveLabel(card.querySelector(".move"), target);
+  return card;
+}
+
+function setMoveLabel(button, target) {
+  button.textContent = "Move →";
+  button.setAttribute("aria-label", `Move to ${target}`);
+}
+
+function moveCard(card, board) {
+  const from = card.parentElement;
+  const to = board.querySelector(`[data-col="${from.dataset.col === "applied" ? "interview" : "applied"}"]`);
+  const first = card.getBoundingClientRect();
+  to.appendChild(card);
+  setMoveLabel(card.querySelector(".move"), from.dataset.col === "applied" ? "Applied" : "Interview");
+  board.querySelectorAll(".col").forEach((col) => { col.querySelector(".count").textContent = col.querySelectorAll(".pcard").length; });
+  if (prefersReduced()) return;
+  const last = card.getBoundingClientRect();
+  card.animate(
+    [{ transform: `translate(${first.left - last.left}px, ${first.top - last.top}px) scale(1.03)` }, { transform: "none" }],
+    { duration: parseFloat(getComputedStyle(card).getPropertyValue("--dur-slow")) || 300, easing: getComputedStyle(card).getPropertyValue("--ease-emph").trim() || "ease" }
+  );
+}
+
+function revealScores(section) {
+  section.querySelectorAll(".score").forEach((score) => {
+    const value = Number(score.dataset.score);
+    const bar = score.querySelector(".bar");
+    const circumference = 2 * Math.PI * 27;
+    bar.style.strokeDasharray = `${circumference}`;
+    bar.style.transition = "none";
+    bar.style.strokeDashoffset = `${circumference}`;
+    const label = score.querySelector(".value");
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      bar.style.transition = "";
+      bar.style.strokeDashoffset = `${circumference * (1 - value / 100)}`;
+    }));
+    if (prefersReduced()) { label.textContent = value; return; }
+    const duration = 900, start = performance.now();
+    const tick = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      label.textContent = Math.round(value * (1 - (1 - t) ** 3));
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+  section.querySelectorAll(".chart .bar").forEach((bar) => {
+    bar.style.transform = "scaleY(0)";
+    requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.transform = "scaleY(1)"; }));
+  });
+}
+
+function showToast(section, text, undoLabel, dir) {
+  const zone = section.querySelector(".toast-zone");
+  zone.innerHTML = "";
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.setAttribute("role", "status");
+  if (dir) toast.dir = dir;
+  toast.innerHTML = '<span class="icon" aria-hidden="true">✓</span><span></span><button type="button" class="undo"></button>';
+  toast.querySelector("span:not(.icon)").textContent = text;
+  toast.querySelector(".undo").textContent = undoLabel;
+  toast.querySelector(".undo").addEventListener("click", () => toast.classList.remove("show"));
+  zone.appendChild(toast);
+  requestAnimationFrame(() => requestAnimationFrame(() => toast.classList.add("show")));
+  setTimeout(() => toast.classList.remove("show"), 4000);
+}
+
+function celebrate(section) {
+  showToast(section, "Interview scheduled — nicely done.", "Undo");
+  if (prefersReduced()) return;
+  const layer = section.querySelector(".celebrate");
+  const colors = ["--primary", "--accent", "--success", "--info"];
+  const rect = section.getBoundingClientRect();
+  for (let i = 0; i < 18; i += 1) {
+    const s = document.createElement("span");
+    s.className = "spark";
+    s.style.left = `${rect.width / 2}px`;
+    s.style.top = `${Math.min(rect.height * 0.45, 900)}px`;
+    s.style.background = `var(${colors[i % colors.length]})`;
+    const angle = (Math.PI * 2 * i) / 18;
+    s.style.setProperty("--dx", `${Math.cos(angle) * (60 + Math.random() * 60)}px`);
+    s.style.setProperty("--dy", `${Math.sin(angle) * (60 + Math.random() * 60) - 30}px`);
+    layer.appendChild(s);
+    setTimeout(() => s.remove(), 1400);
+  }
+}
+
+function renderSwatches(section) {
+  const style = getComputedStyle(section);
+  const surface = style.getPropertyValue("--surface").trim();
+  const wrap = section.querySelector('[data-slot="swatches"]');
+  wrap.innerHTML = "";
+  SWATCHES.forEach(([label, token, onToken]) => {
+    const color = style.getPropertyValue(`--${token}`).trim();
+    const fg = onToken ? style.getPropertyValue(`--${onToken}`).trim() : surface;
+    const ratio = onToken ? contrast(fg, color) : contrast(color, surface);
+    const pass = ratio >= 4.5;
+    const el = document.createElement("div");
+    el.className = "swatch";
+    el.innerHTML = `<div class="chip" style="background:${color};color:${fg}">Aa</div><div class="meta"><b></b><span></span><span class="aa ${pass ? "pass" : "fail"}"></span></div>`;
+    el.querySelector("b").textContent = label;
+    el.querySelector(".meta span").textContent = color.toUpperCase();
+    el.querySelector(".aa").textContent = `${ratio.toFixed(2)}:1 ${pass ? "AA ✓" : "below AA"}${onToken ? " (on text)" : ""}`;
+    wrap.appendChild(el);
+  });
+  section.querySelector('[data-slot="theme-label"]').textContent = root.dataset.theme === "dark" ? "dark theme · contrast vs surface" : "light theme · contrast vs surface";
+}
+
+function build() {
+  const tpl = document.getElementById("direction-template");
+  const host = document.getElementById("directions");
+  DIRECTIONS.forEach((d) => {
+    const node = tpl.content.firstElementChild.cloneNode(true);
+    node.classList.add(`dir-${d.key}`);
+    node.setAttribute("aria-labelledby", `name-${d.key}`);
+    node.querySelector('[data-slot="name"]').id = `name-${d.key}`;
+    node.querySelector('[data-slot="letter"]').textContent = d.letter;
+    node.querySelector('[data-slot="name"]').textContent = `JobRadar · ${d.name}`;
+    node.querySelector('[data-slot="tagline"]').textContent = d.tagline;
+    node.querySelector('[data-slot="why"]').textContent = `Why it suits stressed job seekers: ${d.why}`;
+    node.querySelector('[data-slot="fonts"]').textContent = d.fonts;
+    node.querySelector(".logo").innerHTML = d.logo;
+    const traits = node.querySelector('[data-slot="traits"]');
+    d.traits.forEach((t) => { const li = document.createElement("li"); li.textContent = t; traits.appendChild(li); });
+    const specs = node.querySelector('[data-slot="specs"]');
+    d.specs.forEach(([k, v]) => { const dt = document.createElement("dt"); dt.textContent = k; const dd = document.createElement("dd"); dd.textContent = v; specs.append(dt, dd); });
+    const board = node.querySelector(".board");
+    Object.entries(PIPELINE).forEach(([col, cards]) => cards.forEach((c) => board.querySelector(`[data-col="${col}"]`).appendChild(pipelineCard(col, c))));
+    board.addEventListener("click", (e) => { const btn = e.target.closest(".move"); if (btn) moveCard(btn.closest(".pcard"), board); });
+    buildChart(node.querySelector('[data-slot="chart"]'));
+    node.addEventListener("click", (e) => {
+      const action = e.target.closest("[data-action]")?.dataset.action;
+      if (action === "toast") showToast(node, "Application sent to Fictional Logistics Co.", "Undo");
+      if (action === "toast-ar") showToast(node, "تم إرسال طلبك بنجاح.", "تراجع", "rtl");
+      if (action === "celebrate") celebrate(node);
+    });
+    host.appendChild(node);
+  });
+  refresh();
+}
+
+function refresh() {
+  document.querySelectorAll(".dir").forEach((section) => { renderSwatches(section); revealScores(section); });
+}
+
+document.getElementById("themeBtn").addEventListener("click", (e) => {
+  const dark = root.dataset.theme !== "dark";
+  root.dataset.theme = dark ? "dark" : "light";
+  e.currentTarget.setAttribute("aria-pressed", String(dark));
+  document.querySelectorAll(".dir").forEach(renderSwatches);
+});
+document.getElementById("motionBtn").addEventListener("click", (e) => {
+  const reduced = root.dataset.motion !== "reduced";
+  if (reduced) root.dataset.motion = "reduced"; else delete root.dataset.motion;
+  e.currentTarget.setAttribute("aria-pressed", String(reduced));
+});
+document.getElementById("replayBtn").addEventListener("click", refresh);
+if (window.matchMedia("(prefers-color-scheme: dark)").matches) document.getElementById("themeBtn").click();
+build();
+</script>
+</body>
+</html>
