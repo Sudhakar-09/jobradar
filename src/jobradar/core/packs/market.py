@@ -147,6 +147,7 @@ class MarketPack(PackModel):
     sponsor_register_source: NonEmptyString | None = None
     nationality_restricted_programmes: list[NonEmptyString] = Field(default_factory=list)
     sources: list[MarketSource]
+    source_notes: NonEmptyString | None = None  # which sources matter most, and why
     notice_period_norm: NonEmptyString
     hiring_seasons: list[NonEmptyString] = Field(default_factory=list)
     language_notes: NonEmptyString

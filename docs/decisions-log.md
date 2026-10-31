@@ -325,3 +325,7 @@ available in the repository.
   target; I placed "III" under senior and "Head of"/"VP"/"CTO" under executive (for the owner to
   confirm). Year ranges per level wait for the owner's years of experience. Both share the role
   schema change, so they are one commit.
+- **UAE sources (owner, 2026-10-31):** job-alert emails remain the primary UAE source; recorded in
+  the UAE pack's new optional `source_notes` field. A third UAE company round (banks, telecoms,
+  airlines, government-linked companies, IT services) is being probed and their hiring systems
+  identified from web-search results (no scraping of their sites).

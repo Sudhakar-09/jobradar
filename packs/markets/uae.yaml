@@ -71,6 +71,14 @@ sources:
     hosts: [gulftalent.com, "*.gulftalent.com"]
     access_modes: [alert_email, one_tap]
 
+source_notes: >-
+  Job-alert emails (LinkedIn, Naukrigulf, Bayt, GulfTalent) are the primary UAE source (owner
+  decision 2026-10-31). The catalogue's UAE-hiring ATS boards add few UAE Java roles: on
+  2026-10-31 only 2 of about 5,600 postings from the 36 catalogue companies were Java roles
+  located in the UAE. Many large UAE employers (banks, telecoms, airlines, government-linked
+  companies) use Workday or other systems that JobRadar does not read; their jobs arrive
+  through alerts and are applied to with one tap.
+
 notice_period_norm: >-
   Under the UAE Labour Law (Federal Decree-Law No. 33 of 2021, Art. 43) the contractual notice
   period is 30 to 90 days; 30 days is common and employers often prefer short notice or immediate

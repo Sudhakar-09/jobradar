@@ -1,0 +1,135 @@
+# Third UAE probe round (owner request 2026-10-31): banks, telecoms, airlines,
+# government-linked companies and IT services firms with UAE operations. Same rules: probe
+# output is reviewed by the owner. Large employers often use Workday, SAP SuccessFactors,
+# Oracle or their own portals, which JobRadar does not read (one-tap via alert emails).
+
+# --- Banks and financial institutions ---
+Emirates NBD
+First Abu Dhabi Bank
+FAB
+Abu Dhabi Commercial Bank
+ADCB
+Mashreq
+Dubai Islamic Bank
+Abu Dhabi Islamic Bank
+ADIB
+Commercial Bank of Dubai
+RAKBANK
+Emirates Islamic
+National Bank of Fujairah
+Al Hilal Bank
+Arab Bank
+HSBC
+Standard Chartered
+Citi
+Barclays
+Deutsche Bank
+JPMorgan Chase
+Goldman Sachs
+Morgan Stanley
+BNY
+Network International
+Magnati
+Emirates Development Bank
+Dubai Financial Market
+Abu Dhabi Securities Exchange
+DIFC
+ADGM
+
+# --- Telecoms ---
+e& (Etisalat)
+Etisalat
+du
+Emirates Integrated Telecommunications
+Yahsat
+Space42
+Thuraya
+
+# --- Airlines and travel ---
+Emirates
+Emirates Group
+Etihad Airways
+flydubai
+Air Arabia
+dnata
+Dubai Airports
+Abu Dhabi Airports
+Emirates Flight Catering
+
+# --- Government-linked and large groups ---
+Mubadala
+ADNOC
+ADQ
+Dubai Holding
+DEWA
+Etihad Rail
+RTA
+DP World
+AD Ports Group
+Masdar
+TAQA
+Emaar
+Nakheel
+Majid Al Futtaim
+Al-Futtaim
+Chalhoub Group
+Lulu Group
+Landmark Group
+Dubai Health
+M42
+PureHealth
+G42
+Core42
+Presight
+Inception
+Khazna
+Digital Dubai
+Smart Dubai
+Abu Dhabi Digital Authority
+TDRA
+Tawazun
+EDGE Group
+Injazat
+Beyon
+
+# --- IT services and consultancies with UAE delivery ---
+Tata Consultancy Services
+TCS
+Infosys
+Wipro
+HCLTech
+Tech Mahindra
+LTIMindtree
+Cognizant
+Accenture
+Capgemini
+IBM
+NTT DATA
+DXC Technology
+Mphasis
+Hexaware
+Persistent Systems
+Zensar
+Coforge
+Birlasoft
+Sonata Software
+Virtusa
+EPAM Systems
+Endava
+Globant
+Nagarro
+Thoughtworks
+Ciklum
+Emitac
+Gulf Business Machines
+GBM
+Alpha Data
+Mindware
+Redington
+StarLink
+Intertec Systems
+Condo Protego
+Seven Seas Computers
+Proven Solutions
+Datamatics
+Aptitude Global
