@@ -1,7 +1,7 @@
 """Greenhouse public Job Board API (one company board per run)."""
 
 from datetime import datetime
-from typing import ClassVar
+from typing import ClassVar, Literal
 
 from pydantic import BaseModel, ConfigDict, HttpUrl, JsonValue
 
@@ -36,8 +36,13 @@ class GreenhouseConnector:
     """Reads `/v1/boards/{slug}/jobs?content=true`."""
 
     code: ClassVar[str] = "greenhouse"
+    kind: ClassVar[Literal["company", "query"]] = "company"
     mode: ClassVar[AccessMode] = AccessMode.ATS_FEED
     hosts: ClassVar[tuple[str, ...]] = ("boards-api.greenhouse.io",)
+
+    def is_configured(self) -> str | None:
+        """Public board API: no credentials needed."""
+        return None
 
     async def fetch(self, ctx: FetchContext) -> FetchResult:
         """Fetch every published job on the company's board."""

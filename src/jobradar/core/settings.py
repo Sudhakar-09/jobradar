@@ -3,7 +3,7 @@
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import Field
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -38,6 +38,10 @@ class Settings(BaseSettings):
     http_max_redirects: int = Field(default=3, ge=0, le=10)
     http_max_response_bytes: int = Field(default=10_000_000, ge=1_000)
     http_retry_after_cap_seconds: float = Field(default=60, gt=0)
+
+    # Source credentials (owner's accounts; only in .env, never committed)
+    adzuna_app_id: str | None = None
+    adzuna_app_key: SecretStr | None = None
 
     model_config = SettingsConfigDict(
         case_sensitive=False,

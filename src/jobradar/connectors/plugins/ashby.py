@@ -1,7 +1,7 @@
 """Ashby public job posting API (one company board per run)."""
 
 from datetime import datetime
-from typing import ClassVar
+from typing import ClassVar, Literal
 
 from pydantic import BaseModel, ConfigDict, HttpUrl, JsonValue
 
@@ -46,8 +46,13 @@ class AshbyConnector:
     """Reads `/posting-api/job-board/{slug}`."""
 
     code: ClassVar[str] = "ashby"
+    kind: ClassVar[Literal["company", "query"]] = "company"
     mode: ClassVar[AccessMode] = AccessMode.ATS_FEED
     hosts: ClassVar[tuple[str, ...]] = ("api.ashbyhq.com",)
+
+    def is_configured(self) -> str | None:
+        """Public board API: no credentials needed."""
+        return None
 
     async def fetch(self, ctx: FetchContext) -> FetchResult:
         """Fetch every listed job on the company's board (unlisted jobs are skipped)."""

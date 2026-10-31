@@ -32,6 +32,8 @@ PII_KEYS: Final = frozenset(
     }
 )
 EMAIL_PATTERN: Final = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
+# Third-party loggers that print full request URLs (query strings can hold API keys).
+QUIET_LIBRARY_LOGGERS: Final = ("httpx", "httpcore")
 MAX_DEPTH: Final = 3
 
 
@@ -62,10 +64,17 @@ def redact_pii(
     return event_dict
 
 
+def quiet_library_loggers(level: int) -> None:
+    """Keep libraries that log full request URLs (and so API keys) at WARNING or above."""
+    for name in QUIET_LIBRARY_LOGGERS:
+        logging.getLogger(name).setLevel(max(level, logging.WARNING))
+
+
 def configure_logging(log_level: str = "INFO") -> None:
     """Configure structlog to emit JSON logs at the given level, with PII redaction."""
     level = getattr(logging, log_level.upper(), logging.INFO)
     logging.basicConfig(level=level, format="%(message)s")
+    quiet_library_loggers(level)
     structlog.configure(
         processors=[
             structlog.contextvars.merge_contextvars,

@@ -95,6 +95,9 @@ class ConnectorSettings(BaseModel):
     page_size: int | None = Field(default=None, ge=1)
     max_pages: int | None = Field(default=None, ge=1)
     posting_url: str | None = None
+    # Aggregators: market pack code → the service's country path, role field → its category.
+    countries: dict[str, str] = Field(default_factory=dict)
+    categories: dict[str, str] = Field(default_factory=dict)
 
 
 class ConnectorsFile(BaseModel):
@@ -106,12 +109,24 @@ class ConnectorsFile(BaseModel):
 
 
 @dataclass(frozen=True, slots=True)
+class SourceQuery:
+    """One aggregator search: a market and a role's search terms."""
+
+    market: str  # market pack code
+    country: str  # ISO 3166-1 alpha-2 of the market
+    role: str  # role pack code
+    field: str  # taxonomy field of the role (aggregator category lookup)
+    terms: tuple[str, ...]  # title aliases to search for
+
+
+@dataclass(frozen=True, slots=True)
 class FetchContext:
     """Everything a connector may use for one fetch."""
 
     http: PoliteClient
     settings: ConnectorSettings
     company: CompanyRef | None = None
+    queries: tuple[SourceQuery, ...] = ()
 
 
 @dataclass(slots=True)
@@ -127,8 +142,13 @@ class Connector(Protocol):
     """A job source plug-in (entry point group ``jobradar.connectors``)."""
 
     code: ClassVar[str]
+    kind: ClassVar[Literal["company", "query"]]  # per company board, or per search query
     mode: ClassVar[AccessMode]
     hosts: ClassVar[tuple[str, ...]]
+
+    def is_configured(self) -> str | None:
+        """Return why the connector cannot run (e.g. missing credentials), or None."""
+        ...
 
     async def fetch(self, ctx: FetchContext) -> FetchResult:
         """Fetch and parse all current jobs for the context's company or query."""

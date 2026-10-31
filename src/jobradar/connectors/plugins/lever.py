@@ -1,6 +1,6 @@
 """Lever public Postings API (one company site per run)."""
 
-from typing import ClassVar
+from typing import ClassVar, Literal
 
 from pydantic import BaseModel, ConfigDict, HttpUrl, JsonValue
 
@@ -75,8 +75,13 @@ class LeverConnector:
     """Reads `/v0/postings/{slug}?mode=json`."""
 
     code: ClassVar[str] = "lever"
+    kind: ClassVar[Literal["company", "query"]] = "company"
     mode: ClassVar[AccessMode] = AccessMode.ATS_FEED
     hosts: ClassVar[tuple[str, ...]] = ("api.lever.co",)
+
+    def is_configured(self) -> str | None:
+        """Public board API: no credentials needed."""
+        return None
 
     async def fetch(self, ctx: FetchContext) -> FetchResult:
         """Fetch every published posting for the company."""

@@ -5,7 +5,7 @@ The posting fields follow Workable's documented widget format; the live shape is
 """
 
 from datetime import UTC, date, datetime, time
-from typing import ClassVar
+from typing import ClassVar, Literal
 
 from pydantic import BaseModel, ConfigDict, HttpUrl, JsonValue
 
@@ -57,8 +57,13 @@ class WorkableConnector:
     """Reads `/api/v1/widget/accounts/{slug}?details=true`."""
 
     code: ClassVar[str] = "workable"
+    kind: ClassVar[Literal["company", "query"]] = "company"
     mode: ClassVar[AccessMode] = AccessMode.ATS_FEED
     hosts: ClassVar[tuple[str, ...]] = ("apply.workable.com",)
+
+    def is_configured(self) -> str | None:
+        """Public board API: no credentials needed."""
+        return None
 
     async def fetch(self, ctx: FetchContext) -> FetchResult:
         """Fetch every published job for the company's account."""

@@ -39,11 +39,14 @@ def _companies_sync(_args: argparse.Namespace) -> int:
 
 
 def _discover(args: argparse.Namespace) -> int:
-    results = run(connectors.discover(source=args.source, company_id=args.company))
+    report = run(connectors.discover(source=args.source, company_id=args.company))
+    for skipped in report.skipped:
+        print(f"Skipped {skipped.connector}: {skipped.reason}")
+    results = report.runs
     if not results:
         print(
-            "No company boards to run. Add companies to config/companies.yaml and run "
-            "`jobradar companies sync`."
+            "No sources ran. Add companies to config/companies.yaml and run "
+            "`jobradar companies sync`, or configure an aggregator."
         )
         return 0
     print(f"{'source':<16}{'company':<28}{'status':<10}{'found':>6}{'new':>6}{'upd':>6}{'bad':>6}")

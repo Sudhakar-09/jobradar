@@ -117,7 +117,16 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
     dropped query strings already in a URL.
   - 174 tests pass (18 integration: discover end to end, idempotent re-runs, edited postings,
     cross-board dedupe, 404 retirement, schema drift). Coverage 89 % / 93 % (unit job).
-- Next: 2e Adzuna (India) and Remotive (remote) — STOP before needing the Adzuna key.
+- **2e done (up to the Adzuna key) — aggregators** (`feat(connectors): Adzuna and Remotive …`):
+  - Query connectors planned from packs (India + UAE × java_backend aliases); Adzuna covers India
+    only (UAE skipped with a logged reason); predicted salaries never stored; Remotive one request
+    per category, logos never stored.
+  - Daily request budgets enforced from `source_runs`; skipped sources reported by `discover`.
+  - Live check: `jobradar discover --source remotive` stored 12 real remote jobs, 0 invalid.
+  - Security fix: httpx/httpcore no longer log full URLs (API keys in query strings).
+  - 183 tests pass.
+- **STOP — waiting for the owner:** Adzuna app id and key in `.env` (sign-up steps given in chat),
+  then run `uv run jobradar discover --source adzuna`. 2f follows.
 
 ## Next steps
 
@@ -126,7 +135,8 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
 2. ~~Core building blocks~~ — done in 2b.
 3. ~~Phase 2 tables, roles, RLS, integration tests~~ — done in 2c.
 4. ~~Source policy registry (US-2.8)~~ — done in 2a (connectors re-export comes in 2d).
-5. ~~ATS connectors (US-2.1)~~ — done in 2d. Adzuna and Remotive (US-2.2) in 2e.
+5. ~~ATS connectors (US-2.1)~~ — done in 2d. ~~Adzuna and Remotive (US-2.2)~~ — done in 2e
+   (Adzuna live run waits for the owner's key).
 6. ~~Dedupe and ingest (US-2.3) and `jobradar discover` (US-2.4)~~ — done in 2d.
 7. Gmail job-alert ingestion and parsers for LinkedIn, Naukrigulf, Bayt, GulfTalent (US-2.5), with
    consent and body discard.
@@ -139,7 +149,8 @@ an HTML parser for alert emails, testcontainers (or compose services) for integr
 
 ## Open questions/decisions waiting on me
 
-- None. (Dependency approvals for Phase 2 will be requested when each is reached.)
+- Adzuna API credentials (`ADZUNA_APP_ID`, `ADZUNA_APP_KEY` in `.env`) — see the 2e summary.
+- Next dependency approval: the HTML parser for alert emails (2f).
 
 ## Known issues
 

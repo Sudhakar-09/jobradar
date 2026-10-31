@@ -5,7 +5,7 @@ from uuid import UUID
 import pytest
 
 from jobradar import cli
-from jobradar.connectors import SourceRunResult
+from jobradar.connectors import DiscoveryReport, Skipped, SourceRunResult
 from jobradar.connectors.repository import SyncCounts
 
 
@@ -35,16 +35,24 @@ def fake_run(value: object) -> Any:
 def test_discover_prints_runs_and_succeeds(
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
-    monkeypatch.setattr(cli, "run", fake_run([result("ok"), result("failed", 0, 0)]))
+    report = DiscoveryReport(
+        runs=[result("ok"), result("failed", 0, 0)],
+        skipped=[
+            Skipped(connector="adzuna", reason="ADZUNA_APP_ID and ADZUNA_APP_KEY are not set")
+        ],
+    )
+    monkeypatch.setattr(cli, "run", fake_run(report))
 
     assert cli.main(["discover"]) == 0
     output = capsys.readouterr().out
     assert "Example Logistics" in output
     assert "Total: 3 jobs found, 2 new, across 2 runs." in output
+    assert "Skipped adzuna: ADZUNA_APP_ID and ADZUNA_APP_KEY are not set" in output
 
 
 def test_discover_fails_only_when_every_run_failed(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(cli, "run", fake_run([result("failed", 0, 0), result("failed", 0, 0)]))
+    runs = [result("failed", 0, 0), result("failed", 0, 0)]
+    monkeypatch.setattr(cli, "run", fake_run(DiscoveryReport(runs=runs, skipped=[])))
 
     assert cli.main(["discover", "--source", "greenhouse"]) == 1
 
@@ -52,7 +60,7 @@ def test_discover_fails_only_when_every_run_failed(monkeypatch: pytest.MonkeyPat
 def test_discover_without_companies_explains_what_to_do(
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
-    monkeypatch.setattr(cli, "run", fake_run([]))
+    monkeypatch.setattr(cli, "run", fake_run(DiscoveryReport(runs=[], skipped=[])))
 
     assert cli.main(["discover"]) == 0
     assert "jobradar companies sync" in capsys.readouterr().out

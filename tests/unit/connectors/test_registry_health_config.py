@@ -13,13 +13,21 @@ from tests.support.fake_http import ROOT, registry
 CONNECTORS = load_connectors_file(ROOT / "config" / "connectors.yaml")
 
 
-def test_all_ats_plugins_are_registered() -> None:
-    assert set(discover_plugins()) == {
+def test_all_connector_plugins_are_registered() -> None:
+    plugins = discover_plugins()
+
+    assert set(plugins) == {
         "greenhouse",
         "lever",
         "ashby",
         "workable",
         "smartrecruiters",
+        "adzuna",
+        "remotive",
+    }
+    assert {code for code, plugin in plugins.items() if plugin.kind == "query"} == {
+        "adzuna",
+        "remotive",
     }
 
 

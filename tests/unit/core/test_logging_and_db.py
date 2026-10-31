@@ -1,3 +1,4 @@
+import logging
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any, cast
@@ -7,7 +8,7 @@ import pytest
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from jobradar.core.db import system_session, user_session
-from jobradar.core.logging import REDACTED, redact_pii
+from jobradar.core.logging import QUIET_LIBRARY_LOGGERS, REDACTED, quiet_library_loggers, redact_pii
 from jobradar.core.scope import ClientKind, Role, UserScope, system_scope
 
 pytestmark = pytest.mark.anyio
@@ -84,3 +85,11 @@ async def test_system_session_uses_corpus_role_and_binds_no_user() -> None:
 
     assert session.executed == [('SET LOCAL ROLE "jobradar_corpus"', {})]
     assert session.committed
+
+
+def test_library_loggers_that_print_full_urls_are_quiet() -> None:
+    quiet_library_loggers(logging.DEBUG)
+
+    for name in QUIET_LIBRARY_LOGGERS:
+        library_logger = logging.getLogger(name)  # noqa: TID251 -- inspecting a library logger
+        assert library_logger.getEffectiveLevel() >= logging.WARNING

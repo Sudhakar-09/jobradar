@@ -1,0 +1,21 @@
+{
+  "count": 2,
+  "results": [
+    {
+      "id": "5001001",
+      "title": "<strong>Java Backend</strong> Engineer",
+      "redirect_url": "https://www.adzuna.in/land/ad/5001001?se=fictional",
+      "company": {"display_name": "Sample Pay"},
+      "location": {"display_name": "Bengaluru, Karnataka", "area": ["India", "Karnataka", "Bengaluru"]},
+      "created": "2026-10-28T09:00:00Z"
+    },
+    {
+      "id": "5001004",
+      "title": "Java Backend Developer",
+      "redirect_url": "https://www.adzuna.in/land/ad/5001004?se=fictional",
+      "company": {"display_name": "Fictional Retail"},
+      "location": {"display_name": "Hyderabad", "area": ["India", "Telangana"]},
+      "created": "2026-10-26T09:00:00Z"
+    }
+  ]
+}

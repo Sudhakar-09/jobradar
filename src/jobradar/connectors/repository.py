@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import Final
 from uuid import UUID
 
-from sqlalchemy import func, select
+from sqlalchemy import func, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from jobradar.connectors.health import RunStatus
@@ -127,6 +127,18 @@ class SourceRunRepository:
         run.items_invalid = invalid
         run.http_status_counts = http_status_counts
         run.error_summary = error
+
+    async def requests_since(self, connector: str, since: datetime) -> int:
+        """HTTP requests a connector made since ``since`` (sum of its runs' status counts)."""
+        total = await self._session.scalar(
+            text(
+                "SELECT coalesce(sum(counts.value::int), 0) FROM source_runs, "
+                "jsonb_each_text(source_runs.http_status_counts) AS counts "
+                "WHERE source_runs.connector = :connector AND source_runs.started_at >= :since"
+            ),
+            {"connector": connector, "since": since},
+        )
+        return int(total or 0)
 
     async def average_found(
         self, connector: str, company_id: UUID | None, since: datetime

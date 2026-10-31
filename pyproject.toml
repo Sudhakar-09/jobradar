@@ -48,6 +48,8 @@ lever = "jobradar.connectors.plugins.lever:LeverConnector"
 ashby = "jobradar.connectors.plugins.ashby:AshbyConnector"
 workable = "jobradar.connectors.plugins.workable:WorkableConnector"
 smartrecruiters = "jobradar.connectors.plugins.smartrecruiters:SmartRecruitersConnector"
+adzuna = "jobradar.connectors.plugins.adzuna:AdzunaConnector"
+remotive = "jobradar.connectors.plugins.remotive:RemotiveConnector"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

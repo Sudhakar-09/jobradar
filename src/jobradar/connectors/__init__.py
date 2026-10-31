@@ -8,6 +8,8 @@ from jobradar.connectors.schemas import (
     SourceRunResult,
 )
 from jobradar.connectors.service import (
+    DiscoveryReport,
+    Skipped,
     assert_allowed,
     discover,
     hosts_with_mode,
@@ -18,8 +20,10 @@ from jobradar.connectors.service import (
 __all__ = [
     "CompanyEntry",
     "CompanyRef",
+    "DiscoveryReport",
     "FetchResult",
     "RawJob",
+    "Skipped",
     "SourceRunResult",
     "assert_allowed",
     "discover",

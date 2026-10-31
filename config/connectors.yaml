@@ -20,3 +20,16 @@ connectors:
     page_size: 100
     max_pages: 10
     posting_url: https://jobs.smartrecruiters.com/{slug}/{id}
+
+  # --- Aggregators (one run per connector covering all market × role queries) ---
+  adzuna:
+    list_url: https://api.adzuna.com/v1/api/jobs/{country}/search/{page}
+    params: {results_per_page: 50, max_days_old: 3, content-type: application/json}
+    max_pages: 2
+    # Market pack code → Adzuna country path. Adzuna does not cover the UAE (skipped, logged).
+    countries: {india: in}
+  remotive:
+    list_url: https://remotive.com/api/remote-jobs
+    params: {}
+    # Role taxonomy field → Remotive category (one request per category per run).
+    categories: {software_it: software-dev}

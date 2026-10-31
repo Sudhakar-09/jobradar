@@ -149,7 +149,14 @@ available in the repository.
   `config/connectors.yaml`. Response shapes were checked once against the live public APIs through
   `PoliteClient` (that probe also found and fixed a bug: query strings already in a URL were
   dropped); committed fixtures are synthetic. Health rule refined: drop and zero-job alerts apply
-  only to sources averaging ≥ 5 jobs a week, because quiet sources swing too much. Location
+  only to sources averaging ≥ 5 jobs per run over the last 7 days, because quiet sources swing
+  too much. Location
   aliases for dedupe live in `config/locations.yaml`. Known limits: SmartRecruiters descriptions
   are not fetched (one extra request per posting); Workable's posting fields follow its documented
   format until 2g verifies a live account with open jobs.
+- **Phase 2e (2026-10-30):** Adzuna (India) and Remotive (remote) are query connectors planned
+  from packs (country market × role aliases). Predicted salaries from Adzuna are never stored.
+  Per-day request budgets from source policies are enforced from recorded runs. A live Remotive
+  check (1 request) stored 12 real remote jobs with 0 invalid items. That run also showed httpx
+  logging full request URLs at INFO; httpx/httpcore loggers are now held at WARNING so API keys in
+  query strings never reach logs.

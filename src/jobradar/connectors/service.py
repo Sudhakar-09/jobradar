@@ -21,6 +21,7 @@ from jobradar.connectors.config import (
     policy_registry,
 )
 from jobradar.connectors.health import evaluate_health
+from jobradar.connectors.queries import plan_queries
 from jobradar.connectors.registry import check_connectors, discover_plugins
 from jobradar.connectors.repository import CompanyRepository, SourceRunRepository, SyncCounts
 from jobradar.connectors.schemas import (
@@ -29,12 +30,14 @@ from jobradar.connectors.schemas import (
     ConnectorsFile,
     FetchContext,
     FetchResult,
+    SourceQuery,
     SourceRunResult,
 )
 from jobradar.core.clock import Clock, SystemClock
 from jobradar.core.db import system_session
 from jobradar.core.errors import ExternalServiceError, PolicyDeniedError, SchemaDriftError
 from jobradar.core.http import PoliteClient
+from jobradar.core.packs import load_market_packs, load_role_packs
 from jobradar.core.scope import system_scope
 from jobradar.core.settings import get_settings
 from jobradar.core.source_policies import AccessMode, SourcePolicy, SourcePolicyRegistry
@@ -75,10 +78,34 @@ async def sync_companies(*, factory: Factory = None) -> SyncCounts:
 
 
 @dataclass(frozen=True, slots=True)
+class Skipped:
+    """A connector that did not run, and why (e.g. not configured, daily budget reached)."""
+
+    connector: str
+    reason: str
+
+
+@dataclass(frozen=True, slots=True)
+class DiscoveryReport:
+    """Everything one discovery pass did."""
+
+    runs: list[SourceRunResult]
+    skipped: list[Skipped]
+
+
+@dataclass(frozen=True, slots=True)
 class _Plan:
     connectors: dict[str, Connector]
     config: ConnectorsFile
     companies: list[CompanyRef]
+    queries: tuple[SourceQuery, ...]
+
+
+def _load_queries() -> tuple[SourceQuery, ...]:
+    packs_dir = get_settings().packs_dir
+    return plan_queries(
+        load_market_packs(packs_dir / "markets"), load_role_packs(packs_dir / "roles")
+    )
 
 
 async def _plan(source: str | None, company_id: UUID | None, factory: Factory) -> _Plan:
@@ -93,7 +120,8 @@ async def _plan(source: str | None, company_id: UUID | None, factory: Factory) -
         companies = await CompanyRepository(session).for_discovery(
             ats=source, company_id=company_id
         )
-    return _Plan(connectors=connectors, config=config, companies=companies)
+    queries = () if company_id is not None else _load_queries()
+    return _Plan(connectors=connectors, config=config, companies=companies, queries=queries)
 
 
 async def discover(
@@ -103,24 +131,47 @@ async def discover(
     clock: Clock | None = None,
     client_factory: ClientFactory = _default_client,
     factory: Factory = None,
-) -> list[SourceRunResult]:
-    """Run every active company board (optionally one source or company); one run each.
+) -> DiscoveryReport:
+    """Run every active company board and every aggregator (optionally one source or company).
 
-    A failing board never stops the others; each run is recorded in ``source_runs``.
+    A failing source never stops the others; each run is recorded in ``source_runs``.
+    Aggregators that are not configured or have used their daily request budget are skipped
+    with a reason.
     """
     plan = await _plan(source, company_id, factory)
     clock = clock or SystemClock()
-    results: list[SourceRunResult] = []
+    report = DiscoveryReport(runs=[], skipped=[])
     async with client_factory(policy_registry()) as http:
         for company in plan.companies:
             connector = plan.connectors.get(company.ats)
-            if connector is None:
+            if connector is not None and connector.kind == "company":
+                settings = plan.config.connectors[company.ats]
+                ctx = FetchContext(http=http, settings=settings, company=company)
+                report.runs.append(await _run(connector, ctx, clock, factory))
+        for code, connector in sorted(plan.connectors.items()):
+            if connector.kind != "query" or not plan.queries or source not in (None, code):
                 continue
-            ctx = FetchContext(
-                http=http, settings=plan.config.connectors[company.ats], company=company
-            )
-            results.append(await _run(connector, ctx, clock, factory))
-    return results
+            reason = connector.is_configured() or await _budget_reason(connector, clock, factory)
+            if reason is not None:
+                logger.info("connectors.run_skipped", connector=code, reason=reason)
+                report.skipped.append(Skipped(connector=code, reason=reason))
+                continue
+            settings = plan.config.connectors[code]
+            ctx = FetchContext(http=http, settings=settings, queries=plan.queries)
+            report.runs.append(await _run(connector, ctx, clock, factory))
+    return report
+
+
+async def _budget_reason(connector: Connector, clock: Clock, factory: Factory) -> str | None:
+    per_day = policy_registry().policy_for(connector.hosts[0]).rate_limit.per_day
+    if per_day is None:
+        return None
+    start_of_day = clock.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    async with system_session(system_scope("discover.budget"), factory=factory) as session:
+        used = await SourceRunRepository(session).requests_since(connector.code, start_of_day)
+    if used >= per_day:
+        return f"daily request budget reached ({used}/{per_day} today, UTC)"
+    return None
 
 
 @dataclass(slots=True)

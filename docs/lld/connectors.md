@@ -535,3 +535,22 @@ bodies, job descriptions.
 1. Workable and SmartRecruiters public endpoint terms: confirm and record `last_reviewed` before
    enabling `ats_feed` for them.
 2. Inbound mail provider for forwarding addresses (Phase 11).
+
+## 11. Implementation notes (Phase 2d–2e)
+
+- **Connector kinds:** `company` (one run per catalogued ATS board) and `query` (aggregators: one
+  run per connector covering every `SourceQuery`). Queries are planned from packs
+  (`connectors/queries.py`): one per (country market × role), with the role's title aliases as
+  search terms. The corpus is shared, so queries cover configured markets and roles, not one user.
+- **Adzuna:** `what_phrase` per alias, `max_days_old: 3`, up to `max_pages` pages; markets without
+  a `countries` entry (the UAE) are skipped with `connectors.adzuna_country_not_covered`.
+  Predicted salaries (`salary_is_predicted = 1`) are never stored. Duplicates across aliases are
+  dropped within a run. Needs `ADZUNA_APP_ID`/`ADZUNA_APP_KEY`; otherwise discovery reports it as
+  skipped. Display rule for Phase 4: Adzuna results carry attribution.
+- **Remotive:** one request per mapped role-field category; naive timestamps treated as UTC;
+  company logos are never stored or loaded.
+- **Daily budgets:** before an aggregator runs, the requests it made today (UTC, sum of
+  `source_runs.http_status_counts`) are compared with its policy's `per_day`; at or over budget
+  it is skipped with a reason. A run may overshoot by at most one run's requests.
+- **Logging:** httpx/httpcore loggers are kept at WARNING because they print full URLs, and query
+  strings can hold API keys.

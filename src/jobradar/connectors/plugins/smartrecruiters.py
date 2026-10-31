@@ -5,7 +5,7 @@ requests, so descriptions are left empty in Phase 2 and filled later if matching
 """
 
 from datetime import datetime
-from typing import ClassVar, Final
+from typing import ClassVar, Final, Literal
 
 from pydantic import BaseModel, ConfigDict, HttpUrl, JsonValue
 
@@ -53,8 +53,13 @@ class SmartRecruitersConnector:
     """Reads `/v1/companies/{slug}/postings` page by page."""
 
     code: ClassVar[str] = "smartrecruiters"
+    kind: ClassVar[Literal["company", "query"]] = "company"
     mode: ClassVar[AccessMode] = AccessMode.ATS_FEED
     hosts: ClassVar[tuple[str, ...]] = ("api.smartrecruiters.com",)
+
+    def is_configured(self) -> str | None:
+        """Public board API: no credentials needed."""
+        return None
 
     async def fetch(self, ctx: FetchContext) -> FetchResult:
         """Fetch every posting, following pagination up to the configured page limit."""
