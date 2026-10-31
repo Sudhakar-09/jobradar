@@ -14,7 +14,7 @@ policies) or a registered plug-in**. Adding a country or role needs no core code
 
 - **Rollout:** design for everyone, launch with one user (Stage 1: the owner), then friends
   (Stage 2: invite-only), then the public (Stage 3). Code is multi-tenant-correct from day one.
-- **First configuration (user #1):** India + UAE, Java backend, persona/seniority `mid`. It is a
+- **First configuration (user #1):** India + UAE + Germany (Germany added 2026-10-31), Java backend, persona/seniority `mid`. It is a
   configuration, not the scope.
 - **Surfaces:** the **web app (PWA)** is the main product; the **browser extension** handles
   logged-in portals with the user in control; **email, web push and Telegram** are optional
@@ -216,7 +216,7 @@ Phases 8–10, Stage 3 = Phase 11.
   dedupe, `source_runs` and health, company catalogue + verify + suggestions, source policy
   registry, golden datasets and conformance v1. ✅ `jobradar discover` stores fresh deduplicated
   jobs from every source including alerts; fixture/golden tests per connector and parser;
-  conformance green for India and UAE; ≥ 30 verified UAE-hiring companies.
+  conformance green for India, UAE and Germany; ≥ 30 verified UAE-hiring companies.
 - **Phase 3 — Normalize & match.** Normalizer, taxonomy, compensation models + FX, LLM gateway with
   metering and budgets, profiles in the DB, resume draft parsing, embeddings, tiered matching,
   eligibility, ranking, synthetic users. ✅ `jobradar matches --top 20` with reasons and pay

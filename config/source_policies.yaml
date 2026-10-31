@@ -97,6 +97,22 @@ policies:
     notes: No scraping, filling or clicking. The extension uses the side panel only.
     last_reviewed: 2026-10-30
 
+  - id: stepstone
+    name: StepStone
+    hosts: [stepstone.de, "*.stepstone.de"]
+    modes: [alert_email, one_tap]
+    rate_limit: {per_minute: 1, burst: 1}
+    notes: Germany job board. Alert emails and one-tap only; no scraping, filling or clicking.
+    last_reviewed: 2026-10-31
+
+  - id: xing
+    name: XING
+    hosts: [xing.com, "*.xing.com"]
+    modes: [alert_email, one_tap]
+    rate_limit: {per_minute: 1, burst: 1}
+    notes: German-speaking professional network. Alert emails and one-tap only; no scraping.
+    last_reviewed: 2026-10-31
+
   - id: naukri
     name: Naukri
     hosts: [naukri.com, "*.naukri.com"]

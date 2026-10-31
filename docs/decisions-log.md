@@ -226,3 +226,13 @@ available in the repository.
   (outside the repo); `scripts/archive/anonymize_alert_email.py` rebuilds it with the same HTML
   layout and fake text, IDs, links and headers, checks that no original detail remains, and the
   original is deleted. Email contents are never shown in chat or logs.
+- **Germany added as a market (owner, 2026-10-31):** the owner's LinkedIn alerts kept returning
+  German jobs, so Germany becomes a full market for user #1 (with India and the UAE), moved to the
+  top of the rollout list. Pack `packs/markets/germany.yaml`: EUR, annual gross, `germany_gross`
+  compensation model (Phase 3), EU Blue Card / skilled worker / Opportunity Card routes, anabin
+  degree recognition, CV photo and nationality off by default. Sources: company ATS boards,
+  LinkedIn, StepStone, XING, Indeed — the job boards are alert email + one-tap only (new
+  StepStone and XING source policies). StepStone and XING alert parsers are added once real
+  alerts exist (anonymized fixture rule). German cities added to `config/locations.yaml`;
+  Adzuna maps `germany` → `de` for when it is enabled. Germany joins the 2h conformance suite.
+  A Germany company list is built like the UAE and India ones.

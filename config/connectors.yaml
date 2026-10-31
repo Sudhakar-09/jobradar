@@ -38,7 +38,7 @@ connectors:
     params: {results_per_page: 50, max_days_old: 3, content-type: application/json}
     max_pages: 2
     # Market pack code → Adzuna country path. Adzuna does not cover the UAE (skipped, logged).
-    countries: {india: in}
+    countries: {india: in, germany: de}
   remotive:
     list_url: https://remotive.com/api/remote-jobs
     params: {}

@@ -6,7 +6,7 @@
 | Version | **0.4 (2026-10-30)**: tiered matching pipeline and cost target (ADR-0023); multi-market and multi-role quality gates, synthetic users, golden datasets, UI matrix, market rollout plan (ADR-0024); extension side panel on one-tap hosts; owner seniority = mid |
 | Previous | 0.3: product for everyone (ADR-0013); web app + design system (ADR-0014, 0015); browser extension (ADR-0016); auth, privacy, quotas, i18n, taxonomy, source policies (ADR-0017 … 0022). 0.2: owner review of section 9; Gmail alert ingestion in Phase 2 |
 | Source of truth | `CLAUDE.md` (rules, phases — updated in Step 7 to match this PRD), `docs/PRODUCT_STANDARDS.md` (quality bar) |
-| First configuration | User #1 (owner): India + UAE, Java Backend, seniority set in profile |
+| First configuration | User #1 (owner): India + UAE + Germany, Java Backend, seniority set in profile |
 
 Story IDs (`US-<phase>.<n>`) are stable. LLDs, tests and commits reference them. When a story
 changes, edit it in place and note the change in `docs/decisions-log.md`. Stories that existed in
@@ -176,8 +176,22 @@ LinkedIn and Indeed: `alert_email` + `one_tap` only. Gulf boards (Bayt, Naukrigu
 GulfTalent): `alert_email` + `one_tap`. Public ATS boards: `ats_feed` (+ `extension_assist`
 and server-side apply where the ATS allows).
 
-### 4.5 First configuration: India + UAE (user #1)
-These remain fully specified because they are the first packs to ship and test G9.
+### 4.5 First configuration: India + UAE + Germany (user #1)
+These remain fully specified because they are the first packs to ship and test G9. Germany was
+added on 2026-10-31 at the owner's request, after the owner's LinkedIn alerts kept returning
+German jobs.
+
+**Germany (`germany`)** — EUR; usually **annual gross** (Bruttojahresgehalt), sometimes a range;
+net estimate deducts income tax by tax class, solidarity surcharge where it applies, church tax
+for members and employee social contributions (`germany_gross` compensation model, Phase 3).
+Work authorization: EU Blue Card, skilled worker permit, Opportunity Card (per-country
+`visa_status`; none needs employer sponsorship, but each needs a qualifying offer or points).
+Foreign degrees checked against anabin (ZAB). Channels: (1) **job-alert emails** (LinkedIn,
+StepStone, XING, Indeed; alert email + one-tap only); (2) ATS feeds for catalogued
+Germany-hiring companies; (3) Adzuna (`de`) when the paid plan is taken. CV term Lebenslauf;
+photo customary but **off by default** like every sensitive field; nationality off by default.
+Many tech teams work in English, but German is often required: language requirements come from
+each posting.
 
 **India (`india`)** — INR; annual CTC with fixed/variable; in-hand estimate: CTC → fixed →
 minus employee PF, professional tax and income tax → monthly; **new tax regime by default,
@@ -641,9 +655,9 @@ locale formatting.
 Markets are enabled one at a time behind a feature flag (`market.<code>.enabled`). Priority
 order (reviewed quarterly against user demand):
 
-1. India + UAE (launch markets)
-2. Saudi Arabia · 3. Qatar · 4. United Kingdom · 5. United States · 6. Canada · 7. Germany ·
-8. Singapore · 9. Australia · 10. Remote (global and regional)
+1. India + UAE + Germany (launch markets; Germany added 2026-10-31)
+2. Saudi Arabia · 3. Qatar · 4. United Kingdom · 5. United States · 6. Canada · 7. Singapore ·
+8. Australia · 9. Remote (global and regional)
 
 **Checklist per market (all required before the flag is turned on for users):**
 - [ ] Market pack verified against official sources (`last_verified` set; links recorded)

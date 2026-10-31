@@ -17,6 +17,8 @@ SETTINGS = load_connectors_file(ROOT / "config" / "connectors.yaml").connectors
 QUERIES = plan_queries(
     load_market_packs(ROOT / "packs" / "markets"), load_role_packs(ROOT / "packs" / "roles")
 )
+INDIA_UAE = tuple(q for q in QUERIES if q.market in {"india", "uae"})
+INDIA = tuple(q for q in QUERIES if q.market == "india")
 CREDENTIALS = Settings.model_validate({"adzuna_app_id": "id-123", "adzuna_app_key": "key-456"})
 
 
@@ -27,6 +29,7 @@ def anyio_backend() -> str:
 
 def test_queries_cover_every_country_market_and_role() -> None:
     assert {(q.market, q.country, q.role) for q in QUERIES} == {
+        ("germany", "DE", "java_backend"),
         ("india", "IN", "java_backend"),
         ("uae", "AE", "java_backend"),
     }
@@ -59,7 +62,7 @@ async def test_adzuna_searches_covered_markets_only_and_never_keeps_predicted_sa
         )
 
     async with polite_client(handler) as http:
-        ctx = FetchContext(http=http, settings=SETTINGS["adzuna"], queries=QUERIES)
+        ctx = FetchContext(http=http, settings=SETTINGS["adzuna"], queries=INDIA_UAE)
         result = await AdzunaConnector(CREDENTIALS).fetch(ctx)
 
     assert {url.path for url in requests} == {"/v1/api/jobs/in/search/1"}  # UAE not covered
@@ -84,10 +87,25 @@ async def test_adzuna_stops_paging_when_a_page_is_short(tmp_path: Path) -> None:
         return httpx.Response(200, json={"results": []})
 
     async with polite_client(handler) as http:
-        ctx = FetchContext(http=http, settings=SETTINGS["adzuna"], queries=QUERIES[:1])
+        ctx = FetchContext(http=http, settings=SETTINGS["adzuna"], queries=INDIA)
         await AdzunaConnector(CREDENTIALS).fetch(ctx)
 
-    assert calls == ["/v1/api/jobs/in/search/1"] * len(QUERIES[0].terms)
+    assert calls == ["/v1/api/jobs/in/search/1"] * len(INDIA[0].terms)
+
+
+async def test_adzuna_maps_germany_to_its_country_path() -> None:
+    calls: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls.append(request.url.path)
+        return httpx.Response(200, json={"results": []})
+
+    germany = tuple(q for q in QUERIES if q.market == "germany")
+    async with polite_client(handler) as http:
+        ctx = FetchContext(http=http, settings=SETTINGS["adzuna"], queries=germany)
+        await AdzunaConnector(CREDENTIALS).fetch(ctx)
+
+    assert set(calls) == {"/v1/api/jobs/de/search/1"}
 
 
 async def test_adzuna_refuses_to_fetch_without_credentials() -> None:

@@ -1,0 +1,107 @@
+code: germany
+name: Germany
+kind: country
+country_codes: [DE]
+
+money:
+  currency: EUR
+  quoted_periods: [year, month]
+  default_period: year
+  quoted_bases: [gross]
+  default_basis: gross
+  common_allowances: [13th month salary, holiday pay, bonus, company pension]
+  income_tax: progressive
+  compensation_model: germany_gross
+  notes: >-
+    Usually quoted as annual gross salary (Bruttojahresgehalt), sometimes as a range. Net pay
+    deducts income tax (by tax class), solidarity surcharge where it applies, church tax for
+    members, and employee social contributions (pension, health, long-term care and unemployment
+    insurance). Confirm whether a figure includes bonus or 13th month pay.
+
+locales:
+  - {code: de-DE, rtl: false}
+  - {code: en-DE, rtl: false}
+default_locale: en-DE
+
+cv:
+  format: de
+  term: Lebenslauf (CV)
+  length_pages: [1, 2]
+  photo_customary: true
+  fields_default_on: [current_location, visa_status, notice_period]
+  fields_default_off: [photo, date_of_birth, marital_status, nationality, driving_licence]
+  section_order: [summary, experience, education, skills, certifications]
+
+visa_routes:
+  - name: EU Blue Card
+    summary: >-
+      For non-EU graduates with a recognised or comparable degree and a qualifying job offer
+      above a minimum gross salary that is set each year (lower for shortage occupations such as
+      IT). IT specialists may qualify through professional experience without a degree. Verify
+      the current thresholds before relying on them.
+    sponsor_required: false
+    official_url: https://www.make-it-in-germany.com/en/visa-residence/types/eu-blue-card
+  - name: Skilled worker residence permit
+    summary: >-
+      For non-EU skilled workers with a recognised qualification and a concrete job offer that
+      matches it. Verify current requirements with the German authorities.
+    sponsor_required: false
+    official_url: https://www.make-it-in-germany.com/en/visa-residence/types/work-qualified-professionals
+  - name: Opportunity Card (Chancenkarte)
+    summary: >-
+      A points-based permit to come to Germany and look for work for up to a year, with limited
+      part-time work allowed meanwhile. Verify current eligibility rules.
+    sponsor_required: false
+    official_url: https://www.make-it-in-germany.com/en/visa-residence/types/job-search-opportunity-card
+sponsor_register_source: null
+nationality_restricted_programmes: []
+
+sources:
+  - code: company_ats
+    name: Company career pages and ATS boards (curated Germany-hiring companies)
+    kind: ats
+    access_modes: [ats_feed, extension_assist]
+  - code: linkedin
+    name: LinkedIn
+    kind: professional_network
+    hosts: [linkedin.com, "*.linkedin.com"]
+    access_modes: [alert_email, one_tap]
+  - code: stepstone
+    name: StepStone
+    kind: job_board
+    hosts: [stepstone.de, "*.stepstone.de"]
+    access_modes: [alert_email, one_tap]
+  - code: xing
+    name: XING
+    kind: professional_network
+    hosts: [xing.com, "*.xing.com"]
+    access_modes: [alert_email, one_tap]
+  - code: indeed
+    name: Indeed
+    kind: job_board
+    hosts: [indeed.com, "*.indeed.com"]
+    access_modes: [alert_email, one_tap]
+
+notice_period_norm: >-
+  Statutory notice is four weeks for new employees and grows with tenure; contracts for
+  experienced staff often set one to three months, frequently to the end of a month or quarter.
+  Use the candidate's stated notice period and earliest joining date.
+hiring_seasons: []
+language_notes: >-
+  Many tech teams in Berlin, Munich and Hamburg work in English, but German is often required or
+  preferred, especially outside large tech companies and for customer-facing roles. Use language
+  requirements from each individual job posting.
+credential_recognition:
+  - field: software_it
+    authority: Central Office for Foreign Education (ZAB), anabin database
+    url: https://anabin.kmk.org/
+    notes: >-
+      The EU Blue Card and skilled worker permit need a degree that is recognised or comparable
+      to a German one; anabin shows how foreign universities and degrees are rated. IT
+      specialists can sometimes qualify by experience instead.
+
+provenance:
+  last_verified: null
+  references:
+    - title: Make it in Germany (official portal for skilled workers)
+      url: https://www.make-it-in-germany.com/en/

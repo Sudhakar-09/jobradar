@@ -196,6 +196,13 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   unparsed emails: **76 jobs, 55 new, all 14 messages parsed**. 23 jobs are in India, none in the
   UAE (the owner's LinkedIn alert may cover India only). 285 tests pass, coverage 96 %.
 
+- **Germany market added (owner, 2026-10-31):** `packs/markets/germany.yaml` (EUR annual gross,
+  Blue Card / skilled worker / Opportunity Card, anabin, alert-email + one-tap boards LinkedIn,
+  StepStone, XING, Indeed), StepStone and XING source policies, German cities, Adzuna `de`
+  mapping, owner profile `target_markets` now india, uae, germany. CLAUDE.md, PRD §4.5 and
+  rollout list, normalizer LLD (`germany_gross` model in Phase 3) updated. Germany company list
+  and Germany conformance follow. 287 tests pass.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:

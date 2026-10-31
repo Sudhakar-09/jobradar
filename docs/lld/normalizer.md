@@ -20,7 +20,7 @@
   restriction, required languages and credentials.
 - Parse **salary** into amount, currency, period and basis, and compute the neutral
   `salary_annual_usd` at a dated FX rate.
-- Provide the **`CompensationModel`** plug-in interface and the India and UAE models used for
+- Provide the **`CompensationModel`** plug-in interface and the India, UAE and Germany models used for
   pay comparison (US-3.5) and offers (US-9.4).
 - Compute **shared job embeddings** once per content hash (ADR-0023).
 - Mark jobs `expired` when sources stop listing them.
@@ -277,6 +277,7 @@ classDiagram
     }
     class IndiaCompensationModel
     class UaeCompensationModel
+    class GermanyCompensationModel
     class ConfigFxTable {
         +rate(from, to) FxRate
     }
@@ -301,6 +302,7 @@ classDiagram
     Rule <|.. GhostScamScorer
     CompensationModel <|.. IndiaCompensationModel
     CompensationModel <|.. UaeCompensationModel
+    CompensationModel <|.. GermanyCompensationModel
     NormalizerService --> CompensationModel
     CompensationModel --> ConfigFxTable
 ```

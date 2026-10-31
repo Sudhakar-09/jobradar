@@ -42,7 +42,7 @@ def test_repository_packs_load_and_validate() -> None:
     roles = {pack.code: pack for pack in load_role_packs(PACKS / "roles")}
     personas = {pack.code: pack for pack in load_persona_packs(PACKS / "personas")}
 
-    assert set(markets) == {"india", "uae"}
+    assert set(markets) == {"germany", "india", "uae"}
     assert markets["india"].currency == "INR"
     assert markets["uae"].currency == "AED"
     assert roles["java_backend"].isco_08 == "2512"
@@ -65,6 +65,22 @@ def test_uae_pack_matches_owner_decisions() -> None:
     assert set(uae.cv.fields_default_off) >= SENSITIVE_CV_FIELDS
     for code in ("linkedin", "naukrigulf", "bayt", "gulftalent"):
         source = next(s for s in uae.sources if s.code == code)
+        assert source.access_modes == {AccessMode.ALERT_EMAIL, AccessMode.ONE_TAP}
+
+
+def test_germany_pack_quotes_annual_gross_euros_and_hides_sensitive_fields() -> None:
+    germany = load_market_pack(PACKS / "markets" / "germany.yaml")
+
+    assert germany.currency == "EUR"
+    assert (germany.money.default_period, germany.money.default_basis) == ("year", "gross")
+    assert germany.money.compensation_model == "germany_gross"
+    assert germany.rtl is False
+    assert {"EU Blue Card", "Opportunity Card (Chancenkarte)"} <= {
+        route.name for route in germany.visa_routes
+    }
+    assert set(germany.cv.fields_default_off) >= SENSITIVE_CV_FIELDS | {CvField.NATIONALITY}
+    for code in ("linkedin", "stepstone", "xing", "indeed"):
+        source = next(s for s in germany.sources if s.code == code)
         assert source.access_modes == {AccessMode.ALERT_EMAIL, AccessMode.ONE_TAP}
 
 
