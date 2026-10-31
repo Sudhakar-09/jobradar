@@ -1,9 +1,19 @@
 # JobRadar
 
-JobRadar is a self-hosted job search operating system. Phase 0 provides the development scaffold;
-Phase 1 adds validated profile, answer-bank, and pack loading, plus conservative plain-text resume
-parsing.
-See [the product standards](docs/PRODUCT_STANDARDS.md) for the product-wide design requirements.
+JobRadar is a job search operating system for anyone, in any role and country: it discovers jobs,
+explains matches, prepares and tracks applications, and never fabricates facts or spams
+employers. Phase 0 provides the development scaffold; Phase 1 adds validated profile,
+answer-bank, and pack loading, plus conservative plain-text resume parsing. The full design is
+documented and approved; Phase 2 (Discovery) is next.
+
+- Start here: [CLAUDE.md](CLAUDE.md) (rules, phases, workflow) and [docs/prd.md](docs/prd.md).
+- Architecture: [docs/architecture.md](docs/architecture.md), [docs/adr/](docs/adr/README.md),
+  [docs/lld/](docs/lld/README.md), API: [docs/api.md](docs/api.md).
+- Quality: [docs/coding-standards.md](docs/coding-standards.md),
+  [docs/PRODUCT_STANDARDS.md](docs/PRODUCT_STANDARDS.md).
+- Design: [docs/design-system.md](docs/design-system.md), [docs/ux.md](docs/ux.md).
+- Contributing: `uv sync --group dev && uv run pre-commit install`, then
+  `uv run pre-commit run --all-files`.
 
 ## Phase 1 — Profile and packs
 

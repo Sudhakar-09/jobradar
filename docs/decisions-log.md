@@ -118,3 +118,15 @@ available in the repository.
 - **Brand direction (owner, 2026-10-30, ADR-0025):** Direction A "Calm Compass" (teal, Inter +
   Noto Sans Arabic, radius 8/10/14 px, gentle motion), with Direction B's celebration animation
   used only for interviews and offers. `docs/design-system.md` and `docs/ux.md` written from it.
+- **Step 6 review (owner, 2026-10-30):** design system and UX approved.
+  - Swipe gestures on by default with a one-time hint and visible buttons. Swipe right = queue to
+    apply with a 10-second undo (never an immediate final submit); swipe left = skip with undo.
+  - Tier 1 possible matches appear only in Jobs (Possible tab), never on Today or in digests.
+  - Privacy rule: no remote images in emails (coloured initials badges for companies). The web app
+    and extension load images only from our own origin; company logos are fetched server-side and
+    served through our caching proxy (`GET /companies/{company_id}/logo`, Phase 4). Contract change
+    reason: this privacy rule. Adds access mode `logo_fetch` (ADR-0022 amendment) and
+    `companies.logo_*` columns (Phase 4 expand).
+- **Step 7 (2026-10-30):** `CLAUDE.md` rewritten to match the final PRD, HLD, phases, schedules
+  and standards, including the per-phase workflow, the "nothing only in a scratch folder" rule and
+  commit-and-push after every step. The documentation gate before Phase 2 is lifted.

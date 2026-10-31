@@ -2,10 +2,10 @@
 
 ## Current phase
 
-Phase 1 — Profile & packs is implemented and validated. The engineering documentation step is
-in progress (Steps 1–5 done; Step 6 drafted and awaiting review; Step 7 next). Phase 2 —
-Discovery starts after Step 7. The active checkout is
-`C:\dev\jobradar`; do not continue work from the retained OneDrive copy.
+**Design stage complete (2026-10-30).** Phases 0–1 are built; the engineering documentation
+(PRD, HLD + ADRs, LLD, API contract, coding standards and tooling, design system and UX,
+`CLAUDE.md`) is approved and pushed. **Next: Phase 2 — Discovery.** The active checkout is
+`C:\dev\jobradar`; do not use the retained OneDrive copy.
 
 ## Done (with commit hashes)
 
@@ -55,31 +55,48 @@ Discovery starts after Step 7. The active checkout is
   - `build: use the official pgvector PostgreSQL 16 image` and `chore(packs): add mid persona pack`.
   - Local, git-ignored `config/profile.yaml` sets persona and seniority `mid` for the owner.
 
+- Step 6 — design system and UX: brand Direction A "Calm Compass" with Direction B's
+  celebration for interviews and offers (ADR-0025); `docs/design-system.md`, `docs/ux.md`
+  (`c966196`), then the owner's UX answers: swipe right = queue to apply with undo, possible
+  matches only in Jobs, no remote images in emails, logos only via our caching proxy
+  (`GET /companies/{company_id}/logo`, Phase 4; ADR-0022 amendment).
+- Step 7 — `CLAUDE.md` rewritten for the final design: product for everyone, rules (incl.
+  scratch-folder and commit-and-push-every-step rules), documentation map, stack, layout, data
+  model, schedules per user time zone, phases 0–11 with acceptance criteria, per-story workflow.
+  Documentation gate before Phase 2 lifted.
+
 ## In progress
 
-- Step 6 — UX and design system: owner chose Direction A "Calm Compass" with Direction B's
-  celebration for interviews and offers (ADR-0025). `docs/design-system.md` (brand, voice,
-  colour tokens with measured contrast, type, layout, motion, tokens build, components, icons,
-  illustrations, accessibility, RTL, Storybook process) and `docs/ux.md` (principles, IA, global
-  patterns, 8 journeys, 13 screens, digest channels) written and pushed; awaiting owner review.
+- None.
 
 ## Next steps
 
-- Step 6: owner review of `docs/design-system.md` and `docs/ux.md` (open UX questions in ux.md §8).
-- Step 7: update `CLAUDE.md` (workflow per phase, revised phases 0–11, stack and layout changes,
-  scratch-folder rule, commit and push after every step), remove the documentation gate below,
-  commit and push.
-- Phase 2 — Discovery (after Step 7), starting with the Phase 1 follow-ups: extend the
-  `MarketPack`/`RolePack`/`PersonaPack` schemas (US-1.2 AC2/AC3), add Naukrigulf and channel
-  access modes to the UAE pack, then connectors, alert ingestion, company catalogue, source
-  policies, golden datasets and conformance v1 (US-2.1 … US-2.9).
-- Replace the plain-text resume parser placeholder with LLM-based PDF and DOCX parsing after the
-  LLM wrapper exists (Phase 3/4, US-1.4); add `pypdf` and `python-docx` at that time.
+**Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:
+1. Phase 1 follow-ups (US-1.2 AC2/AC3): extend `MarketPack`/`RolePack`/`PersonaPack` schemas
+   (currency conventions, locale/RTL, CV field defaults, sources with access modes, credentials,
+   hiring patterns, persona defaults); add Naukrigulf and access modes to the UAE pack.
+2. Core building blocks the phase needs: `core.errors`, `core.scope`, `core.clock`, `core.ids`,
+   `core.http` (shared httpx client with timeouts, retries, User-Agent, SSRF guard), log PII
+   processor, async DB session with `SET LOCAL app.user_id`.
+3. Migration `0002_phase2_discovery` (database.md §9): users (minimal), companies, source_runs,
+   jobs, job_sources, alert_inboxes, alert_messages, company_suggestions, consents,
+   settings_flags, audit_log, dead_letters; DB roles and RLS; integration tests in CI.
+4. Source policy registry (US-2.8) and `config/source_policies.yaml`.
+5. Connectors (US-2.1, US-2.2): Greenhouse, Lever, Ashby, Workable, SmartRecruiters, Adzuna,
+   Remotive, with fixture tests and `source_runs`.
+6. Dedupe and ingest (US-2.3) and `jobradar discover` (US-2.4).
+7. Gmail job-alert ingestion and parsers for LinkedIn, Naukrigulf, Bayt, GulfTalent (US-2.5), with
+   consent and body discard.
+8. Connector health and `degraded` detection (US-2.6).
+9. Company catalogue, `jobradar companies verify`, suggestions from alerts; ≥ 30 verified
+   UAE-hiring companies (US-2.7).
+10. Golden datasets for India and UAE and conformance suite v1 (US-2.9).
+New dependencies expected and needing approval when reached: Google API client (Gmail),
+an HTML parser for alert emails, testcontainers (or compose services) for integration tests.
 
 ## Open questions/decisions waiting on me
 
-- Step 6: review `docs/design-system.md` and `docs/ux.md`, including the open UX questions in
-  `docs/ux.md` §8.
+- None. (Dependency approvals for Phase 2 will be requested when each is reached.)
 
 ## Known issues
 
@@ -91,7 +108,6 @@ Discovery starts after Step 7. The active checkout is
   the containers' normal ports (5432 and 6379); do not stop the unrelated containers. Tests now
   disable `.env` loading so their results do not depend on these local overrides.
 - The previous OneDrive checkout remains on disk and must not be used for future work.
-- The engineering documentation (Steps 6–7 remaining) is a release gate before Phase 2.
 - CI: the first run on the new setup failed (ruff formatted Markdown code blocks; a multi-hook
   pre-commit call). Fixed in `d31725a`, whose run passed. Dependabot may open update PRs.
 - The plain-text resume parser is a placeholder until the LLM wrapper and PDF/DOCX parsing are
