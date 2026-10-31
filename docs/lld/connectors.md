@@ -104,7 +104,7 @@ class SourcePolicy(BaseModel):
     host: str
     modes: frozenset[
         AccessMode
-    ]  # api, ats_feed, alert_email, extension_assist, server_apply, one_tap, none
+    ]  # api, ats_feed, alert_email, extension_assist, server_apply, one_tap, logo_fetch, none
     rate_limit: RateLimit  # requests per minute + burst
     user_agent: str | None = None
     terms_url: HttpUrl | None
@@ -142,6 +142,27 @@ def assert_allowed(host: str, mode: AccessMode) -> None: ...  # raises Permissio
 def hosts_with_mode(
     mode: AccessMode,
 ) -> frozenset[str]: ...  # extension manifest build + /ext/status
+
+
+# Company logo proxy (Phase 4; privacy rule PRD §7.3). Logos are shared corpus data (no user data).
+class CompanyLogo(BaseModel):
+    content_type: Literal["image/png", "image/jpeg", "image/webp", "image/x-icon"]
+    data: bytes
+    etag: str  # sha256 of data
+    fetched_at: datetime
+
+
+async def company_logo(company_id: UUID) -> CompanyLogo | None: ...
+    # Returns the cached logo from object storage, or None (client shows an initials badge).
+    # Never fetches inline: a miss enqueues refresh_logo and returns None immediately.
+
+
+async def refresh_logo(company_id: UUID) -> None: ...
+    # Task on the discovery queue, SYSTEM_SCOPE. Fetches only from https://<companies.domain>
+    # (icon links on the homepage, then /apple-touch-icon.png, then /favicon.ico) through
+    # PoliteClient under the `company_websites` policy (mode logo_fetch). Rejects SVG and anything
+    # not PNG/JPEG/WebP/ICO by magic bytes; max 256 KB; stores under logos/<company_id>;
+    # refreshes at most every 30 days; failures set logo_status = unavailable.
 ```
 
 CLI (US-2.4): `jobradar discover [--source <code>] [--company <id>]` runs `run_source` /
@@ -165,6 +186,7 @@ class AccessMode(StrEnum):
     EXTENSION_ASSIST = "extension_assist"
     SERVER_APPLY = "server_apply"
     ONE_TAP = "one_tap"
+    LOGO_FETCH = "logo_fetch"  # company websites, for the logo proxy only
     NONE = "none"
 
 
@@ -474,6 +496,10 @@ bodies, job descriptions.
   parameters from URLs, and never follow links.
 - Outbound requests only to hosts with a policy; private IP ranges blocked in `PoliteClient`
   (SSRF guard), redirects limited to 3 and re-checked against policy.
+- Logo proxy: fetched server-side only, so no third party sees which companies a user views;
+  served from our origin with `Content-Type` from the validated magic bytes,
+  `X-Content-Type-Options: nosniff`, `Content-Security-Policy: default-src 'none'; sandbox`,
+  long cache with ETag. SVG is never accepted (script risk). Same SSRF guard as connectors.
 - Forwarding inbox (Phase 11): unguessable local part per user; messages from senders outside the
   allow-list are ignored, except the provider's forwarding-confirmation message, which is shown
   to the user.

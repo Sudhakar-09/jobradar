@@ -2800,6 +2800,72 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalError'
+  /companies/{company_id}/logo:
+    get:
+      operationId: connectors_get_company_logo
+      summary: Cached company logo via our proxy
+      description: >-
+        Serves a company logo from JobRadar's own cache so no third party sees what users view
+        (PRD §7.3). Logos are fetched server-side from the company's own domain and validated
+        (PNG, JPEG, WebP or ICO; never SVG). 404 means no cached logo; the client shows a coloured
+        initials badge. A miss schedules a background refresh.
+      tags:
+      - inboxes
+      x-phase: 4
+      x-story:
+      - US-4.3
+      x-scopes:
+      - ext:read_profile_view
+      security:
+      - session: []
+      - extensionToken: []
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: If-None-Match
+        in: header
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/ClientVersion'
+      - $ref: '#/components/parameters/CorrelationId'
+      responses:
+        '200':
+          description: Logo image. Served with `X-Content-Type-Options` nosniff, a sandboxing CSP and a long cache lifetime.
+          headers:
+            ETag:
+              schema:
+                type: string
+            Cache-Control:
+              schema:
+                type: string
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            image/webp:
+              schema:
+                type: string
+                format: binary
+            image/x-icon:
+              schema:
+                type: string
+                format: binary
+        '304':
+          description: Not modified (ETag matched).
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /inbound/mail:
     post:
       operationId: connectors_create_inbound_mail

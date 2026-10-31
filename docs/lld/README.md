@@ -340,7 +340,7 @@ Guards: `paused`, `lane_disabled`, `restricted`, `below_quality`, `cap_reached`,
   `manual`.
 - Application states and `state_reason` values: database.md §3.8 / state-machine.md §2, §5.
 - Access modes (source policies): `api`, `ats_feed`, `alert_email`, `extension_assist`,
-  `server_apply`, `one_tap`, `none`.
+  `server_apply`, `one_tap`, `logo_fetch` (company websites, logo proxy only), `none`.
 - Config files: `config/source_policies.yaml`, `config/connectors.yaml`,
   `config/alert_senders.yaml`, `config/companies.yaml`, `config/plans.yaml`,
   `config/compensation/<market>/<date>.yaml`, `config/consents/`.
@@ -375,7 +375,7 @@ Endpoints: **see `docs/api.md` / `docs/openapi.yaml`**. All paths are under `/ap
 | US-3.8 | all pipeline modules (tests) | — | — |
 | US-4.1 | frontend (Step 6) | — | — |
 | US-4.2 | accounts | users, credentials, oauth_identities, sessions | `POST /auth/login`, `POST /auth/google`, `POST /auth/logout`, `POST /auth/logout-everywhere`, `GET /me`, `PATCH /me` |
-| US-4.3 | matching, normalizer, lifecycle | job_scores, applications, job_feedback | `GET /matches`, `GET /jobs/{job_id}`, `POST /jobs/{job_id}/apply`, `POST /jobs/{job_id}/skip`, `POST /jobs/{job_id}/save`, `PUT /jobs/{job_id}/feedback` |
+| US-4.3 | matching, normalizer, lifecycle, connectors (logos) | job_scores, applications, job_feedback, companies (logo columns) | `GET /matches`, `GET /jobs/{job_id}`, `GET /companies/{company_id}/logo`, `POST /jobs/{job_id}/apply`, `POST /jobs/{job_id}/skip`, `POST /jobs/{job_id}/save`, `PUT /jobs/{job_id}/feedback` |
 | US-4.4 | notify, matching | notifications, notification_prefs, channel_links, push_subscriptions | `GET /digest/today`, `GET /notifications`, `POST /notifications/read`, `GET /notification-prefs`, `PUT /notification-prefs`, `POST /push/subscriptions`, `POST /notify/telegram/link-code`, `POST /notify/telegram/link`, `POST /actions`, `DELETE /push/subscriptions/{subscription_id}`, `DELETE /notify/telegram/link` |
 | US-4.5 | core.flags, apply, notify | settings_flags | `POST /control/pause`, `POST /control/resume`, `GET /me/status` |
 | US-4.6 | admin, core.flags | settings_flags, audit_log | `GET /admin/flags`, `PUT /admin/flags/{key}`, `PATCH /flags/{key}` (bot) |

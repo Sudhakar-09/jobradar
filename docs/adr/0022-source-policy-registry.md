@@ -27,3 +27,10 @@ need the same answer to "what are we allowed to do on this host?"
 ## Consequences
 - Positive: one place to check compliance, and safe defaults for new hosts.
 - Negative: someone must review each source's terms before enabling any mode beyond `one_tap`.
+
+## Amendment (2026-10-30, Step 6 review)
+A new access mode **`logo_fetch`** is added for one policy entry, `company_websites`: the logo
+proxy (`docs/lld/connectors.md`) may fetch icon files from a catalogued company's own domain,
+at most once per 30 days per company, through the same SSRF guard and rate limits. No other use of
+company websites is allowed by this mode. Reason: the owner's privacy rule that no third party may
+see what users view (PRD §7.3), which requires serving logos from our own origin.

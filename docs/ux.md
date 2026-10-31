@@ -87,7 +87,8 @@ why and offers one fix (e.g. "Add Remote as a market" or "Connect job alerts").
 
 ### J2 — Daily routine (5–15 min, often on the phone)
 Digest (email/push/Telegram) at 08:00 local → tap → **Today** → answer 1 open question → swipe
-through top matches (Apply/Skip/Save) → check one-tap pack for a LinkedIn job → done.
+through top matches (right = queue to apply, left = skip, each with Undo) → check one-tap pack
+for a LinkedIn job → done.
 
 ### J3 — Apply, by lane
 - **One-tap (LinkedIn, Indeed, Gulf boards):** Apply → one-tap pack (CV, answers, cover note) →
@@ -245,11 +246,13 @@ Desktop                                                           Phone
 └───────────────────────────────────────┴───────────────────────┘
 ```
 - **Hierarchy:** greeting with counts → **Needs you** (questions, one-tap packs, needs_review,
-  reconnect inbox) → **Top matches** (3, expanded JobCards with "why" and pay) → **Next up**
+  reconnect inbox) → **Top matches** (3 Tier 2 matches only, expanded JobCards with "why" and
+  pay; Tier 1 possible matches never appear on Today) → **Next up**
   (interviews, deadlines, follow-ups due) → **This week** (north-star sparkline: interviews/week,
   usage meter).
 - **Interactions:** answer questions inline; Apply/Skip/Save on cards (keyboard `a/x/s`); swipe on
-  phones; "All caught up" collapses sections that are empty.
+  phones (right = queue to apply, left = skip, both with 10-second Undo, as in §5.5); "All caught
+  up" collapses sections that are empty.
 - **Motion:** sections fade-rise with a small stagger; answered question collapses
   (`duration-base`) and a toast confirms "Saved — applying to Example Co".
 - **States:** loading skeletons for each section; empty → "All caught up. We'll check again at
@@ -274,13 +277,21 @@ Desktop                                                           Phone
 └──────────────────────────────────────────┴───────────────────────────────────┘
 ```
 - **Tabs:** Matches (Tier 2 scored, ranked), Possible (Tier 1 "possible match" with "Score this
-  job" on demand, budget-counted), Saved.
+  job" on demand, budget-counted), Saved. **Possible matches appear only here**, never on Today or
+  in digests.
+- **Company logos** come only from our caching proxy (`GET /companies/{company_id}/logo`); if no
+  cached logo exists, a coloured initials badge is shown. The browser never loads images from
+  third parties (privacy rule, PRD §7.3).
 - **Hierarchy:** fit score (ring + number) → title → company/location/age → eligibility
   highlight → pay → actions. Ineligible jobs are hidden by default; a toggle "Show 12 not
   eligible" lists them with reasons (transparency).
 - **Interactions:** instant filters in URL; `j/k` navigation; Enter opens detail (side pane on xl,
-  sheet on md, page on phone); bulk select for Skip/Save only (never bulk Apply — anti-spam);
-  swipe right = Apply, left = Skip, with buttons as the accessible alternative.
+  sheet on md, page on phone); bulk select for Skip/Save only (never bulk Apply — anti-spam).
+- **Swipe (phones, on by default):** swipe right = **queue to apply** (moves to `queued`; the lane's
+  normal flow and every guard still run; never an immediate final submit) with a 10-second
+  **Undo**; swipe left = **Skip** with Undo. A one-time hint shows the gesture on the first visit,
+  and the Apply/Skip/Save buttons stay visible on every card as the accessible alternative.
+  Swipe can be turned off in Settings → Appearance.
 - **Motion:** list items enter with ≤ 6-item stagger; skipped card collapses with height animation
   + Undo toast; score rings reveal once per session.
 - **States:** skeleton rows; empty matches → explain filters + "Reset filters"; no results for
@@ -537,11 +548,16 @@ floating bar says "Review everything, then submit yourself." The extension never
 Built once (`build_digest`), rendered per channel and locale (notify LLD).
 
 **Email** (HTML + plain text; 600 px; tokens mapped to inline styles; dark-mode friendly):
+- **No remote images at all**: no logos, no tracking pixels, no externally hosted assets. Company
+  identity is a **coloured initials badge** (HTML/CSS text, colour derived deterministically from
+  the company ID within the categorical palette). The JobRadar mark is inline (CSS/text), not an
+  image URL.
+- Only Tier 2 matches; possible matches never appear in digests.
 ```
 JobRadar · Good morning — 6 new matches
 1 question needs you → [Answer]
 Top matches
-  86 · Senior Java Backend Engineer · Fictional Logistics · Dubai
+  [FL] 86 · Senior Java Backend Engineer · Fictional Logistics · Dubai
      ✓ Visa sponsored · AED 22,000/mo · "6 of 7 core skills match"
      [Apply] [Save] [Skip]            (signed action links)
   …
@@ -579,9 +595,11 @@ Why: 6 of 7 core skills match
 - Reduced motion honoured (system and in-app).
 - Text expansion +40 % without truncating essential information.
 
-## 8. Open UX questions
-1. Mobile swipe gestures: on by default for everyone, or offered after the first session? (Proposed:
-   on, with a one-time hint and buttons always visible.)
-2. Should "Possible matches" be shown on Today, or only in Jobs? (Proposed: Jobs only, to keep
-   Today calm.)
-3. Email digest images (company logos) are off to avoid tracking pixels and hotlinking; confirm.
+## 8. Resolved UX decisions (owner, Step 6 review)
+1. **Swipe gestures on by default**, with a one-time hint and visible buttons. Swipe right =
+   **queue to apply** with a 10-second Undo, never an immediate final submit; swipe left = skip with
+   Undo (§5.5).
+2. **Tier 1 possible matches appear only in Jobs** (Possible tab), never on Today or in digests.
+3. **No remote images in digest emails**: coloured initials badges for companies. In the web app,
+   logos are served **only through our own caching proxy** so no third party sees what users view
+   (PRD §7.3 privacy rule; `docs/api.md` `GET /companies/{company_id}/logo`).

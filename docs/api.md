@@ -144,7 +144,7 @@ Every error response is `application/problem+json`:
 
 ## 8. Security headers and transport
 
-Set by Caddy and the API: HTTPS only (HSTS), `Content-Security-Policy` (self + API; no inline
+Set by Caddy and the API: HTTPS only (HSTS), `Content-Security-Policy` (self + API; `img-src 'self' data:` so no third-party images; no inline
 scripts), `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`,
 `Permissions-Policy` minimal, `Cache-Control: no-store` on all `/api` responses except signed file
 redirects. Request bodies are capped (1 MB JSON; 10 MB uploads, resumes only). Every request gets
@@ -238,6 +238,7 @@ token · **A:**`scope` admin API token · **K** signed action token · **W** web
 | DELETE | `/inboxes/{inbox_id}` | Disconnect inbox (revokes token) | S | US-2.5 | 4 |
 | GET | `/companies/suggestions` | Employers seen in alerts, pending review | S | US-2.7 | 4 |
 | POST | `/companies/suggestions/{suggestion_id}/decision` | Accept / reject suggestion | S | US-2.7 | 4 |
+| GET | `/companies/{company_id}/logo` | Cached company logo via our proxy (image; 404 → client shows initials badge) | S, E:`ext:read_profile_view` | US-4.3 | 4 |
 | POST | `/inbound/mail` | Inbound mail webhook (forwarding inboxes) | W | US-11.2 | 11 |
 
 > In Phases 2–3 (before the web app), the Gmail connection and consent are done by the owner
@@ -371,8 +372,8 @@ token · **A:**`scope` admin API token · **K** signed action token · **W** web
 | POST | `/admin/invites` | Create invite | S+MFA | US-10.1 | 10 |
 
 ### 9.16 Totals
-146 operations: 2 health, 20 auth/account, 7 controls, 4 packs/legal, 12 profile,
-10 inboxes/companies/consents, 9 matches/jobs, 15 applications/documents, 11 lifecycle extras,
+147 operations: 2 health, 20 auth/account, 7 controls, 4 packs/legal, 12 profile,
+11 inboxes/companies/consents (incl. the logo proxy), 9 matches/jobs, 15 applications/documents, 11 lifecycle extras,
 11 notifications, 9 strategy/insights, 5 privacy, 8 extension, 5 runner, 18 admin.
 (`DELETE /push/subscriptions/{id}` and `DELETE /notify/telegram/link` were added here to make
 revocation complete.)

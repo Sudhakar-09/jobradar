@@ -253,7 +253,7 @@ margins 4 (phone) / 6 (tablet) / 8 (desktop).
 | Apply success | Button morphs to a check (icon cross-fade) + success toast slides up 16 px, `duration-base` |
 | Toast | Enter: rise 16 px + fade; exit: fade 160 ms; auto-dismiss 5 s (paused on hover/focus) |
 | Sheet / dialog | Sheet slides from inline-end (or bottom on phones) `duration-slow`; dialog scales 0.98→1 + fade; scrim fades |
-| Swipe (mobile feed) | Card follows finger; past threshold it flies out with a tint (primary = apply, muted = skip) in `duration-base`; snap back otherwise |
+| Swipe (mobile, on by default) | Card follows finger; past threshold it flies out with a tint (primary = **queue to apply**, muted = skip) in `duration-base`, then an Undo toast for 10 s; snap back otherwise. Swipe right only queues (never a final submit). First visit shows a one-time hint (card nudges 24 px and back, once); reduced motion → no nudge, text hint only |
 | Skeleton | Shimmer 1.6 s linear loop, low contrast; disabled under reduced motion (static fill) |
 | **Celebration (interview, offer only)** | From Direction B: 18 small confetti marks in primary/accent/success/info burst from the triggering card with `ease-celebrate`, fade out ≤ 1.2 s; the status badge pops with a 1.04 overshoot. Plays **once per event** (stored as seen), never for applications sent, never in digests or notifications, never during a page load. Reduced motion → static success banner only. |
 
@@ -311,7 +311,15 @@ empty where relevant). Screens may only use these components.
 | Chart wrappers (Recharts): FunnelChart, BarChart, LineChart, ComparisonBars | — | token palette, accessible table alternative ("View as table"), empty state |
 | UsageMeter | — | value/limit with reset time; warning ≥ 80 % |
 | Celebration | interview, offer | see §5.3; mounted once per event |
-| Avatar, CompanyLogo | — | initials fallback; no external logo hotlinking |
+| Avatar | — | initials only (no third-party avatar services) |
+| **CompanyLogo** | image, initials badge | Image only from our proxy (`/api/v1/companies/{company_id}/logo`); otherwise (and always in email) a **coloured initials badge**: 1–2 letters, colour chosen deterministically from the categorical chart palette (§2.4) by company ID, text `on-primary`-equivalent contrast ≥ 4.5:1. Never a third-party URL (CSP `img-src 'self' data:`) |
+
+### 7.1 Privacy rules for visual assets
+- The web app loads images only from its own origin (`img-src 'self' data:`): company logos via
+  the caching proxy, illustrations and icons bundled. No third-party images, fonts or scripts at
+  runtime (fonts are self-hosted).
+- Emails contain **no remote images** (no logos, no tracking pixels); identity uses initials
+  badges and inline text.
 
 ## 8. Iconography
 - **Lucide** icons only, 2 px stroke, sizes 16 / 20 / 24, `currentColor`.

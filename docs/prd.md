@@ -300,6 +300,11 @@ Enforced server-side, not in the UI:
 - Sensitive fields (photo, date of birth, marital status, nationality, health-related gap
   reasons) are optional, off by default and never inferred.
 - Admins cannot see user content without user-granted, time-limited support access.
+- **No third party learns what users view.** The web app and extension load images, fonts and
+  scripts only from JobRadar's own origin; company logos are fetched server-side, cached, and
+  served through our own proxy (`GET /companies/{company_id}/logo`), with an initials badge as
+  fallback. Emails contain **no remote images** (no logos, no tracking pixels); companies are shown
+  as coloured initials badges.
 - **Email access at scale:** Gmail `readonly` is a restricted Google scope; public apps need
   Google verification and a periodic security assessment. Plan: Gmail API for user #1 and
   friends (within the unverified-app test-user limit), and a **per-user forwarding address**
