@@ -554,3 +554,22 @@ bodies, job descriptions.
   it is skipped with a reason. A run may overshoot by at most one run's requests.
 - **Logging:** httpx/httpcore loggers are kept at WARNING because they print full URLs, and query
   strings can hold API keys.
+
+### Alert emails (implemented Phase 2f-1)
+
+- `connectors/alerts.py`: one `LinkCardParser` per board in `config/alert_senders.yaml`
+  (LinkedIn, Naukrigulf, Bayt, GulfTalent, Naukri, Instahyre, Foundit). A message is matched by
+  sender domain (exact or subdomain; look-alike domains rejected). Job links are found by the
+  board's `job_url` regex after unwrapping tracking redirects (`url=`, `u=`, … parameters),
+  rebuilt as `canonical_url` without tracking parameters, and deduplicated by job id (image
+  links collapse into the titled link). The card around the link gives company and location
+  ("Company · City" on one line, or lines mapped by `card_lines`, e.g. Naukri's
+  company / experience / location). A card without a company is counted invalid.
+- `connectors/mime.py`: RFC 822 → `InboundMessage` (Gmail `format=raw` and `.eml` fixtures).
+- `connectors/service/alerts.py`: `create_alert_inbox` (needs active consent; sender allowlist
+  from config), `ingest_alert_messages` (per message: skip if already recorded, parse, record
+  `alert_messages` with IDs and counts only; then normalizer ingest; one per-user `source_runs`
+  row; a matched message with no jobs marks the run `degraded` with the board named).
+- HTML parsing uses BeautifulSoup with the stdlib `html.parser` backend; scripts, styles and
+  attributes other than `href` are ignored; nothing from the email body is stored except the
+  parsed title, company, location and canonical link.

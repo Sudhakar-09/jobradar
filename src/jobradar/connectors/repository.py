@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from jobradar.connectors.health import RunStatus
 from jobradar.connectors.schemas import CompanyEntry, CompanyRef
-from jobradar.models import Company, SourceRun
+from jobradar.models import AlertInbox, AlertMessage, Company, SourceRun
 
 NOT_FOUND_LIMIT: Final = 3  # consecutive 404s before a company is marked not_found
 HEALTH_STATUSES: Final = ("ok", "partial", "degraded")
@@ -97,9 +97,11 @@ class SourceRunRepository:
         """Bind to an open session (the caller owns the transaction)."""
         self._session = session
 
-    async def start(self, connector: str, company_id: UUID | None, now: datetime) -> UUID:
-        """Record that a run started; returns its id."""
-        run = SourceRun(connector=connector, company_id=company_id, started_at=now)
+    async def start(
+        self, connector: str, company_id: UUID | None, now: datetime, *, user_id: UUID | None = None
+    ) -> UUID:
+        """Record that a run started (``user_id`` only for per-user alert runs); returns its id."""
+        run = SourceRun(connector=connector, company_id=company_id, user_id=user_id, started_at=now)
         self._session.add(run)
         await self._session.flush()
         return run.id
@@ -156,3 +158,89 @@ class SourceRunRepository:
         )
         average = await self._session.scalar(query)
         return float(average) if average is not None else None
+
+
+class AlertInboxRepository:
+    """The user's connected alert inboxes (RLS-scoped)."""
+
+    def __init__(self, session: AsyncSession) -> None:
+        """Bind to an open user session."""
+        self._session = session
+
+    async def create(
+        self,
+        *,
+        user_id: UUID,
+        kind: str,
+        sender_allowlist: list[str],
+        consent_id: UUID,
+        oauth_token_enc: bytes | None = None,
+    ) -> UUID:
+        """Insert an inbox connection and return its id."""
+        inbox = AlertInbox(
+            user_id=user_id,
+            kind=kind,
+            sender_allowlist=sender_allowlist,
+            consent_id=consent_id,
+            oauth_token_enc=oauth_token_enc,
+        )
+        self._session.add(inbox)
+        await self._session.flush()
+        return inbox.id
+
+    async def get(self, inbox_id: UUID) -> AlertInbox | None:
+        """An inbox of the session's user, or None (another user's inbox is invisible)."""
+        return await self._session.get(AlertInbox, inbox_id)
+
+    async def active(self) -> list[AlertInbox]:
+        """The user's active inboxes."""
+        rows = await self._session.scalars(
+            select(AlertInbox).where(AlertInbox.status == "active").order_by(AlertInbox.id)
+        )
+        return list(rows.all())
+
+
+class AlertMessageRepository:
+    """Bookkeeping for processed alert emails (IDs and counts only, never bodies)."""
+
+    def __init__(self, session: AsyncSession) -> None:
+        """Bind to an open user session."""
+        self._session = session
+
+    async def seen(self, inbox_id: UUID, provider_message_id: str) -> bool:
+        """Whether this message was already processed for this inbox."""
+        found = await self._session.scalar(
+            select(AlertMessage.id).where(
+                AlertMessage.inbox_id == inbox_id,
+                AlertMessage.provider_message_id == provider_message_id,
+            )
+        )
+        return found is not None
+
+    async def record(  # noqa: PLR0913 -- one argument per bookkeeping column
+        self,
+        *,
+        user_id: UUID,
+        inbox_id: UUID,
+        provider_message_id: str,
+        sender: str,
+        parser: str | None,
+        status: str,
+        jobs_parsed: int,
+        received_at: datetime,
+        processed_at: datetime,
+    ) -> None:
+        """Record one processed message."""
+        self._session.add(
+            AlertMessage(
+                user_id=user_id,
+                inbox_id=inbox_id,
+                provider_message_id=provider_message_id,
+                sender=sender,
+                parser=parser,
+                status=status,
+                jobs_parsed=jobs_parsed,
+                received_at=received_at,
+                processed_at=processed_at,
+            )
+        )

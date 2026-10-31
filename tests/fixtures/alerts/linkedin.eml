@@ -1,0 +1,40 @@
+From: LinkedIn Job Alerts <jobalerts-noreply@linkedin.com>
+To: Owner <owner@example.org>
+Subject: "Java Backend Engineer": 2 new jobs in United Arab Emirates and India
+Date: Thu, 29 Oct 2026 07:30:00 +0000
+Message-ID: <fixture-linkedin-001@example.invalid>
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="b1"
+
+--b1
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Senior Java Backend Engineer - Example Logistics - Dubai, United Arab Emirates
+View job: https://www.linkedin.com/comm/jobs/view/3900000001/?trackingId=abc123
+
+--b1
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html><head><style>td{font-family:Arial}</style></head><body>
+<table>
+  <tr><td>
+    <a href="https://www.linkedin.com/comm/jobs/view/3900000001/?trackingId=abc123&amp;refId=x1"><img src="https://media.example.invalid/logo1.png" alt=""></a>
+  </td><td>
+    <a href="https://www.linkedin.com/comm/jobs/view/3900000001/?trackingId=abc123&amp;refId=x1">Senior Java Backend Engineer</a>
+    <p>Example Logistics · Dubai, United Arab Emirates</p>
+    <p>Actively recruiting</p>
+  </td></tr>
+  <tr><td>
+    <a href="https://in.linkedin.com/comm/jobs/view/backend-developer-java-3900000002?trackingId=def456">Backend Developer (Java)</a>
+    <p>Sample Pay</p>
+    <p>Bengaluru, Karnataka, India</p>
+    <p>Easy Apply</p>
+  </td></tr>
+</table>
+<p><a href="https://www.linkedin.com/comm/jobs/search?keywords=java">See all jobs</a>
+ · <a href="https://www.linkedin.com/comm/psettings/job-alerts">Manage alerts</a></p>
+</body></html>
+
+--b1--

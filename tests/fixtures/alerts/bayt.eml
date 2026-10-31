@@ -1,0 +1,27 @@
+From: "Bayt.com" <alerts@bayt.com>
+To: owner@example.org
+Subject: Jobs you may be interested in
+Date: Wed, 28 Oct 2026 18:00:00 +0400
+Message-ID: <fixture-bayt-001@example.invalid>
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="b3"
+
+--b3
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html><body><table>
+<tr><td>
+  <a href="https://www.bayt.com/en/uae/jobs/backend-java-engineer-5012345/?utm_source=jobalert&amp;utm_medium=email">Backend Java Engineer</a><br>
+  <span>Fictional Retail</span><br>
+  <span>Dubai, United Arab Emirates</span>
+</td></tr>
+<tr><td>
+  <a href="https://www.bayt.com/en/uae/jobs/java-team-lead-5012399/">Java Team Lead</a><br>
+  <span>Example Logistics · Sharjah, United Arab Emirates</span>
+</td></tr>
+</table>
+<a href="https://www.bayt.com/en/myworkspace/alerts/">Edit your job alerts</a>
+</body></html>
+
+--b3--

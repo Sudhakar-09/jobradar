@@ -140,6 +140,19 @@ class FetchResult:
     pages: int = 0
 
 
+class InboundMessage(BaseModel):
+    """An alert email held in memory only; its body is dropped after parsing (ADR-0008)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    provider_message_id: str = Field(min_length=1)
+    sender: str  # From header, e.g. "LinkedIn Job Alerts <jobalerts-noreply@linkedin.com>"
+    received_at: datetime
+    subject: str = ""  # untrusted
+    html: str | None = None  # untrusted
+    text: str | None = None  # untrusted
+
+
 class Connector(Protocol):
     """A job source plug-in (entry point group ``jobradar.connectors``)."""
 

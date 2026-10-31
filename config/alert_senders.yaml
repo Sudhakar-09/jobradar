@@ -1,0 +1,60 @@
+# Job-alert email parsers (ADR-0008; docs/lld/connectors.md). Config, not code: one entry per
+# board. Gmail ingestion only queries messages from `sender_addresses`; a message is parsed by the
+# first entry whose `sender_domains` match. Job links are recognised by `job_url` (regex with an
+# `id` group, applied after unwrapping tracking redirects); `canonical_url` rebuilds a clean link
+# without tracking parameters.
+#
+# These patterns were written from the boards' public job URL formats and synthetic samples.
+# They are re-checked against the owner's real alert emails once Gmail is connected (2f), and
+# any change there is a config edit plus a new anonymized fixture.
+parsers:
+  linkedin:
+    name: LinkedIn job alerts
+    markets: [uae, india]
+    sender_addresses: [jobalerts-noreply@linkedin.com, jobs-noreply@linkedin.com]
+    sender_domains: [linkedin.com]
+    job_url: '^https://(?:[a-z]{2,3}\.)?(?:www\.)?linkedin\.com/(?:comm/)?jobs/view/(?:[^/?#]*-)?(?P<id>\d{6,})'
+    canonical_url: 'https://www.linkedin.com/jobs/view/{id}/'
+  naukrigulf:
+    name: Naukrigulf job alerts
+    markets: [uae]
+    sender_addresses: [jobalerts@naukrigulf.com, alerts@naukrigulf.com]
+    sender_domains: [naukrigulf.com]
+    job_url: '^https://(?:www\.)?naukrigulf\.com/(?P<slug>[^?#]*?)-jid-(?P<id>\d+)'
+    canonical_url: 'https://www.naukrigulf.com/{slug}-jid-{id}'
+  bayt:
+    name: Bayt job alerts
+    markets: [uae]
+    sender_addresses: [alerts@bayt.com, noreply@bayt.com]
+    sender_domains: [bayt.com]
+    job_url: '^https://(?:www\.)?bayt\.com/(?P<path>[a-z]{2}/[^?#]*?/jobs/[^?#]*?-(?P<id>\d+))/?(?:[?#]|$)'
+    canonical_url: 'https://www.bayt.com/{path}/'
+  gulftalent:
+    name: GulfTalent job alerts
+    markets: [uae]
+    sender_addresses: [jobs@gulftalent.com, alerts@gulftalent.com]
+    sender_domains: [gulftalent.com]
+    job_url: '^https://(?:www\.)?gulftalent\.com/(?P<path>[^?#]*?/jobs/[^?#]*?-(?P<id>\d+))(?:[?#]|$)'
+    canonical_url: 'https://www.gulftalent.com/{path}'
+  naukri:
+    name: Naukri job alerts
+    markets: [india]
+    sender_addresses: [jobalert@naukri.com, info@naukri.com]
+    sender_domains: [naukri.com]
+    job_url: '^https://(?:www\.)?naukri\.com/(?P<slug>job-listings-[^?#]*?)-(?P<id>\d{8,})'
+    canonical_url: 'https://www.naukri.com/{slug}-{id}'
+    card_lines: [company, skip, location]  # company, experience, location
+  instahyre:
+    name: Instahyre job alerts
+    markets: [india]
+    sender_addresses: [jobs@instahyre.com, notifications@instahyre.com]
+    sender_domains: [instahyre.com]
+    job_url: '^https://(?:www\.)?instahyre\.com/job-(?P<id>\d+)(?P<slug>-[^/?#]*)?/?'
+    canonical_url: 'https://www.instahyre.com/job-{id}{slug}/'
+  foundit:
+    name: Foundit job alerts
+    markets: [india]
+    sender_addresses: [jobalerts@foundit.in, alerts@foundit.in]
+    sender_domains: [foundit.in]
+    job_url: '^https://(?:www\.)?foundit\.in/job/(?P<slug>[^?#]*?)-(?P<id>\d+)(?:[?#/]|$)'
+    canonical_url: 'https://www.foundit.in/job/{slug}-{id}'

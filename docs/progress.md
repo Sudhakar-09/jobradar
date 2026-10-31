@@ -132,7 +132,16 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   updated); their parsers come in 2f.
 - **Pending:** one live Adzuna verification (single API call, response saved as an anonymized
   fixture). Waiting for `ADZUNA_APP_ID`/`ADZUNA_APP_KEY` to be saved in `.env` (not on disk yet).
-- Next: 2f Gmail alert ingestion with UAE and India parsers.
+- **2f-1 done — alert parsers and ingestion (no Gmail yet)** (`feat(connectors): job-alert …`):
+  - Parsers for LinkedIn, Naukrigulf, Bayt, GulfTalent (UAE) and Naukri, Instahyre, Foundit
+    (India), one config-driven class; synthetic `.eml` fixtures per board (+ a no-jobs alert).
+  - Ingestion: consent required, each message processed once, bodies never stored, per-user
+    source run, degraded when a board's emails stop yielding jobs.
+  - Minimal privacy (consents) and accounts (owner bootstrap) slices.
+  - Dependencies added: `beautifulsoup4`, `google-auth-oauthlib` (approved).
+  - 216 tests pass (26 integration). Coverage 85 % / 93 % (unit job).
+- Next: 2f-2 Gmail read-only client, consent prompt and `jobradar inbox connect`, then STOP for
+  the owner's Google Cloud setup.
 
 ## Next steps
 

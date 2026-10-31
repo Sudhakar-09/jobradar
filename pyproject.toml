@@ -5,8 +5,10 @@ description = "A personal job search operating system"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "alembic>=1.14",
+    "beautifulsoup4>=4.12",
     "celery[redis]>=5.4",
     "fastapi[standard]>=0.115",
+    "google-auth-oauthlib>=1.2",
     "httpx>=0.28",
     "psycopg[binary]>=3.2",
     "pydantic-settings>=2.7",
@@ -184,7 +186,7 @@ name = "Entry points > domains > models > core"
 type = "layers"
 layers = [
     "jobradar.api | jobradar.tasks | jobradar.cli",
-    "(jobradar.accounts) : (jobradar.privacy) : (jobradar.quotas) : jobradar.profile : jobradar.connectors : jobradar.normalizer : jobradar.matching : jobradar.documents : jobradar.apply : jobradar.lifecycle : jobradar.notify : jobradar.strategy : jobradar.insights : jobradar.runner : (jobradar.admin)",
+    "jobradar.accounts : jobradar.privacy : (jobradar.quotas) : jobradar.profile : jobradar.connectors : jobradar.normalizer : jobradar.matching : jobradar.documents : jobradar.apply : jobradar.lifecycle : jobradar.notify : jobradar.strategy : jobradar.insights : jobradar.runner : (jobradar.admin)",
     "jobradar.models",
     "jobradar.core",
 ]

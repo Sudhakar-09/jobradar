@@ -93,3 +93,16 @@ async def system_session(
     async with (factory or get_sessionmaker())() as session, session.begin():
         await set_role(session, get_settings().db_corpus_role)
         yield session
+
+
+@asynccontextmanager
+async def operator_session(
+    *, factory: async_sessionmaker[AsyncSession] | None = None
+) -> AsyncIterator[AsyncSession]:
+    """Operator path: one transaction as the database login, without switching roles.
+
+    Only for operator CLI commands that cannot run as a user (creating the owner account,
+    writing global flags until `jobradar_admin` exists). Never used by request handling.
+    """
+    async with (factory or get_sessionmaker())() as session, session.begin():
+        yield session

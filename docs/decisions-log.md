@@ -169,3 +169,12 @@ available in the repository.
 - **India alert sources (owner, 2026-10-30):** because Adzuna was the main India aggregator, 2f
   adds job-alert email parsers for Naukri, LinkedIn India, Instahyre and Foundit alongside the UAE
   ones (LinkedIn, Naukrigulf, Bayt, GulfTalent). All are alert-email + one-tap sources.
+- **Phase 2f-1 (2026-10-30):** HTML parser for alert emails: **BeautifulSoup4** on the stdlib
+  `html.parser` backend (most widely used and tolerant of messy table-based email HTML; no
+  compiled dependency; volume is low). Google OAuth uses **google-auth-oauthlib** (approved
+  Google client libraries); Gmail REST calls go through `PoliteClient`. Alert parsers are one
+  config-driven class (`config/alert_senders.yaml`); fixtures are synthetic until real alerts are
+  available after the owner connects Gmail. Minimal `privacy` (consent per source, versioned
+  consent texts in `config/consents/`) and `accounts` (owner bootstrap via the operator database
+  path) slices added. `connectors.service` became a package so alert ingestion counts as the
+  domain's service under the layering contract.

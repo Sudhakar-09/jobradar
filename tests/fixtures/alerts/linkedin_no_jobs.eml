@@ -1,0 +1,11 @@
+From: LinkedIn Job Alerts <jobalerts-noreply@linkedin.com>
+To: Owner <owner@example.org>
+Subject: Your job alert is paused
+Date: Thu, 29 Oct 2026 07:30:00 +0000
+Message-ID: <fixture-linkedin-002@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html><body><p>We paused your alert.</p>
+<a href="https://www.linkedin.com/comm/psettings/job-alerts">Resume alerts</a></body></html>
