@@ -55,7 +55,13 @@ class SeniorityBand(PackModel):
     """How one seniority level shows in titles, and the usual years of experience."""
 
     title_words: list[NonEmptyString] = Field(default_factory=list)
-    years: tuple[int, int] | None = None  # set from the owner's input; None until then
+    years: tuple[int, int] | None = None  # [from, to) years of experience for this level
+
+    @model_validator(mode="after")
+    def _years_ordered(self) -> Self:
+        if self.years is not None and not 0 <= self.years[0] < self.years[1]:
+            raise ValueError("years must be [from, to) with 0 <= from < to")
+        return self
 
 
 class SenioritySignals(PackModel):
@@ -73,6 +79,26 @@ class SenioritySignals(PackModel):
             if level in self.levels and any(_has(words, w) for w in self.levels[level].title_words)
         ]
         return found[-1] if found else self.default_level
+
+    def level_for_years(self, min_years: float) -> SeniorityLevel | None:
+        """The lowest level whose year range contains a posting's minimum years, if any."""
+        return next(
+            (
+                level
+                for level in SENIORITY_ORDER
+                if (band := self.levels.get(level)) is not None
+                and band.years is not None
+                and band.years[0] <= min_years < band.years[1]
+            ),
+            None,
+        )
+
+    @model_validator(mode="after")
+    def _ranges_increase(self) -> Self:
+        starts = [b.years[0] for lvl in SENIORITY_ORDER if (b := self.levels.get(lvl)) and b.years]
+        if starts != sorted(starts):
+            raise ValueError("seniority year ranges must start in level order")
+        return self
 
 
 class CredentialRequirement(PackModel):

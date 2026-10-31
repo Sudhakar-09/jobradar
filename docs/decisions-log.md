@@ -329,3 +329,8 @@ available in the repository.
   the UAE pack's new optional `source_notes` field. A third UAE company round (banks, telecoms,
   airlines, government-linked companies, IT services) is being probed and their hiring systems
   identified from web-search results (no scraping of their sites).
+- **Seniority years (owner, 2026-10-31):** owner has 3.5 years (profile `years_exp: 3.5`);
+  `java_backend` year ranges junior 0–2, mid 2–5, senior 5–8, staff 8–15, executive 10+. A
+  posting's minimum years map to a level ("3+" mid target, "5+" senior stretch, "8+" staff
+  ineligible); the higher of title level and years level counts. Confirmed: "III" = senior
+  (stretch); "Head of", "VP", "CTO" = executive (ineligible).

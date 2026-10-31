@@ -146,13 +146,14 @@ items:
   checked_on: '2026-10-31'
   notes: 'Owner decision 2026-10-31. Corpus: ''software engineer'' is the title of 293 of 524 Java postings.'
 - field: seniority_signals
-  claim: Title words per level; mid target, senior/lead stretch, staff/principal/architect/director ineligible
+  claim: Title words and year ranges per level (junior 0-2, mid 2-5, senior 5-8, staff 8-15, executive
+    10+); mid target, senior/lead/III stretch, staff/principal/architect/director/head of/VP/CTO ineligible
     for mid
   status: editorial
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: 'Owner decision 2026-10-31 (levels and treatment). Corpus: senior 197, staff/principal 120, lead
-    15, II/III 23, junior 1. Open: ''III'' placed under senior and ''head of'' / ''vp'' / ''cto'' under
-    executive; year ranges pending.'
+  notes: 'Owner decisions 2026-10-31: treatment per level; III = senior; head of / VP / CTO = executive;
+    years set around the owner''s 3.5 years. Corpus: ''N+ years'' in 303 of 524 Java postings, 3-5 years
+    in 167.'
   owner_accepted_on: '2026-10-31'

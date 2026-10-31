@@ -20,15 +20,17 @@ conditional_title_aliases:
   - {<<: *java_backend_work, title: Software Development Engineer}
 # Seniority from title words (owner decision 2026-10-31). For a `mid` profile: mid = target,
 # senior (incl. lead) = eligible stretch with a score penalty, staff and executive = ineligible.
-# Titles without a seniority word count as mid. Years per level: pending the owner's input.
+# Titles without a seniority word count as mid. Years: a posting's minimum years of experience
+# maps to the level whose range contains it ("3+ years" mid, "5+" senior, "8+" staff); set
+# around the owner's 3.5 years (owner decision 2026-10-31).
 seniority_signals:
   default_level: mid
   levels:
-    junior: {title_words: [junior, jr, graduate, entry level, trainee, intern]}
-    mid: {title_words: [ii, "2", mid, mid level, intermediate]}
-    senior: {title_words: [senior, sr, lead, iii]}
-    staff: {title_words: [staff, principal, architect, distinguished]}
-    executive: {title_words: [director, head of, vp, vice president, cto]}
+    junior: {title_words: [junior, jr, graduate, entry level, trainee, intern], years: [0, 2]}
+    mid: {title_words: [ii, "2", mid, mid level, intermediate], years: [2, 5]}
+    senior: {title_words: [senior, sr, lead, iii], years: [5, 8]}
+    staff: {title_words: [staff, principal, architect, distinguished], years: [8, 15]}
+    executive: {title_words: [director, head of, vp, vice president, cto], years: [10, 40]}
 core_skills:
   - Java
   - Backend software development

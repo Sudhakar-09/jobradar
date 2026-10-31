@@ -273,3 +273,23 @@ def test_generic_titles_need_java_backend_work_in_the_description(
         "Software Development Engineer",
     }
     assert aliases["Software Engineer"].requires_description.matches(description) is counts
+
+
+@pytest.mark.parametrize(
+    ("min_years", "level"),
+    [(0, "junior"), (2, "mid"), (3.5, "mid"), (5, "senior"), (8, "staff"), (12, "staff")],
+)
+def test_java_backend_seniority_from_years(min_years: float, level: str) -> None:
+    assert JAVA_ROLE.seniority_signals is not None
+    assert JAVA_ROLE.seniority_signals.level_for_years(min_years) == level
+
+
+def test_seniority_year_ranges_must_be_ordered() -> None:
+    from jobradar.core.packs import SeniorityBand, SenioritySignals  # noqa: PLC0415
+
+    with pytest.raises(ValueError, match="from < to"):
+        SeniorityBand(years=(5, 2))
+    with pytest.raises(ValueError, match="level order"):
+        SenioritySignals(
+            levels={"junior": SeniorityBand(years=(5, 8)), "mid": SeniorityBand(years=(2, 5))}
+        )
