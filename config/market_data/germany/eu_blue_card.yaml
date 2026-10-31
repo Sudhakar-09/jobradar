@@ -1,0 +1,31 @@
+# EU Blue Card minimum salaries in Germany (core.dated_data). Gross annual BASE salary: bonuses
+# and commissions do not count. Recalculated every year from the general pension insurance
+# contribution ceiling (standard 50 %, reduced 45.3 %) and announced by the Federal Ministry of
+# the Interior around December. Add next year's entry when it is published; lookups warn once
+# today is past the newest entry or `last_verified` is older than 90 days.
+#
+# Not stored, because sources disagree: the threshold for IT specialists who qualify through
+# professional experience without a degree. Check it case by case.
+name: EU Blue Card salary thresholds (Germany)
+market: germany
+currency: EUR
+period: year
+basis: gross_base
+value_notes:
+  standard: Minimum gross annual base salary for most occupations.
+  reduced: >-
+    Lower minimum for shortage occupations (including IT specialists, ISCO 133 and 25) and for
+    recent graduates (degree within the last three years); the job must still pay the usual
+    salary for comparable German employees.
+last_verified: 2026-10-31
+sources:
+  - https://www.make-it-in-germany.com/en/visa-residence/types/eu-blue-card
+  - https://www.thelocal.de/20251217/the-salary-you-need-in-germany-in-2026-to-get-an-eu-blue-card
+  - https://www.rtpartner.de/en/immigration/blaue-karte-eu-mindestgehalt-2026/
+entries:
+  - effective_from: 2025-01-01
+    effective_to: 2025-12-31
+    values: {standard: 48300, reduced: 43759.80}
+  - effective_from: 2026-01-01
+    effective_to: 2026-12-31
+    values: {standard: 50700, reduced: 45934.20}

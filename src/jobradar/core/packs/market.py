@@ -109,6 +109,8 @@ class VisaRoute(PackModel):
     summary: NonEmptyString
     sponsor_required: bool
     official_url: HttpUrl | None = None
+    # Dated salary thresholds for this route, relative to `config/market_data/` (core.dated_data).
+    salary_thresholds: NonEmptyString | None = None
 
 
 class MarketSource(PackModel):

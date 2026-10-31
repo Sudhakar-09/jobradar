@@ -36,11 +36,14 @@ visa_routes:
   - name: EU Blue Card
     summary: >-
       For non-EU graduates with a recognised or comparable degree and a qualifying job offer
-      above a minimum gross salary that is set each year (lower for shortage occupations such as
-      IT). IT specialists may qualify through professional experience without a degree. Verify
-      the current thresholds before relying on them.
+      above a minimum gross annual base salary that is set each year (lower for shortage
+      occupations such as IT and for recent graduates; values in
+      config/market_data/germany/eu_blue_card.yaml). IT specialists may qualify through
+      professional experience without a degree. Verify the current thresholds before relying on
+      them.
     sponsor_required: false
     official_url: https://www.make-it-in-germany.com/en/visa-residence/types/eu-blue-card
+    salary_thresholds: germany/eu_blue_card.yaml
   - name: Skilled worker residence permit
     summary: >-
       For non-EU skilled workers with a recognised qualification and a concrete job offer that

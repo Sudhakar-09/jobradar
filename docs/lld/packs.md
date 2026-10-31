@@ -92,3 +92,15 @@ Gulf boards as alert-email + one-tap, CV defaults); every invalid-value rule abo
 missing verification warnings; LinkedIn/Indeed/Gulf boards never get automation modes; unknown
 hosts are one-tap only; ATS boards have feeds but no `server_apply`; extension-assist host list
 excludes one-tap platforms; registry conflicts.
+
+## Dated market data (added 2026-10-31)
+
+Figures that change on a schedule (visa salary thresholds now; tax tables in Phase 3) live in
+`config/market_data/<market>/<table>.yaml`, not in packs, and load through `core.dated_data`:
+entries with `effective_from`/`effective_to` (no overlaps), a unit (`currency`, `period`,
+`basis`), notes for every value key, official `sources` and `last_verified`. A lookup returns the
+entry in force on the date or None — values are never extrapolated — and logs
+`dated_data.stale` when `last_verified` is older than 90 days or the date is past the newest
+entry. A pack visa route points at its table with `salary_thresholds` (e.g. Germany's EU Blue
+Card → `germany/eu_blue_card.yaml`); the conformance suite checks that every referenced table
+loads and is fresh.

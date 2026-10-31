@@ -383,6 +383,7 @@ sequenceDiagram
 | `location` | job is onsite or hybrid outside the user's locations and remote isn't allowed | `eligibility.location_mismatch` |
 | `remote_region` | `remote_region` job whose `allowed_regions` excludes the user's country | `eligibility.remote_region_excluded` |
 | `visa` | user's `visa_status[country]` needs sponsorship and `visa_sponsorship = no` | `eligibility.visa_required` |
+| `visa_salary` | the user needs a visa for the job's country and the route has `salary_thresholds` (e.g. EU Blue Card): a stated base salary below the threshold in force on the posting date warns; no stated salary never blocks; stale threshold data adds a note (`core.dated_data`) | `eligibility.visa_salary_below_threshold` (warn; params: route, threshold, currency) |
 | `residency` | `residency_required = true` and user isn't resident | `eligibility.residents_only` |
 | `nationality_restricted` | `nationality_restricted = true` | `eligibility.nationality_restricted` |
 | `credential` | role pack requires a credential in this market and the profile lacks it | `eligibility.credential_missing` (params: credential, market) |

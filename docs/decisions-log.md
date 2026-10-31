@@ -243,3 +243,10 @@ available in the repository.
   blocks. Postings written in one of the user's languages rank higher (`language_fit` 1.0 vs 0.9
   for unknown). Phrases and stopwords are config (`config/language_requirements.yaml`); the pure
   detector `normalizer.language_signals` exists now, the eligibility rule lands in Phase 3.
+- **EU Blue Card thresholds as dated data (owner, 2026-10-31):** stored in
+  `config/market_data/germany/eu_blue_card.yaml` (2025: €48,300 / €43,759.80; 2026: €50,700 /
+  €45,934.20 standard / reduced, gross annual base salary), verified 2026-10-31 against public
+  sources; the experience-based IT threshold is left out because sources disagree. New
+  `core.dated_data` gives effective-dated lookups with stale warnings (> 90 days unverified, or
+  past the newest entry) and no extrapolation; Phase 3 tax tables will use it too. Matching gets a
+  `visa_salary` warning rule (Phase 3).

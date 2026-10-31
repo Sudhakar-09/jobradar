@@ -208,6 +208,10 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   (English and German); owner profile `languages: [en]`; matching LLD: German-required postings
   ineligible, English postings rank higher.
 
+- **EU Blue Card thresholds (owner, 2026-10-31):** dated table for 2025 and 2026 with sources
+  and stale warnings (`core.dated_data`, `config/market_data/germany/eu_blue_card.yaml`); Germany
+  pack route links to it; `visa_salary` warning rule specified for Phase 3.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:
