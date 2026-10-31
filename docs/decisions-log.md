@@ -314,3 +314,5 @@ available in the repository.
   companies.
 - **Role/persona review (owner, 2026-10-31):** (1) all editorial values in `java_backend` and
   `mid` accepted as starting defaults (`owner_accepted_on`).
+- **Follow-ups (owner, 2026-10-31):** one follow-up, 7–10 days after applying, then the ghosting
+  rules apply. Persona `mid` `followup_days: [7]` and its tip now agree; lifecycle LLD updated.

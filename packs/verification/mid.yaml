@@ -48,13 +48,13 @@ items:
   notes: 'Product flow. Owner decision 2026-10-31: accepted as a starting default.'
   owner_accepted_on: '2026-10-31'
 - field: followup_days
-  claim: Follow up on day 7 and day 14
+  claim: One follow-up, 7 to 10 days after applying
   status: secondary
   source_title: How long to wait to follow up (The Muse)
   source_url: https://www.themuse.com/advice/heres-how-long-you-should-wait-to-follow-up-at-every-point-in-the-job-search
   checked_on: '2026-10-31'
-  notes: '''Follow up between five and 10 business days'' supports day 7; no source for a second follow-up
-    on day 14. Conflicts with tip 3 (''follow up once'').'
+  notes: '''Follow up between five and 10 business days'' (The Muse). Owner decision 2026-10-31: one follow-up
+    at day 7-10, then ghosting rules apply.'
 - field: default_llm_top_n
   claim: '10'
   status: editorial
@@ -88,9 +88,9 @@ items:
   notes: Also Lever via SHRM (https://www.shrm.org/topics-tools/news/talent-acquisition/lever-study-shows-1-100-candidates-hired);
     Burks et al., QJE 2015, doi:10.1093/qje/qjv010 (not read directly).
 - field: tips[2]
-  claim: Follow up once after 7 to 10 days
+  claim: Follow up once, 7 to 10 days after applying; then ghosting rules apply
   status: secondary
   source_title: How long to wait to follow up (The Muse)
   source_url: https://www.themuse.com/advice/heres-how-long-you-should-wait-to-follow-up-at-every-point-in-the-job-search
   checked_on: '2026-10-31'
-  notes: Supported; but conflicts with followup_days [7, 14].
+  notes: Supported; agrees with followup_days [7] (owner decision 2026-10-31).

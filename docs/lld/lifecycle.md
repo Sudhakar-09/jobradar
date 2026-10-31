@@ -596,9 +596,10 @@ before; an interview `scheduled_at` creates or updates an `interviews` row.
 - `followups_and_ghosting` is scheduled hourly by beat. It fans out to users whose local time is
   09:00 (from `users.timezone`), so each user is processed once a day at 09:00 local.
 - `FollowupPlanner.plan` (pure) returns:
-  - `followup_due` at `applied_at + followup_days[0]` (default 7) and `+ followup_days[1]`
-    (default 14) with no events since `applied`. Defaults come from the persona pack, then
-    config.
+  - `followup_due` at `applied_at + followup_days[i]` for each entry with no events since
+    `applied`. Default `[7]`: one follow-up, sent on the first 09:00 run in days 7–10 (owner
+    decision 2026-10-31); after it, only the ghosting rule applies. Defaults come from the
+    persona pack, then config.
   - `ghost` when `now − last_event_at ≥ ghosting_days` (default 21) for `applied`,
     `acknowledged`, `assessment` or `interview`.
 - Each action is idempotent through the notification `dedupe_key`
@@ -655,7 +656,7 @@ Indexes relied on: `ix_applications_user_id_state_last_event_at` (board, ghostin
 | Setting (pydantic-settings, prefix `LIFECYCLE_`) | Default |
 |---|---|
 | `ghosting_days` | 21 (per-user override: `users.preferences.ghosting_days`) |
-| `followup_days` | `[7, 14]` (persona pack `followup_days`, then `users.preferences.followup_days`) |
+| `followup_days` | `[7]` (persona pack `followup_days`, then `users.preferences.followup_days`); one follow-up within days 7–10 |
 | `email_class_threshold` | 0.75 |
 | `email_link_threshold` | 0.8 |
 | `inbox_sync_interval_min` | 15 |
