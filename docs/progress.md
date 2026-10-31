@@ -91,16 +91,27 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
     `system_session`.
   - New settings documented in `.env.example`. Dependencies declared: `httpx`, `tenacity`
     (stack-approved), `sqlalchemy[asyncio]` extra. 104 tests pass; coverage 95 % / 96 %.
-- Next: 2c Phase 2 tables, migrations and RLS, with database integration tests.
+- **2c done — Phase 2 tables, migration and row-level security** (`feat(db): …`):
+  - Models for users (minimal), consents, companies, company_suggestions, source_runs,
+    alert_inboxes, alert_messages, jobs (discovery columns only), job_sources, settings_flags,
+    audit_log, dead_letters; naming convention from database.md §1.
+  - Migration `0002_phase2`: citext, login-less roles `jobradar_app` / `jobradar_corpus` with
+    grants, `app_current_user_id()`, forced RLS and policies per database.md §4. `core.db`
+    switches every transaction into a role (`SET LOCAL ROLE`) because superusers bypass RLS.
+  - Integration tests (testcontainers pgvector Postgres, works on Windows; fallback
+    `JOBRADAR_TEST_DATABASE_URL` for compose): upgrade/downgrade/upgrade, model-vs-schema drift,
+    forced RLS on every user-owned table, cross-user reads/writes blocked, corpus role denied user
+    tables, flags/source runs/audit log policies, uniqueness rules. New CI job `integration`.
+  - Local dev database migrated to `0002_phase2`. 117 tests pass (13 integration).
+  - Dependency added: `testcontainers[postgres]` (dev, approved).
+- Next: 2d ATS connectors and `jobradar discover`.
 
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:
 1. ~~Pack schemas and UAE pack (US-1.2 AC2/AC3)~~ — done in 2a.
 2. ~~Core building blocks~~ — done in 2b.
-3. Migration `0002_phase2_discovery` (database.md §9): users (minimal), companies, source_runs,
-   jobs, job_sources, alert_inboxes, alert_messages, company_suggestions, consents,
-   settings_flags, audit_log, dead_letters; DB roles and RLS; integration tests in CI.
+3. ~~Phase 2 tables, roles, RLS, integration tests~~ — done in 2c.
 4. ~~Source policy registry (US-2.8)~~ — done in 2a (connectors re-export comes in 2d).
 5. Connectors (US-2.1, US-2.2): Greenhouse, Lever, Ashby, Workable, SmartRecruiters, Adzuna,
    Remotive, with fixture tests and `source_runs`.

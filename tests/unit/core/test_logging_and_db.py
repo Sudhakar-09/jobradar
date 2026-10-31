@@ -69,17 +69,18 @@ async def test_user_session_binds_the_user_for_row_level_security() -> None:
     async with user_session(scope, factory=fake_factory(session)):
         pass
 
-    statement, params = session.executed[0]
+    assert session.executed[0][0] == 'SET LOCAL ROLE "jobradar_app"'
+    statement, params = session.executed[1]
     assert "set_config('app.user_id'" in statement
     assert params == {"user_id": str(UUID(int=7))}
     assert session.committed
 
 
-async def test_system_session_binds_no_user() -> None:
+async def test_system_session_uses_corpus_role_and_binds_no_user() -> None:
     session = FakeSession()
 
     async with system_session(system_scope("discover_all"), factory=fake_factory(session)):
         pass
 
-    assert session.executed == []
+    assert session.executed == [('SET LOCAL ROLE "jobradar_corpus"', {})]
     assert session.committed

@@ -892,13 +892,23 @@ CREATE POLICY tenant_isolation ON <t>
 
 | DB role | Used by | RLS | Grants |
 |---|---|---|---|
-| `jobradar_app` | api, user-scoped tasks | Enforced | DML on all application tables |
-| `jobradar_corpus` | discovery, normalization, embedding workers | Enforced (has no grants on user-owned tables anyway) | DML on shared tables only |
-| `jobradar_admin` | admin service path | Enforced; separate policies allow operational tables and `support_grants`-checked reads | Limited |
-| `jobradar_migrator` | Alembic only | Owner | DDL |
+| `jobradar_app` (NOLOGIN) | api, user-scoped tasks | Enforced | DML on application tables; `audit_log`/`dead_letters` SELECT + INSERT only |
+| `jobradar_corpus` (NOLOGIN) | discovery, normalization, embedding workers | Enforced; no grants on user-owned tables | DML on shared tables and system `source_runs`; SELECT global flags |
+| `jobradar_admin` (NOLOGIN, Phase 10) | admin service path | Enforced; separate policies allow operational tables and `support_grants`-checked reads | Limited |
+| Login role (owner of the schema) | Alembic migrations; operator CLI (`flags set`, `users bootstrap-owner`) | Owner/superuser in dev and CI | DDL; member of the two roles above |
 
-- The session sets `SET LOCAL app.user_id = '<uuid>'` at the start of every transaction from the
-  `UserScope`. A missing setting yields **no rows** (fail closed), never all rows.
+- **Implemented in Phase 2 (`0002_phase2`):** the application never queries as its login role.
+  Every transaction starts with `SET LOCAL ROLE jobradar_app` (user work) or
+  `SET LOCAL ROLE jobradar_corpus` (corpus work) in `core.db`, because superusers bypass RLS. In
+  production (Phase 7) the login is a non-superuser member of both roles.
+- User transactions then call `set_config('app.user_id', '<uuid>', true)` from the `UserScope`;
+  policies compare against `app_current_user_id()` (NULL when unset). A missing setting yields
+  **no rows** (fail closed), never all rows.
+- Phase 2 policies: `users` self only; `consents`, `company_suggestions`, `alert_inboxes`,
+  `alert_messages` tenant isolation; `source_runs` shared rows (`user_id IS NULL`) plus own rows
+  for the app role, shared rows only for the corpus role; `settings_flags` read global + own,
+  write own user flags only (global flags are written by the operator path until
+  `jobradar_admin` exists); `audit_log` read own subject rows, append-only.
 - Background jobs that span users (digest fan-out, ghosting) iterate user IDs from a narrow
   `jobradar_app` function `list_active_user_ids()` (SECURITY DEFINER, returns IDs only) and open
   one scoped transaction per user.
@@ -986,8 +996,8 @@ phase needs are added in that later phase as an expand step.
 |---|---|---|---|
 | 0 | `0001_phase0` (exists) | — (empty baseline) | Scaffold |
 | 1 | — | — | Profile and packs stay in YAML (US-1.1 … US-1.3) |
-| 2 | `0002_phase2_discovery` | Extension `citext`; DB roles `jobradar_app`, `jobradar_corpus`; **users** (minimal columns: id, email, role, status, locale, timezone, comparison_currency, preferences, timestamps); **companies**, **source_runs**, **jobs**, **job_sources**; **alert_inboxes** (Gmail columns only), **alert_messages**, **company_suggestions**; **consents**; **settings_flags**; **audit_log**; **dead_letters** | Discovery and dedupe (US-2.1 … US-2.4), Gmail alert ingestion with consent (US-2.5), connector health (US-2.6), company catalogue and suggestions (US-2.7), market flags gated by conformance (US-2.9), audited consent and flag changes, Celery dead letters. The owner's `users` row is seeded by the migration's data step from settings |
-| 3 | `0003_phase3_matching` | Extension `vector`; **profiles** (imported from `config/profile.yaml`), **profile_embeddings**, **files** (resume uploads for US-1.4), **job_embeddings**, **job_scores**, **llm_calls**, **plans**, **user_plans**, **usage_counters** | Normalization and matching (US-3.1 … US-3.5, US-3.7), LLM metering and soft per-user budget (US-3.6), resume draft parsing (US-1.4), synthetic users end to end (US-3.8). `matches --top` reads `job_scores`; no `applications` rows yet |
+| 2 | `0002_phase2_discovery` | Extension `citext`; DB roles `jobradar_app`, `jobradar_corpus`; **users** (minimal columns: id, email, role, status, locale, timezone, comparison_currency, preferences, timestamps); **companies**, **source_runs**, **jobs**, **job_sources**; **alert_inboxes** (Gmail columns only), **alert_messages**, **company_suggestions**; **consents**; **settings_flags**; **audit_log**; **dead_letters** | Discovery and dedupe (US-2.1 … US-2.4), Gmail alert ingestion with consent (US-2.5), connector health (US-2.6), company catalogue and suggestions (US-2.7), market flags gated by conformance (US-2.9), audited consent and flag changes, Celery dead letters. Policies and roles as §4. `jobs` gets discovery columns only (normalized columns arrive in Phase 3). No personal data in migrations: the owner's `users` row is created by `jobradar users bootstrap-owner` |
+| 3 | `0003_phase3_matching` | Extension `vector`; normalized columns on **jobs** (seniority, role taxonomy, employment/remote type, regions, salary fields, FX, visa/residency/nationality, languages, credentials, ghost/scam scores, `normalization`; expand step); **profiles** (imported from `config/profile.yaml`), **profile_embeddings**, **files** (resume uploads for US-1.4), **job_embeddings**, **job_scores**, **llm_calls**, **plans**, **user_plans**, **usage_counters** | Normalization and matching (US-3.1 … US-3.5, US-3.7), LLM metering and soft per-user budget (US-3.6), resume draft parsing (US-1.4), synthetic users end to end (US-3.8). `matches --top` reads `job_scores`; no `applications` rows yet |
 | 4 | `0004_phase4_web_notify` | **credentials** (incl. `totp_secret_enc`), **oauth_identities**, **sessions** (incl. `mfa_verified_at`), **auth_challenges**, **client_tokens** (Telegram first); **applications**, **application_events** (states `matched` … `queued`, `skipped` used); **job_feedback**; columns `companies.logo_*` (logo proxy); **notifications**, **notification_prefs**, **channel_links**, **push_subscriptions**; **product_events** | Sign-in with TOTP for the owner (US-4.2; the admin console is internet-facing from Phase 7), feed and job detail with Apply/Skip/Save (US-4.3), digest on chosen channels (US-4.4), pause (US-4.5), flags (US-4.6), thumbs feedback, usage events. Matching starts creating `matched` applications |
 | 5 | `0005_phase5_documents_apply` | Extension `pg_trgm`; **resume_variants**, **answer_bank**, **document_renders**, **apply_attempts**, **pending_questions** | Variants and tailoring (US-5.1, US-5.2), dry-run adapters with proof (US-5.3), unknown questions (US-5.4), one-tap packs (US-5.5) |
 | 6 | `0006_phase6_lifecycle` | **emails**, **interviews**, **offers**, **contacts** | Live apply (US-6.1, no new tables), inbox tracking (US-6.2), follow-ups and ghosting (US-6.3, uses `users.preferences`), recruiter contacts (US-6.4), interview and offer rows created by transitions, pipeline board (US-6.5) |

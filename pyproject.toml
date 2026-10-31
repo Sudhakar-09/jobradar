@@ -28,6 +28,7 @@ dev = [
     "pytest>=8.3",
     "pytest-cov>=7.1.0",
     "ruff>=0.8",
+    "testcontainers[postgres]>=4.8",
 ]
 
 [tool.uv]
@@ -131,6 +132,7 @@ ban-relative-imports = "all"
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S101", "D", "ANN", "PLR2004", "INP001", "ARG", "FBT", "SLF001"]
 "alembic/**" = ["D", "INP001"]
+"alembic/versions/**" = ["D", "INP001", "E501"]  # generated table definitions; long CHECK strings
 "src/jobradar/cli.py" = ["T201"]
 "src/jobradar/core/logging.py" = ["TID251"]
 "src/jobradar/core/http.py" = ["TID251"]

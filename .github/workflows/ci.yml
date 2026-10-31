@@ -62,8 +62,20 @@ jobs:
         run: >-
           uv run coverage report --fail-under=80
           --include="*/jobradar/core/*,*/jobradar/normalizer/*,*/jobradar/matching/*,*/jobradar/lifecycle/*,*/jobradar/apply/*"
-      # Integration tests (PostgreSQL + Redis services, Alembic upgrade/downgrade/upgrade and
-      # RLS checks) are added in Phase 2 together with the first tables (docs/lld/database.md §7).
+
+  integration:
+    name: Database integration tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: uv sync --group dev
+      - name: pytest -m integration (testcontainers pgvector Postgres; migrations, drift, RLS)
+        run: uv run pytest -m integration
 
   contract:
     name: API contract

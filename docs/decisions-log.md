@@ -138,3 +138,9 @@ available in the repository.
   `server_apply` waits for a per-ATS terms review. Market and role packs keep
   `last_verified: null` until their facts are checked against official sources (they log a
   warning until then).
+- **Phase 2c (2026-10-30):** the application never queries as its database login. Every
+  transaction switches into a login-less role (`jobradar_app` or `jobradar_corpus`) with
+  `SET LOCAL ROLE`, because superusers (the dev/CI login) bypass row-level security. The `jobs`
+  table gets discovery columns in Phase 2 and normalized columns in Phase 3. Migrations contain no
+  personal data: the owner account is created by a CLI command. Integration tests use
+  testcontainers (works on Windows), with `JOBRADAR_TEST_DATABASE_URL` as the compose fallback.

@@ -21,6 +21,9 @@ class Settings(BaseSettings):
     db_connect_timeout_seconds: int = Field(default=5, ge=1)
     db_statement_timeout_ms: int = Field(default=15_000, ge=100)
     db_lock_timeout_ms: int = Field(default=5_000, ge=100)
+    # Login-less roles every transaction switches into (row-level security, database.md §4).
+    db_app_role: str = Field(default="jobradar_app", pattern=r"^[a-z_][a-z0-9_]*$")
+    db_corpus_role: str = Field(default="jobradar_corpus", pattern=r"^[a-z_][a-z0-9_]*$")
 
     # Outbound HTTP (core.http): timeouts, retries, politeness
     http_user_agent: str = "JobRadar/0.1"

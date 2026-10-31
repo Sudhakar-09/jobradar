@@ -2,6 +2,7 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config, pool
 
+import jobradar.models  # noqa: F401 -- registers every table on Base.metadata
 from alembic import context
 from jobradar.core.base import Base
 from jobradar.core.settings import get_settings
@@ -11,7 +12,9 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-config.set_main_option("sqlalchemy.url", get_settings().database_url.replace("%", "%%"))
+# Tests pass their own database URL through config.attributes; otherwise use settings.
+database_url = config.attributes.get("database_url") or get_settings().database_url
+config.set_main_option("sqlalchemy.url", database_url.replace("%", "%%"))
 target_metadata = Base.metadata
 
 
