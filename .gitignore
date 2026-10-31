@@ -54,3 +54,10 @@ htmlcov/
 *.docm
 /config/profile.yaml
 /config/answer_bank.yaml
+# Re-apply cache and build ignores inside the re-included trees above.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.import_linter_cache/
