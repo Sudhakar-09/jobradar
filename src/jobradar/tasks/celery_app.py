@@ -1,30 +1,9 @@
-"""Celery application and named queues."""
+"""Celery entry point for workers and beat (`celery -A jobradar.tasks.celery_app`).
 
-from celery import Celery
-from kombu import Queue
+The application itself is infrastructure and lives in `jobradar.core.queue`, so that `core`
+(for example the readiness check) never imports from an entry-point package.
+"""
 
-from jobradar.core.settings import get_settings
+from jobradar.core.queue import celery_app
 
-settings = get_settings()
-celery_app = Celery("jobradar", broker=settings.redis_url)
-celery_app.conf.update(
-    accept_content=["json"],
-    broker_connection_retry_on_startup=True,
-    task_acks_late=True,
-    task_default_queue="default",
-    task_default_serializer="json",
-    task_queues=(
-        Queue("discovery"),
-        Queue("llm"),
-        Queue("apply"),
-        Queue("email"),
-        Queue("default"),
-    ),
-    task_reject_on_worker_lost=True,
-    task_routes={
-        "jobradar.tasks.discovery.*": {"queue": "discovery"},
-        "jobradar.tasks.llm.*": {"queue": "llm"},
-        "jobradar.tasks.apply.*": {"queue": "apply"},
-        "jobradar.tasks.email.*": {"queue": "email"},
-    },
-)
+__all__ = ["celery_app"]

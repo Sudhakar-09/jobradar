@@ -1,9 +1,12 @@
+"""Structured JSON logging configuration (structlog)."""
+
 import logging
 
 import structlog
 
 
 def configure_logging(log_level: str = "INFO") -> None:
+    """Configure structlog to emit JSON logs at the given level."""
     level = getattr(logging, log_level.upper(), logging.INFO)
     logging.basicConfig(level=level, format="%(message)s")
     structlog.configure(

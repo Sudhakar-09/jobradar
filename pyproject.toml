@@ -20,9 +20,11 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
+    "import-linter>=2.15",
     "mypy>=1.13",
     "pre-commit>=4.0",
     "pytest>=8.3",
+    "pytest-cov>=7.1.0",
     "ruff>=0.8",
 ]
 
@@ -38,23 +40,159 @@ jobradar = "jobradar.cli:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = ["--strict-markers", "--strict-config", "-ra"]
+xfail_strict = true
+markers = [
+    "unit: pure logic, no I/O (default for tests without another marker)",
+    "integration: needs PostgreSQL/Redis (testcontainers or compose)",
+    "contract: API contract tests against docs/openapi.yaml",
+    "conformance: pack conformance suite (docs/prd.md §8a.1)",
+    "golden: golden dataset regression tests",
+    "synthetic: synthetic user end-to-end dry-run tests",
+    "isolation: cross-tenant isolation tests",
+    "slow: takes more than ~2 s; excluded from the pre-commit run",
+]
 
+# Coding standards enforcement: docs/coding-standards.md. Change these rules only with a
+# decisions-log entry.
 [tool.ruff]
 target-version = "py312"
 line-length = 100
+extend-exclude = ["scripts/archive"]
+force-exclude = true  # also skip excluded files when pre-commit passes them explicitly
 
 [tool.ruff.lint]
-select = ["B", "E", "F", "I", "SIM", "UP"]
+select = [
+    "A",      # builtins shadowing
+    "ANN",    # type annotations everywhere
+    "ARG",    # unused arguments
+    "ASYNC",  # no blocking calls in async code
+    "B",      # bugbear
+    "BLE",    # no blind `except Exception`
+    "C4",     # comprehensions
+    "C90",    # McCabe complexity
+    "D",      # docstrings (Google convention)
+    "DTZ",    # timezone-aware datetimes only
+    "E", "W", # pycodestyle
+    "ERA",    # no commented-out code
+    "F",      # pyflakes
+    "FBT",    # no boolean positional parameters (dry_run must be keyword-only)
+    "G", "LOG", # logging hygiene
+    "I",      # import order
+    "INP",    # no implicit namespace packages
+    "N",      # naming
+    "PERF",   # performance anti-patterns
+    "PGH",    # no blanket type: ignore / noqa
+    "PIE",
+    "PL",     # pylint: magic values, too many args/branches/statements
+    "PT",     # pytest style
+    "PTH",    # pathlib over os.path
+    "RET", "RSE", "RUF", "SIM", "SLF",
+    "S",      # bandit security checks
+    "T20",    # no print (except the CLI)
+    "TID",    # banned APIs, no relative imports
+    "TRY",    # exception hygiene
+    "UP",     # modern syntax
+]
+ignore = [
+    "D105",    # magic methods documented by their protocol
+    "D107",    # __init__ documented in the class docstring
+    "TRY003",  # messages on custom exceptions are fine; codes carry the meaning
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.pylint]
+max-args = 6
+max-branches = 12
+max-returns = 6
+max-statements = 50
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"requests".msg = "Use the shared httpx client from jobradar.core.http (timeouts, retries, User-Agent)."
+"httpx.Client".msg = "Create HTTP clients only in jobradar.core.http (enforces timeouts)."
+"httpx.AsyncClient".msg = "Create HTTP clients only in jobradar.core.http (enforces timeouts)."
+"httpx.get".msg = "Use the shared client from jobradar.core.http."
+"httpx.post".msg = "Use the shared client from jobradar.core.http."
+"httpx.request".msg = "Use the shared client from jobradar.core.http."
+"logging.getLogger".msg = "Use structlog.get_logger(__name__); stdlib logging is configured only in jobradar.core.logging."
+"pickle".msg = "Never unpickle data; use JSON with Pydantic models."
+"os.system".msg = "No shell execution."
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "D", "ANN", "PLR2004", "INP001", "ARG", "FBT", "SLF001"]
+"alembic/**" = ["D", "INP001"]
+"src/jobradar/cli.py" = ["T201"]
+"src/jobradar/core/logging.py" = ["TID251"]
+"src/jobradar/core/http.py" = ["TID251"]
+
+[tool.ruff.format]
+docstring-code-format = true
 
 [tool.mypy]
 python_version = "3.12"
 mypy_path = "src"
-warn_unused_configs = true
-
-[[tool.mypy.overrides]]
-module = "jobradar.core.*"
+files = ["src"]
 strict = true
+warn_unused_configs = true
+warn_unreachable = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+plugins = ["pydantic.mypy"]
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
 
 [[tool.mypy.overrides]]
-module = ["celery", "kombu", "yaml"]
+module = ["celery", "celery.*", "kombu", "kombu.*", "yaml"]
 ignore_missing_imports = true
+
+# Layering (ADR-0012, docs/coding-standards.md §3). Domains in parentheses do not exist yet and are
+# optional; remove the parentheses when the package is created so the contract cannot silently skip it.
+[tool.importlinter]
+root_package = "jobradar"
+include_external_packages = false
+
+[[tool.importlinter.contracts]]
+name = "Entry points > domains > models > core"
+type = "layers"
+layers = [
+    "jobradar.api | jobradar.tasks | jobradar.cli",
+    "(jobradar.accounts) : (jobradar.privacy) : (jobradar.quotas) : jobradar.profile : jobradar.connectors : jobradar.normalizer : jobradar.matching : jobradar.documents : jobradar.apply : jobradar.lifecycle : jobradar.notify : jobradar.strategy : jobradar.insights : jobradar.runner : (jobradar.admin)",
+    "jobradar.models",
+    "jobradar.core",
+]
+containers = []
+exhaustive = false
+
+[[tool.importlinter.contracts]]
+name = "Entry points never touch repositories or models directly"
+type = "forbidden"
+source_modules = ["jobradar.api", "jobradar.tasks", "jobradar.cli"]
+forbidden_modules = ["jobradar.models", "jobradar.*.repository"]
+allow_indirect_imports = true
+
+[[tool.importlinter.contracts]]
+name = "Only a domain's own service may use its repository"
+type = "protected"
+protected_modules = ["jobradar.*.repository"]
+allowed_importers = ["jobradar.*.service", "jobradar.*.service.**"]
+
+# Coverage gates (PRODUCT_STANDARDS §Q, docs/coding-standards.md §12). CI runs both reports.
+[tool.coverage.run]
+source = ["jobradar"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+skip_covered = true
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError", "@overload"]

@@ -1,25 +1,114 @@
 name: CI
 
+# Enforces docs/coding-standards.md and PRODUCT_STANDARDS.md §C. Every job must pass before merge.
 on:
   push:
+    branches: [main]
   pull_request:
 
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  UV_LOCKED: "1"
+
 jobs:
   quality:
+    name: Lint, format, types, layering
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
         with:
           python-version: "3.12"
-      - uses: astral-sh/setup-uv@v6
-        with:
-          version: latest
           enable-cache: true
-      - run: uv sync --locked --group dev
-      - run: uv run ruff check .
-      - run: uv run mypy src
-      - run: uv run pytest
+      - run: uv sync --group dev
+      - name: ruff format
+        run: uv run ruff format --check .
+      - name: ruff lint (complexity, docstrings, security, banned APIs, ...)
+        run: uv run ruff check --output-format github .
+      - name: mypy strict (all of src)
+        run: uv run mypy
+      - name: import-linter (api → services → repositories → models → core)
+        run: uv run lint-imports
+      - name: Pattern checks (hardcoded URLs, PII in logs, debugger calls)
+        run: >-
+          uv run pre-commit run --all-files --show-diff-on-failure
+          no-hardcoded-urls no-pii-in-logs no-print-debugging
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: uv sync --group dev
+      - name: pytest (unit, golden, conformance, synthetic, contract) with branch coverage
+        run: uv run pytest -m "not integration" --cov --cov-report=term-missing
+      - name: Coverage gate — overall ≥ 80 % (pyproject fail_under)
+        run: uv run coverage report --format=total
+      - name: Coverage gate — core, normalizer, matching, lifecycle, apply ≥ 80 % (PRODUCT_STANDARDS §Q)
+        run: >-
+          uv run coverage report --fail-under=80
+          --include="*/jobradar/core/*,*/jobradar/normalizer/*,*/jobradar/matching/*,*/jobradar/lifecycle/*,*/jobradar/apply/*"
+      # Integration tests (PostgreSQL + Redis services, Alembic upgrade/downgrade/upgrade and
+      # RLS checks) are added in Phase 2 together with the first tables (docs/lld/database.md §7).
+
+  contract:
+    name: API contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        with:
+          python-version: "3.12"
+      - name: Validate docs/openapi.yaml (OpenAPI 3.1)
+        run: uvx --from openapi-spec-validator openapi-spec-validator docs/openapi.yaml
+      # From Phase 4: compare docs/openapi.yaml with FastAPI's generated schema for shipped
+      # phases (docs/api.md §10).
+
+  security:
+    name: Dependency audit and secret scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        with:
+          python-version: "3.12"
+      - name: pip-audit (known vulnerabilities in locked dependencies)
+        run: |
+          uv export --format requirements-txt --no-hashes --no-emit-project > "$RUNNER_TEMP/requirements.txt"
+          uvx pip-audit --strict --requirement "$RUNNER_TEMP/requirements.txt"
+      - name: gitleaks (secrets in history)
+        uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2.3.9
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  pr-title:
+    name: Conventional commit PR title
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Check PR title (squash-merge commit message)
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          pattern='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9._/-]+\))?!?: [^ ].*$'
+          if [[ ! "$TITLE" =~ $pattern ]]; then
+            echo "::error::PR title must follow Conventional Commits, e.g. 'feat(matching): tiered pipeline'. Got: $TITLE"
+            exit 1
+          fi

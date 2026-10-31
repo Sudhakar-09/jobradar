@@ -36,3 +36,21 @@ htmlcov/
 *RESUME*
 *cv*
 *CV*
+# The name patterns above (*resume*, *cv*, ...) protect personal files anywhere else, but they also
+# matched project files such as docs/adr/0010-uae-cv-field-defaults.md and would hide future code
+# like cv_formatter.py. These trees hold only code, docs and synthetic test data, so names are
+# re-included here...
+!/docs/**
+!/src/**
+!/tests/**
+!/packs/**
+!/config/**
+# ...while binary documents stay ignored everywhere (real resumes must never be committed).
+*.pdf
+*.doc
+*.docx
+*.odt
+*.rtf
+*.docm
+/config/profile.yaml
+/config/answer_bank.yaml

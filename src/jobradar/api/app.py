@@ -1,3 +1,5 @@
+"""FastAPI application: middleware and health/readiness endpoints."""
+
 from collections.abc import Awaitable, Callable
 from uuid import UUID, uuid4
 
@@ -19,6 +21,7 @@ async def correlation_id_middleware(
     request: Request,
     call_next: Callable[[Request], Awaitable[Response]],
 ) -> Response:
+    """Bind a correlation ID to the request's log context and echo it in the response."""
     request_id = request.headers.get("X-Correlation-ID")
     try:
         correlation_id = str(UUID(request_id)) if request_id else str(uuid4())
@@ -39,18 +42,20 @@ def _check_dependency(name: str, check: Callable[[], None]) -> str:
     try:
         check()
     except Exception:
-        logger.exception("health_check_failed", dependency=name)
+        logger.exception("health.check_failed", dependency=name)
         return "unavailable"
     return "ok"
 
 
 @app.get("/health", tags=["health"])
 def health() -> JSONResponse:
+    """Report that the process is alive."""
     return JSONResponse(status_code=200, content={"status": "ok"})
 
 
 @app.get("/ready", tags=["health"])
 def ready() -> JSONResponse:
+    """Report whether the database, Redis and the queue are reachable."""
     checks: dict[str, str] = {
         "database": _check_dependency("database", check_database),
         "redis": _check_dependency("redis", check_redis),

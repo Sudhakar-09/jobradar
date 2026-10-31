@@ -1,3 +1,5 @@
+"""Pydantic models for the candidate profile and answer bank."""
+
 from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints
@@ -6,6 +8,8 @@ NonEmptyString = Annotated[str, StringConstraints(strip_whitespace=True, min_len
 
 
 class SalaryExpectation(BaseModel):
+    """Expected salary range in one currency."""
+
     model_config = ConfigDict(extra="forbid")
 
     minimum: float | None = Field(default=None, ge=0, allow_inf_nan=False)
@@ -13,6 +17,8 @@ class SalaryExpectation(BaseModel):
 
 
 class Profile(BaseModel):
+    """Validated candidate profile; the only source of facts the system may use."""
+
     model_config = ConfigDict(extra="forbid")
 
     name: str = ""
@@ -30,6 +36,8 @@ class Profile(BaseModel):
 
 
 class Answer(BaseModel):
+    """A reusable screening answer written by the user."""
+
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
     question_canonical: NonEmptyString
@@ -40,6 +48,8 @@ class Answer(BaseModel):
 
 
 class AnswerBank(BaseModel):
+    """All reusable screening answers for a user."""
+
     model_config = ConfigDict(extra="forbid")
 
     answers: list[Answer] = Field(default_factory=list)

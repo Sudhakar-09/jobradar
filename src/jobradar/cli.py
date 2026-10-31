@@ -1,3 +1,5 @@
+"""Command-line interface (`jobradar ...`) for developers and the operator."""
+
 import argparse
 import json
 from collections.abc import Sequence
@@ -36,6 +38,7 @@ def _build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the CLI and return the process exit code."""
     args = _build_parser().parse_args(argv)
     if args.command == "profile" and args.profile_command == "show":
         _print_profile(load_profile(args.profile))

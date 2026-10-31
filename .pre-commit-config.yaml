@@ -1,20 +1,58 @@
+# Enforces docs/coding-standards.md. Install once per clone:
+#   uv run pre-commit install --hook-type pre-commit --hook-type commit-msg
+default_install_hook_types: [pre-commit, commit-msg]
+default_stages: [pre-commit]
+
 repos:
   - repo: local
     hooks:
+      - id: ruff-format
+        name: ruff format
+        entry: uv run ruff format --check
+        language: system
+        types: [python]
       - id: ruff
-        name: ruff
+        name: ruff lint
         entry: uv run ruff check
         language: system
         types: [python]
-      - id: mypy-core
-        name: mypy core
-        entry: uv run mypy src/jobradar/core
+      - id: mypy
+        name: mypy (strict, all of src)
+        entry: uv run mypy
         language: system
         pass_filenames: false
+        types: [python]
+      - id: import-linter
+        name: import-linter (layering contracts)
+        entry: uv run lint-imports
+        language: system
+        pass_filenames: false
+        types: [python]
+      - id: no-hardcoded-urls
+        name: no hardcoded URLs in src (use settings or config YAML)
+        language: pygrep
+        entry: '[a-zA-Z][a-zA-Z0-9+.-]*://'
+        files: ^src/.*\.py$
+        exclude: ^src/jobradar/core/settings\.py$
+      - id: no-pii-in-logs
+        name: no personal data passed to log calls
+        language: pygrep
+        entry: 'log(ger)?\.(debug|info|warning|error|exception|critical)\(.*\b(email|phone|full_name|name|password|token|secret|resume_text|address|date_of_birth|dob|nationality|salary)\s*='
+        files: ^src/.*\.py$
+      - id: no-print-debugging
+        name: no breakpoint() or pdb
+        language: pygrep
+        entry: '\b(breakpoint\(\)|import pdb|pdb\.set_trace)'
         types: [python]
       - id: pytest
-        name: pytest
-        entry: uv run pytest
+        name: pytest (fast suite)
+        entry: uv run pytest -m "not slow and not integration" -q
         language: system
         pass_filenames: false
         types: [python]
+      - id: conventional-commit
+        name: conventional commit message
+        language: pygrep
+        entry: '\A(Merge |Revert "|(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9._/-]+\))?!?: \S)'
+        args: [--multiline, --negate]
+        stages: [commit-msg]

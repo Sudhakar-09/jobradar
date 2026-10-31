@@ -1,3 +1,5 @@
+"""Database engine factory."""
+
 from functools import lru_cache
 
 from sqlalchemy import create_engine
@@ -8,6 +10,7 @@ from jobradar.core.settings import get_settings
 
 @lru_cache(maxsize=1)
 def get_engine() -> Engine:
+    """Return the process-wide SQLAlchemy engine."""
     settings = get_settings()
     return create_engine(
         settings.database_url,
