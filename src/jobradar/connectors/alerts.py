@@ -157,8 +157,14 @@ class LinkCardParser:
         return jobs, invalid
 
     def _job_from_card(self, job_id: str, url: str, anchor: Tag) -> RawJob | None:
-        title = anchor.get_text(" ", strip=True)
-        details = _card_lines(anchor, title)
+        # A link may wrap the whole card (LinkedIn): its first text is the title, the rest the
+        # card lines. Otherwise the title is the link text and the lines follow the link.
+        inside = [line for line in anchor.stripped_strings if not _is_noise(line)]
+        if len(inside) > 1:
+            title, details = inside[0], inside[1:]
+        else:
+            title = anchor.get_text(" ", strip=True)
+            details = _card_lines(anchor, title)
         company, location = _company_and_location(details, self.config.card_lines)
         try:
             link = HttpUrl(url)

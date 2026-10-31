@@ -93,3 +93,17 @@ def test_alerts_ingest_without_inbox_explains_next_step(
 
     assert cli.main(["alerts", "ingest"]) == 0
     assert "jobradar inbox connect gmail" in capsys.readouterr().out
+
+
+def test_alerts_reprocess_with_nothing_unparsed(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setattr(accounts, "find_owner", an_owner)
+
+    async def none(*_: object, **__: object) -> list[connectors.SourceRunResult]:
+        return []
+
+    monkeypatch.setattr(connectors, "reprocess_unparsed", none)
+
+    assert cli.main(["alerts", "reprocess"]) == 0
+    assert "No unparsed alert emails" in capsys.readouterr().out

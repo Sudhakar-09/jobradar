@@ -1,11 +1,12 @@
 """Persistence for the company catalogue and connector runs (shared tables; corpus role)."""
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Final
 from uuid import UUID
 
-from sqlalchemy import func, select, text
+from sqlalchemy import delete, func, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from jobradar.connectors.health import RunStatus
@@ -249,6 +250,24 @@ class AlertMessageRepository:
     def __init__(self, session: AsyncSession) -> None:
         """Bind to an open user session."""
         self._session = session
+
+    async def unparsed_ids(self, inbox_id: UUID) -> list[str]:
+        """Provider IDs of messages a parser matched but could not read jobs from."""
+        rows = await self._session.scalars(
+            select(AlertMessage.provider_message_id)
+            .where(AlertMessage.inbox_id == inbox_id, AlertMessage.status == "unparsed")
+            .order_by(AlertMessage.received_at)
+        )
+        return list(rows.all())
+
+    async def forget(self, inbox_id: UUID, provider_message_ids: Sequence[str]) -> None:
+        """Drop bookkeeping rows so these messages are processed again."""
+        await self._session.execute(
+            delete(AlertMessage).where(
+                AlertMessage.inbox_id == inbox_id,
+                AlertMessage.provider_message_id.in_(provider_message_ids),
+            )
+        )
 
     async def seen(self, inbox_id: UUID, provider_message_id: str) -> bool:
         """Whether this message was already processed for this inbox."""

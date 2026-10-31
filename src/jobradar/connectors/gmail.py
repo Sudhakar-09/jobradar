@@ -193,10 +193,19 @@ class GmailAlertInbox:
         """Yield recent alert emails, decoded in memory (nothing is written to disk)."""
         token = await self.access_token()
         for message_id in await self._message_ids(token):
-            body = await self._get(
-                self._settings.message_url.format(id=message_id), token, {"format": "raw"}
-            )
-            yield _decode_raw(_RawMessage.model_validate(body))
+            yield await self._fetch(message_id, token)
+
+    async def fetch_ids(self, message_ids: Sequence[str]) -> AsyncIterator[InboundMessage]:
+        """Yield the given emails again (e.g. to re-parse after a parser fix), in memory only."""
+        token = await self.access_token()
+        for message_id in message_ids:
+            yield await self._fetch(message_id, token)
+
+    async def _fetch(self, message_id: str, token: str) -> InboundMessage:
+        body = await self._get(
+            self._settings.message_url.format(id=message_id), token, {"format": "raw"}
+        )
+        return _decode_raw(_RawMessage.model_validate(body))
 
     async def revoke(self) -> None:
         """Ask Google to revoke the grant (used when the user disconnects)."""

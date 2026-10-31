@@ -190,6 +190,12 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   are recorded as `unparsed`. Next: fix the LinkedIn parser against a real (anonymized) sample
   and re-process unparsed messages. Other boards' alerts had not arrived yet.
 
+- **LinkedIn parser fixed (2026-10-31):** real LinkedIn alerts wrap each job card in one link;
+  the parser now splits title from "Company · Location". Anonymized fixture from the owner's
+  alert (original deleted; leak checks pass). New `jobradar alerts reprocess` re-read the 14
+  unparsed emails: **76 jobs, 55 new, all 14 messages parsed**. 23 jobs are in India, none in the
+  UAE (the owner's LinkedIn alert may cover India only). 285 tests pass, coverage 96 %.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:

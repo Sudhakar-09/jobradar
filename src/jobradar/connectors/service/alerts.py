@@ -8,7 +8,7 @@ and a board whose emails stop yielding jobs marks the run degraded (format chang
 from __future__ import annotations
 
 from collections import Counter
-from collections.abc import AsyncIterable, Callable
+from collections.abc import AsyncIterable, Awaitable, Callable
 from dataclasses import dataclass, field
 from datetime import datetime
 from functools import lru_cache
@@ -296,6 +296,53 @@ async def connect_gmail_inbox(
     return await create_alert_inbox(scope, kind="gmail", oauth_token_enc=sealed, factory=factory)
 
 
+async def _active_gmail_inboxes(scope: UserScope, factory: Factory) -> list[tuple[UUID, bytes]]:
+    async with user_session(scope, factory=factory) as session:
+        return [
+            (inbox.id, inbox.oauth_token_enc)
+            for inbox in await AlertInboxRepository(session).active()
+            if inbox.kind == "gmail" and inbox.oauth_token_enc is not None
+        ]
+
+
+ChooseMessages = Callable[[UUID, GmailAlertInbox], Awaitable[AsyncIterable[InboundMessage] | None]]
+
+
+async def _run_gmail_inboxes(
+    scope: UserScope,
+    choose: ChooseMessages,
+    *,
+    clock: Clock | None,
+    client_factory: ClientFactory,
+    factory: Factory,
+) -> list[SourceRunResult]:
+    """Ingest, for each active Gmail inbox, the messages ``choose`` picks (None skips it)."""
+    inboxes = await _active_gmail_inboxes(scope, factory)
+    if not inboxes:
+        return []
+    from jobradar.connectors.config import policy_registry  # noqa: PLC0415 -- avoid an import cycle
+
+    client = load_oauth_client(_oauth_client_path())
+    box = _secret_box()
+    results: list[SourceRunResult] = []
+    async with client_factory(policy_registry()) as http:
+        for inbox_id, sealed in inboxes:
+            gmail = GmailAlertInbox(
+                http,
+                gmail_settings(),
+                client,
+                box.decrypt(sealed).decode("utf-8"),
+                alert_sender_addresses(),
+            )
+            messages = await choose(inbox_id, gmail)
+            if messages is None:
+                continue
+            results.append(
+                await ingest_alert_messages(scope, inbox_id, messages, clock=clock, factory=factory)
+            )
+    return results
+
+
 async def ingest_alerts(
     scope: UserScope,
     *,
@@ -308,36 +355,43 @@ async def ingest_alerts(
     An inbox whose grant Google rejects is marked ``reauth_required`` and its run is recorded
     as failed; other inboxes still run.
     """
-    async with user_session(scope, factory=factory) as session:
-        inboxes = [
-            (inbox.id, inbox.oauth_token_enc)
-            for inbox in await AlertInboxRepository(session).active()
-            if inbox.kind == "gmail"
-        ]
-    if not inboxes:
-        return []
-    from jobradar.connectors.config import policy_registry  # noqa: PLC0415 -- avoid an import cycle
 
-    client = load_oauth_client(_oauth_client_path())
-    box = _secret_box()
-    results: list[SourceRunResult] = []
-    async with client_factory(policy_registry()) as http:
-        for inbox_id, sealed in inboxes:
-            if sealed is None:
-                continue
-            gmail = GmailAlertInbox(
-                http,
-                gmail_settings(),
-                client,
-                box.decrypt(sealed).decode("utf-8"),
-                alert_sender_addresses(),
-            )
-            results.append(
-                await ingest_alert_messages(
-                    scope, inbox_id, gmail.fetch_new(), clock=clock, factory=factory
-                )
-            )
-    return results
+    async def recent(_inbox_id: UUID, gmail: GmailAlertInbox) -> AsyncIterable[InboundMessage]:
+        return gmail.fetch_new()
+
+    return await _run_gmail_inboxes(
+        scope, recent, clock=clock, client_factory=client_factory, factory=factory
+    )
+
+
+async def reprocess_unparsed(
+    scope: UserScope,
+    *,
+    clock: Clock | None = None,
+    client_factory: ClientFactory = _default_client,
+    factory: Factory = None,
+) -> list[SourceRunResult]:
+    """Fetch and parse again the alert emails no parser could read (e.g. after a parser fix).
+
+    Only messages recorded as ``unparsed`` are fetched again, by ID; inboxes without any are
+    skipped. Bodies stay in memory as in a normal ingest. If the run fails part-way, the
+    remaining messages are picked up by the next normal ingest while they are recent.
+    """
+
+    async def unparsed(
+        inbox_id: UUID, gmail: GmailAlertInbox
+    ) -> AsyncIterable[InboundMessage] | None:
+        async with user_session(scope, factory=factory) as session:
+            bookkeeping = AlertMessageRepository(session)
+            ids = await bookkeeping.unparsed_ids(inbox_id)
+            if ids:
+                await bookkeeping.forget(inbox_id, ids)
+        logger.info("connectors.alerts_reprocess", inbox_id=str(inbox_id), messages=len(ids))
+        return gmail.fetch_ids(ids) if ids else None
+
+    return await _run_gmail_inboxes(
+        scope, unparsed, clock=clock, client_factory=client_factory, factory=factory
+    )
 
 
 async def disconnect_inbox(

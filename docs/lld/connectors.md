@@ -622,3 +622,14 @@ bodies, job descriptions.
 - Employers on Workday or unknown systems are one-tap via alert emails only (owner decision
   2026-10-31): `detect_board` never names a board for them, the probe never tries them, and
   their suggestions cannot be accepted without a supported ATS board.
+
+### Real alert formats (Phase 2g follow-up)
+
+- LinkedIn alerts (2026-10) wrap each job card in one link (title, "Company · Location (mode)",
+  badges) next to a logo link and a title-only link. `LinkCardParser` now takes the first text
+  of a multi-text job link as the title and the rest as card lines. Fixture
+  `tests/fixtures/alerts/linkedin_card_links.eml` was generated from the owner's real alert by
+  `scripts/archive/anonymize_alert_email.py` (all text, IDs, links and headers replaced; leak
+  checks pass); the original was deleted.
+- `jobradar alerts reprocess` (`reprocess_unparsed`): fetches again, by Gmail ID, only the
+  messages recorded `unparsed`, after their bookkeeping rows are dropped; bodies stay in memory.

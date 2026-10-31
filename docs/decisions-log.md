@@ -221,3 +221,8 @@ available in the repository.
   suggestion reads their boards (`*.myworkdayjobs.com` and unknown hosts allow `one_tap` only;
   `ATS_ORDER` has no Workday). Their jobs reach JobRadar through job-alert emails, and the user
   applies on the employer's site. Pinned by `tests/unit/connectors/test_one_tap_systems.py`.
+- **Real alert samples (owner, 2026-10-31):** parser fixes use real alerts only through
+  anonymized fixtures. The owner downloads one alert as `.eml` into `%USERPROFILE%\.jobradar\samples\`
+  (outside the repo); `scripts/archive/anonymize_alert_email.py` rebuilds it with the same HTML
+  layout and fake text, IDs, links and headers, checks that no original detail remains, and the
+  original is deleted. Email contents are never shown in chat or logs.

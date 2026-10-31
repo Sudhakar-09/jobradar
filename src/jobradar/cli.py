@@ -269,10 +269,16 @@ def _inbox_disconnect(args: argparse.Namespace) -> int:
     return 0
 
 
-def _alerts_ingest(_args: argparse.Namespace) -> int:
-    results = run(connectors.ingest_alerts(_require_owner().scope()))
-    if not results:
-        print("No active alert inbox. Connect one with: jobradar inbox connect gmail")
+def _alerts_ingest(args: argparse.Namespace) -> int:
+    scope = _require_owner().scope()
+    if args.subcommand == "reprocess":
+        results = run(connectors.reprocess_unparsed(scope))
+        if not results:
+            print("No unparsed alert emails to read again.")
+    else:
+        results = run(connectors.ingest_alerts(scope))
+        if not results:
+            print("No active alert inbox. Connect one with: jobradar inbox connect gmail")
     for result in results:
         note = f" - {result.error}" if result.error else ""
         print(
@@ -362,6 +368,9 @@ def _add_inbox_commands(commands: argparse._SubParsersAction[argparse.ArgumentPa
     alert_commands.add_parser("ingest", help="Read new alert emails now").set_defaults(
         handler=_alerts_ingest
     )
+    alert_commands.add_parser(
+        "reprocess", help="Read again the alert emails no parser could read (after a fix)"
+    ).set_defaults(handler=_alerts_ingest)
 
 
 def _build_parser() -> argparse.ArgumentParser:

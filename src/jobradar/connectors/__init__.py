@@ -27,6 +27,7 @@ from jobradar.connectors.service.alerts import (
     ingest_alert_messages,
     ingest_alerts,
     list_inboxes,
+    reprocess_unparsed,
 )
 from jobradar.connectors.service.catalogue import (
     ATS_ORDER,
@@ -72,6 +73,7 @@ __all__ = [
     "policy_for",
     "probe_companies",
     "probe_company_suggestions",
+    "reprocess_unparsed",
     "slug_guesses",
     "sync_companies",
     "verify_companies",

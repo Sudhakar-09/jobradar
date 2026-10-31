@@ -277,3 +277,28 @@ def test_parser_class_is_reusable_for_new_boards() -> None:
     parser = LinkCardParser("bayt_test", config)
 
     assert parser.source == "alert:bayt_test"
+
+
+def test_linkedin_cards_wrapped_in_one_link_split_title_company_and_location() -> None:
+    # Layout of real LinkedIn alerts (2026-10): logo link, a link wrapping the whole card
+    # (title, "Company · Location (mode)", badges) and a title-only link per job.
+    # Fixture anonymized from the owner's alert by scripts/archive/anonymize_alert_email.py.
+    message = load_message("linkedin_card_links")
+    parser = pick_parser(PARSERS, message)
+    assert parser is not None
+
+    jobs, invalid = parser.parse(message)
+
+    assert invalid == 0
+    assert [(j.source_job_id, j.title, j.company_name, j.location_raw) for j in jobs[:2]] == [
+        (
+            "4100000001",
+            "Senior Java Backend Engineer",
+            "Example Logistics",
+            "Dubai, United Arab Emirates (On-site)",
+        ),
+        ("4100000002", "Java Developer", "Sample Pay", "Bengaluru, Karnataka, India (Hybrid)"),
+    ]
+    assert len(jobs) == 6
+    assert all(str(j.url) == f"https://www.linkedin.com/jobs/view/{j.source_job_id}/" for j in jobs)
+    assert all("Easy Apply" not in j.company_name for j in jobs)
