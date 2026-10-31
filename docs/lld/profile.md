@@ -107,6 +107,7 @@ class Profile(BaseModel):  # mirrors profiles table (database.md §3.4)
     india_tax_regime: Literal["new", "old"] = "new"
     min_fit_score: int  # ≥ global floor (validated in service)
     excluded_keywords: list[str] = []
+    excluded_industries: list[IndustryCode] = []  # codes in config/industries.yaml
 
 
 class ProfilePatch(BaseModel):  # partial update (If-Match); omitted fields unchanged
@@ -127,6 +128,7 @@ class ProfilePatch(BaseModel):  # partial update (If-Match); omitted fields unch
     india_tax_regime: Literal["new", "old"] | None = None
     min_fit_score: int | None = None
     excluded_keywords: list[str] | None = None
+    excluded_industries: list[IndustryCode] | None = None
     # field_code / role_family_code are derived from target_roles; sensitive fields have their own flow
 
 
@@ -220,6 +222,7 @@ class ProfileView(BaseModel):
     earliest_join_date: date | None
     min_fit_score: int
     excluded_keywords: list[str]
+    excluded_industries: list[str]
     india_tax_regime: Literal["new", "old"]  # passed on as CompProfile
     embedding: ProfileEmbeddingRef | None  # None until computed for this version
 ```
@@ -326,6 +329,7 @@ class ProfileResponse(BaseModel):
     languages: list[LanguageSkill]
     nationality: str | None = None
     excluded_keywords: list[str]
+    excluded_industries: list[str]
     india_tax_regime: Literal["new", "old"]
     min_fit_score: int
     sensitive_fields_supplied: list[Literal["photo", "date_of_birth", "marital_status"]]

@@ -172,6 +172,11 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   (≥ 50, for approval), (4) Workday/unknown systems stay one-tap via alerts. The owner redoes the
   Gmail setup in `C:\dev\jobradar\.env` (the earlier edit went to an old OneDrive copy).
 
+- **Excluded industries (review item 2) done:** `config/industries.yaml` vocabulary, profile
+  `excluded_industries` (empty for the owner), explicit `industries` tags on catalogue companies
+  (10 UAE crypto companies tagged), unknown codes rejected. Enforced by the Phase 3 eligibility
+  rule `excluded_industries` (LLD, database plan, OpenAPI and PRD US-3.2 updated).
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:

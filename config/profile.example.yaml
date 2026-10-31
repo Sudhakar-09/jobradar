@@ -10,3 +10,5 @@ salary_expectations: {}
 notice_period_days: null
 visa_status: {}
 languages: []
+# Industries never to match (codes from config/industries.yaml), e.g. [crypto, gambling].
+excluded_industries: []

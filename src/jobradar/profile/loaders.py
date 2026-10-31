@@ -5,6 +5,7 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel
 
+from jobradar.core.industries import require_known
 from jobradar.profile.models import AnswerBank, Profile
 
 
@@ -16,8 +17,10 @@ def _load_yaml_model[ModelT: BaseModel](path: Path, model: type[ModelT]) -> Mode
 
 
 def load_profile(path: Path) -> Profile:
-    """Load and validate a profile YAML file."""
-    return _load_yaml_model(path, Profile)
+    """Load and validate a profile YAML file (industry codes must be in the vocabulary)."""
+    profile = _load_yaml_model(path, Profile)
+    require_known(profile.excluded_industries, where=f"{path.name} excluded_industries")
+    return profile
 
 
 def load_answer_bank(path: Path) -> AnswerBank:

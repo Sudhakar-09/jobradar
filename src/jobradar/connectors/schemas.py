@@ -8,6 +8,7 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl, JsonValue, StringConstraints
 
 from jobradar.core.http import PoliteClient
+from jobradar.core.industries import IndustryCode
 from jobradar.core.source_policies import AccessMode
 
 CountryCode = Annotated[str, StringConstraints(pattern=r"^[A-Z]{2}$")]
@@ -64,6 +65,7 @@ class CompanyEntry(BaseModel):
     ats_slug: str = Field(min_length=1, pattern=r"^[A-Za-z0-9._-]+$")
     countries: list[CountryCode] = Field(min_length=1)
     source: str = Field(min_length=1)  # how we learned the company hires there
+    industries: list[IndustryCode] = Field(default_factory=list)  # explicit tags only
     notes: str | None = None
 
 

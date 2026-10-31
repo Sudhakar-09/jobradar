@@ -206,3 +206,13 @@ available in the repository.
     (and caused needless tiny sleeps with the real one). Regression test added.
 - **UAE catalogue approved (owner, 2026-10-31):** all 36 proposed companies, including the seven
   with a single UAE posting, because discovery and `companies verify` re-check every board.
+- **Excluded industries (owner, 2026-10-31):** users can exclude industries from matching
+  (profile `excluded_industries`; empty for the owner). Codes come from a fixed vocabulary,
+  `config/industries.yaml` (crypto, gambling, real-money gaming, tobacco, alcohol, weapons and
+  defence, fossil fuels, adult content, high-cost lending); unknown codes are rejected on load.
+  Only **explicit** company tags count (`industries` in `config/companies.yaml`): an untagged
+  employer is never guessed into an industry, so alert-only employers are not excluded until
+  tagged. The ten crypto companies in the UAE catalogue are tagged `crypto`. Enforcement is the
+  Phase 3 eligibility rule `excluded_industries` (reason `eligibility.excluded_industry`); the
+  pure check `core.industries.excluded_industries` exists now, and the Phase 3 migration adds
+  `profiles.excluded_industries` and `companies.industries`.

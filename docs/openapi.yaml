@@ -11985,6 +11985,12 @@ components:
           type: array
           items:
             type: string
+        excluded_industries:
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z][a-z0-9_]*$
+          description: Industry codes from config/industries.yaml; employers tagged with them are never matched.
         india_tax_regime:
           type: string
           enum:
@@ -12018,6 +12024,7 @@ components:
       - visa_status
       - languages
       - excluded_keywords
+      - excluded_industries
       - india_tax_regime
       - min_fit_score
       - sensitive_fields_supplied
@@ -12075,6 +12082,12 @@ components:
           type: array
           items:
             type: string
+        excluded_industries:
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z][a-z0-9_]*$
+          description: Industry codes from config/industries.yaml; employers tagged with them are never matched.
         india_tax_regime:
           type: string
           enum:

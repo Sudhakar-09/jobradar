@@ -9,6 +9,7 @@ companies:
   countries:
   - AE
   source: 'ats probe 2026-10-31: 53 postings in AE'
+  industries: [crypto]
 - name: Delivery Hero
   ats: smartrecruiters
   ats_slug: deliveryhero
@@ -27,6 +28,7 @@ companies:
   countries:
   - AE
   source: 'ats probe 2026-10-31: 45 postings in AE'
+  industries: [crypto]
 - name: Deliveroo
   ats: greenhouse
   ats_slug: deliveroo
@@ -63,12 +65,14 @@ companies:
   countries:
   - AE
   source: 'ats probe 2026-10-31: 7 postings in AE'
+  industries: [crypto]
 - name: Coinbase
   ats: greenhouse
   ats_slug: coinbase
   countries:
   - AE
   source: 'ats probe 2026-10-31: 6 postings in AE'
+  industries: [crypto]
 - name: Namshi
   ats: smartrecruiters
   ats_slug: namshi
@@ -81,6 +85,7 @@ companies:
   countries:
   - AE
   source: 'ats probe 2026-10-31: 5 postings in AE'
+  industries: [crypto]
 - name: Cohere
   ats: ashby
   ats_slug: cohere
@@ -105,12 +110,14 @@ companies:
   countries:
   - AE
   source: 'ats probe 2026-10-31: 4 postings in AE'
+  industries: [crypto]
 - name: OKX
   ats: greenhouse
   ats_slug: okx
   countries:
   - AE
   source: 'ats probe 2026-10-31: 4 postings in AE'
+  industries: [crypto]
 - name: Foodics
   ats: workable
   ats_slug: foodics
@@ -135,12 +142,14 @@ companies:
   countries:
   - AE
   source: 'ats probe 2026-10-31: 2 postings in AE'
+  industries: [crypto]
 - name: Flowdesk
   ats: greenhouse
   ats_slug: flowdesk
   countries:
   - AE
   source: 'ats probe 2026-10-31: 2 postings in AE'
+  industries: [crypto]
 - name: GitLab
   ats: greenhouse
   ats_slug: gitlab
@@ -165,6 +174,7 @@ companies:
   countries:
   - AE
   source: 'ats probe 2026-10-31: 2 postings in AE'
+  industries: [crypto]
 - name: Scale AI
   ats: greenhouse
   ats_slug: scaleai

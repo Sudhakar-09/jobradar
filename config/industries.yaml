@@ -1,0 +1,32 @@
+# Industry codes a user can exclude from matching (profile `excluded_industries`) and that
+# catalogue companies are tagged with (`industries` in config/companies.yaml).
+# Only companies with an explicit tag are excluded: an untagged employer is never guessed into an
+# industry. Add a code here before using it anywhere; loaders reject unknown codes.
+industries:
+  crypto:
+    label: Crypto and digital assets
+    description: Exchanges, custody, trading, wallets, DeFi and blockchain infrastructure.
+  gambling:
+    label: Gambling and betting
+    description: Casinos, sports betting, lotteries.
+  real_money_gaming:
+    label: Real-money gaming
+    description: Fantasy sports and skill games played for cash prizes.
+  tobacco:
+    label: Tobacco and vaping
+    description: Cigarettes, tobacco and nicotine products.
+  alcohol:
+    label: Alcohol
+    description: Producers and distributors of alcoholic drinks.
+  weapons_defence:
+    label: Weapons and defence
+    description: Arms, military and defence contractors.
+  fossil_fuels:
+    label: Fossil fuels
+    description: Oil, gas and coal exploration, production and trading.
+  adult_content:
+    label: Adult content
+    description: Adult entertainment.
+  high_cost_lending:
+    label: High-cost consumer lending
+    description: Payday and other high-interest short-term consumer loans.

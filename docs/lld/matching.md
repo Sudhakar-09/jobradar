@@ -389,6 +389,7 @@ sequenceDiagram
 | `language` | `languages_required` not covered by the profile at the needed level | `eligibility.language_missing` |
 | `experience` | job seniority is two or more levels from the profile seniority | `eligibility.experience_mismatch` |
 | `excluded_keywords` | title or description matches a user exclusion | `eligibility.excluded_keyword` |
+| `excluded_industries` | the job's catalogue company is tagged with an industry the user excludes (`core.industries.excluded_industries`; untagged companies never match) | `eligibility.excluded_industry` (params: industry) |
 | `already_handled` | an application exists in a terminal state or the job was skipped | `eligibility.already_handled` (info) |
 | `notice_period` | posting states a hard limit below the notice period (soft penalty otherwise) | `eligibility.notice_period` (warn) |
 | `ghost_scam` | `scam_score ≥ 80` blocks; `ghost_score ≥ 70` warns | `eligibility.suspected_scam` / `eligibility.possibly_stale` |

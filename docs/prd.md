@@ -401,7 +401,8 @@ salary with period/basis, visa, language, required credentials, ghost/scam score
   currency computed at a dated rate.
 
 **US-3.2** Eligibility with plain-language reasons: location/remote region, visa vs per-country
-status, language, experience range, excluded keywords, nationality restrictions, **required
+status, language, experience range, excluded keywords, **excluded industries** (e.g. crypto,
+gambling, tobacco; only employers explicitly tagged in the catalogue), nationality restrictions, **required
 licences/registrations per market** (from role pack).
 - AC1: Every ineligible job has at least one human-readable reason.
 

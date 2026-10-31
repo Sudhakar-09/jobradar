@@ -4,6 +4,8 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints
 
+from jobradar.core.industries import IndustryCode
+
 NonEmptyString = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 
@@ -33,6 +35,8 @@ class Profile(BaseModel):
     notice_period_days: int | None = Field(default=None, ge=0)
     visa_status: dict[NonEmptyString, NonEmptyString] = Field(default_factory=dict)
     languages: list[NonEmptyString] = Field(default_factory=list)
+    # Employers tagged with these industries are never matched (codes: config/industries.yaml).
+    excluded_industries: list[IndustryCode] = Field(default_factory=list)
 
 
 class Answer(BaseModel):

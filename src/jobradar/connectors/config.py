@@ -6,6 +6,7 @@ from pathlib import Path
 import yaml
 
 from jobradar.connectors.schemas import CompanyFile, ConnectorsFile
+from jobradar.core.industries import require_known
 from jobradar.core.settings import get_settings
 from jobradar.core.source_policies import SourcePolicyRegistry, load_source_policies
 
@@ -20,12 +21,15 @@ def load_connectors_file(path: Path) -> ConnectorsFile:
 
 
 def load_company_file(path: Path) -> CompanyFile:
-    """Load and validate `companies.yaml`; (ats, slug) pairs must be unique."""
+    """Load and validate `companies.yaml`; (ats, slug) pairs unique, industries known."""
     company_file = CompanyFile.model_validate(_read_yaml(path))
     keys = [(entry.ats, entry.ats_slug.lower()) for entry in company_file.companies]
     duplicates = sorted({f"{ats}/{slug}" for ats, slug in keys if keys.count((ats, slug)) > 1})
     if duplicates:
         raise ValueError(f"duplicate companies in {path.name}: {duplicates}")
+    require_known(
+        (code for entry in company_file.companies for code in entry.industries), where=path.name
+    )
     return company_file
 
 
