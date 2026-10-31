@@ -334,3 +334,6 @@ available in the repository.
   posting's minimum years map to a level ("3+" mid target, "5+" senior stretch, "8+" staff
   ineligible); the higher of title level and years level counts. Confirmed: "III" = senior
   (stretch); "Head of", "VP", "CTO" = executive (ineligible).
+- **UAE round 3 (owner, 2026-10-31):** Etihad Airways and Masdar approved (38 UAE catalogue
+  companies); the full round-3 probe is skipped because research found almost no readable
+  boards; Germany follows India.

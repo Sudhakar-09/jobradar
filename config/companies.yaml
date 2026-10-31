@@ -2,6 +2,7 @@
 # boards are re-verified by discovery and `jobradar companies verify`.
 # UAE: 36 companies approved by the owner on 2026-10-31 from config/company_candidates/
 # (every board listed UAE jobs at probe time; entries noted "only 1 UAE posting" may drop out).
+# Etihad Airways and Masdar added 2026-10-31 from the round-3 research (owner approval).
 companies:
 - name: Binance
   ats: greenhouse
@@ -236,3 +237,17 @@ companies:
   - AE
   source: 'ats probe 2026-10-31: 1 postings in AE'
   notes: only 1 UAE posting at probe time; may drop out
+- name: Etihad Airways
+  domain: etihad.com
+  ats: smartrecruiters
+  ats_slug: EtihadAirways5
+  countries:
+  - AE
+  source: 'web search + verify 2026-10-31: 64 postings in AE'
+- name: Masdar
+  domain: masdar.ae
+  ats: smartrecruiters
+  ats_slug: masdar
+  countries:
+  - AE
+  source: 'web search + verify 2026-10-31: 19 postings in AE'
