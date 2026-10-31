@@ -1,0 +1,8 @@
+# UAE round 3 (banks, telecoms, airlines, government-linked, IT services): readable boards found
+# by web-search research on 2026-10-31 (docs/research/uae-employer-hiring-systems-2026-10-31.md)
+# and verified live with `jobradar companies verify --file` the same day. Awaiting the owner's
+# approval. Not proposed: First Abu Dhabi Bank (smartrecruiters/FirstAbuDhabiBank) and RAKBANK
+# (smartrecruiters/RAKBANK2) — both boards were empty on 2026-10-31 (likely moved systems).
+companies:
+  - {name: Etihad Airways, domain: etihad.com, ats: smartrecruiters, ats_slug: EtihadAirways5, countries: [AE], source: "web search + verify 2026-10-31: 64 postings in AE"}
+  - {name: Masdar, domain: masdar.ae, ats: smartrecruiters, ats_slug: masdar, countries: [AE], source: "web search + verify 2026-10-31: 19 postings in AE"}
