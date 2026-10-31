@@ -64,7 +64,11 @@ policies:
     modes: [api]
     rate_limit: {per_minute: 10, burst: 2, per_day: 250}
     docs_url: https://developer.adzuna.com/
-    notes: Needs an app id and key (owner's account). Check the plan's call limits on the Adzuna developer dashboard and lower per_day if needed.
+    notes: >-
+      Needs an app id and key (owner's account). Free plan = 25 test calls in total; paid plan
+      (£8/month) = 5,000 calls/month, 500/day. Connector disabled in Stage 1
+      (config/connectors.yaml). Registered use case "Personal job search": terms review needed
+      before Stage 2 (multi-user use).
     last_reviewed: 2026-10-30
 
   - id: remotive
@@ -99,6 +103,22 @@ policies:
     modes: [alert_email, one_tap]
     rate_limit: {per_minute: 1, burst: 1}
     notes: One-tap until a terms review in Phase 8 decides on extension assist.
+    last_reviewed: 2026-10-30
+
+  - id: instahyre
+    name: Instahyre
+    hosts: [instahyre.com, "*.instahyre.com"]
+    modes: [alert_email, one_tap]
+    rate_limit: {per_minute: 1, burst: 1}
+    notes: India channel through job-alert emails and one-tap links only (owner decision, 2f).
+    last_reviewed: 2026-10-30
+
+  - id: foundit
+    name: Foundit (formerly Monster India)
+    hosts: [foundit.in, "*.foundit.in"]
+    modes: [alert_email, one_tap]
+    rate_limit: {per_minute: 1, burst: 1}
+    notes: India channel through job-alert emails and one-tap links only (owner decision, 2f).
     last_reviewed: 2026-10-30
 
   - id: naukrigulf

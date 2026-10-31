@@ -90,6 +90,8 @@ class ConnectorSettings(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
+    enabled: bool = True
+    disabled_reason: str | None = None  # shown when discovery skips a disabled connector
     list_url: str
     params: dict[str, str | int] = Field(default_factory=dict)
     page_size: int | None = Field(default=None, ge=1)

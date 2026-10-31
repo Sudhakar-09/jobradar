@@ -27,6 +27,7 @@ from jobradar.connectors.repository import CompanyRepository, SourceRunRepositor
 from jobradar.connectors.schemas import (
     CompanyRef,
     Connector,
+    ConnectorSettings,
     ConnectorsFile,
     FetchContext,
     FetchResult,
@@ -151,15 +152,25 @@ async def discover(
         for code, connector in sorted(plan.connectors.items()):
             if connector.kind != "query" or not plan.queries or source not in (None, code):
                 continue
-            reason = connector.is_configured() or await _budget_reason(connector, clock, factory)
+            settings = plan.config.connectors[code]
+            reason = (
+                _disabled_reason(settings)
+                or connector.is_configured()
+                or await _budget_reason(connector, clock, factory)
+            )
             if reason is not None:
                 logger.info("connectors.run_skipped", connector=code, reason=reason)
                 report.skipped.append(Skipped(connector=code, reason=reason))
                 continue
-            settings = plan.config.connectors[code]
             ctx = FetchContext(http=http, settings=settings, queries=plan.queries)
             report.runs.append(await _run(connector, ctx, clock, factory))
     return report
+
+
+def _disabled_reason(settings: ConnectorSettings) -> str | None:
+    if settings.enabled:
+        return None
+    return f"disabled in config/connectors.yaml ({settings.disabled_reason or 'no reason given'})"
 
 
 async def _budget_reason(connector: Connector, clock: Clock, factory: Factory) -> str | None:

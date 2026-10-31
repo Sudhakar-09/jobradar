@@ -160,3 +160,12 @@ available in the repository.
   check (1 request) stored 12 real remote jobs with 0 invalid items. That run also showed httpx
   logging full request URLs at INFO; httpx/httpcore loggers are now held at WARNING so API keys in
   query strings never reach logs.
+- **Adzuna (owner, 2026-10-30):** Adzuna is paid: the free "Pending Activation" plan allows 25
+  test calls in total; full access is £8/month for 5,000 calls/month (500/day). The owner will
+  not subscribe for now, so the Adzuna connector is **disabled in Stage 1**
+  (`enabled: false` in `config/connectors.yaml`; discovery reports it as skipped). Revisit before
+  Stages 2–3. **Stage 2 terms-review item:** the Adzuna app is registered for "Personal job
+  search"; multi-user use needs a terms review (and likely a different plan) first.
+- **India alert sources (owner, 2026-10-30):** because Adzuna was the main India aggregator, 2f
+  adds job-alert email parsers for Naukri, LinkedIn India, Instahyre and Foundit alongside the UAE
+  ones (LinkedIn, Naukrigulf, Bayt, GulfTalent). All are alert-email + one-tap sources.

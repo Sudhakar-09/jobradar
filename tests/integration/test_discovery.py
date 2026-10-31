@@ -101,7 +101,7 @@ async def test_discover_stores_jobs_and_records_runs(
     }
     assert all(result.items_invalid == 1 for result in report.runs)
     assert [(s.connector, s.reason) for s in report.skipped] == [
-        ("adzuna", "ADZUNA_APP_ID and ADZUNA_APP_KEY are not set in .env")
+        ("adzuna", "disabled in config/connectors.yaml (needs the Adzuna paid plan)")
     ]
     assert count(admin_engine, "SELECT count(*) FROM jobs") == 10
     assert (

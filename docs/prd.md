@@ -181,8 +181,10 @@ These remain fully specified because they are the first packs to ship and test G
 
 **India (`india`)** — INR; annual CTC with fixed/variable; in-hand estimate: CTC → fixed →
 minus employee PF, professional tax and income tax → monthly; **new tax regime by default,
-old regime optional** (`india_tax_regime`). Channels: ATS feeds, Adzuna, Naukri
-(`extension_assist`/one-tap per policy), LinkedIn (one-tap), alert emails. Warn when "immediate
+old regime optional** (`india_tax_regime`). Channels: (1) **job-alert emails — main India
+source since Adzuna is paid and disabled in Stage 1** (Naukri, LinkedIn India, Instahyre, Foundit;
+alert email + one-tap only); (2) ATS feeds for catalogued companies; (3) Adzuna when the paid plan
+is taken (revisit before Stage 2–3); Naukri `extension_assist` only after a Phase 8 terms review. Warn when "immediate
 joiner" conflicts with the notice period. CV format `in`; current/expected CTC only if opted in.
 
 **UAE (`uae`)** —

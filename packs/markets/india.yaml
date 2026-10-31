@@ -40,11 +40,21 @@ sources:
     name: Company career pages and ATS boards
     kind: ats
     access_modes: [ats_feed, extension_assist]
-  - code: adzuna
+  - code: adzuna  # disabled in Stage 1 (paid plan needed); see docs/decisions-log.md
     name: Adzuna
     kind: aggregator
     hosts: [api.adzuna.com]
     access_modes: [api]
+  - code: instahyre
+    name: Instahyre
+    kind: job_board
+    hosts: [instahyre.com, "*.instahyre.com"]
+    access_modes: [alert_email, one_tap]
+  - code: foundit
+    name: Foundit
+    kind: job_board
+    hosts: [foundit.in, "*.foundit.in"]
+    access_modes: [alert_email, one_tap]
   - code: naukri
     name: Naukri
     kind: job_board

@@ -23,6 +23,10 @@ connectors:
 
   # --- Aggregators (one run per connector covering all market × role queries) ---
   adzuna:
+    # Disabled in Stage 1: the free plan allows only 25 test calls in total; full access is a paid
+    # plan (£8/month, 500 calls/day). Revisit before Stage 2-3 (docs/decisions-log.md).
+    enabled: false
+    disabled_reason: needs the Adzuna paid plan
     list_url: https://api.adzuna.com/v1/api/jobs/{country}/search/{page}
     params: {results_per_page: 50, max_days_old: 3, content-type: application/json}
     max_pages: 2

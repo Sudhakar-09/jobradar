@@ -125,8 +125,14 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   - Live check: `jobradar discover --source remotive` stored 12 real remote jobs, 0 invalid.
   - Security fix: httpx/httpcore no longer log full URLs (API keys in query strings).
   - 183 tests pass.
-- **STOP — waiting for the owner:** Adzuna app id and key in `.env` (sign-up steps given in chat),
-  then run `uv run jobradar discover --source adzuna`. 2f follows.
+- Owner decision after 2e: Adzuna is paid (free plan = 25 test calls in total; £8/month for 500
+  calls/day) and stays **disabled in Stage 1** (`enabled: false` in `config/connectors.yaml`,
+  reported as skipped by `discover`). Stage 2 terms review: app registered for "Personal job
+  search". India alert-email sources added (Instahyre, Foundit policies and India pack; PRD
+  updated); their parsers come in 2f.
+- **Pending:** one live Adzuna verification (single API call, response saved as an anonymized
+  fixture). Waiting for `ADZUNA_APP_ID`/`ADZUNA_APP_KEY` to be saved in `.env` (not on disk yet).
+- Next: 2f Gmail alert ingestion with UAE and India parsers.
 
 ## Next steps
 
@@ -149,7 +155,7 @@ an HTML parser for alert emails, testcontainers (or compose services) for integr
 
 ## Open questions/decisions waiting on me
 
-- Adzuna API credentials (`ADZUNA_APP_ID`, `ADZUNA_APP_KEY` in `.env`) — see the 2e summary.
+- Save `ADZUNA_APP_ID`/`ADZUNA_APP_KEY` in `.env` so the single verification call can run.
 - Next dependency approval: the HTML parser for alert emails (2f).
 
 ## Known issues
