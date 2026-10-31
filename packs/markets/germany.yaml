@@ -113,6 +113,9 @@ credential_recognition:
       to a German one; anabin shows how foreign universities and degrees are rated. IT
       specialists can sometimes qualify by experience instead.
 
+known_gaps:
+  - Locale en-DE to be verified against the i18n library in Phase 4 (owner decision 2026-10-31).
+
 provenance:
   last_verified: 2026-10-31  # per-value record: packs/verification/germany.yaml
   references:

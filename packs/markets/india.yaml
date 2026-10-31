@@ -17,8 +17,8 @@ money:
     when stated. CTC includes employer PF and gratuity, and variable pay is paid only when earned.
     In-hand pay deducts employee PF (12% of basic + DA; often capped at the Rs 15,000/month wage
     ceiling, i.e. Rs 1,800/month; since the Labour Codes of 21 Nov 2025 allowances above 50% of
-    pay count as wages for PF), state professional tax (at most Rs 2,500 a year, e.g.
-    Maharashtra Rs 200/month and Rs 300 in February; rates differ by state) and progressive
+    pay count as wages for PF), state professional tax (varies by state, at most Rs 2,500 a
+    year) and progressive
     income tax. The new regime is the default (s.115BAC of the Income-tax Act 1961 through
     FY 2025-26; s.202 of the Income-tax Act 2025 from tax year 2026-27); the old regime is
     opt-in each year for salary income.
@@ -85,6 +85,15 @@ notice_period_norm: >-
 hiring_seasons: []
 language_notes: Use language requirements from each individual job posting.
 credential_recognition: []
+
+known_gaps:
+  - >-
+    Visa routes: Employment Visa rules for foreign nationals must be added and verified before
+    India is enabled for non-Indian users (owner decision 2026-10-31).
+  - >-
+    Credential recognition: foreign degree equivalence must be added and verified before India
+    is enabled for non-Indian users (owner decision 2026-10-31).
+  - Professional tax per state to be added from state sources (owner decision 2026-10-31).
 
 provenance:
   last_verified: 2026-10-31  # per-value record: packs/verification/india.yaml

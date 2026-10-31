@@ -63,19 +63,13 @@ items:
   checked_on: '2026-10-31'
   notes: Seen via official search excerpts; the PDF was not fetched in full.
 - field: money.notes (professional tax)
-  claim: State-level professional tax, capped at Rs 2,500 a year
+  claim: Professional tax varies by state, at most Rs 2,500 a year
   status: verified
   source_title: Maharashtra Profession Tax rate schedule (mahagst.gov.in)
   source_url: https://www.mahagst.gov.in/public/uploads/menufiles/PT%20Rate%20Schedule%20updated%20upto%2031.03.2025%20(1)%20(1).pdf
   checked_on: '2026-10-31'
-  notes: Art. 276 cap Rs 2,500; Maharashtra Rs 200/month and Rs 300 in February above Rs 10,000/month.
-- field: money.notes (states without PT)
-  claim: Some states and UTs levy no professional tax (e.g. Delhi, Haryana, UP)
-  status: unverified
-  source_title: null
-  source_url: null
-  checked_on: '2026-10-31'
-  notes: Not checked against official state sources.
+  notes: 'Art. 276(2) cap Rs 2,500; the Maharashtra schedule shows one state''s rates. Owner decision
+    2026-10-31: state examples removed; per-state data to be added later from state sources.'
 - field: cv.term
   claim: '''Resume'' (also ''CV''; ''biodata'' in government roles)'
   status: secondary
@@ -133,14 +127,20 @@ items:
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: Foreign nationals need an Employment Visa (MHA / Bureau of Immigration); not researched.
+  notes: 'Owner decision 2026-10-31: accepted for Stage 1 (Indian citizens). Gap recorded in the pack
+    and docs/markets/india.md: Employment Visa rules for foreign nationals must be added and verified
+    before India is enabled for non-Indian users.'
+  owner_accepted_on: '2026-10-31'
 - field: credential_recognition
   claim: None listed
   status: unverified
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: AIU equivalence for foreign degrees matters mainly for government and academic jobs; not researched.
+  notes: 'Owner decision 2026-10-31: accepted for Stage 1 (Indian citizens). Gap recorded in the pack
+    and docs/markets/india.md: Foreign degree equivalence must be added and verified before India is enabled
+    for non-Indian users.'
+  owner_accepted_on: '2026-10-31'
 - field: sources.adzuna
   claim: Adzuna API covers India (api.adzuna.com)
   status: secondary

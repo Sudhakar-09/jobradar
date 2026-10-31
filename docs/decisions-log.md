@@ -288,3 +288,14 @@ available in the repository.
   employer (§ 622 BGB). The Blue Card table now cites the official notices and stores the
   § 18g(2) IT-without-degree minimum (equal to the reduced value). Blue Card and Opportunity Card
   links point to the official Make it in Germany PDFs (the HTML pages sit behind a bot wall).
+- **Verification review (owner, 2026-10-31):** (1) UAE allowances reworded neutrally — offers
+  may include housing, transport, education and flights; compare the full package — no
+  prevalence claim, accepted without source; (2) UAE: "no public sponsor register found as of
+  2026-10-31" accepted; (3) India professional tax: state examples removed, only "varies by
+  state, at most ₹2,500 a year" kept, per-state data later from state sources; (4)(5) India visa
+  routes and foreign degree equivalence accepted for Stage 1 (Indian citizens) and recorded as
+  gaps in the pack (`known_gaps`, new optional market-pack field) and `docs/markets/india.md`
+  (rollout checklist): both must be added and verified before India is enabled for non-Indian
+  users; (6) Germany `en-DE` accepted, verified in Phase 4. Decisions are stored as
+  `owner_accepted_on: 2026-10-31` in `packs/verification/*.yaml`. Result: the UAE pack passes
+  conformance.

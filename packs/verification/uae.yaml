@@ -41,13 +41,15 @@ items:
   source_url: https://www.mohre.gov.ae/en/laws-and-regulations/Laws/faq.aspx
   checked_on: '2026-10-31'
   notes: Allowances are recognised in law; which ones are typical is market convention.
-- field: money.common_allowances (education, annual_flight)
-  claim: Education and annual flight allowances are common
+- field: money.notes (allowances)
+  claim: Offers may include allowances such as housing, transport, education and flights; compare the
+    full package, not just basic salary
   status: unverified
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: Widely cited in market practice; no official or reputable source found in this pass.
+  notes: 'Owner decision 2026-10-31: reworded neutrally with no prevalence claim, so no source is needed.'
+  owner_accepted_on: '2026-10-31'
 - field: money.common_allowances (medical_insurance)
   claim: Employer medical insurance
   status: verified
@@ -180,9 +182,10 @@ items:
   checked_on: '2026-10-31'
   notes: ''
 - field: sponsor_register_source
-  claim: No public register of licensed sponsors (null)
+  claim: No public register of licensed sponsors found as of 2026-10-31
   status: unverified
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: None found; absence cannot be proven.
+  notes: 'Owner decision 2026-10-31: accepted as worded.'
+  owner_accepted_on: '2026-10-31'

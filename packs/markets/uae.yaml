@@ -13,9 +13,9 @@ money:
   income_tax: none
   compensation_model: uae_package
   notes: >-
-    Usually quoted monthly as a package (basic plus allowances such as housing and transport);
-    confirm whether a figure is basic or the full package: end-of-service gratuity is computed on
-    the basic wage only. No personal income tax applies. Employer health insurance is mandatory
+    Usually quoted monthly. Offers may include allowances such as housing, transport, education
+    and flights; compare the full package, not just basic salary, and confirm whether a figure is
+    basic or the full package: end-of-service gratuity is computed on the basic wage only. No personal income tax applies. Employer health insurance is mandatory
     for private-sector staff in all emirates from 1 January 2025.
 
 locales:
@@ -42,7 +42,7 @@ visa_routes:
       are exceptions to employer sponsorship.
     sponsor_required: true
     official_url: https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/residence-visa-for-working-in-the-uae
-sponsor_register_source: null
+sponsor_register_source: null  # no public register found as of 2026-10-31
 nationality_restricted_programmes: [Emiratisation]
 
 sources:

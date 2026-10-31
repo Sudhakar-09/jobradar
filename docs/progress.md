@@ -229,6 +229,11 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   skilled-worker and notice-period statements corrected; Blue Card thresholds now on official
   Bundesanzeiger notices incl. the IT-without-degree minimum. 345 tests pass.
 
+- **Owner verification decisions applied (2026-10-31):** 6 items resolved and recorded
+  (`owner_accepted_on`); India gaps in `known_gaps` and `docs/markets/india.md`. Conformance:
+  **UAE PASS**; India and Germany wait for company lists and Indeed / StepStone / XING alert
+  samples; `java_backend` role pack still to verify.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:

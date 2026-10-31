@@ -151,6 +151,8 @@ class MarketPack(PackModel):
     hiring_seasons: list[NonEmptyString] = Field(default_factory=list)
     language_notes: NonEmptyString
     credential_recognition: list[CredentialRecognition] = Field(default_factory=list)
+    # Accepted gaps that must be closed before the stated condition (e.g. foreign users).
+    known_gaps: list[NonEmptyString] = Field(default_factory=list)
     provenance: Provenance
 
     @model_validator(mode="after")

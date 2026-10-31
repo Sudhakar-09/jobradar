@@ -219,7 +219,8 @@ items:
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: Technical choice; check en-DE against the i18n library (CLDR) in Phase 4.
+  notes: 'Owner decision 2026-10-31: accepted; verify en-DE against the i18n library (CLDR) in Phase 4.'
+  owner_accepted_on: '2026-10-31'
 - field: sources (linkedin, stepstone, xing, indeed)
   claim: These boards are widely used in Germany
   status: secondary

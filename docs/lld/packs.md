@@ -136,3 +136,7 @@ non-official source, flagged; `contradicted`, `unverified`), `source_url`, `sour
 `checked_on` and notes. Conformance check `verification` fails when the record is missing or a
 value is contradicted or unverified without `owner_accepted_on`; secondary values are counted in
 the detail for review. Model: `core.packs.verification`.
+
+`known_gaps` (market packs, optional): gaps the owner accepted for now, each naming the
+condition that closes it (e.g. "before India is enabled for non-Indian users"). Mirrored in the
+market's rollout checklist `docs/markets/<code>.md`.
