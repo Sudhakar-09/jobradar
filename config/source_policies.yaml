@@ -148,7 +148,7 @@ policies:
   # --- Infrastructure APIs JobRadar calls on the user's behalf ---
   - id: gmail_api
     name: Gmail API (read-only)
-    hosts: [gmail.googleapis.com]
+    hosts: [gmail.googleapis.com, oauth2.googleapis.com]
     modes: [api]
     rate_limit: {per_minute: 60, burst: 10}
     notes: gmail.readonly scope, query limited to configured alert senders (ADR-0008).

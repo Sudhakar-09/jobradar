@@ -140,8 +140,19 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   - Minimal privacy (consents) and accounts (owner bootstrap) slices.
   - Dependencies added: `beautifulsoup4`, `google-auth-oauthlib` (approved).
   - 216 tests pass (26 integration). Coverage 85 % / 93 % (unit job).
-- Next: 2f-2 Gmail read-only client, consent prompt and `jobradar inbox connect`, then STOP for
-  the owner's Google Cloud setup.
+- **2f-2 done — Gmail read-only connection** (`feat(connectors): Gmail …`):
+  - Gmail client through `PoliteClient` (new `post_form`), endpoints in `config/inboxes.yaml`,
+    query limited to alert senders and the last 3 days, raw messages decoded in memory.
+  - Refresh token stored AES-GCM encrypted (`core/crypto.py`); revoked grants mark the inbox
+    `reauth_required`; disconnect revokes at Google, deletes the token and ends consent.
+  - CLI: `users bootstrap-owner`, `keys generate`, `inbox connect gmail|list|disconnect`,
+    `alerts ingest`; `discover` includes the owner's inbox.
+  - `cryptography` declared directly (already installed by google-auth) — **owner confirmation
+    requested**. Google credential files are git-ignored as a safety net.
+  - 242 tests pass (32 integration). Coverage 83 % / 93 % (unit job).
+- **STOP — waiting for the owner:** Google Cloud setup (steps in chat), owner account, encryption
+  key, Gmail connection, job alerts on the boards; then the first real ingest to check the
+  parsers against real alert formats. Adzuna verification still pending its key in `.env`.
 
 ## Next steps
 
@@ -165,7 +176,8 @@ an HTML parser for alert emails, testcontainers (or compose services) for integr
 ## Open questions/decisions waiting on me
 
 - Save `ADZUNA_APP_ID`/`ADZUNA_APP_KEY` in `.env` so the single verification call can run.
-- Next dependency approval: the HTML parser for alert emails (2f).
+- Confirm `cryptography` as a direct dependency (token encryption).
+- Google Cloud setup for Gmail (2f STOP).
 
 ## Known issues
 

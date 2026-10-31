@@ -8,9 +8,11 @@ and a board whose emails stop yielding jobs marks the run degraded (format chang
 from __future__ import annotations
 
 from collections import Counter
-from collections.abc import AsyncIterable
+from collections.abc import AsyncIterable, Callable
 from dataclasses import dataclass, field
+from datetime import datetime
 from functools import lru_cache
+from pathlib import Path
 from typing import Final, Literal
 from uuid import UUID
 
@@ -24,6 +26,13 @@ from jobradar.connectors.alerts import (
     load_alert_senders,
     pick_parser,
 )
+from jobradar.connectors.gmail import (
+    GmailAlertInbox,
+    GmailAuthError,
+    GmailSettings,
+    load_inboxes_file,
+    load_oauth_client,
+)
 from jobradar.connectors.health import evaluate_health
 from jobradar.connectors.repository import (
     AlertInboxRepository,
@@ -32,14 +41,18 @@ from jobradar.connectors.repository import (
 )
 from jobradar.connectors.schemas import InboundMessage, RawJob, SourceRunResult
 from jobradar.core.clock import Clock, SystemClock
+from jobradar.core.crypto import SecretBox
 from jobradar.core.db import user_session
-from jobradar.core.errors import NotFoundError
+from jobradar.core.errors import ExternalServiceError, NotFoundError, ValidationFailedError
+from jobradar.core.http import PoliteClient
 from jobradar.core.scope import UserScope, system_scope
 from jobradar.core.settings import get_settings
+from jobradar.core.source_policies import SourcePolicyRegistry
 
 CONSENT_SOURCE: Final = {"gmail": "gmail_alerts", "forwarding": "forwarding_inbox"}
 logger = structlog.get_logger(__name__)
 Factory = async_sessionmaker[AsyncSession] | None
+ClientFactory = Callable[[SourcePolicyRegistry], PoliteClient]
 
 
 @lru_cache(maxsize=1)
@@ -88,6 +101,7 @@ class _Tally:
     invalid: int = 0
     messages: int = 0
     unparsed: Counter[str] = field(default_factory=Counter)
+    fetch_error: ExternalServiceError | None = None
 
 
 async def ingest_alert_messages(
@@ -120,10 +134,13 @@ async def ingest_alert_messages(
         )
 
     tally = _Tally()
-    async for message in messages:
-        await _process(
-            scope, inbox_id, message, parsers=parsers, tally=tally, clock=clock, factory=factory
-        )
+    try:
+        async for message in messages:
+            await _process(
+                scope, inbox_id, message, parsers=parsers, tally=tally, clock=clock, factory=factory
+            )
+    except ExternalServiceError as exc:  # the mailbox failed mid-run: keep what was parsed
+        tally.fetch_error = exc
 
     counts = await normalizer.ingest(
         system_scope(connector), tally.jobs, source_run_id=run_id, clock=clock, factory=factory
@@ -200,7 +217,13 @@ async def _finish(  # noqa: PLR0913 -- assembles one run's outcome from its part
         error = "no jobs found in: " + ", ".join(
             f"{code} ({count})" for code, count in sorted(tally.unparsed.items())
         )
+    if tally.fetch_error is not None:
+        status = "failed"
+        error = f"mailbox error: {tally.fetch_error}"
     async with user_session(scope, factory=factory) as session:
+        if isinstance(tally.fetch_error, GmailAuthError):
+            await AlertInboxRepository(session).set_status(inbox_id, "reauth_required")
+            logger.warning("connectors.gmail_reauth_required", inbox_id=str(inbox_id))
         await SourceRunRepository(session).finish(
             run_id,
             status=status,
@@ -237,3 +260,122 @@ async def _finish(  # noqa: PLR0913 -- assembles one run's outcome from its part
         http_status_counts={},
         error=error,
     )
+
+
+@lru_cache(maxsize=1)
+def gmail_settings() -> GmailSettings:
+    """Gmail endpoints from `config/inboxes.yaml`."""
+    return load_inboxes_file(get_settings().config_dir / "inboxes.yaml").gmail
+
+
+def _secret_box() -> SecretBox:
+    key = get_settings().token_encryption_key
+    return SecretBox(key.get_secret_value() if key else None)
+
+
+def _oauth_client_path() -> Path:
+    path = get_settings().google_oauth_client_file
+    if path is None or not path.is_file():
+        raise ValidationFailedError("GOOGLE_OAUTH_CLIENT_FILE is not set or the file is missing")
+    return path
+
+
+def _default_client(policies: SourcePolicyRegistry) -> PoliteClient:
+    return PoliteClient(policies, get_settings())
+
+
+async def connect_gmail_inbox(
+    scope: UserScope, *, refresh_token: str, factory: Factory = None
+) -> UUID:
+    """Store an encrypted Gmail grant as the user's alert inbox (consent must already exist)."""
+    sealed = _secret_box().encrypt(refresh_token.encode("utf-8"))
+    return await create_alert_inbox(scope, kind="gmail", oauth_token_enc=sealed, factory=factory)
+
+
+async def ingest_alerts(
+    scope: UserScope,
+    *,
+    clock: Clock | None = None,
+    client_factory: ClientFactory = _default_client,
+    factory: Factory = None,
+) -> list[SourceRunResult]:
+    """Ingest new alert emails from every active Gmail inbox of the user.
+
+    An inbox whose grant Google rejects is marked ``reauth_required`` and its run is recorded
+    as failed; other inboxes still run.
+    """
+    async with user_session(scope, factory=factory) as session:
+        inboxes = [
+            (inbox.id, inbox.oauth_token_enc)
+            for inbox in await AlertInboxRepository(session).active()
+            if inbox.kind == "gmail"
+        ]
+    if not inboxes:
+        return []
+    from jobradar.connectors.config import policy_registry  # noqa: PLC0415 -- avoid an import cycle
+
+    client = load_oauth_client(_oauth_client_path())
+    box = _secret_box()
+    results: list[SourceRunResult] = []
+    async with client_factory(policy_registry()) as http:
+        for inbox_id, sealed in inboxes:
+            if sealed is None:
+                continue
+            gmail = GmailAlertInbox(
+                http,
+                gmail_settings(),
+                client,
+                box.decrypt(sealed).decode("utf-8"),
+                alert_sender_addresses(),
+            )
+            results.append(
+                await ingest_alert_messages(
+                    scope, inbox_id, gmail.fetch_new(), clock=clock, factory=factory
+                )
+            )
+    return results
+
+
+async def disconnect_inbox(
+    scope: UserScope,
+    inbox_id: UUID,
+    *,
+    client_factory: ClientFactory = _default_client,
+    factory: Factory = None,
+) -> None:
+    """Disconnect an inbox now: revoke at Google (best effort), delete the token, end consent."""
+    async with user_session(scope, factory=factory) as session:
+        inbox = await AlertInboxRepository(session).get(inbox_id)
+        if inbox is None:
+            raise NotFoundError("alert inbox not found")
+        kind, sealed = inbox.kind, inbox.oauth_token_enc
+    if kind == "gmail" and sealed is not None:
+        from jobradar.connectors.config import policy_registry  # noqa: PLC0415 -- import cycle
+
+        try:
+            client = load_oauth_client(_oauth_client_path())
+            token = _secret_box().decrypt(sealed).decode("utf-8")
+            async with client_factory(policy_registry()) as http:
+                await GmailAlertInbox(http, gmail_settings(), client, token, []).revoke()
+        except (ExternalServiceError, ValidationFailedError):
+            logger.warning("connectors.gmail_revoke_failed", inbox_id=str(inbox_id))
+    async with user_session(scope, factory=factory) as session:
+        await AlertInboxRepository(session).set_status(inbox_id, "revoked", clear_token=True)
+    await privacy.revoke_consent(scope, CONSENT_SOURCE[kind], factory=factory)
+
+
+@dataclass(frozen=True, slots=True)
+class InboxInfo:
+    """An alert inbox as shown to its owner (no token)."""
+
+    id: UUID
+    kind: str
+    status: str
+    last_synced_at: datetime | None
+
+
+async def list_inboxes(scope: UserScope, *, factory: Factory = None) -> list[InboxInfo]:
+    """The user's alert inboxes, including disconnected ones."""
+    async with user_session(scope, factory=factory) as session:
+        rows = await AlertInboxRepository(session).all()
+    return [InboxInfo(row.id, row.kind, row.status, row.last_synced_at) for row in rows]

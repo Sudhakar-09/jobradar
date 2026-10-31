@@ -43,6 +43,11 @@ class Settings(BaseSettings):
     adzuna_app_id: str | None = None
     adzuna_app_key: SecretStr | None = None
 
+    # Gmail alert inbox: OAuth client file from Google Cloud (kept outside the repository)
+    google_oauth_client_file: Path | None = None
+    # base64 of 32 random bytes for encrypting stored tokens (`jobradar keys generate`)
+    token_encryption_key: SecretStr | None = None
+
     model_config = SettingsConfigDict(
         case_sensitive=False,
         env_file=".env",

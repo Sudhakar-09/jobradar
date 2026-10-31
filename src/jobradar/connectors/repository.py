@@ -192,6 +192,20 @@ class AlertInboxRepository:
         """An inbox of the session's user, or None (another user's inbox is invisible)."""
         return await self._session.get(AlertInbox, inbox_id)
 
+    async def set_status(self, inbox_id: UUID, status: str, *, clear_token: bool = False) -> None:
+        """Change an inbox's status; optionally delete its stored token."""
+        inbox = await self._session.get(AlertInbox, inbox_id)
+        if inbox is None:
+            return
+        inbox.status = status
+        if clear_token:
+            inbox.oauth_token_enc = None
+
+    async def all(self) -> list[AlertInbox]:
+        """All of the user's inboxes."""
+        rows = await self._session.scalars(select(AlertInbox).order_by(AlertInbox.id))
+        return list(rows.all())
+
     async def active(self) -> list[AlertInbox]:
         """The user's active inboxes."""
         rows = await self._session.scalars(

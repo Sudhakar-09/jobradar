@@ -573,3 +573,22 @@ bodies, job descriptions.
 - HTML parsing uses BeautifulSoup with the stdlib `html.parser` backend; scripts, styles and
   attributes other than `href` are ignored; nothing from the email body is stored except the
   parsed title, company, location and canonical link.
+
+### Gmail inbox (implemented Phase 2f-2)
+
+- `connectors/gmail.py`: `GmailAlertInbox` refreshes an access token (POST to the token URL
+  through `PoliteClient.post_form`), lists messages with
+  `from:(<alert senders>) newer_than:<lookback>d` (paged, capped by `max_messages`), fetches each
+  with `format=raw` and decodes it in memory. Endpoints in `config/inboxes.yaml`; hosts
+  `gmail.googleapis.com` and `oauth2.googleapis.com` under the `gmail_api` policy. A 400/401 from
+  Google raises `GmailAuthError`.
+- `connectors/gmail_oauth.py`: installed-app consent flow (operator CLI, browser on localhost).
+- Service: `connect_gmail_inbox` stores the refresh token AES-GCM encrypted (`core/crypto.py`,
+  key `TOKEN_ENCRYPTION_KEY`); `ingest_alerts` runs every active Gmail inbox of the user; a
+  mailbox failure finishes the run as `failed` and, for `GmailAuthError`, marks the inbox
+  `reauth_required` (not polled until reconnected); `disconnect_inbox` revokes at Google (best
+  effort), deletes the token, marks the inbox `revoked` and ends the consent.
+- CLI: `jobradar users bootstrap-owner`, `jobradar keys generate`,
+  `jobradar inbox connect gmail` (shows the consent text and asks for "yes" before Google's
+  sign-in), `jobradar inbox list|disconnect`, `jobradar alerts ingest`; `jobradar discover`
+  includes the owner's alert inbox (`--source alerts` for the inbox only).

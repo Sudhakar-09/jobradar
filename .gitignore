@@ -61,3 +61,7 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .import_linter_cache/
+# Google OAuth client files and tokens must never be committed (keep them outside the repo).
+*client_secret*.json
+google_oauth_client*.json
+/secrets/

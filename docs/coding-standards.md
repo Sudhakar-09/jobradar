@@ -290,7 +290,7 @@ A rule may be broken only locally, visibly and with a reason:
   entry and a comment next to the config line.
 
 Current per-file exceptions (all in `pyproject.toml`): tests may use `assert`, magic values and
-skip docstrings/annotations; `alembic/` skips docstrings; `cli.py` may `print`; `core/logging.py`
+fake credentials (S105/S106), and skip docstrings/annotations; `alembic/` skips docstrings; `cli.py` may `print`; `core/logging.py`
 and `core/http.py` may use the APIs banned elsewhere; `scripts/archive/` is excluded entirely;
 `docs/` is excluded from `ruff format` (its Python blocks are design illustrations, and ruff ≥ 0.17
 formats code blocks inside Markdown).

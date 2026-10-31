@@ -1,0 +1,10 @@
+# Alert inbox endpoints (ADR-0008). URLs live here, never in code; each host has a source policy.
+gmail:
+  scope: https://www.googleapis.com/auth/gmail.readonly
+  token_url: https://oauth2.googleapis.com/token
+  revoke_url: https://oauth2.googleapis.com/revoke
+  messages_url: https://gmail.googleapis.com/gmail/v1/users/me/messages
+  message_url: https://gmail.googleapis.com/gmail/v1/users/me/messages/{id}
+  lookback_days: 3  # only alerts from the last few days are queried
+  max_messages: 200  # per run
+  page_size: 100

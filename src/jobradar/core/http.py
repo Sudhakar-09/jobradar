@@ -18,6 +18,7 @@ import json
 import socket
 import time
 from collections.abc import Awaitable, Callable, Mapping
+from dataclasses import dataclass
 from email.utils import parsedate_to_datetime
 from typing import Final, Protocol
 
@@ -118,6 +119,17 @@ def _is_retryable(error: BaseException) -> bool:
     return isinstance(error, ExternalServiceError) and error.retryable
 
 
+@dataclass(frozen=True, slots=True)
+class _Call:
+    """One logical request (retried as a unit)."""
+
+    method: str
+    url: httpx.URL
+    mode: AccessMode
+    headers: dict[str, str]
+    data: dict[str, str] | None = None
+
+
 class PoliteClient:
     """Policy-checked, SSRF-guarded, rate-limited, retrying async HTTP client."""
 
@@ -199,6 +211,24 @@ class PoliteClient:
         request_url = httpx.URL(url)
         if params:  # merge: httpx.URL(url, params=...) would drop a query already in url
             request_url = request_url.copy_merge_params(params)
+        return await self._retrying(_Call("GET", request_url, mode, dict(headers or {})))
+
+    async def post_form(
+        self,
+        url: str,
+        *,
+        mode: AccessMode,
+        data: Mapping[str, str],
+        headers: Mapping[str, str] | None = None,
+    ) -> httpx.Response:
+        """POST a form (e.g. an OAuth token refresh) with the same safeguards as :meth:`get`.
+
+        Redirects are not followed for POST. The form body is never logged.
+        """
+        call = _Call("POST", httpx.URL(url), mode, dict(headers or {}), dict(data))
+        return await self._retrying(call)
+
+    async def _retrying(self, call: _Call) -> httpx.Response:
         retrying = AsyncRetrying(
             stop=stop_after_attempt(self._settings.http_max_attempts),
             wait=self._wait,
@@ -208,7 +238,7 @@ class PoliteClient:
         )
         async for attempt in retrying:
             with attempt:
-                return await self._attempt(request_url, mode, dict(headers or {}))
+                return await self._attempt(call)
         raise AssertionError("unreachable: tenacity reraises the last error")  # pragma: no cover
 
     def _wait(self, state: RetryCallState) -> float:
@@ -218,14 +248,15 @@ class PoliteClient:
             return min(max(backoff, error.retry_after), self._settings.http_retry_after_cap_seconds)
         return backoff
 
-    async def _attempt(
-        self, url: httpx.URL, mode: AccessMode, headers: dict[str, str]
-    ) -> httpx.Response:
+    async def _attempt(self, call: _Call) -> httpx.Response:
+        url = call.url
         for _hop in range(self._settings.http_max_redirects + 1):
-            await self._check_url(url, mode)
-            response = await self._send(url, headers)
+            await self._check_url(url, call.mode)
+            response = await self._send(call, url)
             if response.status_code not in REDIRECT_STATUS:
                 return self._checked(response)
+            if call.method != "GET":
+                raise ExternalServiceError(url.host, "redirect on POST", retryable=False)
             location = response.headers.get("Location")
             if not location:
                 raise ExternalServiceError(url.host, "redirect without Location", retryable=False)
@@ -252,11 +283,13 @@ class PoliteClient:
             self._buckets[policy_id] = _TokenBucket(limit, self._monotonic, self._sleep)
         return self._buckets[policy_id]
 
-    async def _send(self, url: httpx.URL, headers: dict[str, str]) -> httpx.Response:
+    async def _send(self, call: _Call, url: httpx.URL) -> httpx.Response:
         started = self._monotonic()
         try:
             async with asyncio.timeout(self._settings.http_total_timeout_seconds):
-                request = self._client.build_request("GET", url, headers=headers)
+                request = self._client.build_request(
+                    call.method, url, headers=call.headers, data=call.data
+                )
                 streamed = await self._client.send(request, stream=True)
                 try:
                     body = await self._read_capped(streamed)

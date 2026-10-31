@@ -178,3 +178,9 @@ available in the repository.
   consent texts in `config/consents/`) and `accounts` (owner bootstrap via the operator database
   path) slices added. `connectors.service` became a package so alert ingestion counts as the
   domain's service under the layering contract.
+- **Phase 2f-2 (2026-10-30):** Gmail is called through `PoliteClient` (REST), not the Google API
+  client library, so the same policy, timeout, retry and no-URL-logging rules apply; only the
+  interactive consent uses `google-auth-oauthlib`. The Gmail refresh token is encrypted with
+  AES-256-GCM (`cryptography`, already installed by `google-auth`; declared directly — owner
+  confirmation requested). The OAuth client file stays outside the repository
+  (`GOOGLE_OAUTH_CLIENT_FILE`). An inbox whose grant Google rejects becomes `reauth_required`.

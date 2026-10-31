@@ -17,9 +17,15 @@ from jobradar.connectors.service import (
     sync_companies,
 )
 from jobradar.connectors.service.alerts import (
+    InboxInfo,
     alert_sender_addresses,
+    connect_gmail_inbox,
     create_alert_inbox,
+    disconnect_inbox,
+    gmail_settings,
     ingest_alert_messages,
+    ingest_alerts,
+    list_inboxes,
 )
 
 __all__ = [
@@ -27,15 +33,21 @@ __all__ = [
     "CompanyRef",
     "DiscoveryReport",
     "FetchResult",
+    "InboxInfo",
     "RawJob",
     "Skipped",
     "SourceRunResult",
     "alert_sender_addresses",
     "assert_allowed",
+    "connect_gmail_inbox",
     "create_alert_inbox",
+    "disconnect_inbox",
     "discover",
+    "gmail_settings",
     "hosts_with_mode",
     "ingest_alert_messages",
+    "ingest_alerts",
+    "list_inboxes",
     "policy_for",
     "sync_companies",
 ]

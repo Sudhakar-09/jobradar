@@ -7,6 +7,7 @@ dependencies = [
     "alembic>=1.14",
     "beautifulsoup4>=4.12",
     "celery[redis]>=5.4",
+    "cryptography>=43",
     "fastapi[standard]>=0.115",
     "google-auth-oauthlib>=1.2",
     "httpx>=0.28",
@@ -143,7 +144,7 @@ ban-relative-imports = "all"
 "os.system".msg = "No shell execution."
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["S101", "D", "ANN", "PLR2004", "INP001", "ARG", "FBT", "SLF001"]
+"tests/**" = ["S101", "S105", "S106", "D", "ANN", "PLR2004", "INP001", "ARG", "FBT", "SLF001"]  # S105/S106: fake test credentials
 "alembic/**" = ["D", "INP001"]
 "alembic/versions/**" = ["D", "INP001", "E501"]  # generated table definitions; long CHECK strings
 "src/jobradar/cli.py" = ["T201"]
@@ -172,7 +173,7 @@ init_typed = true
 warn_required_dynamic_aliases = true
 
 [[tool.mypy.overrides]]
-module = ["celery", "kombu", "yaml"]
+module = ["celery", "kombu", "yaml", "google_auth_oauthlib.*"]
 ignore_missing_imports = true
 
 # Layering (ADR-0012, docs/coding-standards.md §3). Domains in parentheses do not exist yet and are
