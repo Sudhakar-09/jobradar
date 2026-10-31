@@ -36,7 +36,7 @@ def test_verify_a_file_prints_each_board(
     assert cli.main(["companies", "verify", "--file", str(candidates), "--country", "ae"]) == 0
     output = capsys.readouterr().out
     assert "ashby/demoair" in output
-    assert "1 of 1 boards list jobs" in output
+    assert "1 of 1 boards checked list jobs" in output
     assert seen["countries"] == frozenset({"AE"})
 
 
@@ -47,13 +47,16 @@ def test_verify_the_catalogue_passes_force(
 
     async def verify_companies(**kwargs: object) -> list[object]:
         seen.update(kwargs)
-        return [NO_POSTINGS]
+        return [NO_POSTINGS, connectors.CompanyCheck("Demo Air", "ashby", "demoair", "cached")]
 
     monkeypatch.setattr(connectors, "verify_companies", verify_companies)
 
     assert cli.main(["companies", "verify", "--force"]) == 0
     assert seen == {"countries": None, "force": True}
-    assert "no_postings" in capsys.readouterr().out
+    output = capsys.readouterr().out
+    assert "no_postings" in output
+    assert "0 of 1 boards checked" in output
+    assert "1 boards were checked in the last 24 hours" in output
 
 
 def test_probe_writes_only_verified_boards_for_review(

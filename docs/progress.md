@@ -165,9 +165,12 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
     `config/company_candidates/uae.proposed.yaml`; 7 boards have a single UAE posting.
   - Fixed a `PoliteClient` token-bucket spin (float rounding); regression test added.
   - 274 tests pass. Coverage 96 % overall.
-- **STOP — waiting for the owner:** approve the proposed UAE list (then it is copied to
-  `config/companies.yaml` and synced); redo the Gmail setup in this repo's `.env` and run
-  `jobradar alerts ingest`; then 2h.
+- **Owner review of 2g (2026-10-31):** all 36 UAE companies approved (including the seven with a
+  single UAE posting; verification re-checks them). Copied to `config/companies.yaml`, synced
+  (36 new) and verified live (36/36). `companies verify` now reports cached boards separately.
+  Work queue from the review: (2) excluded-industries preference, (3) India company list
+  (≥ 50, for approval), (4) Workday/unknown systems stay one-tap via alerts. The owner redoes the
+  Gmail setup in `C:\dev\jobradar\.env` (the earlier edit went to an old OneDrive copy).
 
 ## Next steps
 
@@ -183,7 +186,7 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
    consent and body discard.
 8. ~~Connector health and `degraded` detection (US-2.6)~~ — done in 2d (alerting arrives with ops).
 9. ~~Company catalogue, `jobradar companies verify`, suggestions from alerts~~ — done in 2g;
-   ≥ 30 verified UAE-hiring companies proposed (36), awaiting the owner's approval (US-2.7).
+   36 verified UAE-hiring companies approved and in the catalogue (US-2.7).
 10. Golden datasets for India and UAE and conformance suite v1 (US-2.9).
 New dependencies expected and needing approval when reached: Google API client (Gmail),
 an HTML parser for alert emails, testcontainers (or compose services) for integration tests.

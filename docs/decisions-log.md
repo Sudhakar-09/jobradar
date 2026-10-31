@@ -204,3 +204,5 @@ available in the repository.
   - Bug fixed in `PoliteClient`'s token bucket: float rounding in the refill could leave
     0.999… tokens and a wait too small to move the clock, which spun forever with a fake clock
     (and caused needless tiny sleeps with the real one). Regression test added.
+- **UAE catalogue approved (owner, 2026-10-31):** all 36 proposed companies, including the seven
+  with a single UAE posting, because discovery and `companies verify` re-check every board.

@@ -58,7 +58,11 @@ def _print_checks(checks: Sequence[connectors.CompanyCheck]) -> None:
             f"{check.jobs_total:>6}{check.jobs_in_countries:>12}{note}"
         )
     verified = sum(1 for check in checks if check.status == "verified")
-    print(f"{verified} of {len(checks)} boards list jobs in the chosen countries.")
+    cached = sum(1 for check in checks if check.status == "cached")
+    checked = len(checks) - cached
+    print(f"{verified} of {checked} boards checked list jobs in the chosen countries.")
+    if cached:
+        print(f"{cached} boards were checked in the last 24 hours (use --force to recheck).")
 
 
 def _companies_verify(args: argparse.Namespace) -> int:
