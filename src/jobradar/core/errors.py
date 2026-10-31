@@ -120,11 +120,14 @@ class ExternalServiceError(JobRadarError):
 
     code = "upstream_error"
 
-    def __init__(self, service: str, message: str = "", *, retryable: bool) -> None:
+    def __init__(
+        self, service: str, message: str = "", *, retryable: bool, status_code: int | None = None
+    ) -> None:
         """Create an error for a named service; ``retryable`` drives retries."""
         super().__init__(message or service, params={"service": service})
         self.service = service
         self.retryable = retryable
+        self.status_code = status_code
 
 
 class RateLimitedError(ExternalServiceError):

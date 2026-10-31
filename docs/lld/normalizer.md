@@ -134,7 +134,12 @@ class FxTable(Protocol):
 
 
 # --- service functions ---
-async def ingest(raw: Sequence[RawJob], *, run_id: UUID) -> IngestResult: ...  # SYSTEM_SCOPE
+async def ingest(scope: SystemScope, raw: Sequence[RawJob], *, source_run_id: UUID | None,
+                 clock: Clock | None = None) -> IngestResult: ...  # implemented 2d
+# Dedupe: sha256(normalized company, normalized title, country, city); location from source hints,
+# then city/country aliases in config/locations.yaml (Phase 2 rules; Phase 3 adds full normalization).
+# IngestResult(new, updated, seen): updated = content hash changed; seen = re-sighting or the same
+# job from another source (adds a job_sources row only).
 async def normalize(job_id: UUID) -> NormalizedJob: ...  # SYSTEM_SCOPE
 async def normalize_new(limit: int) -> int: ...
 async def embed_jobs(job_ids: Sequence[UUID]) -> int: ...

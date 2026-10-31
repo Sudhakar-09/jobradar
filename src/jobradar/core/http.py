@@ -196,7 +196,9 @@ class PoliteClient:
             UnsafeUrlError: the URL is not HTTPS or resolves to a non-public address.
             ExternalServiceError: the request failed after retries.
         """
-        request_url = httpx.URL(url, params=params)
+        request_url = httpx.URL(url)
+        if params:  # merge: httpx.URL(url, params=...) would drop a query already in url
+            request_url = request_url.copy_merge_params(params)
         retrying = AsyncRetrying(
             stop=stop_after_attempt(self._settings.http_max_attempts),
             wait=self._wait,
@@ -299,7 +301,7 @@ class PoliteClient:
         if status == TOO_MANY_REQUESTS:
             raise RateLimitedError(host, _retry_after_seconds(response, time.time()))
         if status in RETRYABLE_STATUS:
-            raise ExternalServiceError(host, f"HTTP {status}", retryable=True)
+            raise ExternalServiceError(host, f"HTTP {status}", retryable=True, status_code=status)
         if not response.is_success:
-            raise ExternalServiceError(host, f"HTTP {status}", retryable=False)
+            raise ExternalServiceError(host, f"HTTP {status}", retryable=False, status_code=status)
         return response

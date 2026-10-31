@@ -1,0 +1,22 @@
+# Connector endpoints (docs/lld/connectors.md §3). URLs live here, never in code.
+# `{slug}` is the company's ATS board identifier from config/companies.yaml.
+# Every host used here must have an entry in config/source_policies.yaml.
+connectors:
+  greenhouse:
+    list_url: https://boards-api.greenhouse.io/v1/boards/{slug}/jobs
+    params: {content: "true"}
+  lever:
+    list_url: https://api.lever.co/v0/postings/{slug}
+    params: {mode: json}
+  ashby:
+    list_url: https://api.ashbyhq.com/posting-api/job-board/{slug}
+    params: {includeCompensation: "true"}
+  workable:
+    list_url: https://apply.workable.com/api/v1/widget/accounts/{slug}
+    params: {details: "true"}
+  smartrecruiters:
+    list_url: https://api.smartrecruiters.com/v1/companies/{slug}/postings
+    params: {}
+    page_size: 100
+    max_pages: 10
+    posting_url: https://jobs.smartrecruiters.com/{slug}/{id}

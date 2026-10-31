@@ -1,0 +1,24 @@
+{
+  "offset": 0,
+  "limit": 2,
+  "totalFound": 3,
+  "content": [
+    {
+      "id": "744000000000001",
+      "name": "Software Engineer - Java",
+      "uuid": "00000000-0000-4000-8000-000000000101",
+      "refNumber": "REF1",
+      "company": {"identifier": "SampleBank", "name": "Sample Bank"},
+      "releasedDate": "2026-10-26T07:00:00.000Z",
+      "location": {"city": "Dubai", "region": "Dubai", "country": "ae", "remote": false, "hybrid": true, "fullLocation": "Dubai, Dubai, United Arab Emirates"},
+      "typeOfEmployment": {"id": "permanent", "label": "Full-time"},
+      "ref": "https://api.smartrecruiters.com/v1/companies/SampleBank/postings/744000000000001"
+    },
+    {
+      "id": "744000000000002",
+      "name": "Backend Engineer",
+      "releasedDate": "2026-10-24T07:00:00.000Z",
+      "location": {"city": "Hyderabad", "country": "in", "remote": false, "fullLocation": "Hyderabad, Telangana, India"}
+    }
+  ]
+}

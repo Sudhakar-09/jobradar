@@ -305,3 +305,20 @@ async def test_logs_never_contain_query_strings() -> None:
     assert logs
     assert "secret-key-value" not in str(logs)
     assert logs[-1]["path"] == "/v1/api/jobs/in/search/1"
+
+
+async def test_query_in_url_is_kept_and_merged_with_params() -> None:
+    seen: list[httpx.URL] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen.append(request.url)
+        return httpx.Response(200, json={})
+
+    client, _ = make_client(handler)
+    async with client:
+        await client.get(f"{GREENHOUSE}?content=true", mode=AccessMode.ATS_FEED)
+        await client.get(f"{GREENHOUSE}?content=true", mode=AccessMode.ATS_FEED, params={"page": 2})
+
+    assert seen[0].params["content"] == "true"
+    assert seen[1].params["content"] == "true"
+    assert seen[1].params["page"] == "2"

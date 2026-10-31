@@ -144,3 +144,12 @@ available in the repository.
   table gets discovery columns in Phase 2 and normalized columns in Phase 3. Migrations contain no
   personal data: the owner account is created by a CLI command. Integration tests use
   testcontainers (works on Windows), with `JOBRADAR_TEST_DATABASE_URL` as the compose fallback.
+- **Phase 2d (2026-10-30):** ATS connectors (Greenhouse, Lever, Ashby, Workable, SmartRecruiters)
+  are entry-point plug-ins validated at startup against source policies and
+  `config/connectors.yaml`. Response shapes were checked once against the live public APIs through
+  `PoliteClient` (that probe also found and fixed a bug: query strings already in a URL were
+  dropped); committed fixtures are synthetic. Health rule refined: drop and zero-job alerts apply
+  only to sources averaging ≥ 5 jobs a week, because quiet sources swing too much. Location
+  aliases for dedupe live in `config/locations.yaml`. Known limits: SmartRecruiters descriptions
+  are not fetched (one extra request per posting); Workable's posting fields follow its documented
+  format until 2g verifies a live account with open jobs.

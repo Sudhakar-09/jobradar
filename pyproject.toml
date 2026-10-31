@@ -41,9 +41,18 @@ module-root = "src"
 [project.scripts]
 jobradar = "jobradar.cli:main"
 
+# Plug-ins (ADR-0006): connectors are discovered through this entry point group.
+[project.entry-points."jobradar.connectors"]
+greenhouse = "jobradar.connectors.plugins.greenhouse:GreenhouseConnector"
+lever = "jobradar.connectors.plugins.lever:LeverConnector"
+ashby = "jobradar.connectors.plugins.ashby:AshbyConnector"
+workable = "jobradar.connectors.plugins.workable:WorkableConnector"
+smartrecruiters = "jobradar.connectors.plugins.smartrecruiters:SmartRecruitersConnector"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = ["--strict-markers", "--strict-config", "-ra"]
+pythonpath = ["."]  # lets tests import shared helpers from tests/support
 xfail_strict = true
 markers = [
     "unit: pure logic, no I/O (default for tests without another marker)",

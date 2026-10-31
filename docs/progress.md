@@ -104,7 +104,20 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
     tables, flags/source runs/audit log policies, uniqueness rules. New CI job `integration`.
   - Local dev database migrated to `0002_phase2`. 117 tests pass (13 integration).
   - Dependency added: `testcontainers[postgres]` (dev, approved).
-- Next: 2d ATS connectors and `jobradar discover`.
+- **2d done — ATS connectors and `jobradar discover`** (`feat(connectors): …`):
+  - Plug-ins for Greenhouse, Lever, Ashby, Workable, SmartRecruiters (entry points), checked at
+    startup against source policies and `config/connectors.yaml` (URLs only in config).
+  - Item-level validation: invalid items counted, wrong envelope = schema drift (`degraded`).
+  - Health rules (US-2.6), run records in `source_runs`, 404 streak retires a board after 3 runs.
+  - Normalizer ingest + dedupe (US-2.3): company/title normalization (legal suffixes, gender
+    markers), location from source hints and `config/locations.yaml`, content hash for edits.
+  - CLI: `jobradar companies sync`, `jobradar discover [--source] [--company]` (US-2.4); verified
+    against the local dev database (catalogue still empty until 2g).
+  - Live shape probe (one request per ATS, script deleted) found and fixed a PoliteClient bug that
+    dropped query strings already in a URL.
+  - 174 tests pass (18 integration: discover end to end, idempotent re-runs, edited postings,
+    cross-board dedupe, 404 retirement, schema drift). Coverage 89 % / 93 % (unit job).
+- Next: 2e Adzuna (India) and Remotive (remote) — STOP before needing the Adzuna key.
 
 ## Next steps
 
@@ -113,12 +126,11 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
 2. ~~Core building blocks~~ — done in 2b.
 3. ~~Phase 2 tables, roles, RLS, integration tests~~ — done in 2c.
 4. ~~Source policy registry (US-2.8)~~ — done in 2a (connectors re-export comes in 2d).
-5. Connectors (US-2.1, US-2.2): Greenhouse, Lever, Ashby, Workable, SmartRecruiters, Adzuna,
-   Remotive, with fixture tests and `source_runs`.
-6. Dedupe and ingest (US-2.3) and `jobradar discover` (US-2.4).
+5. ~~ATS connectors (US-2.1)~~ — done in 2d. Adzuna and Remotive (US-2.2) in 2e.
+6. ~~Dedupe and ingest (US-2.3) and `jobradar discover` (US-2.4)~~ — done in 2d.
 7. Gmail job-alert ingestion and parsers for LinkedIn, Naukrigulf, Bayt, GulfTalent (US-2.5), with
    consent and body discard.
-8. Connector health and `degraded` detection (US-2.6).
+8. ~~Connector health and `degraded` detection (US-2.6)~~ — done in 2d (alerting arrives with ops).
 9. Company catalogue, `jobradar companies verify`, suggestions from alerts; ≥ 30 verified
    UAE-hiring companies (US-2.7).
 10. Golden datasets for India and UAE and conformance suite v1 (US-2.9).

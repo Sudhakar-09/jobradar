@@ -1,0 +1,8 @@
+{
+  "offset": 2,
+  "limit": 2,
+  "totalFound": 3,
+  "content": [
+    {"name": "Posting without an id"}
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "jobs": [
+    {
+      "id": 4001,
+      "internal_job_id": 9001,
+      "title": "Senior Java Backend Engineer",
+      "absolute_url": "https://boards.greenhouse.io/examplelogistics/jobs/4001",
+      "location": {"name": "Dubai, United Arab Emirates"},
+      "content": "&lt;p&gt;Build &lt;strong&gt;Java&lt;/strong&gt; services with Spring Boot.&lt;/p&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;ul&gt;&lt;li&gt;Kafka&lt;/li&gt;&lt;/ul&gt;",
+      "company_name": "Example Logistics",
+      "first_published": "2026-10-20T08:00:00Z",
+      "updated_at": "2026-10-28T10:00:00Z",
+      "departments": [{"id": 1, "name": "Engineering"}],
+      "offices": [{"id": 2, "name": "Dubai"}]
+    },
+    {
+      "id": 4002,
+      "title": "Backend Developer (Java)",
+      "absolute_url": "https://boards.greenhouse.io/examplelogistics/jobs/4002",
+      "location": {"name": "Bangalore, India"},
+      "content": "&lt;p&gt;Payments APIs.&lt;/p&gt;",
+      "updated_at": "2026-10-27T10:00:00Z"
+    },
+    {
+      "id": 4003,
+      "absolute_url": "https://boards.greenhouse.io/examplelogistics/jobs/4003",
+      "location": {"name": "Remote"}
+    }
+  ],
+  "meta": {"total": 3}
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "a1b2c3d4-0000-4000-8000-000000000001",
+    "text": "Java Software Engineer",
+    "hostedUrl": "https://jobs.lever.co/samplepay/a1b2c3d4-0000-4000-8000-000000000001",
+    "applyUrl": "https://jobs.lever.co/samplepay/a1b2c3d4-0000-4000-8000-000000000001/apply",
+    "categories": {"location": "Pune", "commitment": "Full-time", "team": "Platform", "allLocations": ["Pune"]},
+    "createdAt": 1761120000000,
+    "descriptionPlain": "Join the platform team.",
+    "lists": [{"text": "What you do", "content": "<li>Build APIs</li><li>Write tests</li>"}],
+    "additionalPlain": "We value diverse teams.",
+    "country": "IN",
+    "workplaceType": "hybrid",
+    "salaryRange": {"min": 2400000, "max": 3200000, "currency": "INR", "interval": "per-year-salary"}
+  },
+  {
+    "id": "a1b2c3d4-0000-4000-8000-000000000002",
+    "text": "Platform Engineer",
+    "hostedUrl": "https://jobs.lever.co/samplepay/a1b2c3d4-0000-4000-8000-000000000002",
+    "categories": {"location": "Remote - India"},
+    "createdAt": 1761206400000,
+    "country": "IN",
+    "workplaceType": "remote"
+  },
+  {
+    "id": "a1b2c3d4-0000-4000-8000-000000000003",
+    "text": "Broken posting without a URL"
+  }
+]

@@ -44,6 +44,9 @@ class RawJob(BaseModel):
     url: HttpUrl
     apply_url: HttpUrl | None
     location_raw: str | None
+    country_code: CountryCode | None = None  # only when the source states it (Phase 2d)
+    city: str | None = None
+    remote: bool | None = None
     posted_at: datetime | None
     salary_raw: str | None = None
     employment_type_raw: str | None = None
@@ -66,14 +69,22 @@ class Connector(Protocol):  # plug-in, entry point "jobradar.connectors"
     mode: ClassVar[AccessMode]  # "api" | "ats_feed"
     hosts: ClassVar[tuple[str, ...]]  # must all have source policies
 
-    async def fetch(self, ctx: FetchContext) -> list[RawJob]: ...
+    async def fetch(self, ctx: FetchContext) -> FetchResult: ...
 
 
-class FetchContext(BaseModel):
-    company: CompanyRef | None  # for ATS connectors
-    query: SourceQuery | None  # for aggregators: role aliases × market location
-    since: datetime | None
+@dataclass(frozen=True)  # implemented 2d: a dataclass, because PoliteClient is not a model
+class FetchContext:
     http: PoliteClient  # injected; enforces policy, timeouts, rate limits
+    settings: ConnectorSettings  # endpoint config from config/connectors.yaml
+    company: CompanyRef | None = None  # for ATS connectors
+    # query: SourceQuery for aggregators arrives with Adzuna/Remotive (2e)
+
+
+@dataclass
+class FetchResult:  # implemented 2d
+    jobs: list[RawJob]
+    items_invalid: int  # items that failed validation (schema drift signal)
+    pages: int
 
 
 class AlertInbox(Protocol):  # entry point "jobradar.alert_inboxes"
@@ -419,8 +430,10 @@ market's country to `countries`.
 
 ### Health evaluation (US-2.6)
 
-`degraded` if any of: `items_invalid > 0` with ≥ 20% of items invalid (schema drift); 0 jobs
-found while the 7-day average ≥ 5; jobs found < 30% of the 7-day average (> 70% drop). For alert
+`degraded` if any of: `items_invalid > 0` with ≥ 20% of items invalid (schema drift); for
+sources whose 7-day average is ≥ 5 jobs, 0 jobs found or fewer than 30% of the average (> 70%
+drop). Quieter sources never trigger drop alerts, because their counts swing too much (refined in
+Phase 2d). For alert
 parsers: a matched message yielding 0 jobs marks the parser degraded. Degraded sources raise an
 ops alert with the runbook link; they keep running.
 

@@ -1,6 +1,7 @@
 """Typed application settings loaded from the environment."""
 
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -16,6 +17,8 @@ class Settings(BaseSettings):
     redis_port: int = Field(default=6379, ge=1, le=65535)
     health_check_timeout_seconds: int = Field(default=2, ge=1)
     log_level: str = "INFO"
+    config_dir: Path = Path("config")  # source_policies.yaml, connectors.yaml, companies.yaml, …
+    packs_dir: Path = Path("packs")
 
     # Database timeouts (docs/coding-standards.md §6)
     db_connect_timeout_seconds: int = Field(default=5, ge=1)

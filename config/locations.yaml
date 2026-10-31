@@ -1,0 +1,39 @@
+# Location aliases used by the normalizer to find a job's country and city (dedupe and
+# market filtering). Config, not code: adding a market means adding its country and main cities.
+# Matching is case-insensitive on whole words. Phase 3 replaces this with fuller normalization.
+countries:
+  IN: [india, bharat, ind]
+  AE: [united arab emirates, uae, u.a.e., emirates]
+  SA: [saudi arabia, ksa]
+  QA: [qatar]
+  GB: [united kingdom, uk, england, great britain]
+  US: [united states, usa, united states of america]
+  CA: [canada]
+  DE: [germany, deutschland]
+  SG: [singapore]
+  AU: [australia]
+cities:
+  IN:
+    Bengaluru: [bengaluru, bangalore]
+    Mumbai: [mumbai, bombay, navi mumbai]
+    Pune: [pune]
+    Hyderabad: [hyderabad, secunderabad]
+    Chennai: [chennai, madras]
+    Delhi: [delhi, new delhi]
+    Gurugram: [gurugram, gurgaon]
+    Noida: [noida]
+    Kolkata: [kolkata, calcutta]
+    Ahmedabad: [ahmedabad]
+    Kochi: [kochi, cochin]
+    Thiruvananthapuram: [thiruvananthapuram, trivandrum]
+    Coimbatore: [coimbatore]
+    Jaipur: [jaipur]
+    Chandigarh: [chandigarh]
+  AE:
+    Dubai: [dubai]
+    Abu Dhabi: [abu dhabi]
+    Sharjah: [sharjah]
+    Ajman: [ajman]
+    Ras Al Khaimah: [ras al khaimah, rak]
+    Al Ain: [al ain]
+    Fujairah: [fujairah]
