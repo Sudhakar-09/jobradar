@@ -1,6 +1,7 @@
 services:
   postgres:
-    image: postgres:16
+    # Official pgvector build of PostgreSQL 16 (ADR-0023); same major version, existing volume stays compatible.
+    image: pgvector/pgvector:0.8.0-pg16
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-jobradar}
