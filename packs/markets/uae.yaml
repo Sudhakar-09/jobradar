@@ -1,18 +1,80 @@
 code: uae
 name: United Arab Emirates
-currency: AED
-job_boards:
-  - Company career pages
-  - Bayt
-  - GulfTalent
-cv_format: international
-photo_on_cv: false
-salary_convention: Compensation may be quoted monthly or annually; confirm whether allowances and benefits are included.
+kind: country
+country_codes: [AE]
+
+money:
+  currency: AED
+  quoted_periods: [month, year]
+  default_period: month
+  quoted_bases: [package, basic, gross]
+  default_basis: package
+  common_allowances: [housing, transport, education, annual_flight, medical_insurance]
+  income_tax: none
+  compensation_model: uae_package
+  notes: >-
+    Usually quoted monthly as a package (basic plus allowances such as housing and transport);
+    confirm whether a figure is basic or the full package. No personal income tax applies.
+
+locales:
+  - {code: en-AE, rtl: false}
+  - {code: ar-AE, rtl: true}
+default_locale: en-AE
+
+cv:
+  format: international_gulf
+  term: CV
+  length_pages: [1, 2]
+  photo_customary: true
+  fields_default_on: [nationality, current_location, visa_status, notice_period]
+  fields_default_off: [photo, date_of_birth, marital_status, driving_licence]
+  section_order: [summary, skills, experience, education, certifications]
+
 visa_routes:
-  - name: UAE employer-sponsored work permit and residence process
-    summary: Employer sponsorship and eligibility requirements apply; verify current UAE government requirements.
+  - name: UAE employer-sponsored work permit and residence visa
+    summary: >-
+      Employment needs a work permit and residence visa sponsored by the employer; eligibility
+      requirements apply. Verify current UAE government requirements.
     sponsor_required: true
+    official_url: https://www.mohre.gov.ae/
 sponsor_register_source: null
-notice_period_norm: Varies by employer and contract; use the candidate's stated notice period.
-language_notes: Use language requirements from each individual job posting.
-last_verified: null
+nationality_restricted_programmes: [Emiratisation]
+
+sources:
+  - code: company_ats
+    name: Company career pages and ATS boards (curated UAE-hiring companies)
+    kind: ats
+    access_modes: [ats_feed, extension_assist]
+  - code: linkedin
+    name: LinkedIn
+    kind: professional_network
+    hosts: [linkedin.com, "*.linkedin.com"]
+    access_modes: [alert_email, one_tap]
+  - code: naukrigulf
+    name: Naukrigulf
+    kind: job_board
+    hosts: [naukrigulf.com, "*.naukrigulf.com"]
+    access_modes: [alert_email, one_tap]
+  - code: bayt
+    name: Bayt
+    kind: job_board
+    hosts: [bayt.com, "*.bayt.com"]
+    access_modes: [alert_email, one_tap]
+  - code: gulftalent
+    name: GulfTalent
+    kind: job_board
+    hosts: [gulftalent.com, "*.gulftalent.com"]
+    access_modes: [alert_email, one_tap]
+
+notice_period_norm: >-
+  Varies by employer and contract; employers often prefer short notice. Use the candidate's
+  stated notice period and earliest joining date.
+hiring_seasons: []
+language_notes: >-
+  English is the main business language for most professional roles; some roles require Arabic.
+  Use language requirements from each individual job posting.
+credential_recognition: []
+
+provenance:
+  last_verified: null
+  references: []

@@ -1,9 +1,13 @@
 code: java_backend
+field: software_it
+family: software_engineering
+isco_08: "2512"  # Software developers
 title_aliases:
   - Java Backend Engineer
   - Java Backend Developer
   - Backend Software Engineer (Java)
   - Java Software Engineer
+title_aliases_by_locale: {}
 core_skills:
   - Java
   - Backend software development
@@ -11,13 +15,32 @@ core_skills:
   - Automated testing
   - Relational databases and SQL
   - Build and dependency management
+adjacent_roles:
+  - Backend Engineer
+  - Platform Engineer
+  - Full Stack Engineer
 signal_documents:
   - GitHub or code portfolio, if available
-assessment_types:
-  - Java coding exercise
-  - Backend technical interview
-  - API and system design interview
+required_credentials: []
+valued_credentials: []
+hiring_patterns:
+  channels: [company_ats, referral, recruiter, alert_email]
+  stages:
+    - Recruiter screen
+    - Coding assessment
+    - Technical interview
+    - System design interview
+    - Hiring manager interview
+  assessment_types:
+    - Java coding exercise
+    - Backend technical interview
+    - API and system design interview
+  seasonality: null
+  typical_weeks_to_hire: null
 resume_emphasis:
   - Delivered backend systems and measurable outcomes
   - Java services, APIs, and relevant frameworks actually used
   - Testing, data stores, reliability, and collaboration
+provenance:
+  last_verified: null
+  references: []

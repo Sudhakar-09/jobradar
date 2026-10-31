@@ -155,7 +155,7 @@ init_typed = true
 warn_required_dynamic_aliases = true
 
 [[tool.mypy.overrides]]
-module = ["celery", "celery.*", "kombu", "kombu.*", "yaml"]
+module = ["celery", "kombu", "yaml"]
 ignore_missing_imports = true
 
 # Layering (ADR-0012, docs/coding-standards.md §3). Domains in parentheses do not exist yet and are

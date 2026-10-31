@@ -9,9 +9,14 @@ channel_weights:
   recruiter: 0.10
   aggregator: 0.10
 daily_volume_range: [3, 8]
+tailoring_depth: medium
 resume_strategy: >-
   One base CV per market format with light per-job tailoring: reorder and rephrase true
   outcomes and skills toward the posting; never add facts.
+onboarding_steps: [resume, review, markets_roles, channels_privacy, applying]
+followup_days: [7, 14]
+default_llm_top_n: 10
+default_min_fit_score: 70
 tips:
   - Prioritise roles where the fit score explains concrete matched outcomes, not keywords alone.
   - Ask former colleagues for referrals at target companies before applying cold.

@@ -1,15 +1,71 @@
 code: india
 name: India
-currency: INR
-job_boards:
-  - Naukri
-  - Company career pages
-  - Public professional networks
-cv_format: in
-photo_on_cv: false
-salary_convention: Annual compensation; distinguish fixed pay from CTC when stated.
+kind: country
+country_codes: [IN]
+
+money:
+  currency: INR
+  quoted_periods: [year, month]
+  default_period: year
+  quoted_bases: [ctc, gross]
+  default_basis: ctc
+  common_allowances: []
+  income_tax: progressive
+  compensation_model: india_ctc
+  notes: >-
+    Usually quoted as annual CTC with fixed and variable parts; distinguish fixed pay from CTC
+    when stated. In-hand pay deducts employee PF, professional tax and income tax (new regime by
+    default, old regime optional).
+
+locales:
+  - {code: en-IN, rtl: false}
+default_locale: en-IN
+
+cv:
+  format: in
+  term: resume
+  length_pages: [1, 2]
+  photo_customary: false
+  fields_default_on: [current_location, notice_period]
+  fields_default_off:
+    [nationality, visa_status, current_ctc, expected_ctc, photo, date_of_birth, marital_status]
+  section_order: [summary, skills, experience, projects, education, certifications]
+
 visa_routes: []
 sponsor_register_source: null
+nationality_restricted_programmes: []
+
+sources:
+  - code: company_ats
+    name: Company career pages and ATS boards
+    kind: ats
+    access_modes: [ats_feed, extension_assist]
+  - code: adzuna
+    name: Adzuna
+    kind: aggregator
+    hosts: [api.adzuna.com]
+    access_modes: [api]
+  - code: naukri
+    name: Naukri
+    kind: job_board
+    hosts: [naukri.com, "*.naukri.com"]
+    access_modes: [alert_email, one_tap]
+  - code: linkedin
+    name: LinkedIn
+    kind: professional_network
+    hosts: [linkedin.com, "*.linkedin.com"]
+    access_modes: [alert_email, one_tap]
+  - code: indeed
+    name: Indeed
+    kind: job_board
+    hosts: [indeed.com, "*.indeed.com"]
+    access_modes: [alert_email, one_tap]
+
 notice_period_norm: Varies by employer and contract; use the candidate's stated notice period.
+hiring_seasons: []
 language_notes: Use language requirements from each individual job posting.
-last_verified: null
+credential_recognition: []
+
+provenance:
+  last_verified: null
+  references: []

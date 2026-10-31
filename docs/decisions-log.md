@@ -130,3 +130,11 @@ available in the repository.
 - **Step 7 (2026-10-30):** `CLAUDE.md` rewritten to match the final PRD, HLD, phases, schedules
   and standards, including the per-phase workflow, the "nothing only in a scratch folder" rule and
   commit-and-push after every step. The documentation gate before Phase 2 is lifted.
+- **Phase 2a (2026-10-30):** `SourcePolicy`, `AccessMode` and the policy registry live in
+  `jobradar.core.source_policies`, not `connectors`: the pack schemas in `core` need `AccessMode`
+  and `core` may not import a domain. Connectors re-exports the policy functions. Sensitive CV
+  fields (photo, date of birth, marital status) are rejected as default-on by the market pack
+  schema in every market. Source policies grant ATS boards `ats_feed` + `extension_assist` only;
+  `server_apply` waits for a per-ATS terms review. Market and role packs keep
+  `last_verified: null` until their facts are checked against official sources (they log a
+  warning until then).

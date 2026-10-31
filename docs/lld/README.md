@@ -6,6 +6,7 @@ with its LLD is a bug in one of them, fixed in the same PR.
 | File | Module | Main PRD stories | Phase |
 |---|---|---|---|
 | [database.md](database.md) | All tables, indexes, constraints, RLS, migration rules | — | all |
+| [packs.md](packs.md) | Market/role/persona pack schemas and the source policy registry (`core`) | US-1.2, US-2.8 | 2 |
 | [state-machine.md](state-machine.md) | Application states, transitions, triggers, guards | US-5.x, US-6.x | 5–6 |
 | [profile.md](profile.md) | Profile, resume parsing, variants, answer bank, embeddings | US-1.x | 1, 3, 5 |
 | [connectors.md](connectors.md) | Sources, ATS/aggregator connectors, alert inbox + parsers, company catalogue, source policies | US-2.x | 2 |
@@ -232,7 +233,8 @@ class ValidationErrorItem(BaseModel):
   |---|---|---|
   | `ProfileView`, `CvContent`, `AnswerMatch`, `AnswerView`, `ResumeVariant` | profile | matching, strategy, documents, apply |
   | API: `SeniorityLevel`, `LocationPref`, `LanguageSkill`, `CredentialView`, `SalaryExpectation`, `AnswerScope` | profile | matching, apply, admin |
-  | `RawJob`, `SourcePolicy`, `InboundMessage`, API `AccessMode` | connectors | normalizer, apply, matching, extension, runner |
+  | `RawJob`, `InboundMessage` | connectors | normalizer, apply, matching, extension, runner |
+  | `SourcePolicy`, `AccessMode`, `SourcePolicyRegistry`, pack models | core (`core.source_policies`, `core.packs`; packs.md) — connectors re-exports the policy functions | all domains |
   | `NormalizedJob`, `CompInput`, `CompProfile`, `CompBreakdown`, `JobDimensions`; API `Assumption`, `Deduction`, `SalaryPeriod`, `SalaryBasis`, `RemoteType`, `EmploymentType`, `VisaSponsorship` | normalizer | matching, profile, lifecycle, notify, extension, admin |
   | `RankedJob`, `JobSummary`, `EligibilityReason`, `Explanation`; API `JobCard`, `MatchItem`, `ScoreBreakdown` | matching | notify, documents, lifecycle, apply, extension, admin |
   | `RenderedDocument`, `OneTapPack`, `FieldToggles`, API `RenderedDocumentLinks`, `PreparedAnswer` | documents | apply, extension, lifecycle, profile |

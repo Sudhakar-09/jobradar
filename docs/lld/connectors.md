@@ -100,16 +100,11 @@ class AlertEmailParser(Protocol):  # entry point "jobradar.alert_parsers"
     def parse(self, msg: InboundMessage) -> list[RawJob]: ...  # pure; raises SchemaDriftError
 
 
-class SourcePolicy(BaseModel):
-    host: str
-    modes: frozenset[
-        AccessMode
-    ]  # api, ats_feed, alert_email, extension_assist, server_apply, one_tap, logo_fetch, none
-    rate_limit: RateLimit  # requests per minute + burst
-    user_agent: str | None = None
-    terms_url: HttpUrl | None
-    notes: str | None
-    last_reviewed: date
+# SourcePolicy, AccessMode and SourcePolicyRegistry live in jobradar.core.source_policies
+# (docs/lld/packs.md): pack schemas in core need AccessMode, and core may not import a domain.
+# Fields: id, name, hosts (exact or "*.domain"), company_domains, modes, rate_limit
+# (per_minute, burst, per_day), docs_url, terms_url, notes, last_reviewed.
+# connectors re-exports policy_for / assert_allowed / hosts_with_mode below as its public API.
 
 
 # --- service functions ---
@@ -179,7 +174,7 @@ limit is reached, remaining messages are left for the next run (enforcement `sof
 Mirrors `docs/openapi.yaml` `components/schemas`: same names, fields, enums and optionality (Step 4 review: the LLD is the single source of truth, the spec must match it). Optional fields are `T | None = None` and serialized with `exclude_none`; `XPage = Page[X]` is the cursor envelope from `docs/lld/README.md`; `# read-only` fields are ignored on input. Types not defined here come from their owning module (see the shared-model ownership table in `docs/lld/README.md`).
 
 ```python
-class AccessMode(StrEnum):
+class AccessMode(StrEnum):  # defined in jobradar.core.source_policies; re-exported here
     API = "api"
     ATS_FEED = "ats_feed"
     ALERT_EMAIL = "alert_email"

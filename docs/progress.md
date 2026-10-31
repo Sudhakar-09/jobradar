@@ -2,9 +2,7 @@
 
 ## Current phase
 
-**Design stage complete (2026-10-30).** Phases 0–1 are built; the engineering documentation
-(PRD, HLD + ADRs, LLD, API contract, coding standards and tooling, design system and UX,
-`CLAUDE.md`) is approved and pushed. **Next: Phase 2 — Discovery.** The active checkout is
+**Phase 2 — Discovery in progress** (sub-steps 2a–2h; design stage completed 2026-10-30). The active checkout is
 `C:\dev\jobradar`; do not use the retained OneDrive copy.
 
 ## Done (with commit hashes)
@@ -67,21 +65,31 @@
 
 ## In progress
 
-- None.
+Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2e, 2f, 2g, 2h).
+- **2a done — pack schemas and source policies** (`feat(packs): …`, see `git log`):
+  - `core/packs/` package: market (money, locales/RTL, CV norms with sensitive fields always off,
+    visa routes, sources with access modes, credential recognition, provenance), role (taxonomy,
+    ISCO-08, credentials per market, hiring patterns), persona (tailoring, follow-ups, top N,
+    minimum fit) schemas; stale/unverified warnings for market and role packs.
+  - `core/source_policies.py` + `config/source_policies.yaml`: 17 policies; unknown hosts one-tap.
+  - India and UAE packs migrated; UAE adds LinkedIn, Naukrigulf, Bayt, GulfTalent (alert email +
+    one-tap), monthly AED package, no income tax, en-AE + ar-AE. Java backend and mid packs
+    upgraded.
+  - Tests moved to `tests/unit/core/` (64 tests pass; coverage 95 % overall, 97 % critical).
+  - Docs: new `docs/lld/packs.md`; ownership of `SourcePolicy`/`AccessMode` moved to `core`.
+- Next: 2b core building blocks.
 
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:
-1. Phase 1 follow-ups (US-1.2 AC2/AC3): extend `MarketPack`/`RolePack`/`PersonaPack` schemas
-   (currency conventions, locale/RTL, CV field defaults, sources with access modes, credentials,
-   hiring patterns, persona defaults); add Naukrigulf and access modes to the UAE pack.
+1. ~~Pack schemas and UAE pack (US-1.2 AC2/AC3)~~ — done in 2a.
 2. Core building blocks the phase needs: `core.errors`, `core.scope`, `core.clock`, `core.ids`,
    `core.http` (shared httpx client with timeouts, retries, User-Agent, SSRF guard), log PII
    processor, async DB session with `SET LOCAL app.user_id`.
 3. Migration `0002_phase2_discovery` (database.md §9): users (minimal), companies, source_runs,
    jobs, job_sources, alert_inboxes, alert_messages, company_suggestions, consents,
    settings_flags, audit_log, dead_letters; DB roles and RLS; integration tests in CI.
-4. Source policy registry (US-2.8) and `config/source_policies.yaml`.
+4. ~~Source policy registry (US-2.8)~~ — done in 2a (connectors re-export comes in 2d).
 5. Connectors (US-2.1, US-2.2): Greenhouse, Lever, Ashby, Workable, SmartRecruiters, Adzuna,
    Remotive, with fixture tests and `source_runs`.
 6. Dedupe and ingest (US-2.3) and `jobradar discover` (US-2.4).
