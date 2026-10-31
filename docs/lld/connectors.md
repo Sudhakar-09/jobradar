@@ -592,3 +592,30 @@ bodies, job descriptions.
   `jobradar inbox connect gmail` (shows the consent text and asks for "yes" before Google's
   sign-in), `jobradar inbox list|disconnect`, `jobradar alerts ingest`; `jobradar discover`
   includes the owner's alert inbox (`--source alerts` for the inbox only).
+
+### Company catalogue (implemented Phase 2g)
+
+- `connectors/service/catalogue.py`. `CompanyCheck` statuses: `verified` (board lists jobs in the
+  chosen countries), `no_postings` (board exists, none there), `not_found` (404, or an empty
+  board: SmartRecruiters answers unknown companies with an empty list), `error`, `cached`.
+  Countries are detected with the normalizer's location rules (`normalizer.job_country`).
+- `verify_entries(entries)` checks a YAML file without touching the DB (candidate lists);
+  `verify_companies()` checks the active catalogue, one request per board through
+  `PoliteClient`, records found / not found like discovery, and skips boards verified or
+  fetched in the last 24 h unless `force` (the "cached" of PRD US-2.7 AC2).
+- `probe_companies(names)` guesses up to three slugs per name (`slug_guesses`: joined,
+  hyphenated, first word) on each ATS in order and stops at the first board with jobs in the
+  countries. A guessed slug can belong to another company with the same name, so probe output is
+  a review list, never catalogue data.
+- Suggestions: after every alert ingest, each job whose employer is not in the catalogue
+  (compared by `normalize_company`) adds or counts a `company_suggestions` row, merged by
+  normalized name; a job link on a supported ATS sets `detected_ats`/`detected_slug` directly
+  (`board_urls` regexes in `config/connectors.yaml`). `probe_company_suggestions` fills boards
+  for pending rows; `decide_company_suggestion` accepts (needs a board and ≥ 1 country; links an
+  existing `(ats, slug)` company or creates one) or rejects. Decided suggestions cannot be
+  decided again; another user's suggestion is not found.
+- CLI: `jobradar companies verify [--file F] [--country CC] [--force]`,
+  `jobradar companies probe NAME… [--names-file F] [--country CC] [--write F]`,
+  `jobradar companies suggestions list|probe|accept ID --country CC [--ats --slug]|reject ID`.
+- Candidate names live in `config/company_candidates/<market>.txt`; probe output for review in
+  `config/company_candidates/<market>.probe.yaml`; approved entries go to `config/companies.yaml`.

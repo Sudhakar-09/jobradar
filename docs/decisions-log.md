@@ -184,3 +184,23 @@ available in the repository.
   AES-256-GCM (`cryptography`, already installed by `google-auth`; declared directly — owner
   confirmation requested). The OAuth client file stays outside the repository
   (`GOOGLE_OAUTH_CLIENT_FILE`). An inbox whose grant Google rejects becomes `reauth_required`.
+- **cryptography (owner, 2026-10-31):** approved as a direct dependency (AES-256-GCM for stored
+  OAuth refresh tokens).
+- **Adzuna live check (owner, 2026-10-31):** skipped for now; no key is saved in `.env`. The
+  connector stays disabled; the one-call verification runs if a key is added later.
+- **Phase 2g — company catalogue (2026-10-31):**
+  - ATS boards for candidate employers are found by **probing guessed slugs** on the five public
+    ATS APIs (one polite request per guess, stopping at the first board with UAE jobs), because
+    which ATS an employer uses is not published anywhere we may read. A guessed slug can belong
+    to a different company with the same name, so probe output is a review list: only the
+    owner's approval moves an entry into `config/companies.yaml`.
+  - A board counts as "UAE-hiring" when it currently lists at least one job located in the UAE
+    (normalizer location rules), not merely when the company has a UAE office.
+  - `companies verify` treats a board checked in the last 24 h as cached (PRD US-2.7 AC2).
+  - Alert employers become per-user suggestions merged by normalized name; accepting needs a
+    board and at least one country; accepted companies go to the database catalogue and the CLI
+    reminds the owner to add them to `config/companies.yaml`.
+  - Candidate names and probe output are kept in `config/company_candidates/` (rule 12).
+  - Bug fixed in `PoliteClient`'s token bucket: float rounding in the refill could leave
+    0.999… tokens and a wait too small to move the clock, which spun forever with a fake clock
+    (and caused needless tiny sleeps with the real one). Regression test added.

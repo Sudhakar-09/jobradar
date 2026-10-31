@@ -40,6 +40,7 @@ from jobradar.connectors.repository import (
     SourceRunRepository,
 )
 from jobradar.connectors.schemas import InboundMessage, RawJob, SourceRunResult
+from jobradar.connectors.service.catalogue import record_suggestions
 from jobradar.core.clock import Clock, SystemClock
 from jobradar.core.crypto import SecretBox
 from jobradar.core.db import user_session
@@ -115,6 +116,8 @@ async def ingest_alert_messages(
 ) -> SourceRunResult:
     """Parse new alert emails from one of the user's inboxes and store the jobs they contain.
 
+    Employers the catalogue does not know become company suggestions for the user to review.
+
     Raises:
         NotFoundError: the inbox does not exist or belongs to another user.
         ConsentRequiredError: the user has not consented to this inbox kind.
@@ -145,6 +148,7 @@ async def ingest_alert_messages(
     counts = await normalizer.ingest(
         system_scope(connector), tally.jobs, source_run_id=run_id, clock=clock, factory=factory
     )
+    await record_suggestions(scope, tally.jobs, factory=factory)
     return await _finish(
         scope,
         inbox_id,

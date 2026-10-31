@@ -37,6 +37,14 @@ def location_aliases() -> LocationAliases:
     return load_location_aliases(get_settings().config_dir / "locations.yaml")
 
 
+def job_country(raw: RawJob) -> str | None:
+    """ISO country code of a raw job from its location text and source hints, or None."""
+    aliases = location_aliases()
+    return detect_location(
+        raw.location_raw, aliases, country_hint=raw.country_code, city_hint=raw.city
+    ).country
+
+
 def to_record(raw: RawJob, aliases: LocationAliases) -> JobRecord:
     """Turn a raw job into what the corpus stores, computing location and hashes."""
     location = detect_location(

@@ -40,6 +40,7 @@ RETRYABLE_STATUS: Final = frozenset({500, 502, 503, 504})
 TOO_MANY_REQUESTS: Final = 429
 REDIRECT_STATUS: Final = frozenset({301, 302, 303, 307, 308})
 SECONDS_PER_MINUTE: Final = 60.0
+TOKEN_EPSILON: Final = 1e-9  # float refill error; without it a wait can shrink to nothing
 _BODY_ENCODING_HEADERS: Final = frozenset(
     {"content-encoding", "content-length", "transfer-encoding"}
 )
@@ -90,8 +91,8 @@ class _TokenBucket:
                 elapsed = now - self._updated
                 self._tokens = min(self._capacity, self._tokens + elapsed * self._rate)
                 self._updated = now
-                if self._tokens >= 1:
-                    self._tokens -= 1
+                if self._tokens >= 1 - TOKEN_EPSILON:
+                    self._tokens = max(0.0, self._tokens - 1)
                     return
                 await self._sleep((1 - self._tokens) / self._rate)
 

@@ -5,9 +5,11 @@ from __future__ import annotations
 import argparse
 import json
 from collections.abc import Callable, Sequence
+from datetime import UTC, datetime
 from pathlib import Path
 from uuid import UUID
 
+import yaml
 from pydantic import BaseModel
 
 from jobradar import accounts, connectors, privacy
@@ -40,6 +42,124 @@ def _profile_parse_resume(args: argparse.Namespace) -> int:
 def _companies_sync(_args: argparse.Namespace) -> int:
     counts = run(connectors.sync_companies())
     print(f"Companies synced: {counts.created} new, {counts.updated} updated.")
+    return 0
+
+
+def _countries(args: argparse.Namespace) -> frozenset[str] | None:
+    return frozenset(c.upper() for c in args.country) if args.country else None
+
+
+def _print_checks(checks: Sequence[connectors.CompanyCheck]) -> None:
+    print(f"{'company':<30}{'board':<34}{'status':<13}{'jobs':>6}{'in country':>12}")
+    for check in checks:
+        note = f"  {check.error}" if check.error else ""
+        print(
+            f"{check.name[:29]:<30}{(check.ats + '/' + check.slug)[:33]:<34}{check.status:<13}"
+            f"{check.jobs_total:>6}{check.jobs_in_countries:>12}{note}"
+        )
+    verified = sum(1 for check in checks if check.status == "verified")
+    print(f"{verified} of {len(checks)} boards list jobs in the chosen countries.")
+
+
+def _companies_verify(args: argparse.Namespace) -> int:
+    countries = _countries(args)
+    if args.file is not None:
+        entries = connectors.load_company_file(args.file).companies
+        checks = run(connectors.verify_entries(entries, countries=countries))
+    else:
+        checks = run(connectors.verify_companies(countries=countries, force=args.force))
+    _print_checks(checks)
+    return 0
+
+
+def _read_names(args: argparse.Namespace) -> list[str]:
+    names = list(args.names)
+    if args.names_file is not None:
+        lines = args.names_file.read_text(encoding="utf-8").splitlines()
+        names.extend(line.strip() for line in lines if line.strip() and not line.startswith("#"))
+    return list(dict.fromkeys(names))
+
+
+def _write_candidates(
+    path: Path, found: dict[str, connectors.CompanyCheck | None], countries: frozenset[str]
+) -> None:
+    today = datetime.now(UTC).date().isoformat()
+    where = "/".join(sorted(countries))
+    entries = [
+        connectors.CompanyEntry.model_validate(
+            {
+                "name": check.name,
+                "ats": check.ats,
+                "ats_slug": check.slug,
+                "countries": sorted(countries),
+                "source": f"ats probe {today}: {check.jobs_in_countries} postings in {where}",
+            }
+        )
+        for check in found.values()
+        if check is not None and check.status == "verified"
+    ]
+    document = {"companies": [entry.model_dump(exclude_none=True) for entry in entries]}
+    path.write_text(yaml.safe_dump(document, sort_keys=False), encoding="utf-8")
+    print(f"Wrote {len(entries)} verified boards to {path} for review.")
+
+
+def _companies_probe(args: argparse.Namespace) -> int:
+    names = _read_names(args)
+    if not names:
+        raise ValidationFailedError("give company names or --names-file")
+    countries = _countries(args) or frozenset({"AE"})
+    found = run(connectors.probe_companies(names, countries=countries))
+    _print_checks([check for check in found.values() if check is not None])
+    missing = [name for name, check in found.items() if check is None]
+    if missing:
+        print("No board found for: " + ", ".join(missing))
+    if args.write is not None:
+        _write_candidates(args.write, found, countries)
+    return 0
+
+
+def _suggestions_list(args: argparse.Namespace) -> int:
+    status = None if args.status == "all" else args.status
+    scope = _require_owner().scope()
+    suggestions = run(connectors.list_company_suggestions(scope, status=status))
+    if not suggestions:
+        print("No company suggestions.")
+    for item in suggestions:
+        board = f"{item.detected_ats}/{item.detected_slug}" if item.detected_ats else "-"
+        print(
+            f"{item.id}  {item.company_name[:30]:<31}{board[:30]:<31}"
+            f"seen {item.evidence_count:>3}x  {item.status}"
+        )
+    return 0
+
+
+def _suggestions_probe(args: argparse.Namespace) -> int:
+    countries = _countries(args) or frozenset({"AE"})
+    scope = _require_owner().scope()
+    updated = run(connectors.probe_company_suggestions(scope, countries=countries))
+    for item in updated:
+        print(f"{item.id}  {item.company_name}: {item.detected_ats}/{item.detected_slug}")
+    print(f"Boards found for {len(updated)} suggestions. Review them before accepting.")
+    return 0
+
+
+def _suggestions_decide(args: argparse.Namespace) -> int:
+    accept = args.subcommand == "accept"
+    board = (args.ats, args.slug) if accept and args.ats and args.slug else None
+    company = run(
+        connectors.decide_company_suggestion(
+            _require_owner().scope(),
+            args.id,
+            accept=accept,
+            countries=args.country if accept else (),
+            board=board,
+        )
+    )
+    if company is None:
+        print("Suggestion rejected.")
+        return 0
+    print(f"Added to the catalogue: {company.name} ({company.ats}/{company.ats_slug}).")
+    print("To keep it in the curated list, add it to config/companies.yaml.")
     return 0
 
 
@@ -173,6 +293,53 @@ def _add_account_commands(commands: argparse._SubParsersAction[argparse.Argument
     )
 
 
+def _add_company_commands(commands: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    companies = commands.add_parser("companies", help="Manage the company catalogue")
+    company_commands = companies.add_subparsers(dest="subcommand", required=True)
+    company_commands.add_parser(
+        "sync", help="Load config/companies.yaml into the database"
+    ).set_defaults(handler=_companies_sync)
+    country_help = "ISO country code to count jobs in (repeatable)"
+
+    verify = company_commands.add_parser("verify", help="Check that company boards exist and hire")
+    verify.add_argument("--file", type=Path, help="Check this YAML file instead of the catalogue")
+    verify.add_argument("--country", action="append", help=country_help)
+    verify.add_argument("--force", action="store_true", help="Ignore boards checked today")
+    verify.set_defaults(handler=_companies_verify)
+
+    probe = company_commands.add_parser("probe", help="Find ATS boards for company names")
+    probe.add_argument("names", nargs="*", help="Company names")
+    probe.add_argument("--names-file", type=Path, help="One company name per line")
+    probe.add_argument("--country", action="append", help=country_help + " (default AE)")
+    probe.add_argument("--write", type=Path, help="Write verified boards to this YAML file")
+    probe.set_defaults(handler=_companies_probe)
+    _add_suggestion_commands(company_commands, country_help)
+
+
+def _add_suggestion_commands(
+    company_commands: argparse._SubParsersAction[argparse.ArgumentParser], country_help: str
+) -> None:
+    suggestions = company_commands.add_parser("suggestions", help="Employers seen in your alerts")
+    suggestion_commands = suggestions.add_subparsers(dest="subcommand", required=True)
+    listing = suggestion_commands.add_parser("list", help="Show suggestions")
+    listing.add_argument(
+        "--status", choices=["pending", "accepted", "rejected", "all"], default="pending"
+    )
+    listing.set_defaults(handler=_suggestions_list)
+    probe_pending = suggestion_commands.add_parser("probe", help="Find boards for suggestions")
+    probe_pending.add_argument("--country", action="append", help=country_help + " (default AE)")
+    probe_pending.set_defaults(handler=_suggestions_probe)
+    accept = suggestion_commands.add_parser("accept", help="Add a suggestion to the catalogue")
+    accept.add_argument("id", type=UUID)
+    accept.add_argument("--country", action="append", required=True, help=country_help)
+    accept.add_argument("--ats", choices=list(connectors.ATS_ORDER), help="Correct the ATS")
+    accept.add_argument("--slug", help="Correct the board slug")
+    accept.set_defaults(handler=_suggestions_decide)
+    reject = suggestion_commands.add_parser("reject", help="Never suggest this employer again")
+    reject.add_argument("id", type=UUID)
+    reject.set_defaults(handler=_suggestions_decide)
+
+
 def _add_inbox_commands(commands: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
     inbox = commands.add_parser("inbox", help="Job-alert inbox (Gmail, read-only)")
     inbox_commands = inbox.add_subparsers(dest="subcommand", required=True)
@@ -213,11 +380,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parse_resume.add_argument("path", type=Path, help="UTF-8 plain-text resume path")
     parse_resume.set_defaults(handler=_profile_parse_resume)
 
-    companies = commands.add_parser("companies", help="Manage the company catalogue")
-    company_commands = companies.add_subparsers(dest="subcommand", required=True)
-    company_commands.add_parser(
-        "sync", help="Load config/companies.yaml into the database"
-    ).set_defaults(handler=_companies_sync)
+    _add_company_commands(commands)
 
     discover = commands.add_parser("discover", help="Fetch fresh jobs from every source")
     discover.add_argument("--source", help="Only this connector (e.g. greenhouse, alerts)")

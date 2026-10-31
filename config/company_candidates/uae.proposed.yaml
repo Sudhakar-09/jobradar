@@ -1,0 +1,227 @@
+# Proposed UAE-hiring companies (Phase 2g, US-2.7 AC4), merged from the two probe rounds.
+# Every board listed at least one UAE job on 2026-10-31. Awaiting the owner's approval;
+# approved entries are copied to config/companies.yaml.
+companies:
+- name: Binance
+  ats: greenhouse
+  ats_slug: binance
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 53 postings in AE'
+- name: Delivery Hero
+  ats: smartrecruiters
+  ats_slug: deliveryhero
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 53 postings in AE'
+- name: Aldar
+  ats: lever
+  ats_slug: aldar
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 50 postings in AE'
+- name: Bybit
+  ats: greenhouse
+  ats_slug: bybit
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 45 postings in AE'
+- name: Deliveroo
+  ats: greenhouse
+  ats_slug: deliveroo
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 15 postings in AE'
+- name: Tamara
+  ats: greenhouse
+  ats_slug: tamara
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 15 postings in AE'
+- name: Ziina
+  ats: ashby
+  ats_slug: ziina
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 13 postings in AE'
+- name: Qlub
+  ats: ashby
+  ats_slug: qlub
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 9 postings in AE'
+- name: Kpler
+  ats: lever
+  ats_slug: kpler
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 8 postings in AE'
+- name: Hex Trust
+  ats: workable
+  ats_slug: hextrust
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 7 postings in AE'
+- name: Coinbase
+  ats: greenhouse
+  ats_slug: coinbase
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 6 postings in AE'
+- name: Namshi
+  ats: smartrecruiters
+  ats_slug: namshi
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 6 postings in AE'
+- name: 1inch
+  ats: lever
+  ats_slug: 1inch
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 5 postings in AE'
+- name: Cohere
+  ats: ashby
+  ats_slug: cohere
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 5 postings in AE'
+- name: Airwallex
+  ats: ashby
+  ats_slug: airwallex
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 4 postings in AE'
+- name: Careem
+  ats: greenhouse
+  ats_slug: careem
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 4 postings in AE'
+- name: Crypto.com
+  ats: lever
+  ats_slug: crypto
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 4 postings in AE'
+- name: OKX
+  ats: greenhouse
+  ats_slug: okx
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 4 postings in AE'
+- name: Foodics
+  ats: workable
+  ats_slug: foodics
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 3 postings in AE'
+- name: Celonis
+  ats: greenhouse
+  ats_slug: celonis
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 2 postings in AE'
+- name: Elastic
+  ats: greenhouse
+  ats_slug: elastic
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 2 postings in AE'
+- name: Fireblocks
+  ats: greenhouse
+  ats_slug: fireblocks
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 2 postings in AE'
+- name: Flowdesk
+  ats: greenhouse
+  ats_slug: flowdesk
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 2 postings in AE'
+- name: GitLab
+  ats: greenhouse
+  ats_slug: gitlab
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 2 postings in AE'
+- name: Group-IB
+  ats: greenhouse
+  ats_slug: groupib
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 2 postings in AE'
+- name: NielsenIQ
+  ats: smartrecruiters
+  ats_slug: nielseniq
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 2 postings in AE'
+- name: Ripple
+  ats: greenhouse
+  ats_slug: ripple
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 2 postings in AE'
+- name: Scale AI
+  ats: greenhouse
+  ats_slug: scaleai
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 2 postings in AE'
+- name: Tamatem
+  ats: workable
+  ats_slug: tamatem
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 2 postings in AE'
+- name: Ebury
+  ats: greenhouse
+  ats_slug: ebury
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 1 postings in AE'
+  notes: only 1 UAE posting at probe time; may drop out
+- name: InMobi
+  ats: greenhouse
+  ats_slug: inmobi
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 1 postings in AE'
+  notes: only 1 UAE posting at probe time; may drop out
+- name: MongoDB
+  ats: greenhouse
+  ats_slug: mongodb
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 1 postings in AE'
+  notes: only 1 UAE posting at probe time; may drop out
+- name: Palantir
+  ats: lever
+  ats_slug: palantir
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 1 postings in AE'
+  notes: only 1 UAE posting at probe time; may drop out
+- name: Snowflake
+  ats: ashby
+  ats_slug: snowflake
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 1 postings in AE'
+  notes: only 1 UAE posting at probe time; may drop out
+- name: Thunes
+  ats: greenhouse
+  ats_slug: thunes
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 1 postings in AE'
+  notes: only 1 UAE posting at probe time; may drop out
+- name: UiPath
+  ats: ashby
+  ats_slug: uipath
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 1 postings in AE'
+  notes: only 1 UAE posting at probe time; may drop out

@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from jobradar.connectors.health import RunStatus
 from jobradar.connectors.schemas import CompanyEntry, CompanyRef
-from jobradar.models import AlertInbox, AlertMessage, Company, SourceRun
+from jobradar.models import AlertInbox, AlertMessage, Company, CompanySuggestion, SourceRun
 
 NOT_FOUND_LIMIT: Final = 3  # consecutive 404s before a company is marked not_found
 HEALTH_STATUSES: Final = ("ok", "partial", "degraded")
@@ -71,6 +71,35 @@ class CompanyRepository:
             CompanyRef(id=row.id, name=row.name, ats=row.ats or "", ats_slug=row.ats_slug or "")
             for row in rows
         ]
+
+    async def names(self) -> list[str]:
+        """Names of every catalogue company (to tell known employers from new ones)."""
+        return list((await self._session.scalars(select(Company.name))).all())
+
+    async def catalogue(self) -> list[Company]:
+        """Active catalogue companies with an ATS board, by name."""
+        query = select(Company).where(
+            Company.status == "active", Company.ats.is_not(None), Company.ats_slug.is_not(None)
+        )
+        return list((await self._session.scalars(query.order_by(Company.name))).all())
+
+    async def link_or_create(
+        self, *, name: str, ats: str, ats_slug: str, countries: list[str]
+    ) -> tuple[CompanyRef, bool]:
+        """The company with this board (adding the countries), or a new one; True if created."""
+        company = await self._session.scalar(
+            select(Company).where(Company.ats == ats, Company.ats_slug == ats_slug)
+        )
+        created = company is None
+        if company is None:
+            company = Company(
+                name=name, normalized_name=_normalized_name(name), ats=ats, ats_slug=ats_slug
+            )
+            company.countries = []
+            self._session.add(company)
+        company.countries = sorted({*company.countries, *countries})
+        await self._session.flush()
+        return CompanyRef(id=company.id, name=company.name, ats=ats, ats_slug=ats_slug), created
 
     async def record_found(self, company_id: UUID, now: datetime) -> None:
         """The board answered: reset the not-found streak."""
@@ -258,3 +287,41 @@ class AlertMessageRepository:
                 processed_at=processed_at,
             )
         )
+
+
+class SuggestionRepository:
+    """Employers seen in the user's alerts, awaiting the user's decision (RLS-scoped)."""
+
+    def __init__(self, session: AsyncSession) -> None:
+        """Bind to an open user session."""
+        self._session = session
+
+    async def add(
+        self, *, user_id: UUID, company_name: str, apply_host: str, board: tuple[str, str] | None
+    ) -> CompanySuggestion:
+        """Insert a pending suggestion seen once."""
+        ats, slug = board or (None, None)
+        suggestion = CompanySuggestion(
+            user_id=user_id,
+            company_name=company_name,
+            apply_host=apply_host,
+            detected_ats=ats,
+            detected_slug=slug,
+            evidence_count=1,
+            status="pending",
+        )
+        self._session.add(suggestion)
+        await self._session.flush()
+        return suggestion
+
+    async def list(self, status: str | None) -> list[CompanySuggestion]:
+        """The user's suggestions, most seen first (all statuses when ``status`` is None)."""
+        query = select(CompanySuggestion)
+        if status is not None:
+            query = query.where(CompanySuggestion.status == status)
+        order = (CompanySuggestion.evidence_count.desc(), CompanySuggestion.company_name)
+        return list((await self._session.scalars(query.order_by(*order))).all())
+
+    async def get(self, suggestion_id: UUID) -> CompanySuggestion | None:
+        """One of the user's suggestions, or None (another user's is invisible)."""
+        return await self._session.get(CompanySuggestion, suggestion_id)

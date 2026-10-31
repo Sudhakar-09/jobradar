@@ -1,5 +1,6 @@
 """Connectors domain: job sources, the company catalogue and source policies (public API)."""
 
+from jobradar.connectors.config import load_company_file
 from jobradar.connectors.schemas import (
     CompanyEntry,
     CompanyRef,
@@ -27,8 +28,23 @@ from jobradar.connectors.service.alerts import (
     ingest_alerts,
     list_inboxes,
 )
+from jobradar.connectors.service.catalogue import (
+    ATS_ORDER,
+    CompanyCheck,
+    SuggestionInfo,
+    decide_company_suggestion,
+    detect_board,
+    list_company_suggestions,
+    probe_companies,
+    probe_company_suggestions,
+    slug_guesses,
+    verify_companies,
+    verify_entries,
+)
 
 __all__ = [
+    "ATS_ORDER",
+    "CompanyCheck",
     "CompanyEntry",
     "CompanyRef",
     "DiscoveryReport",
@@ -37,17 +53,27 @@ __all__ = [
     "RawJob",
     "Skipped",
     "SourceRunResult",
+    "SuggestionInfo",
     "alert_sender_addresses",
     "assert_allowed",
     "connect_gmail_inbox",
     "create_alert_inbox",
+    "decide_company_suggestion",
+    "detect_board",
     "disconnect_inbox",
     "discover",
     "gmail_settings",
     "hosts_with_mode",
     "ingest_alert_messages",
     "ingest_alerts",
+    "list_company_suggestions",
     "list_inboxes",
+    "load_company_file",
     "policy_for",
+    "probe_companies",
+    "probe_company_suggestions",
+    "slug_guesses",
     "sync_companies",
+    "verify_companies",
+    "verify_entries",
 ]

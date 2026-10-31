@@ -1,0 +1,37 @@
+companies:
+- name: Qlub
+  ats: ashby
+  ats_slug: qlub
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 9 postings in AE'
+- name: Ebury
+  ats: greenhouse
+  ats_slug: ebury
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 1 postings in AE'
+- name: Kpler
+  ats: lever
+  ats_slug: kpler
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 8 postings in AE'
+- name: Crypto
+  ats: lever
+  ats_slug: crypto
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 4 postings in AE'
+- name: Hex Trust
+  ats: workable
+  ats_slug: hextrust
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 7 postings in AE'
+- name: Flowdesk
+  ats: greenhouse
+  ats_slug: flowdesk
+  countries:
+  - AE
+  source: 'ats probe 2026-10-31: 2 postings in AE'

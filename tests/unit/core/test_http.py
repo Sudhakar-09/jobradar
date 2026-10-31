@@ -11,7 +11,7 @@ from jobradar.core.errors import (
     RateLimitedError,
     UnsafeUrlError,
 )
-from jobradar.core.http import PoliteClient
+from jobradar.core.http import PoliteClient, _TokenBucket
 from jobradar.core.settings import Settings
 from jobradar.core.source_policies import AccessMode, load_source_policies
 
@@ -289,6 +289,29 @@ async def test_rate_limit_waits_after_burst() -> None:
 
     assert len(clock.sleeps) == 1
     assert clock.sleeps[0] == pytest.approx(60 / REGISTRY.get("greenhouse").rate_limit.per_minute)
+
+
+async def test_rate_limit_terminates_despite_float_rounding() -> None:
+    # Buckets sharing one clock (a probe across ATSs): float error in the refill used to leave
+    # 0.999… tokens and a wait too small to move the clock, so acquire() spun forever.
+    clock = FakeTime()
+    sleep_cap = 10_000
+
+    async def capped_sleep(seconds: float) -> None:
+        assert len(clock.sleeps) < sleep_cap, "rate limiter is spinning"
+        await clock.sleep(seconds)
+
+    policies = ("greenhouse", "lever", "ashby", "workable", "smartrecruiters")
+    buckets = [
+        _TokenBucket(REGISTRY.get(code).rate_limit, clock.monotonic, capped_sleep)
+        for code in policies
+    ]
+    for _ in range(100):
+        for bucket in buckets:
+            for _ in range(3):
+                await bucket.acquire()
+
+    assert len(clock.sleeps) < sleep_cap
 
 
 async def test_logs_never_contain_query_strings() -> None:

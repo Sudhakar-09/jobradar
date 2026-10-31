@@ -1,20 +1,27 @@
 # Connector endpoints (docs/lld/connectors.md §3). URLs live here, never in code.
 # `{slug}` is the company's ATS board identifier from config/companies.yaml.
 # Every host used here must have an entry in config/source_policies.yaml.
+# `board_urls`: patterns of public job-page links on the ATS; the `slug` group names the company
+# board. Used to suggest companies from links seen in job alerts (US-2.7).
 connectors:
   greenhouse:
+    board_urls: ['^https://(?:boards|job-boards)\.greenhouse\.io/(?!embed/)(?P<slug>[A-Za-z0-9_-]+)']
     list_url: https://boards-api.greenhouse.io/v1/boards/{slug}/jobs
     params: {content: "true"}
   lever:
+    board_urls: ['^https://jobs\.(?:eu\.)?lever\.co/(?P<slug>[A-Za-z0-9._-]+)']
     list_url: https://api.lever.co/v0/postings/{slug}
     params: {mode: json}
   ashby:
+    board_urls: ['^https://jobs\.ashbyhq\.com/(?P<slug>[A-Za-z0-9._-]+)']
     list_url: https://api.ashbyhq.com/posting-api/job-board/{slug}
     params: {includeCompensation: "true"}
   workable:
+    board_urls: ['^https://apply\.workable\.com/(?!j/|api/)(?P<slug>[A-Za-z0-9_-]+)']
     list_url: https://apply.workable.com/api/v1/widget/accounts/{slug}
     params: {details: "true"}
   smartrecruiters:
+    board_urls: ['^https://(?:jobs|careers)\.smartrecruiters\.com/(?P<slug>[A-Za-z0-9_-]+)']
     list_url: https://api.smartrecruiters.com/v1/companies/{slug}/postings
     params: {}
     page_size: 100

@@ -150,9 +150,24 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   - `cryptography` declared directly (already installed by google-auth) — **owner confirmation
     requested**. Google credential files are git-ignored as a safety net.
   - 242 tests pass (32 integration). Coverage 83 % / 93 % (unit job).
-- **STOP — waiting for the owner:** Google Cloud setup (steps in chat), owner account, encryption
-  key, Gmail connection, job alerts on the boards; then the first real ingest to check the
-  parsers against real alert formats. Adzuna verification still pending its key in `.env`.
+- Owner update (2026-10-31): `cryptography` approved; Adzuna live check skipped (no key in
+  `.env`). The owner reported the Google setup and Gmail connection done, but this repository's
+  `.env` has no `GOOGLE_OAUTH_CLIENT_FILE`/`TOKEN_ENCRYPTION_KEY` and the database has no owner
+  account — to be re-done here before the first real alert ingest.
+- **2g done — company catalogue** (`feat(connectors): company verify, probe and suggestions`):
+  - `jobradar companies verify` (catalogue or `--file`; 24 h cache; records found/not found),
+    `companies probe` (guessed slugs on the five ATSs, review output only),
+    `companies suggestions list|probe|accept|reject` (employers from alerts, owner decides).
+  - Alert ingestion now records unknown employers as per-user suggestions (merged by
+    normalized name; ATS links give the board directly).
+  - Live probe of 198 + 44 candidate employers (`config/company_candidates/`): **36 boards with
+    UAE postings**, all re-verified with `companies verify --file` (36/36). Proposed list in
+    `config/company_candidates/uae.proposed.yaml`; 7 boards have a single UAE posting.
+  - Fixed a `PoliteClient` token-bucket spin (float rounding); regression test added.
+  - 274 tests pass. Coverage 96 % overall.
+- **STOP — waiting for the owner:** approve the proposed UAE list (then it is copied to
+  `config/companies.yaml` and synced); redo the Gmail setup in this repo's `.env` and run
+  `jobradar alerts ingest`; then 2h.
 
 ## Next steps
 
@@ -167,8 +182,8 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
 7. Gmail job-alert ingestion and parsers for LinkedIn, Naukrigulf, Bayt, GulfTalent (US-2.5), with
    consent and body discard.
 8. ~~Connector health and `degraded` detection (US-2.6)~~ — done in 2d (alerting arrives with ops).
-9. Company catalogue, `jobradar companies verify`, suggestions from alerts; ≥ 30 verified
-   UAE-hiring companies (US-2.7).
+9. ~~Company catalogue, `jobradar companies verify`, suggestions from alerts~~ — done in 2g;
+   ≥ 30 verified UAE-hiring companies proposed (36), awaiting the owner's approval (US-2.7).
 10. Golden datasets for India and UAE and conformance suite v1 (US-2.9).
 New dependencies expected and needing approval when reached: Google API client (Gmail),
 an HTML parser for alert emails, testcontainers (or compose services) for integration tests.

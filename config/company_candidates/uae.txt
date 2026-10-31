@@ -1,0 +1,211 @@
+# Candidate employers with a UAE presence, for `jobradar companies probe` (US-2.7).
+# One name per line. A probe guesses each name's board slug on the supported ATSs and counts
+# UAE postings; only boards with UAE postings are written for review. Nothing here is added to
+# config/companies.yaml without the owner's approval. Compiled 2026-10-31 from public knowledge of
+# UAE offices (tech, fintech, platforms, crypto, consultancies, global software vendors).
+
+# --- UAE / regional tech and platforms ---
+Careem
+Talabat
+noon
+Kitopi
+Property Finder
+Bayut
+Dubizzle
+Dubizzle Group
+Anghami
+Swvl
+Pure Harvest
+Huspy
+Stake
+Fresha
+Calo
+Quiqup
+Trukker
+Fetchr
+Instashop
+Ounass
+Namshi
+Mumzworld
+Yalla
+Tamatem
+Wego
+Vezeeta
+Foodics
+Salla
+Zid
+Unifonic
+Lucidya
+Nana
+Jahez
+Yango
+Getir
+Glovo
+Deliveroo
+Delivery Hero
+Aramex
+DP World
+Majid Al Futtaim
+Chalhoub Group
+Al-Futtaim
+Emaar
+Aldar
+G42
+Presight
+Core42
+Bayanat
+Technology Innovation Institute
+e&
+Help AG
+CPX
+Spire Solutions
+
+# --- UAE / regional fintech ---
+Tabby
+Tamara
+Sarwa
+Ziina
+YAP
+Wio
+Baraka
+Lean Technologies
+Tarabut
+Pyypl
+NymCard
+Network International
+Liv
+Zand
+Ruya
+Fasset
+Rain
+BitOasis
+Postpay
+Cashew
+Telr
+Paymob
+Thunes
+Nium
+Airwallex
+Checkout.com
+Rapyd
+Payoneer
+Stripe
+Adyen
+Visa
+PayPal
+Wise
+Revolut
+eToro
+Equiti
+Exness
+Pepperstone
+Saxo
+Interactive Brokers
+Plus500
+IG
+
+# --- Crypto / web3 with Dubai or Abu Dhabi hubs ---
+Binance
+Bybit
+OKX
+Crypto.com
+Kraken
+Deriv
+Ledger
+Fireblocks
+Chainalysis
+Circle
+Ripple
+Polygon
+Consensys
+Animoca Brands
+Amber Group
+Matrixport
+MoonPay
+Gemini
+Coinbase
+Bitpanda
+Blockchain.com
+Hashkey
+Nansen
+1inch
+Galaxy
+
+# --- Global software with UAE offices ---
+Datadog
+MongoDB
+Databricks
+Snowflake
+Confluent
+Elastic
+Okta
+Twilio
+Cloudflare
+GitLab
+Atlassian
+Miro
+Zendesk
+HubSpot
+Freshworks
+Palantir
+Anduril
+Scale AI
+Cohere
+Mistral AI
+Hugging Face
+Dataiku
+Celonis
+UiPath
+Genesys
+Rubrik
+Cohesity
+CrowdStrike
+SentinelOne
+Zscaler
+Trend Micro
+Group-IB
+Sensor Tower
+Similarweb
+AppsFlyer
+Adjust
+Moloco
+InMobi
+Criteo
+Taboola
+Outbrain
+The Trade Desk
+Agoda
+Booking.com
+Deel
+Remote
+Toptal
+Turing
+Andela
+Thoughtworks
+EPAM
+Globant
+Endava
+Ciklum
+Luxoft
+Publicis Groupe
+WPP
+NielsenIQ
+Kantar
+Ipsos
+YouGov
+Ubisoft
+Unity
+Scopely
+Playtika
+Miniclip
+Bosch
+Siemens Healthineers
+Schneider Electric
+Nokia
+Klarna
+Mozn
+Tap Payments
+HyperPay
+Moyasar
+STC Pay
+Lucid

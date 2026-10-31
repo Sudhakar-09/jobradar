@@ -1,0 +1,51 @@
+# Second probe round (2026-10-31): UAE-founded startups and Dubai/Abu Dhabi fintech and crypto
+# firms, added because round 1 (uae.txt) reached only 30 boards with UAE postings, several with a
+# single posting. Same rules: probe output is reviewed by the owner before anything is added.
+
+# --- UAE startups ---
+Zywa
+Pluto
+Alaan
+Mamo
+Bayzat
+Cafu
+Washmen
+Justlife
+Eyewa
+Floward
+Supy
+Qashio
+Xpence
+Qlub
+Cartlow
+Seez
+Myfatoorah
+Rewaa
+Sumsub
+Ebury
+Kpler
+Zepz
+Nuvei
+Paysafe
+
+# --- Crypto and digital assets with UAE hubs ---
+Crypto
+Blockchain
+Bitget
+KuCoin
+Hex Trust
+Komainu
+Copper
+Bitstamp
+Zodia Custody
+Fuze
+Bullish
+Wintermute
+GSR
+Flowdesk
+Phemex
+BingX
+XBO
+CoinMENA
+Laser Digital
+Sygnum

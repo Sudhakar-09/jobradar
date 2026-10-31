@@ -97,6 +97,7 @@ class ConnectorSettings(BaseModel):
     page_size: int | None = Field(default=None, ge=1)
     max_pages: int | None = Field(default=None, ge=1)
     posting_url: str | None = None
+    board_urls: list[str] = Field(default_factory=list)  # regexes with a `slug` group (ATS only)
     # Aggregators: market pack code → the service's country path, role field → its category.
     countries: dict[str, str] = Field(default_factory=dict)
     categories: dict[str, str] = Field(default_factory=dict)
