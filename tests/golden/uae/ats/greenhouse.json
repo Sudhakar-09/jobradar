@@ -1,0 +1,41 @@
+{
+  "jobs": [
+    {
+      "id": 5201,
+      "title": "Senior Java Backend Engineer",
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/5201",
+      "location": {
+        "name": "Dubai, United Arab Emirates"
+      },
+      "content": "&lt;p&gt;We are looking for an engineer who will join our team and build Java services with Spring Boot and Kafka. You will work with product teams on our platform and you are comfortable in an international team where the company language is English.&lt;/p&gt;",
+      "first_published": "2026-10-28T08:00:00Z"
+    },
+    {
+      "id": 5202,
+      "title": "Backend Engineer",
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/5202",
+      "location": {
+        "name": "Abu Dhabi"
+      },
+      "content": "&lt;p&gt;We are looking for an engineer who will join our team and build Java services with Spring Boot and Kafka. You will work with product teams on our platform and you are comfortable in an international team where the company language is English.&lt;/p&gt;&lt;p&gt;Arabic is a plus.&lt;/p&gt;",
+      "first_published": "2026-10-28T08:00:00Z"
+    },
+    {
+      "id": 5203,
+      "title": "Java Developer",
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/5203",
+      "location": {
+        "name": "Dubai Internet City, Dubai"
+      },
+      "content": "&lt;p&gt;We are looking for an engineer who will join our team and build Java services with Spring Boot and Kafka. You will work with product teams on our platform and you are comfortable in an international team where the company language is English.&lt;/p&gt;",
+      "first_published": "2026-10-28T08:00:00Z"
+    },
+    {
+      "id": 9999,
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/9999"
+    }
+  ],
+  "meta": {
+    "total": 4
+  }
+}

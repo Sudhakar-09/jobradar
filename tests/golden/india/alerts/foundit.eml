@@ -1,0 +1,21 @@
+From: foundit <jobalerts@foundit.in>
+To: owner@example.org
+Subject: 1 new job for Java Developer
+Date: Wed, 28 Oct 2026 11:00:00 +0530
+Message-ID: <fixture-foundit-001@example.invalid>
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="b7"
+
+--b7
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html><body>
+<table><tr><td>
+  <a href="https://www.foundit.in/job/java-developer-fictional-retail-hyderabad-31012345?searchId=abc">Java Developer</a><br>
+  Fictional Retail<br>
+  Hyderabad / Secunderabad, Telangana
+</td></tr></table>
+</body></html>
+
+--b7--

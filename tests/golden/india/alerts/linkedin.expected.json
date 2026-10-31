@@ -1,0 +1,77 @@
+{
+  "items_invalid": 0,
+  "jobs": [
+    {
+      "source_job_id": "4100000001",
+      "title": "Senior Java Backend Engineer",
+      "company": "Example Logistics",
+      "location_raw": "Bengaluru, Karnataka, India (Hybrid)",
+      "country": "IN",
+      "city": "Bengaluru",
+      "url": "https://www.linkedin.com/jobs/view/4100000001/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000002",
+      "title": "Java Developer",
+      "company": "Sample Pay",
+      "location_raw": "Pune, Maharashtra, India (On-site)",
+      "country": "IN",
+      "city": "Pune",
+      "url": "https://www.linkedin.com/jobs/view/4100000002/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000003",
+      "title": "Backend Engineer (Java/Kotlin)",
+      "company": "Demo Air",
+      "location_raw": "Hyderabad, Telangana, India (Remote)",
+      "country": "IN",
+      "city": "Hyderabad",
+      "url": "https://www.linkedin.com/jobs/view/4100000003/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000004",
+      "title": "Software Engineer, Payments",
+      "company": "Fictional Retail",
+      "location_raw": "Chennai, Tamil Nadu, India (Hybrid)",
+      "country": "IN",
+      "city": "Chennai",
+      "url": "https://www.linkedin.com/jobs/view/4100000004/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000005",
+      "title": "Lead Java Engineer - Microservices",
+      "company": "Sample Bank",
+      "location_raw": "Gurugram, Haryana, India (On-site)",
+      "country": "IN",
+      "city": "Gurugram",
+      "url": "https://www.linkedin.com/jobs/view/4100000005/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000006",
+      "title": "Platform Engineer (Java/Spring)",
+      "company": "Example Health",
+      "location_raw": "Noida, Uttar Pradesh, India (Hybrid)",
+      "country": "IN",
+      "city": "Noida",
+      "url": "https://www.linkedin.com/jobs/view/4100000006/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    }
+  ]
+}

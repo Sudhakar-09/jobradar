@@ -6,6 +6,9 @@
 #   sentence; wins over a required phrase in the same sentence ("fluent German is a plus").
 # - stopwords: very common words, used to tell which language a posting is written in. A posting
 #   written in a language counts as requiring it.
+# - title_words: words that only appear in job titles written in that language ("Entwickler").
+#   Used when a posting has too little text to count stopwords (alert emails carry only the
+#   title). "(m/w/d)" is not one: English postings in Germany use it too.
 # Phrases and words are matched case-insensitively as whole words, accents folded (ß → ss).
 detection:
   min_stopword_hits: 8  # fewer hits in total: posting language unknown
@@ -67,6 +70,10 @@ languages:
       - deutschkenntnisse sind wunschenswert
     stopwords: [und, der, die, das, mit, fur, wir, sie, ein, eine, ist, zu, von, auf, im, den,
                 bei, oder, als, unser, unsere, deine, dich, du, ihr, ihre, sowie, wird, werden]
+    title_words: [entwickler, entwicklerin, softwareentwickler, softwareentwicklerin,
+                  anwendungsentwickler, fachinformatiker, werkstudent, werkstudentin, praktikant,
+                  praktikantin, ausbildung, mitarbeiter, mitarbeiterin, leiter, leiterin,
+                  berater, beraterin, sachbearbeiter, teamleiter, abteilungsleiter, informatiker]
   en:
     name: English
     required_phrases:
@@ -91,3 +98,30 @@ languages:
       - englischkenntnisse von vorteil
     stopwords: [the, and, with, for, you, we, are, our, to, of, in, will, your, is, be, as, "on",
                 this, that, who, have, an]
+    title_words: []
+  ar:
+    name: Arabic
+    required_phrases:
+      - fluent arabic
+      - fluency in arabic
+      - fluent in arabic
+      - native arabic
+      - arabic speaker
+      - arabic speaking
+      - arabic is required
+      - arabic is a must
+      - arabic and english
+      - english and arabic
+      - bilingual arabic english
+      - bilingual english arabic
+      - اجادة اللغة العربية
+      - يجيد اللغة العربية
+    preferred_phrases:
+      - arabic is a plus
+      - arabic is an advantage
+      - arabic is preferred
+      - arabic would be a plus
+      - arabic is nice to have
+      - arabic speaker is a plus
+    stopwords: [في, من, على, الى, عن, مع, هذا, هذه, التي, الذي, او, ان, كان, لدى, عند, حيث]
+    title_words: [مهندس, مطور, مدير, اخصائي]

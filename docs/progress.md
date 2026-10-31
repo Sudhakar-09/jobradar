@@ -212,6 +212,12 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   and stale warnings (`core.dated_data`, `config/market_data/germany/eu_blue_card.yaml`); Germany
   pack route links to it; `visa_salary` warning rule specified for Phase 3.
 
+- **Conformance v1 + golden datasets + rollout gate (2026-10-31):** `jobradar packs check`,
+  golden samples for India, UAE and Germany (13 samples, expected output reviewed), `jobradar
+  flags set|list` with the gate and audit. Status: UAE fails only `provenance`; India fails
+  provenance, catalogue and Indeed parser; Germany fails provenance, catalogue and StepStone /
+  XING / Indeed parsers; `java_backend` fails provenance. 343 tests pass, coverage 96 %.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:

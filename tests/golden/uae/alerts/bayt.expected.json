@@ -1,0 +1,29 @@
+{
+  "items_invalid": 0,
+  "jobs": [
+    {
+      "source_job_id": "5012345",
+      "title": "Backend Java Engineer",
+      "company": "Fictional Retail",
+      "location_raw": "Dubai, United Arab Emirates",
+      "country": "AE",
+      "city": "Dubai",
+      "url": "https://www.bayt.com/en/uae/jobs/backend-java-engineer-5012345/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "5012399",
+      "title": "Java Team Lead",
+      "company": "Example Logistics",
+      "location_raw": "Sharjah, United Arab Emirates",
+      "country": "AE",
+      "city": "Sharjah",
+      "url": "https://www.bayt.com/en/uae/jobs/java-team-lead-5012399/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    }
+  ]
+}

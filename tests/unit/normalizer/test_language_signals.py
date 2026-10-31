@@ -58,3 +58,30 @@ def test_a_mixed_posting_has_no_detected_language() -> None:
     signals = language_signals("Java", ENGLISH_BODY + " " + GERMAN_BODY, RULES)
 
     assert signals.posting_language is None
+
+
+@pytest.mark.parametrize(
+    ("title", "language"),
+    [
+        ("Backend Entwickler (m/w/d)", "de"),
+        ("Werkstudent Softwareentwicklung", "de"),
+        ("Software Engineer (m/w/d)", None),  # the gender marker alone is not German
+        ("Java Engineer", None),
+    ],
+)
+def test_title_words_decide_when_there_is_no_description(title: str, language: str | None) -> None:
+    signals = language_signals(title, None, RULES)
+
+    assert signals.posting_language == language
+    assert signals.required == ({language} if language else set())
+
+
+def test_title_words_do_not_override_a_full_english_description() -> None:
+    signals = language_signals("Backend Entwickler (m/w/d)", ENGLISH_BODY, RULES)
+
+    assert signals.posting_language == "en"
+
+
+def test_arabic_preferred_and_required() -> None:
+    assert language_signals("Engineer", "Arabic is a plus.", RULES).preferred == {"ar"}
+    assert language_signals("Engineer", "Fluent Arabic required.", RULES).required == {"ar"}

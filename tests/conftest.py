@@ -14,3 +14,12 @@ def _keep_test_logging(monkeypatch: pytest.MonkeyPatch) -> None:
     later `structlog.testing.capture_logs()` calls miss events from already-cached loggers.
     """
     monkeypatch.setattr("jobradar.cli.configure_logging", lambda _level: None)
+
+
+def pytest_addoption(parser: pytest.Parser) -> None:
+    parser.addoption(
+        "--update-golden",
+        action="store_true",
+        default=False,
+        help="Rewrite tests/golden/**/*.expected.json from the current output (review the diff).",
+    )

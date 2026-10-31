@@ -1,0 +1,24 @@
+From: GulfTalent <jobs@gulftalent.com>
+To: owner@example.org
+Subject: New jobs for Software Engineer in UAE
+Date: Wed, 28 Oct 2026 09:00:00 +0400
+Message-ID: <fixture-gulftalent-001@example.invalid>
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="b4"
+
+--b4
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html><body>
+<table><tr>
+  <td><a href="https://www.gulftalent.com/uae/jobs/senior-software-engineer-java-412345?ref=alert-email">Senior Software Engineer - Java</a></td>
+</tr><tr>
+  <td>Sample Bank</td>
+</tr><tr>
+  <td>Dubai, UAE</td>
+</tr></table>
+<p><a href="https://www.gulftalent.com/mygulftalent/alerts">Manage alerts</a></p>
+</body></html>
+
+--b4--

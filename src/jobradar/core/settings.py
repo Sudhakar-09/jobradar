@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     config_dir: Path = Path("config")  # source_policies.yaml, connectors.yaml, companies.yaml, …
     packs_dir: Path = Path("packs")
+    golden_dir: Path = Path("tests/golden")  # golden datasets checked by conformance
 
     # Database timeouts (docs/coding-standards.md §6)
     db_connect_timeout_seconds: int = Field(default=5, ge=1)

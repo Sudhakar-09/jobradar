@@ -1,0 +1,49 @@
+{
+  "items_invalid": 1,
+  "jobs": [
+    {
+      "source_job_id": "5201",
+      "title": "Senior Java Backend Engineer",
+      "company": "Golden Company",
+      "location_raw": "Dubai, United Arab Emirates",
+      "country": "AE",
+      "city": "Dubai",
+      "url": "https://boards.greenhouse.io/golden/jobs/5201",
+      "posting_language": "en",
+      "required_languages": [
+        "en"
+      ],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "5202",
+      "title": "Backend Engineer",
+      "company": "Golden Company",
+      "location_raw": "Abu Dhabi",
+      "country": "AE",
+      "city": "Abu Dhabi",
+      "url": "https://boards.greenhouse.io/golden/jobs/5202",
+      "posting_language": "en",
+      "required_languages": [
+        "en"
+      ],
+      "preferred_languages": [
+        "ar"
+      ]
+    },
+    {
+      "source_job_id": "5203",
+      "title": "Java Developer",
+      "company": "Golden Company",
+      "location_raw": "Dubai Internet City, Dubai",
+      "country": "AE",
+      "city": "Dubai",
+      "url": "https://boards.greenhouse.io/golden/jobs/5203",
+      "posting_language": "en",
+      "required_languages": [
+        "en"
+      ],
+      "preferred_languages": []
+    }
+  ]
+}

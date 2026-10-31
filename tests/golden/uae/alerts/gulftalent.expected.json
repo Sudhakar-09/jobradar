@@ -1,0 +1,17 @@
+{
+  "items_invalid": 0,
+  "jobs": [
+    {
+      "source_job_id": "412345",
+      "title": "Senior Software Engineer - Java",
+      "company": "Sample Bank",
+      "location_raw": "Dubai, UAE",
+      "country": "AE",
+      "city": "Dubai",
+      "url": "https://www.gulftalent.com/uae/jobs/senior-software-engineer-java-412345",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    }
+  ]
+}

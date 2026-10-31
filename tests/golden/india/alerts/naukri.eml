@@ -1,0 +1,28 @@
+From: Naukri.com <jobalert@naukri.com>
+To: owner@example.org
+Subject: Java Backend Developer jobs matching your preferences
+Date: Thu, 29 Oct 2026 08:00:00 +0530
+Message-ID: <fixture-naukri-001@example.invalid>
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="b5"
+
+--b5
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html><body>
+<table><tr><td>
+  <a href="https://www.naukri.com/job-listings-java-backend-developer-sample-pay-pune-3-to-6-years-311026001234?src=jobalert&amp;sid=xyz">Java Backend Developer</a>
+  <div>Sample Pay</div>
+  <div>3-6 Yrs</div>
+  <div>Pune</div>
+</td></tr><tr><td>
+  <a href="https://www.naukri.com/job-listings-senior-java-engineer-example-logistics-hyderabad-5-to-9-years-311026005678">Senior Java Engineer</a>
+  <div>Example Logistics</div>
+  <div>5-9 Yrs</div>
+  <div>Hyderabad</div>
+</td></tr></table>
+<a href="https://www.naukri.com/mnjuser/profile">Update profile</a>
+</body></html>
+
+--b5--

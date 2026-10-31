@@ -12,7 +12,7 @@ from uuid import UUID
 import yaml
 from pydantic import BaseModel
 
-from jobradar import accounts, connectors, privacy
+from jobradar import accounts, admin, connectors, privacy
 from jobradar.connectors.gmail_oauth import run_consent_flow
 from jobradar.core.aio import run
 from jobradar.core.crypto import generate_key
@@ -210,6 +210,52 @@ def _discover(args: argparse.Namespace) -> int:
     return 1 if all_failed else 0
 
 
+def _packs_check(args: argparse.Namespace) -> int:
+    reports = admin.conformance_reports()
+    for report in reports:
+        print(f"{report.kind:<8} {report.code:<16} {'PASS' if report.passed else 'FAIL'}")
+        for check in report.failures():
+            print(f"    {check.check}: {check.detail}")
+    if args.json is not None:
+        document = [
+            {
+                "kind": r.kind,
+                "code": r.code,
+                "passed": r.passed,
+                "checks": [
+                    {"check": c.check, "passed": c.passed, "detail": c.detail} for c in r.checks
+                ],
+            }
+            for r in reports
+        ]
+        args.json.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+    return 0
+
+
+def _parse_flag_value(text: str) -> object:
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        raise ValidationFailedError(
+            f'flag value must be JSON (true, false, 3, "x"): {text}'
+        ) from exc
+
+
+def _flags_set(args: argparse.Namespace) -> int:
+    flag = run(admin.set_global_flag(args.key, _parse_flag_value(args.value), reason=args.reason))
+    print(f"{flag.key} = {json.dumps(flag.value)}")
+    return 0
+
+
+def _flags_list(_args: argparse.Namespace) -> int:
+    flags = run(admin.list_global_flags())
+    if not flags:
+        print("No global flags set.")
+    for flag in flags:
+        print(f"{flag.key} = {json.dumps(flag.value)}")
+    return 0
+
+
 def _users_bootstrap_owner(args: argparse.Namespace) -> int:
     owner = run(accounts.bootstrap_owner(args.email, timezone=args.timezone))
     print(f"Owner account created: {owner.user_id}")
@@ -286,6 +332,25 @@ def _alerts_ingest(args: argparse.Namespace) -> int:
             f"({result.jobs_new} new){note}"
         )
     return 1 if results and all(r.status == "failed" for r in results) else 0
+
+
+def _add_admin_commands(commands: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    packs = commands.add_parser("packs", help="Market, role and persona packs")
+    pack_commands = packs.add_subparsers(dest="subcommand", required=True)
+    check = pack_commands.add_parser("check", help="Run the pack conformance suite")
+    check.add_argument("--json", type=Path, help="Also write the report to this JSON file")
+    check.set_defaults(handler=_packs_check)
+
+    flags = commands.add_parser("flags", help="Global feature flags (audited)")
+    flag_commands = flags.add_subparsers(dest="subcommand", required=True)
+    flag_commands.add_parser("list", help="Show global flags").set_defaults(handler=_flags_list)
+    setter = flag_commands.add_parser(
+        "set", help="Set a flag; market/role enable flags need passing conformance"
+    )
+    setter.add_argument("key", help="e.g. market.germany.enabled")
+    setter.add_argument("value", help="JSON value, e.g. true")
+    setter.add_argument("--reason", required=True, help="Why (kept in the audit log)")
+    setter.set_defaults(handler=_flags_set)
 
 
 def _add_account_commands(commands: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
@@ -400,6 +465,7 @@ def _build_parser() -> argparse.ArgumentParser:
     discover.add_argument("--company", type=UUID, help="Only this company id")
     discover.set_defaults(handler=_discover)
     _add_account_commands(commands)
+    _add_admin_commands(commands)
     _add_inbox_commands(commands)
     return parser
 

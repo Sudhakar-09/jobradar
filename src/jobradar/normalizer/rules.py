@@ -141,6 +141,7 @@ class LanguageEntry(BaseModel):
     required_phrases: list[str]
     preferred_phrases: list[str]
     stopwords: list[str]
+    title_words: list[str] = Field(default_factory=list)
 
 
 class LanguageDetection(BaseModel):
@@ -182,6 +183,16 @@ def _phrase_in(words: str, phrases: list[str]) -> bool:
     return any(_contains(words, " ".join(_words(phrase))) for phrase in phrases)
 
 
+def _title_language(title: str, rules: LanguageRules) -> str | None:
+    words = set(_words(title))
+    found = [
+        code
+        for code, entry in rules.languages.items()
+        if words & {" ".join(_words(word)) for word in entry.title_words}
+    ]
+    return found[0] if len(found) == 1 else None
+
+
 def _posting_language(tokens: list[str], rules: LanguageRules) -> str | None:
     hits = {
         code: sum(1 for token in tokens if token in set(entry.stopwords))
@@ -198,7 +209,8 @@ def language_signals(title: str, description: str | None, rules: LanguageRules) 
     """Languages a posting requires or prefers, and the language it is written in.
 
     Sentence by sentence: a sentence naming a language as a plus makes it preferred, otherwise a
-    requirement phrase makes it required. A posting written in a language requires it too.
+    requirement phrase makes it required. A posting written in a language requires it too; with
+    too little text to tell, a title word of exactly one language decides.
     Unknown stays unknown — nothing is guessed from the company or location.
     """
     text = f"{title}. {description or ''}"
@@ -214,6 +226,8 @@ def language_signals(title: str, description: str | None, rules: LanguageRules) 
             elif _phrase_in(words, entry.required_phrases):
                 required.add(code)
     posting = _posting_language(_words(text), rules)
+    if posting is None and len(_words(description or "")) < rules.detection.min_stopword_hits:
+        posting = _title_language(title, rules)  # alert emails carry only the title
     if posting is not None:
         required.add(posting)
     return LanguageSignals(

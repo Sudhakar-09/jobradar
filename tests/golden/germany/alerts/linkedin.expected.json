@@ -1,0 +1,81 @@
+{
+  "items_invalid": 0,
+  "jobs": [
+    {
+      "source_job_id": "4100000001",
+      "title": "Senior Java Backend Engineer",
+      "company": "Example Logistics",
+      "location_raw": "Berlin, Germany (Hybrid)",
+      "country": "DE",
+      "city": "Berlin",
+      "url": "https://www.linkedin.com/jobs/view/4100000001/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000002",
+      "title": "Backend Entwickler (m/w/d)",
+      "company": "Beispiel Versicherung",
+      "location_raw": "München, Bayern, Deutschland (On-site)",
+      "country": "DE",
+      "city": "Munich",
+      "url": "https://www.linkedin.com/jobs/view/4100000002/",
+      "posting_language": "de",
+      "required_languages": [
+        "de"
+      ],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000003",
+      "title": "Java Engineer",
+      "company": "Sample Pay",
+      "location_raw": "Hamburg, Germany (Remote)",
+      "country": "DE",
+      "city": "Hamburg",
+      "url": "https://www.linkedin.com/jobs/view/4100000003/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000004",
+      "title": "Software Engineer (m/w/d)",
+      "company": "Fictional Retail",
+      "location_raw": "Frankfurt am Main, Hessen, Deutschland (Hybrid)",
+      "country": "DE",
+      "city": "Frankfurt",
+      "url": "https://www.linkedin.com/jobs/view/4100000004/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000005",
+      "title": "Werkstudent Softwareentwicklung Java",
+      "company": "Sample Bank",
+      "location_raw": "Köln, Germany (Hybrid)",
+      "country": "DE",
+      "city": "Cologne",
+      "url": "https://www.linkedin.com/jobs/view/4100000005/",
+      "posting_language": "de",
+      "required_languages": [
+        "de"
+      ],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000006",
+      "title": "Platform Engineer (Java/Spring)",
+      "company": "Example Health",
+      "location_raw": "Stuttgart, Germany (On-site)",
+      "country": "DE",
+      "city": "Stuttgart",
+      "url": "https://www.linkedin.com/jobs/view/4100000006/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    }
+  ]
+}

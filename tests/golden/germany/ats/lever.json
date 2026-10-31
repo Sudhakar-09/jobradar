@@ -1,0 +1,24 @@
+[
+  {
+    "id": "d0000000-0000-4000-8000-000000000001",
+    "text": "Backend Engineer (Java)",
+    "hostedUrl": "https://jobs.lever.co/golden/d0000000-0000-4000-8000-000000000001",
+    "categories": {
+      "location": "Köln"
+    },
+    "createdAt": 1761638400000,
+    "descriptionPlain": "<p>We are looking for an engineer who will join our team and build Java services with Spring Boot and Kafka. You will work with product teams on our platform and you are comfortable in an international team where the company language is English.</p>",
+    "country": "DE"
+  },
+  {
+    "id": "d0000000-0000-4000-8000-000000000002",
+    "text": "Java Entwickler (w/m/d)",
+    "hostedUrl": "https://jobs.lever.co/golden/d0000000-0000-4000-8000-000000000002",
+    "categories": {
+      "location": "Stuttgart"
+    },
+    "createdAt": 1761638400000,
+    "descriptionPlain": "<p>Wir suchen dich für unser Team. Du entwickelst mit uns Services mit Java und Spring Boot und arbeitest mit der Fachabteilung zusammen. Wir bieten dir ein Team, in dem du Verantwortung übernimmst, und eine Kultur, die von Vertrauen geprägt ist.</p>",
+    "country": "DE"
+  }
+]

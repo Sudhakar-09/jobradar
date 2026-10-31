@@ -1,0 +1,61 @@
+{
+  "jobs": [
+    {
+      "id": 5301,
+      "title": "Senior Java Backend Engineer",
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/5301",
+      "location": {
+        "name": "Berlin, Germany"
+      },
+      "content": "&lt;p&gt;We are looking for an engineer who will join our team and build Java services with Spring Boot and Kafka. You will work with product teams on our platform and you are comfortable in an international team where the company language is English.&lt;/p&gt;",
+      "first_published": "2026-10-28T08:00:00Z"
+    },
+    {
+      "id": 5302,
+      "title": "Backend Entwickler Java (m/w/d)",
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/5302",
+      "location": {
+        "name": "München"
+      },
+      "content": "&lt;p&gt;Wir suchen dich für unser Team. Du entwickelst mit uns Services mit Java und Spring Boot und arbeitest mit der Fachabteilung zusammen. Wir bieten dir ein Team, in dem du Verantwortung übernimmst, und eine Kultur, die von Vertrauen geprägt ist.&lt;/p&gt;",
+      "first_published": "2026-10-28T08:00:00Z"
+    },
+    {
+      "id": 5303,
+      "title": "Java Engineer",
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/5303",
+      "location": {
+        "name": "Hamburg, Germany"
+      },
+      "content": "&lt;p&gt;We are looking for an engineer who will join our team and build Java services with Spring Boot and Kafka. You will work with product teams on our platform and you are comfortable in an international team where the company language is English.&lt;/p&gt;&lt;p&gt;Fluent German (C1) is required.&lt;/p&gt;",
+      "first_published": "2026-10-28T08:00:00Z"
+    },
+    {
+      "id": 5304,
+      "title": "Software Engineer (Java/Kotlin)",
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/5304",
+      "location": {
+        "name": "Berlin (Hybrid)"
+      },
+      "content": "&lt;p&gt;We are looking for an engineer who will join our team and build Java services with Spring Boot and Kafka. You will work with product teams on our platform and you are comfortable in an international team where the company language is English.&lt;/p&gt;&lt;p&gt;German is a plus.&lt;/p&gt;",
+      "first_published": "2026-10-28T08:00:00Z"
+    },
+    {
+      "id": 5305,
+      "title": "Java Developer",
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/5305",
+      "location": {
+        "name": "Frankfurt am Main"
+      },
+      "content": "&lt;p&gt;We are looking for an engineer who will join our team and build Java services with Spring Boot and Kafka. You will work with product teams on our platform and you are comfortable in an international team where the company language is English.&lt;/p&gt;&lt;p&gt;Sehr gute Deutsch- und Englischkenntnisse.&lt;/p&gt;",
+      "first_published": "2026-10-28T08:00:00Z"
+    },
+    {
+      "id": 9999,
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/9999"
+    }
+  ],
+  "meta": {
+    "total": 6
+  }
+}

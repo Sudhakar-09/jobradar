@@ -1,0 +1,79 @@
+{
+  "items_invalid": 1,
+  "jobs": [
+    {
+      "source_job_id": "5301",
+      "title": "Senior Java Backend Engineer",
+      "company": "Golden Company",
+      "location_raw": "Berlin, Germany",
+      "country": "DE",
+      "city": "Berlin",
+      "url": "https://boards.greenhouse.io/golden/jobs/5301",
+      "posting_language": "en",
+      "required_languages": [
+        "en"
+      ],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "5302",
+      "title": "Backend Entwickler Java (m/w/d)",
+      "company": "Golden Company",
+      "location_raw": "München",
+      "country": "DE",
+      "city": "Munich",
+      "url": "https://boards.greenhouse.io/golden/jobs/5302",
+      "posting_language": "de",
+      "required_languages": [
+        "de"
+      ],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "5303",
+      "title": "Java Engineer",
+      "company": "Golden Company",
+      "location_raw": "Hamburg, Germany",
+      "country": "DE",
+      "city": "Hamburg",
+      "url": "https://boards.greenhouse.io/golden/jobs/5303",
+      "posting_language": "en",
+      "required_languages": [
+        "de",
+        "en"
+      ],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "5304",
+      "title": "Software Engineer (Java/Kotlin)",
+      "company": "Golden Company",
+      "location_raw": "Berlin (Hybrid)",
+      "country": "DE",
+      "city": "Berlin",
+      "url": "https://boards.greenhouse.io/golden/jobs/5304",
+      "posting_language": "en",
+      "required_languages": [
+        "en"
+      ],
+      "preferred_languages": [
+        "de"
+      ]
+    },
+    {
+      "source_job_id": "5305",
+      "title": "Java Developer",
+      "company": "Golden Company",
+      "location_raw": "Frankfurt am Main",
+      "country": "DE",
+      "city": "Frankfurt",
+      "url": "https://boards.greenhouse.io/golden/jobs/5305",
+      "posting_language": "en",
+      "required_languages": [
+        "de",
+        "en"
+      ],
+      "preferred_languages": []
+    }
+  ]
+}

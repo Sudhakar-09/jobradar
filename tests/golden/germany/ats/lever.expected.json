@@ -1,0 +1,33 @@
+{
+  "items_invalid": 0,
+  "jobs": [
+    {
+      "source_job_id": "d0000000-0000-4000-8000-000000000001",
+      "title": "Backend Engineer (Java)",
+      "company": "Golden Company",
+      "location_raw": "Köln",
+      "country": "DE",
+      "city": "Cologne",
+      "url": "https://jobs.lever.co/golden/d0000000-0000-4000-8000-000000000001",
+      "posting_language": "en",
+      "required_languages": [
+        "en"
+      ],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "d0000000-0000-4000-8000-000000000002",
+      "title": "Java Entwickler (w/m/d)",
+      "company": "Golden Company",
+      "location_raw": "Stuttgart",
+      "country": "DE",
+      "city": "Stuttgart",
+      "url": "https://jobs.lever.co/golden/d0000000-0000-4000-8000-000000000002",
+      "posting_language": "de",
+      "required_languages": [
+        "de"
+      ],
+      "preferred_languages": []
+    }
+  ]
+}

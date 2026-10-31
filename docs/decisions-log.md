@@ -250,3 +250,13 @@ available in the repository.
   `core.dated_data` gives effective-dated lookups with stale warnings (> 90 days unverified, or
   past the newest entry) and no extrapolation; Phase 3 tax tables will use it too. Matching gets a
   `visa_salary` warning rule (Phase 3).
+- **Conformance v1 and rollout gate (2026-10-31, US-2.9):** the suite checks what Phase 2 can
+  answer from configuration (provenance, visa routes and dated thresholds, gazetteer, language
+  rules, alert parsers per source, catalogue, golden datasets); later checks arrive with their
+  modules. Golden datasets for India, UAE and Germany (synthetic, incl. German language cases).
+  The minimal `admin` domain (flag service) refuses to enable a market or role that fails, and
+  audits every change; it runs the suite live in Stage 1 instead of reading a CI artifact.
+  Arabic language rules added for the UAE's `ar-AE` locale; German title words decide the
+  language of title-only alert jobs. Current status: all markets fail `provenance` until their
+  packs are verified against official sources; India and Germany also lack approved company
+  lists and an Indeed parser; Germany lacks StepStone and XING parsers.

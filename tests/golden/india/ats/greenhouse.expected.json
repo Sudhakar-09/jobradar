@@ -1,0 +1,47 @@
+{
+  "items_invalid": 1,
+  "jobs": [
+    {
+      "source_job_id": "5101",
+      "title": "Java Backend Engineer",
+      "company": "Golden Company",
+      "location_raw": "Bengaluru, Karnataka, India",
+      "country": "IN",
+      "city": "Bengaluru",
+      "url": "https://boards.greenhouse.io/golden/jobs/5101",
+      "posting_language": "en",
+      "required_languages": [
+        "en"
+      ],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "5102",
+      "title": "Senior Software Engineer (Java)",
+      "company": "Golden Company",
+      "location_raw": "Pune (Hybrid)",
+      "country": "IN",
+      "city": "Pune",
+      "url": "https://boards.greenhouse.io/golden/jobs/5102",
+      "posting_language": "en",
+      "required_languages": [
+        "en"
+      ],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "5103",
+      "title": "Platform Engineer",
+      "company": "Golden Company",
+      "location_raw": "Hyderabad, India",
+      "country": "IN",
+      "city": "Hyderabad",
+      "url": "https://boards.greenhouse.io/golden/jobs/5103",
+      "posting_language": "en",
+      "required_languages": [
+        "en"
+      ],
+      "preferred_languages": []
+    }
+  ]
+}

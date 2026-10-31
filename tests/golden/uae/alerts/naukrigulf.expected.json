@@ -1,0 +1,29 @@
+{
+  "items_invalid": 0,
+  "jobs": [
+    {
+      "source_job_id": "311020000123",
+      "title": "Java Developer",
+      "company": "Sample Bank",
+      "location_raw": "Dubai - UAE",
+      "country": "AE",
+      "city": "Dubai",
+      "url": "https://www.naukrigulf.com/java-developer-in-dubai-uae-in-sample-bank-3-to-6-years-n-cd-1000001-jid-311020000123",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "311020000456",
+      "title": "Senior Backend Engineer",
+      "company": "Demo Air",
+      "location_raw": "Abu Dhabi, UAE",
+      "country": "AE",
+      "city": "Abu Dhabi",
+      "url": "https://www.naukrigulf.com/senior-backend-engineer-in-abu-dhabi-uae-in-demo-air-5-to-8-years-n-cd-1000002-jid-311020000456",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    }
+  ]
+}

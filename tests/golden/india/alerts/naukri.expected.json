@@ -1,0 +1,29 @@
+{
+  "items_invalid": 0,
+  "jobs": [
+    {
+      "source_job_id": "311026001234",
+      "title": "Java Backend Developer",
+      "company": "Sample Pay",
+      "location_raw": "Pune",
+      "country": "IN",
+      "city": "Pune",
+      "url": "https://www.naukri.com/job-listings-java-backend-developer-sample-pay-pune-3-to-6-years-311026001234",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "311026005678",
+      "title": "Senior Java Engineer",
+      "company": "Example Logistics",
+      "location_raw": "Hyderabad",
+      "country": "IN",
+      "city": "Hyderabad",
+      "url": "https://www.naukri.com/job-listings-senior-java-engineer-example-logistics-hyderabad-5-to-9-years-311026005678",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+From: Instahyre <jobs@instahyre.com>
+To: owner@example.org
+Subject: Opportunities picked for you
+Date: Wed, 28 Oct 2026 10:00:00 +0530
+Message-ID: <fixture-instahyre-001@example.invalid>
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="b6"
+
+--b6
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html><body>
+<div>
+  <a href="https://www.instahyre.com/job-284512-java-backend-engineer-at-sample-pay-bangalore/?utm_campaign=digest">Java Backend Engineer</a>
+  <p>Sample Pay</p>
+  <p>Bangalore</p>
+  <p>4-7 years</p>
+</div>
+<p><a href="https://www.instahyre.com/candidate/opportunities/">View all opportunities</a></p>
+</body></html>
+
+--b6--

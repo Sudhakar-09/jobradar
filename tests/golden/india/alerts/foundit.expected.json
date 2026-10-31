@@ -1,0 +1,17 @@
+{
+  "items_invalid": 0,
+  "jobs": [
+    {
+      "source_job_id": "31012345",
+      "title": "Java Developer",
+      "company": "Fictional Retail",
+      "location_raw": "Hyderabad / Secunderabad, Telangana",
+      "country": "IN",
+      "city": "Hyderabad",
+      "url": "https://www.foundit.in/job/java-developer-fictional-retail-hyderabad-31012345",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    }
+  ]
+}

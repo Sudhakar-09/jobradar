@@ -1,0 +1,41 @@
+{
+  "jobs": [
+    {
+      "id": 5101,
+      "title": "Java Backend Engineer",
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/5101",
+      "location": {
+        "name": "Bengaluru, Karnataka, India"
+      },
+      "content": "&lt;p&gt;We are looking for an engineer who will join our team and build Java services with Spring Boot and Kafka. You will work with product teams on our platform and you are comfortable in an international team where the company language is English.&lt;/p&gt;",
+      "first_published": "2026-10-28T08:00:00Z"
+    },
+    {
+      "id": 5102,
+      "title": "Senior Software Engineer (Java)",
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/5102",
+      "location": {
+        "name": "Pune (Hybrid)"
+      },
+      "content": "&lt;p&gt;We are looking for an engineer who will join our team and build Java services with Spring Boot and Kafka. You will work with product teams on our platform and you are comfortable in an international team where the company language is English.&lt;/p&gt;",
+      "first_published": "2026-10-28T08:00:00Z"
+    },
+    {
+      "id": 5103,
+      "title": "Platform Engineer",
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/5103",
+      "location": {
+        "name": "Hyderabad, India"
+      },
+      "content": "&lt;p&gt;We are looking for an engineer who will join our team and build Java services with Spring Boot and Kafka. You will work with product teams on our platform and you are comfortable in an international team where the company language is English.&lt;/p&gt;&lt;p&gt;Fluent English required.&lt;/p&gt;",
+      "first_published": "2026-10-28T08:00:00Z"
+    },
+    {
+      "id": 9999,
+      "absolute_url": "https://boards.greenhouse.io/golden/jobs/9999"
+    }
+  ],
+  "meta": {
+    "total": 4
+  }
+}

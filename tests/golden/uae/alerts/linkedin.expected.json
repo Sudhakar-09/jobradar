@@ -1,0 +1,77 @@
+{
+  "items_invalid": 0,
+  "jobs": [
+    {
+      "source_job_id": "4100000001",
+      "title": "Senior Java Backend Engineer",
+      "company": "Example Logistics",
+      "location_raw": "Dubai, United Arab Emirates (On-site)",
+      "country": "AE",
+      "city": "Dubai",
+      "url": "https://www.linkedin.com/jobs/view/4100000001/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000002",
+      "title": "Java Developer",
+      "company": "Sample Bank",
+      "location_raw": "Abu Dhabi, United Arab Emirates (Hybrid)",
+      "country": "AE",
+      "city": "Abu Dhabi",
+      "url": "https://www.linkedin.com/jobs/view/4100000002/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000003",
+      "title": "Backend Engineer (Java/Kotlin)",
+      "company": "Demo Air",
+      "location_raw": "Dubai (Hybrid)",
+      "country": "AE",
+      "city": "Dubai",
+      "url": "https://www.linkedin.com/jobs/view/4100000003/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000004",
+      "title": "Software Engineer, Payments",
+      "company": "Fictional Retail",
+      "location_raw": "Sharjah, United Arab Emirates (On-site)",
+      "country": "AE",
+      "city": "Sharjah",
+      "url": "https://www.linkedin.com/jobs/view/4100000004/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000005",
+      "title": "Lead Java Engineer - Microservices",
+      "company": "Sample Pay",
+      "location_raw": "Dubai, United Arab Emirates (On-site)",
+      "country": "AE",
+      "city": "Dubai",
+      "url": "https://www.linkedin.com/jobs/view/4100000005/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    },
+    {
+      "source_job_id": "4100000006",
+      "title": "Platform Engineer (Java/Spring)",
+      "company": "Example Health",
+      "location_raw": "Abu Dhabi (On-site)",
+      "country": "AE",
+      "city": "Abu Dhabi",
+      "url": "https://www.linkedin.com/jobs/view/4100000006/",
+      "posting_language": null,
+      "required_languages": [],
+      "preferred_languages": []
+    }
+  ]
+}
