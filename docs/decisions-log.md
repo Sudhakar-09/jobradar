@@ -299,3 +299,16 @@ available in the repository.
   users; (6) Germany `en-DE` accepted, verified in Phase 4. Decisions are stored as
   `owner_accepted_on: 2026-10-31` in `packs/verification/*.yaml`. Result: the UAE pack passes
   conformance.
+- **Role and persona packs verified (2026-10-31):** `java_backend` (17 values) against ESCO
+  (European Commission), ISCO-08 via ESCO, Amazon's published SDE interview process, Ashby
+  recruiting data and a new corpus analysis of 524 Java postings
+  (`docs/research/java-backend-corpus-2026-10-31.md`, aggregates only); `mid` persona (11
+  values), mostly product settings. New verification status `editorial` (our own judgement;
+  blocks conformance until the owner accepts) and `evidence` (repo path of our own analysis, in
+  place of a URL). ESCO reuse is allowed with attribution ("uses the ESCO classification of the
+  European Commission", modified labels marked); ISCO-08 is stored as code and short title only
+  (ILO copyright for pre-2023 material). Findings for the owner: ESCO has no backend / platform /
+  full-stack occupation; real postings are titled "Software Engineer" and are mostly senior; the
+  role pack has no seniority signals; the persona's follow-up schedule ([7, 14]) conflicts with
+  its tip ("follow up once"); only 2 UAE-located Java postings across the 36 UAE catalogue
+  companies.

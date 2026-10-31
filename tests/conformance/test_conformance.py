@@ -25,7 +25,9 @@ VERIFIED = Provenance(
 )
 
 
-def record(tmp_path: Path, code: str, *items: dict[str, object]) -> ConformanceInputs:
+def record(
+    tmp_path: Path, code: str, *items: dict[str, object], kind: str = "market"
+) -> ConformanceInputs:
     """Inputs whose packs dir holds only a verification record for ``code``."""
     folder = tmp_path / "verification"
     folder.mkdir(exist_ok=True)
@@ -36,7 +38,7 @@ def record(tmp_path: Path, code: str, *items: dict[str, object]) -> ConformanceI
         "source_url": "https://www.example.gov/",
         "checked_on": "2026-10-31",
     }
-    document = {"pack": code, "items": list(items) or [default]}
+    document = {"pack": code, "kind": kind, "items": list(items) or [default]}
     (folder / f"{code}.yaml").write_text(yaml.safe_dump(document), encoding="utf-8")
     return replace(INPUTS, packs_dir=tmp_path)
 
@@ -152,8 +154,32 @@ def test_missing_golden_datasets_fail(tmp_path: Path) -> None:
     assert "company_ats" in golden.detail
 
 
-def test_role_pack_needs_provenance() -> None:
+def test_role_pack_needs_provenance_and_a_settled_record(tmp_path: Path) -> None:
+    role = load_role_pack(ROOT / "packs" / "roles" / "java_backend.yaml")
+    unchecked = role.model_copy(
+        update={"provenance": Provenance(last_verified=None, references=[])}
+    )
+    editorial = {"field": "x", "claim": "x", "status": "editorial", "checked_on": "2026-10-31"}
+
+    assert failing(check_role(unchecked, replace(INPUTS, packs_dir=tmp_path))) == {
+        "provenance",
+        "verification",
+    }
+    assert failing(check_role(role, record(tmp_path, "java_backend", editorial, kind="role"))) == {
+        "verification"
+    }
+    accepted = {**editorial, "owner_accepted_on": "2026-11-01"}
+    assert check_role(role, record(tmp_path, "java_backend", accepted, kind="role")).passed
+
+
+def test_corpus_evidence_counts_as_a_source(tmp_path: Path) -> None:
+    corpus = {
+        "field": "core_skills",
+        "claim": "x",
+        "status": "secondary",
+        "evidence": "docs/research/java-backend-corpus-2026-10-31.md",
+        "checked_on": "2026-10-31",
+    }
     role = load_role_pack(ROOT / "packs" / "roles" / "java_backend.yaml")
 
-    assert failing(check_role(role, INPUTS)) == {"provenance"}
-    assert check_role(role.model_copy(update={"provenance": VERIFIED}), INPUTS).passed
+    assert check_role(role, record(tmp_path, "java_backend", corpus, kind="role")).passed

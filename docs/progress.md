@@ -234,6 +234,11 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   **UAE PASS**; India and Germany wait for company lists and Indeed / StepStone / XING alert
   samples; `java_backend` role pack still to verify.
 
+- **Role and persona verification (2026-10-31):** `jobradar discover` stored 5,629 new jobs
+  from the UAE catalogue (3 Workable boards failed with 429 while the India probe ran); corpus
+  analysis of 524 Java postings in `docs/research/`; records for `java_backend` and `mid` with
+  ESCO / ISCO / secondary / corpus sources; editorial values await the owner. 346 tests pass.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:

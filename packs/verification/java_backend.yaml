@@ -1,0 +1,141 @@
+# Verification record for packs/roles/java_backend.yaml (core.packs.verification).
+# Researched 2026-10-31 against ESCO (European Commission), ILO ISCO-08 via ESCO, Amazon, Ashby and the JobRadar corpus.
+# 'editorial' = our own judgement: blocks conformance until the owner accepts it.
+pack: java_backend
+kind: role
+items:
+- field: isco_08
+  claim: 2512 Software developers
+  status: verified
+  source_title: ISCO-08 group C2512 (ESCO copy)
+  source_url: https://ec.europa.eu/esco/api/resource/concept?uri=http://data.europa.eu/esco/isco/C2512&language=en
+  checked_on: '2026-10-31'
+  notes: Confirmed via ESCO's copy of ISCO-08 (ILO pages unreachable). Store code and short title only
+    (ILO pre-2023 copyright).
+- field: field, family
+  claim: software_it / software_engineering
+  status: editorial
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Our taxonomy slugs; consistent with ISCO 25 > 251 > 2512.
+- field: title_aliases (Java Backend Engineer, Java Backend Developer)
+  claim: Java-qualified backend titles
+  status: secondary
+  source_title: JobRadar corpus analysis
+  source_url: null
+  evidence: docs/research/java-backend-corpus-2026-10-31.md
+  checked_on: '2026-10-31'
+  notes: 'Not ESCO labels. Corpus: 3 + 3 exact titles among 524 Java postings.'
+- field: title_aliases (Backend Software Engineer (Java), Java Software Engineer)
+  claim: Software engineer titles qualified by Java/backend
+  status: verified
+  source_title: ESCO occupation 'software developer' (alt label 'software engineer')
+  source_url: https://ec.europa.eu/esco/api/resource/occupation?uri=http://data.europa.eu/esco/occupation/f2b15a0e-e65a-438a-affb-29b9d50b77d1&language=en
+  checked_on: '2026-10-31'
+  notes: 'Head term ''software engineer'' is an ESCO alternative label; the Java/backend qualifier is
+    ours. Corpus: ''software engineer'' is the dominant title (293 of 524).'
+- field: 'core_skills: Java'
+  claim: Java
+  status: verified
+  source_title: ESCO occupation 'software developer'
+  source_url: https://ec.europa.eu/esco/api/resource/occupation?uri=http://data.europa.eu/esco/occupation/f2b15a0e-e65a-438a-affb-29b9d50b77d1&language=en
+  checked_on: '2026-10-31'
+  notes: ESCO skill 19a8293b-8e95-4de3-983f-77484079c389 'Java (computer programming)' (optional for software
+    developer).
+- field: 'core_skills: Backend software development'
+  claim: Backend software development
+  status: secondary
+  source_title: JobRadar corpus analysis
+  source_url: null
+  evidence: docs/research/java-backend-corpus-2026-10-31.md
+  checked_on: '2026-10-31'
+  notes: 'No ESCO ''backend'' skill (closest: computer programming 21d2f96d-..., web services). Corpus:
+    distributed systems 39%, cloud 38%.'
+- field: 'core_skills: REST API design and implementation'
+  claim: REST API design and implementation
+  status: secondary
+  source_title: JobRadar corpus analysis
+  source_url: null
+  evidence: docs/research/java-backend-corpus-2026-10-31.md
+  checked_on: '2026-10-31'
+  notes: 'No REST-specific ESCO skill (partial: ''use an application-specific interface'' 04fe962b-...,
+    essential). Corpus: REST/APIs 38%.'
+- field: 'core_skills: Automated testing'
+  claim: Automated testing
+  status: secondary
+  source_title: JobRadar corpus analysis
+  source_url: null
+  evidence: docs/research/java-backend-corpus-2026-10-31.md
+  checked_on: '2026-10-31'
+  notes: 'ESCO skill ''develop automated software tests'' 6a322874-... exists but is not linked to software
+    developer. Corpus: testing 41% (most frequent).'
+- field: 'core_skills: Relational databases and SQL'
+  claim: Relational databases and SQL
+  status: verified
+  source_title: ESCO occupation 'software developer'
+  source_url: https://ec.europa.eu/esco/api/resource/occupation?uri=http://data.europa.eu/esco/occupation/f2b15a0e-e65a-438a-affb-29b9d50b77d1&language=en
+  checked_on: '2026-10-31'
+  notes: 'ESCO ''SQL'' 598de5b0-5b58-4ea7-8058-a4bc4d18c742 (optional). Corpus: 27%.'
+- field: 'core_skills: Build and dependency management'
+  claim: Build and dependency management
+  status: verified
+  source_title: ESCO occupation 'software developer'
+  source_url: https://ec.europa.eu/esco/api/resource/occupation?uri=http://data.europa.eu/esco/occupation/f2b15a0e-e65a-438a-affb-29b9d50b77d1&language=en
+  checked_on: '2026-10-31'
+  notes: 'ESCO ''tools for software configuration management'' 9d2e926f-... (essential), ''Apache Maven''
+    0d168770-... (optional). Corpus: Maven/Gradle 9%.'
+- field: adjacent_roles
+  claim: Backend Engineer, Platform Engineer, Full Stack Engineer
+  status: secondary
+  source_title: JobRadar corpus analysis
+  source_url: null
+  evidence: docs/research/java-backend-corpus-2026-10-31.md
+  checked_on: '2026-10-31'
+  notes: 'No ESCO equivalents (closest: web developer 2513, ICT application developer 2514). Corpus titles
+    among Java postings: backend engineer 28, full stack 15, platform engineer 2.'
+- field: signal_documents
+  claim: GitHub or code portfolio, if available
+  status: editorial
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Product judgement.
+- field: hiring_patterns.channels
+  claim: company_ats, referral, recruiter, alert_email
+  status: secondary
+  source_title: 'Ashby Talent Trends: referrals'
+  source_url: https://www.ashbyhq.com/talent-trends-report/reports/referrals
+  checked_on: '2026-10-31'
+  notes: Inbound applications give most hires; referrals convert far better. alert_email as a channel
+    is ours.
+- field: hiring_patterns.stages
+  claim: Recruiter screen, coding assessment, technical, system design, hiring manager
+  status: secondary
+  source_title: Amazon SDE II interview prep
+  source_url: https://amazon.jobs/content/en/how-we-hire/sde-ii-interview-prep
+  checked_on: '2026-10-31'
+  notes: 'One large employer: assessment then recruiter, four-interview loop incl. system design; no separate
+    hiring-manager round. Postings rarely describe the process (corpus).'
+- field: hiring_patterns.assessment_types
+  claim: Java coding exercise; backend technical; API and system design
+  status: secondary
+  source_title: Amazon SDE II interview prep
+  source_url: https://amazon.jobs/content/en/how-we-hire/sde-ii-interview-prep
+  checked_on: '2026-10-31'
+  notes: Coding and system design confirmed; the Java/API framing is ours.
+- field: resume_emphasis
+  claim: Outcomes; Java services and frameworks used; testing, data stores, reliability
+  status: editorial
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Consistent with Amazon's guidance (STAR with metrics; well-tested code) but our judgement.
+- field: seniority signals
+  claim: Not in the pack
+  status: editorial
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: 'The role pack has no seniority signals. Corpus: titles senior 197, staff/principal 120, lead
+    15, level II/III 23, junior 1; ''N+ years'' in 303 postings. Decide whether to add them.'

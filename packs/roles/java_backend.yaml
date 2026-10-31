@@ -41,6 +41,15 @@ resume_emphasis:
   - Delivered backend systems and measurable outcomes
   - Java services, APIs, and relevant frameworks actually used
   - Testing, data stores, reliability, and collaboration
+# This pack uses the ESCO classification of the European Commission (reuse under Commission
+# Decision 2011/833/EU); labels such as "Java Backend Engineer" are our own, not ESCO labels.
+# ISCO-08: code and short title only (ILO).
 provenance:
-  last_verified: null
-  references: []
+  last_verified: 2026-10-31  # per-value record: packs/verification/java_backend.yaml
+  references:
+    - title: ESCO occupation 'software developer' (ISCO-08 2512)
+      url: http://data.europa.eu/esco/occupation/f2b15a0e-e65a-438a-affb-29b9d50b77d1
+    - title: ISCO-08 unit group 2512 Software developers (via ESCO)
+      url: http://data.europa.eu/esco/isco/C2512
+    - title: Amazon SDE II interview prep
+      url: https://amazon.jobs/content/en/how-we-hire/sde-ii-interview-prep

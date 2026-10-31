@@ -213,13 +213,21 @@ def check_market(pack: MarketPack, inputs: ConformanceInputs) -> PackReport:
 def check_role(pack: RolePack, inputs: ConformanceInputs) -> PackReport:
     """Every v1 check for one role pack."""
     aliases = _check("title_aliases", [] if pack.title_aliases else ["no title aliases"])
-    return PackReport("role", pack.code, [_provenance(pack.provenance, inputs.today), aliases])
+    return PackReport(
+        "role",
+        pack.code,
+        [
+            _provenance(pack.provenance, inputs.today),
+            _verification("role", pack.code, inputs),
+            aliases,
+        ],
+    )
 
 
-def check_persona(pack: PersonaPack) -> PackReport:
+def check_persona(pack: PersonaPack, inputs: ConformanceInputs) -> PackReport:
     """Every v1 check for one persona pack (channel weights are validated on load)."""
     steps = _check("onboarding_steps", [] if pack.onboarding_steps else ["no onboarding steps"])
-    return PackReport("persona", pack.code, [steps])
+    return PackReport("persona", pack.code, [_verification("persona", pack.code, inputs), steps])
 
 
 def run_conformance(inputs: ConformanceInputs) -> list[PackReport]:
@@ -228,5 +236,5 @@ def run_conformance(inputs: ConformanceInputs) -> list[PackReport]:
     return [
         *(check_market(pack, inputs) for pack in load_market_packs(packs / "markets")),
         *(check_role(pack, inputs) for pack in load_role_packs(packs / "roles")),
-        *(check_persona(pack) for pack in load_persona_packs(packs / "personas")),
+        *(check_persona(pack, inputs) for pack in load_persona_packs(packs / "personas")),
     ]

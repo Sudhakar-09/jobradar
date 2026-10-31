@@ -140,3 +140,7 @@ the detail for review. Model: `core.packs.verification`.
 `known_gaps` (market packs, optional): gaps the owner accepted for now, each naming the
 condition that closes it (e.g. "before India is enabled for non-Indian users"). Mirrored in the
 market's rollout checklist `docs/markets/<code>.md`.
+
+Verification statuses also include `editorial` (our own judgement; blocks until the owner
+accepts it), and a value may cite `evidence` (a repo path to our own analysis, e.g.
+`docs/research/…`) instead of a URL. Role and persona packs have verification records too.

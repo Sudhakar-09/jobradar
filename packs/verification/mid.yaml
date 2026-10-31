@@ -1,0 +1,86 @@
+# Verification record for packs/personas/mid.yaml (core.packs.verification).
+# Researched 2026-10-31 against career-advice and recruiting-data sources; most values are product settings (editorial).
+# 'editorial' = our own judgement: blocks conformance until the owner accepts it.
+pack: mid
+kind: persona
+items:
+- field: channel_weights
+  claim: company_ats 0.35, alert_email 0.30, referral 0.15, recruiter 0.10, aggregator 0.10
+  status: editorial
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: 'Product setting. Evidence on effectiveness: Ashby (referral application-to-interview 40% vs
+    inbound 3%), Lever via SHRM (referrals 1 in 16 hired).'
+- field: daily_volume_range
+  claim: 3 to 8 applications a day
+  status: editorial
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: No reputable source for an optimal number.
+- field: tailoring_depth
+  claim: medium
+  status: editorial
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Product setting.
+- field: resume_strategy
+  claim: One base CV per market format, light tailoring, never add facts
+  status: editorial
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Product policy (CLAUDE.md rule 1).
+- field: onboarding_steps
+  claim: resume, review, markets_roles, channels_privacy, applying
+  status: editorial
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Product flow.
+- field: followup_days
+  claim: Follow up on day 7 and day 14
+  status: secondary
+  source_title: How long to wait to follow up (The Muse)
+  source_url: https://www.themuse.com/advice/heres-how-long-you-should-wait-to-follow-up-at-every-point-in-the-job-search
+  checked_on: '2026-10-31'
+  notes: '''Follow up between five and 10 business days'' supports day 7; no source for a second follow-up
+    on day 14. Conflicts with tip 3 (''follow up once'').'
+- field: default_llm_top_n
+  claim: '10'
+  status: editorial
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Product setting.
+- field: default_min_fit_score
+  claim: '70'
+  status: editorial
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Product setting.
+- field: tips[0]
+  claim: Prioritise roles where the fit score explains concrete matched outcomes
+  status: editorial
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Product advice.
+- field: tips[1]
+  claim: Ask former colleagues for referrals before applying cold
+  status: secondary
+  source_title: 'Ashby Talent Trends: referrals'
+  source_url: https://www.ashbyhq.com/talent-trends-report/reports/referrals
+  checked_on: '2026-10-31'
+  notes: Also Lever via SHRM (https://www.shrm.org/topics-tools/news/talent-acquisition/lever-study-shows-1-100-candidates-hired);
+    Burks et al., QJE 2015, doi:10.1093/qje/qjv010 (not read directly).
+- field: tips[2]
+  claim: Follow up once after 7 to 10 days
+  status: secondary
+  source_title: How long to wait to follow up (The Muse)
+  source_url: https://www.themuse.com/advice/heres-how-long-you-should-wait-to-follow-up-at-every-point-in-the-job-search
+  checked_on: '2026-10-31'
+  notes: Supported; but conflicts with followup_days [7, 14].
