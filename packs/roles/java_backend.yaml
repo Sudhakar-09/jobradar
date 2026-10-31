@@ -22,7 +22,7 @@ conditional_title_aliases:
 # senior (incl. lead) = eligible stretch with a score penalty, staff and executive = ineligible.
 # Titles without a seniority word count as mid. Years: a posting's minimum years of experience
 # maps to the level whose range contains it ("3+ years" mid, "5+" senior, "8+" staff); set
-# around the owner's 3.5 years (owner decision 2026-10-31).
+# around the owner's 4 years (owner decisions 2026-10-31).
 seniority_signals:
   default_level: mid
   levels:

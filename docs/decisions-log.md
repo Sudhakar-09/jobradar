@@ -337,3 +337,6 @@ available in the repository.
 - **UAE round 3 (owner, 2026-10-31):** Etihad Airways and Masdar approved (38 UAE catalogue
   companies); the full round-3 probe is skipped because research found almost no readable
   boards; Germany follows India.
+- **Years of experience corrected (owner, 2026-10-31):** 4 years (profile `years_exp: 4`, was
+  3.5). `java_backend` ranges unchanged — mid 2–5 still contains 4: "3+"/"4+" target, "5+"
+  stretch, "8+" ineligible. III = senior and Head of / VP / CTO = executive reconfirmed.

@@ -154,6 +154,6 @@ items:
   source_url: null
   checked_on: '2026-10-31'
   notes: 'Owner decisions 2026-10-31: treatment per level; III = senior; head of / VP / CTO = executive;
-    years set around the owner''s 3.5 years. Corpus: ''N+ years'' in 303 of 524 Java postings, 3-5 years
-    in 167.'
+    years set around the owner''s 4 years (corrected from 3.5). Corpus: ''N+ years'' in 303 of 524 Java
+    postings, 3-5 years in 167.'
   owner_accepted_on: '2026-10-31'
