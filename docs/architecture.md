@@ -655,3 +655,4 @@ checklist status.
 | [0022](adr/0022-source-policy-registry.md) | Source policy registry governs automation per host |
 | [0023](adr/0023-tiered-matching-and-llm-cost-target.md) | Tiered matching pipeline and LLM cost target |
 | [0024](adr/0024-market-and-role-quality-gates.md) | Market and role quality gates, synthetic users and rollout flags |
+| [0025](adr/0025-brand-direction-calm-compass.md) | Brand direction "Calm Compass" with celebration from "Bright Momentum" |

@@ -33,3 +33,4 @@ One file per significant decision, numbered in order. Format: [`template.md`](te
 | [0022](0022-source-policy-registry.md) | Source policy registry governs automation per host | Accepted |
 | [0023](0023-tiered-matching-and-llm-cost-target.md) | Tiered matching pipeline and LLM cost target | Accepted |
 | [0024](0024-market-and-role-quality-gates.md) | Market and role quality gates, synthetic users and rollout flags | Accepted |
+| [0025](0025-brand-direction-calm-compass.md) | Brand direction "Calm Compass" with celebration from "Bright Momentum" | Accepted |

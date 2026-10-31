@@ -115,3 +115,6 @@ available in the repository.
   - Existing commit history is not rewritten to match the conventional-commit rule.
   - **Process change:** commit and push at the end of every step from now on (Steps 1–5 committed
     as separate conventional commits on 2026-10-30).
+- **Brand direction (owner, 2026-10-30, ADR-0025):** Direction A "Calm Compass" (teal, Inter +
+  Noto Sans Arabic, radius 8/10/14 px, gentle motion), with Direction B's celebration animation
+  used only for interviews and offers. `docs/design-system.md` and `docs/ux.md` written from it.

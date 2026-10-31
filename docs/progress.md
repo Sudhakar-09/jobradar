@@ -3,7 +3,7 @@
 ## Current phase
 
 Phase 1 — Profile & packs is implemented and validated. The engineering documentation step is
-in progress (Steps 1–5 done; Step 6 waiting for the owner's brand choice; Step 7 next). Phase 2 —
+in progress (Steps 1–5 done; Step 6 drafted and awaiting review; Step 7 next). Phase 2 —
 Discovery starts after Step 7. The active checkout is
 `C:\dev\jobradar`; do not continue work from the retained OneDrive copy.
 
@@ -57,13 +57,15 @@ Discovery starts after Step 7. The active checkout is
 
 ## In progress
 
-- Step 6 — UX and design system: three brand directions proposed and previewed in
-  `docs/design/brand-directions.html`; waiting for the owner's choice before writing
-  `docs/design-system.md` and `docs/ux.md`.
+- Step 6 — UX and design system: owner chose Direction A "Calm Compass" with Direction B's
+  celebration for interviews and offers (ADR-0025). `docs/design-system.md` (brand, voice,
+  colour tokens with measured contrast, type, layout, motion, tokens build, components, icons,
+  illustrations, accessibility, RTL, Storybook process) and `docs/ux.md` (principles, IA, global
+  patterns, 8 journeys, 13 screens, digest channels) written and pushed; awaiting owner review.
 
 ## Next steps
 
-- Step 6: after the brand choice, write `docs/design-system.md` and `docs/ux.md`; commit and push.
+- Step 6: owner review of `docs/design-system.md` and `docs/ux.md` (open UX questions in ux.md §8).
 - Step 7: update `CLAUDE.md` (workflow per phase, revised phases 0–11, stack and layout changes,
   scratch-folder rule, commit and push after every step), remove the documentation gate below,
   commit and push.
@@ -76,7 +78,8 @@ Discovery starts after Step 7. The active checkout is
 
 ## Open questions/decisions waiting on me
 
-- Step 6: choose one of the three brand directions in `docs/design/brand-directions.html`.
+- Step 6: review `docs/design-system.md` and `docs/ux.md`, including the open UX questions in
+  `docs/ux.md` §8.
 
 ## Known issues
 
@@ -89,7 +92,7 @@ Discovery starts after Step 7. The active checkout is
   disable `.env` loading so their results do not depend on these local overrides.
 - The previous OneDrive checkout remains on disk and must not be used for future work.
 - The engineering documentation (Steps 6–7 remaining) is a release gate before Phase 2.
-- The first GitHub Actions run of the new CI (pinned actions, gitleaks, coverage gates) has not
-  been verified yet; check it after the 2026-10-30 push.
+- CI: the first run on the new setup failed (ruff formatted Markdown code blocks; a multi-hook
+  pre-commit call). Fixed in `d31725a`, whose run passed. Dependabot may open update PRs.
 - The plain-text resume parser is a placeholder until the LLM wrapper and PDF/DOCX parsing are
   available.
