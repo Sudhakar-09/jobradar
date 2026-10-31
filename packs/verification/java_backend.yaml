@@ -18,7 +18,9 @@ items:
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: Our taxonomy slugs; consistent with ISCO 25 > 251 > 2512.
+  notes: 'Our taxonomy slugs; consistent with ISCO 25 > 251 > 2512. Owner decision 2026-10-31: accepted
+    as a starting default.'
+  owner_accepted_on: '2026-10-31'
 - field: title_aliases (Java Backend Engineer, Java Backend Developer)
   claim: Java-qualified backend titles
   status: secondary
@@ -100,7 +102,8 @@ items:
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: Product judgement.
+  notes: 'Product judgement. Owner decision 2026-10-31: accepted as a starting default.'
+  owner_accepted_on: '2026-10-31'
 - field: hiring_patterns.channels
   claim: company_ats, referral, recruiter, alert_email
   status: secondary
@@ -130,7 +133,9 @@ items:
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: Consistent with Amazon's guidance (STAR with metrics; well-tested code) but our judgement.
+  notes: 'Consistent with Amazon''s guidance (STAR with metrics; well-tested code) but our judgement.
+    Owner decision 2026-10-31: accepted as a starting default.'
+  owner_accepted_on: '2026-10-31'
 - field: seniority signals
   claim: Not in the pack
   status: editorial
@@ -138,4 +143,6 @@ items:
   source_url: null
   checked_on: '2026-10-31'
   notes: 'The role pack has no seniority signals. Corpus: titles senior 197, staff/principal 120, lead
-    15, level II/III 23, junior 1; ''N+ years'' in 303 postings. Decide whether to add them.'
+    15, level II/III 23, junior 1; ''N+ years'' in 303 postings. Decide whether to add them. Owner decision
+    2026-10-31: accepted as a starting default.'
+  owner_accepted_on: '2026-10-31'

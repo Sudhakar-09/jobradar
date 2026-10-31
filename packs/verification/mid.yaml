@@ -11,35 +11,42 @@ items:
   source_url: null
   checked_on: '2026-10-31'
   notes: 'Product setting. Evidence on effectiveness: Ashby (referral application-to-interview 40% vs
-    inbound 3%), Lever via SHRM (referrals 1 in 16 hired).'
+    inbound 3%), Lever via SHRM (referrals 1 in 16 hired). Owner decision 2026-10-31: accepted as a starting
+    default.'
+  owner_accepted_on: '2026-10-31'
 - field: daily_volume_range
   claim: 3 to 8 applications a day
   status: editorial
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: No reputable source for an optimal number.
+  notes: 'No reputable source for an optimal number. Owner decision 2026-10-31: accepted as a starting
+    default.'
+  owner_accepted_on: '2026-10-31'
 - field: tailoring_depth
   claim: medium
   status: editorial
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: Product setting.
+  notes: 'Product setting. Owner decision 2026-10-31: accepted as a starting default.'
+  owner_accepted_on: '2026-10-31'
 - field: resume_strategy
   claim: One base CV per market format, light tailoring, never add facts
   status: editorial
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: Product policy (CLAUDE.md rule 1).
+  notes: 'Product policy (CLAUDE.md rule 1). Owner decision 2026-10-31: accepted as a starting default.'
+  owner_accepted_on: '2026-10-31'
 - field: onboarding_steps
   claim: resume, review, markets_roles, channels_privacy, applying
   status: editorial
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: Product flow.
+  notes: 'Product flow. Owner decision 2026-10-31: accepted as a starting default.'
+  owner_accepted_on: '2026-10-31'
 - field: followup_days
   claim: Follow up on day 7 and day 14
   status: secondary
@@ -54,21 +61,24 @@ items:
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: Product setting.
+  notes: 'Product setting. Owner decision 2026-10-31: accepted as a starting default.'
+  owner_accepted_on: '2026-10-31'
 - field: default_min_fit_score
   claim: '70'
   status: editorial
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: Product setting.
+  notes: 'Product setting. Owner decision 2026-10-31: accepted as a starting default.'
+  owner_accepted_on: '2026-10-31'
 - field: tips[0]
   claim: Prioritise roles where the fit score explains concrete matched outcomes
   status: editorial
   source_title: null
   source_url: null
   checked_on: '2026-10-31'
-  notes: Product advice.
+  notes: 'Product advice. Owner decision 2026-10-31: accepted as a starting default.'
+  owner_accepted_on: '2026-10-31'
 - field: tips[1]
   claim: Ask former colleagues for referrals before applying cold
   status: secondary

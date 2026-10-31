@@ -312,3 +312,5 @@ available in the repository.
   role pack has no seniority signals; the persona's follow-up schedule ([7, 14]) conflicts with
   its tip ("follow up once"); only 2 UAE-located Java postings across the 36 UAE catalogue
   companies.
+- **Role/persona review (owner, 2026-10-31):** (1) all editorial values in `java_backend` and
+  `mid` accepted as starting defaults (`owner_accepted_on`).
