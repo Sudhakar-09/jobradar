@@ -181,6 +181,15 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   no code reads Workday boards; pinned by tests (source policies, connectors, probe, link
   detection).
 
+- **Gmail connected (2026-10-31):** OAuth client file stored outside the repo
+  (`%USERPROFILE%/.jobradar/`), `TOKEN_ENCRYPTION_KEY` and `GOOGLE_OAUTH_CLIENT_FILE` set in
+  `C:\dev\jobradar\.env` (git-ignored), owner account bootstrapped, inbox connected by the owner
+  (consent recorded). Docker Desktop had stopped; restarted with a WSL shutdown, data intact.
+  First `jobradar alerts ingest`: **degraded** — 14 LinkedIn alert emails matched the sender but
+  yielded 0 jobs, so the real LinkedIn layout differs from the synthetic fixture. Those messages
+  are recorded as `unparsed`. Next: fix the LinkedIn parser against a real (anonymized) sample
+  and re-process unparsed messages. Other boards' alerts had not arrived yet.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:
