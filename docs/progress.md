@@ -222,6 +222,9 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   for owner review), pack corrections applied; conformance now fails only on the 2 unverified
   values until the owner accepts or removes them.
 
+- **India pack verified (2026-10-31):** per-value record (8 official, 14 secondary, 3 unverified
+  for owner review); pack money notes, notice norm and CV photo scope corrected.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:

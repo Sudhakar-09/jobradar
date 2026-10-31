@@ -1,0 +1,185 @@
+# Verification record for packs/markets/india.yaml (core.packs.verification).
+# Researched 2026-10-31 against official Indian sources (incometax.gov.in, EPFO, state tax
+# departments, Ministry of Labour) where possible; 'secondary' values are flagged for review.
+pack: india
+kind: market
+items:
+- field: money.currency
+  claim: INR
+  status: verified
+  source_title: 'Income Tax Department: salaried individuals (amounts in Rs)'
+  source_url: https://www.incometax.gov.in/iec/foportal/help/individual/return-applicable-1
+  checked_on: '2026-10-31'
+  notes: ''
+- field: money.default_basis, money.quoted_bases
+  claim: Quoted as annual CTC (fixed + variable); also gross
+  status: secondary
+  source_title: What is CTC (Bajaj Finserv)
+  source_url: https://www.bajajfinserv.in/what-is-ctc-meaning-and-full-form-in-salary
+  checked_on: '2026-10-31'
+  notes: Industry term; no official definition. CTC includes employer PF and gratuity.
+- field: money.default_period, money.quoted_periods
+  claim: Offers per year (LPA); in-hand per month
+  status: secondary
+  source_title: Cost to Company (Hyring HR glossary)
+  source_url: https://hyring.com/free-hr-toolkit/hr-glossary/cost-to-company-ctc-india
+  checked_on: '2026-10-31'
+  notes: ''
+- field: money.income_tax
+  claim: Progressive income tax
+  status: verified
+  source_title: Salaried individuals for AY 2026-27 (incometax.gov.in)
+  source_url: https://www.incometax.gov.in/iec/foportal/help/individual/return-applicable-1
+  checked_on: '2026-10-31'
+  notes: 'New regime FY 2025-26: nil to 4L; 5/10/15/20/25/30%; 87A rebate up to Rs 60,000 when taxable
+    income <= 12L. Cess 4% and surcharge on top.'
+- field: money.notes (regime, FY 2025-26)
+  claim: New regime by default, old regime optional
+  status: verified
+  source_title: New vs old tax regime FAQs (incometax.gov.in)
+  source_url: https://www.incometax.gov.in/iec/foportal/help/new-tax-vs-old-tax-regime-faqs
+  checked_on: '2026-10-31'
+  notes: s.115BAC default from AY 2024-25; salaried employees choose yearly; opt-out in the ITR.
+- field: money.notes (regime, tax year 2026-27)
+  claim: Default new regime continues under the Income-tax Act 2025 (s.202)
+  status: verified
+  source_title: Finance Bill 2026 (incometax.gov.in)
+  source_url: https://www.incometax.gov.in/iec/foportal/sites/default/files/2026-03/Finance_Bill.pdf
+  checked_on: '2026-10-31'
+  notes: Act in force 1 Apr 2026; s.202 is the default regime; slabs unchanged per secondary sources.
+    s.202(4) opt-out wording not fetched (403).
+- field: money.notes (employee PF)
+  claim: Employee PF 12% of basic + DA; Rs 15,000/month wage ceiling
+  status: verified
+  source_title: EPF Scheme (EPFO)
+  source_url: https://pmvbry.epfindia.gov.in/epf-scheme/
+  checked_on: '2026-10-31'
+  notes: Employer may cap at Rs 15,000 (Rs 1,800/month) or contribute on full basic.
+- field: money.notes (Labour Codes wage rule)
+  claim: Allowances above 50% of pay count as wages for PF (from 21 Nov 2025)
+  status: verified
+  source_title: Compliance handbook under the four Labour Codes (Ministry of Labour)
+  source_url: https://www.labour.gov.in/static/uploads/2026/02/83978455025732b99b0165def80ab171.pdf
+  checked_on: '2026-10-31'
+  notes: Seen via official search excerpts; the PDF was not fetched in full.
+- field: money.notes (professional tax)
+  claim: State-level professional tax, capped at Rs 2,500 a year
+  status: verified
+  source_title: Maharashtra Profession Tax rate schedule (mahagst.gov.in)
+  source_url: https://www.mahagst.gov.in/public/uploads/menufiles/PT%20Rate%20Schedule%20updated%20upto%2031.03.2025%20(1)%20(1).pdf
+  checked_on: '2026-10-31'
+  notes: Art. 276 cap Rs 2,500; Maharashtra Rs 200/month and Rs 300 in February above Rs 10,000/month.
+- field: money.notes (states without PT)
+  claim: Some states and UTs levy no professional tax (e.g. Delhi, Haryana, UP)
+  status: unverified
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Not checked against official state sources.
+- field: cv.term
+  claim: '''Resume'' (also ''CV''; ''biodata'' in government roles)'
+  status: secondary
+  source_title: Indian resume format (Resume Genius)
+  source_url: https://resumegenius.com/blog/resume-help/indian-resume
+  checked_on: '2026-10-31'
+  notes: ''
+- field: cv.length_pages
+  claim: 1-2 pages
+  status: secondary
+  source_title: Indian resume format (Resume Genius)
+  source_url: https://resumegenius.com/blog/resume-help/indian-resume
+  checked_on: '2026-10-31'
+  notes: 1 page for freshers, 2 for experienced; sometimes longer.
+- field: cv.photo_customary
+  claim: No photo on IT and private-sector resumes
+  status: secondary
+  source_title: Indian resume format (Resume Genius)
+  source_url: https://resumegenius.com/blog/resume-help/indian-resume
+  checked_on: '2026-10-31'
+  notes: 'Sector-dependent: Resume Genius says many employers expect a photo; IT/MNC/startup resumes usually
+    omit it; government, PSU, BFSI and non-IT often include one. Pack scoped to IT/private sector.'
+- field: cv.fields_default_off (DOB, marital status, nationality)
+  claim: Off by default
+  status: secondary
+  source_title: Indian resume format (Resume Genius)
+  source_url: https://resumegenius.com/blog/resume-help/indian-resume
+  checked_on: '2026-10-31'
+  notes: Traditional biodata includes them; include only if the posting asks. Default off is the privacy
+    rule.
+- field: cv.fields_default_on / CTC off
+  claim: Notice period and location shown; CTC kept off the resume
+  status: secondary
+  source_title: Notice periods in Indian IT (AIM)
+  source_url: https://analyticsindiamag.com/report-notice-periods-in-india-it/
+  checked_on: '2026-10-31'
+  notes: Notice period is a key screening criterion; CTC off is a product choice.
+- field: cv.section_order
+  claim: summary, skills, experience, projects, education, certifications
+  status: secondary
+  source_title: Indian resume format (Resume Genius)
+  source_url: https://resumegenius.com/blog/resume-help/indian-resume
+  checked_on: '2026-10-31'
+  notes: Freshers often put education first.
+- field: notice_period_norm
+  claim: Contractual; 30-90 days common; 90 days in about 1 in 3 IT roles
+  status: secondary
+  source_title: 'Report: notice periods in Indian IT (AIM, Dec 2024)'
+  source_url: https://analyticsindiamag.com/report-notice-periods-in-india-it/
+  checked_on: '2026-10-31'
+  notes: No statutory norm.
+- field: visa_routes
+  claim: None listed (the pack targets Indian citizens)
+  status: unverified
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Foreign nationals need an Employment Visa (MHA / Bureau of Immigration); not researched.
+- field: credential_recognition
+  claim: None listed
+  status: unverified
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: AIU equivalence for foreign degrees matters mainly for government and academic jobs; not researched.
+- field: sources.adzuna
+  claim: Adzuna API covers India (api.adzuna.com)
+  status: secondary
+  source_title: Adzuna developer overview
+  source_url: https://developer.adzuna.com/overview
+  checked_on: '2026-10-31'
+  notes: Official docs confirm the host, not the country list; adzuna.in exists.
+- field: sources.instahyre
+  claim: Instahyre job board
+  status: secondary
+  source_title: Instahyre
+  source_url: https://www.instahyre.com
+  checked_on: '2026-10-31'
+  notes: ''
+- field: sources.foundit
+  claim: Foundit (formerly Monster India)
+  status: secondary
+  source_title: Monster.com is now foundit (Business Today)
+  source_url: https://www.businesstoday.in/latest/corporate/story/job-search-portal-monstercom-is-now-foundit-transforms-to-talent-management-platform-353903-2022-11-23
+  checked_on: '2026-10-31'
+  notes: ''
+- field: sources.naukri
+  claim: Naukri job board
+  status: secondary
+  source_title: Naukri
+  source_url: https://www.naukri.com
+  checked_on: '2026-10-31'
+  notes: ''
+- field: sources.linkedin
+  claim: LinkedIn India (in.linkedin.com)
+  status: secondary
+  source_title: LinkedIn India jobs
+  source_url: https://in.linkedin.com/jobs
+  checked_on: '2026-10-31'
+  notes: ''
+- field: sources.indeed
+  claim: Indeed India (in.indeed.com)
+  status: secondary
+  source_title: Indeed India
+  source_url: https://in.indeed.com
+  checked_on: '2026-10-31'
+  notes: ''

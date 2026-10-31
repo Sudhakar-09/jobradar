@@ -271,3 +271,11 @@ available in the repository.
   wage; Arabic contracts note. Photo stays off by default although customary (owner decision).
   mohre.gov.ae and centralbank.ae blocked direct fetches; those facts rest on u.ae pages and
   search excerpts of the official pages.
+- **India pack verified (2026-10-31):** 25 values in `packs/verification/india.yaml` — 8 on
+  official sources (incometax.gov.in: progressive slabs, new regime default under s.115BAC and
+  s.202 of the Income-tax Act 2025 from tax year 2026-27 per the Finance Bill 2026; EPFO: 12% PF,
+  Rs 15,000 ceiling; Ministry of Labour: Labour Codes 50% wage rule; Maharashtra PT schedule and
+  Art. 276 cap), 14 secondary (CTC conventions, CV norms, notice periods, job boards), 3
+  unverified for the owner (states without professional tax; no visa routes or credential
+  recognition listed, since the pack targets Indian citizens). Pack corrected: concrete PF, PT
+  and regime notes; notice-period norm with IT figures; photo scoped to IT/private sector.

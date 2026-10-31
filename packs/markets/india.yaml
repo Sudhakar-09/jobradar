@@ -14,8 +14,14 @@ money:
   compensation_model: india_ctc
   notes: >-
     Usually quoted as annual CTC with fixed and variable parts; distinguish fixed pay from CTC
-    when stated. In-hand pay deducts employee PF, professional tax and income tax (new regime by
-    default, old regime optional).
+    when stated. CTC includes employer PF and gratuity, and variable pay is paid only when earned.
+    In-hand pay deducts employee PF (12% of basic + DA; often capped at the Rs 15,000/month wage
+    ceiling, i.e. Rs 1,800/month; since the Labour Codes of 21 Nov 2025 allowances above 50% of
+    pay count as wages for PF), state professional tax (at most Rs 2,500 a year, e.g.
+    Maharashtra Rs 200/month and Rs 300 in February; rates differ by state) and progressive
+    income tax. The new regime is the default (s.115BAC of the Income-tax Act 1961 through
+    FY 2025-26; s.202 of the Income-tax Act 2025 from tax year 2026-27); the old regime is
+    opt-in each year for salary income.
 
 locales:
   - {code: en-IN, rtl: false}
@@ -25,7 +31,7 @@ cv:
   format: in
   term: resume
   length_pages: [1, 2]
-  photo_customary: false
+  photo_customary: false  # IT/private sector; photo and biodata still common in government, PSU, BFSI
   fields_default_on: [current_location, notice_period]
   fields_default_off:
     [nationality, visa_status, current_ctc, expected_ctc, photo, date_of_birth, marital_status]
@@ -71,11 +77,25 @@ sources:
     hosts: [indeed.com, "*.indeed.com"]
     access_modes: [alert_email, one_tap]
 
-notice_period_norm: Varies by employer and contract; use the candidate's stated notice period.
+notice_period_norm: >-
+  Set by contract, with no statutory norm. 30 to 90 days is common: about one in three IT roles
+  (large IT services firms) has 90 days, product companies and start-ups often 30 to 60.
+  "Immediate joiner" and notice "buyout" are common terms. Use the candidate's stated notice
+  period.
 hiring_seasons: []
 language_notes: Use language requirements from each individual job posting.
 credential_recognition: []
 
 provenance:
-  last_verified: null
-  references: []
+  last_verified: 2026-10-31  # per-value record: packs/verification/india.yaml
+  references:
+    - title: New vs old tax regime FAQs (Income Tax Department)
+      url: https://www.incometax.gov.in/iec/foportal/help/new-tax-vs-old-tax-regime-faqs
+    - title: Salaried individuals for AY 2026-27 (Income Tax Department)
+      url: https://www.incometax.gov.in/iec/foportal/help/individual/return-applicable-1
+    - title: Finance Bill 2026 (Income Tax Department)
+      url: https://www.incometax.gov.in/iec/foportal/sites/default/files/2026-03/Finance_Bill.pdf
+    - title: EPF Scheme (EPFO)
+      url: https://pmvbry.epfindia.gov.in/epf-scheme/
+    - title: Maharashtra Profession Tax rate schedule
+      url: https://www.mahagst.gov.in/public/uploads/menufiles/PT%20Rate%20Schedule%20updated%20upto%2031.03.2025%20(1)%20(1).pdf
