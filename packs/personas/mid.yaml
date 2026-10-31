@@ -1,0 +1,18 @@
+code: mid
+description: >-
+  Mid-level professional looking for a better role, pay or market. Balances volume with
+  tailoring and leads with measurable outcomes.
+channel_weights:
+  company_ats: 0.35
+  alert_email: 0.30
+  referral: 0.15
+  recruiter: 0.10
+  aggregator: 0.10
+daily_volume_range: [3, 8]
+resume_strategy: >-
+  One base CV per market format with light per-job tailoring: reorder and rephrase true
+  outcomes and skills toward the posting; never add facts.
+tips:
+  - Prioritise roles where the fit score explains concrete matched outcomes, not keywords alone.
+  - Ask former colleagues for referrals at target companies before applying cold.
+  - Follow up once after 7 to 10 days if there is no response.
