@@ -1,0 +1,229 @@
+# Verification record for packs/markets/germany.yaml and config/market_data/germany/
+# (core.packs.verification). Researched 2026-10-31 against official German sources
+# (Bundesanzeiger, gesetze-im-internet.de, Federal Employment Agency, Make it in Germany, DRV).
+pack: germany
+kind: market
+items:
+- field: money.currency
+  claim: EUR
+  status: verified
+  source_title: 'At a Glance: EU Blue Card (Make it in Germany, Jan 2026)'
+  source_url: https://www.make-it-in-germany.com/fileadmin/1_Rebrush_2022/a_Fachkraefte/PDF-Dateien/3_Visum_u_Aufenthalt/Visagrafik_EN/Visum_Blaue_Karte_EN.pdf
+  checked_on: '2026-10-31'
+  notes: ''
+- field: money.default_period, money.default_basis
+  claim: Salaries quoted as annual gross
+  status: secondary
+  source_title: BMI notice on § 18g AufenthG (BAnz AT 18.12.2025 B3)
+  source_url: https://bundesanzeiger.de/pub/publication/REViP4bN6jVdpGxPaiQ/content/REViP4bN6jVdpGxPaiQ/BAnz%20AT%2018.12.2025%20B3.pdf
+  checked_on: '2026-10-31'
+  notes: Official thresholds are 'Mindestbruttogehalt ... jährlich'; annual gross in job ads is market
+    convention.
+- field: money.income_tax
+  claim: Progressive income tax
+  status: verified
+  source_title: § 32a EStG
+  source_url: https://www.gesetze-im-internet.de/estg/__32a.html
+  checked_on: '2026-10-31'
+  notes: '2026: basic allowance 12,348 EUR; 14% to 42%; 45% from 277,826 EUR.'
+- field: money.notes (tax classes)
+  claim: Wage tax withheld by tax class
+  status: verified
+  source_title: § 38b EStG
+  source_url: https://www.gesetze-im-internet.de/estg/__38b.html
+  checked_on: '2026-10-31'
+  notes: Classes I-VI.
+- field: money.notes (solidarity surcharge)
+  claim: Solidarity surcharge only where it applies
+  status: verified
+  source_title: § 3 SolZG 1995
+  source_url: https://www.gesetze-im-internet.de/solzg_1995/__3.html
+  checked_on: '2026-10-31'
+  notes: 5.5%, only above an exemption limit of income tax.
+- field: money.notes (church tax)
+  claim: Church tax for members
+  status: verified
+  source_title: 'Glossary: church tax (Make it in Germany)'
+  source_url: https://www.make-it-in-germany.com/en/service/glossary/glossar/do/show/church-tax
+  checked_on: '2026-10-31'
+  notes: 8-9% of income tax by Land; via official search excerpts (bot wall).
+- field: money.notes (social contributions)
+  claim: Employee pension, health, care and unemployment contributions
+  status: verified
+  source_title: Werte der Rentenversicherung (Deutsche Rentenversicherung)
+  source_url: https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung
+  checked_on: '2026-10-31'
+  notes: Pension 18.6% (half employee); ceiling 101,400 EUR a year in 2026; unemployment 2.6%; care 3.6%
+    (+0.6% childless).
+- field: visa_routes[EU Blue Card].summary
+  claim: Recognised or comparable degree and a job offer above the minimum salary
+  status: verified
+  source_title: 'At a Glance: EU Blue Card (Jan 2026)'
+  source_url: https://www.make-it-in-germany.com/fileadmin/1_Rebrush_2022/a_Fachkraefte/PDF-Dateien/3_Visum_u_Aufenthalt/Visagrafik_EN/Visum_Blaue_Karte_EN.pdf
+  checked_on: '2026-10-31'
+  notes: Job offer of at least six months; BA approval needed below the standard threshold.
+- field: 'visa_routes[EU Blue Card].summary (reduced: shortage occupations, graduates)'
+  claim: Lower threshold for shortage occupations incl. IT and recent graduates
+  status: verified
+  source_title: § 18g AufenthG
+  source_url: https://www.gesetze-im-internet.de/aufenthg_2004/__18g.html
+  checked_on: '2026-10-31'
+  notes: ISCO-08 132, 133, 134, 21, 221, 222, 225, 226, 23, 25; degree within three years.
+- field: visa_routes[EU Blue Card].summary (IT without degree)
+  claim: IT specialists via experience without a degree
+  status: verified
+  source_title: EU Blue Card (Federal Employment Agency, ISS 03-2026)
+  source_url: https://www.arbeitsagentur.de/vor-ort/zav/working-and-living-in-germany/iss-en/issue-03-2026/blue-card
+  checked_on: '2026-10-31'
+  notes: '§ 18g(2): at least 3 years of academic-level IT experience in the last 7; ISCO 133/25; BA approval.'
+- field: visa_routes[EU Blue Card].official_url
+  claim: 'At a Glance: EU Blue Card PDF (changed from the HTML page)'
+  status: verified
+  source_title: 'At a Glance: EU Blue Card (Make it in Germany)'
+  source_url: https://www.make-it-in-germany.com/fileadmin/1_Rebrush_2022/a_Fachkraefte/PDF-Dateien/3_Visum_u_Aufenthalt/Visagrafik_EN/Visum_Blaue_Karte_EN.pdf
+  checked_on: '2026-10-31'
+  notes: HTML page could not be confirmed behind a bot wall.
+- field: eu_blue_card 2025 standard
+  claim: 48,300 EUR
+  status: verified
+  source_title: BMI notice of 8 Nov 2024 (BAnz AT 04.12.2024 B2)
+  source_url: https://www.bundesanzeiger.de/pub/publication/6yuuiNCa7LgGKapMrQK/content/6yuuiNCa7LgGKapMrQK/BAnz%20AT%2004.12.2024%20B2.pdf
+  checked_on: '2026-10-31'
+  notes: ''
+- field: eu_blue_card 2025 reduced and IT without degree
+  claim: 43,759.80 EUR
+  status: verified
+  source_title: BAnz AT 04.12.2024 B2
+  source_url: https://www.bundesanzeiger.de/pub/publication/6yuuiNCa7LgGKapMrQK/content/6yuuiNCa7LgGKapMrQK/BAnz%20AT%2004.12.2024%20B2.pdf
+  checked_on: '2026-10-31'
+  notes: Same figure for § 18g(1) sentence 2 and § 18g(2).
+- field: eu_blue_card 2026 standard
+  claim: 50,700 EUR
+  status: verified
+  source_title: BMI notice of 2 Dec 2025 (BAnz AT 18.12.2025 B3)
+  source_url: https://bundesanzeiger.de/pub/publication/REViP4bN6jVdpGxPaiQ/content/REViP4bN6jVdpGxPaiQ/BAnz%20AT%2018.12.2025%20B3.pdf
+  checked_on: '2026-10-31'
+  notes: 50% of the 2026 pension ceiling (101,400 EUR).
+- field: eu_blue_card 2026 reduced and IT without degree
+  claim: 45,934.20 EUR
+  status: verified
+  source_title: BAnz AT 18.12.2025 B3
+  source_url: https://bundesanzeiger.de/pub/publication/REViP4bN6jVdpGxPaiQ/content/REViP4bN6jVdpGxPaiQ/BAnz%20AT%2018.12.2025%20B3.pdf
+  checked_on: '2026-10-31'
+  notes: Same figure for § 18g(1) sentence 2 and § 18g(2).
+- field: eu_blue_card publication rule
+  claim: Published in the Bundesanzeiger by 31 Dec of the previous year
+  status: verified
+  source_title: § 18g(7) AufenthG
+  source_url: https://www.gesetze-im-internet.de/aufenthg_2004/__18g.html
+  checked_on: '2026-10-31'
+  notes: ''
+- field: visa_routes[Skilled worker].summary
+  claim: Recognised qualification and an offer for any qualified job (corrected)
+  status: verified
+  source_title: § 18b AufenthG
+  source_url: https://www.gesetze-im-internet.de/aufenthg_2004/__18b.html
+  checked_on: '2026-10-31'
+  notes: 'Corrected 2026-10-31: the job no longer has to match the qualification; 45+ need 55,770 EUR
+    (2026) or pension provision; BA approval usually needed.'
+- field: visa_routes[Skilled worker].official_url
+  claim: Work visa for qualified professionals (Make it in Germany)
+  status: verified
+  source_title: 'At a Glance: Visa for Skilled Workers'
+  source_url: https://www.make-it-in-germany.com/fileadmin/1_Rebrush_2022/a_Fachkraefte/PDF-Dateien/3_Visum_u_Aufenthalt/Visagrafik_EN/Visum_Arbeiten_Fachkraefte_EN.pdf
+  checked_on: '2026-10-31'
+  notes: HTML URL confirmed via the search index.
+- field: visa_routes[Opportunity Card].summary
+  claim: Points-based job search permit for up to a year; part-time work
+  status: verified
+  source_title: § 20a AufenthG; Opportunity Card (Federal Employment Agency, ISS 02-2026)
+  source_url: https://www.gesetze-im-internet.de/aufenthg_2004/__20a.html
+  checked_on: '2026-10-31'
+  notes: Up to 1 year (+ up to 2); up to 20 h/week plus trial work up to 2 weeks; 6 points unless fully
+    recognised; A1 German or B2 English; 1,091 EUR/month funds (2026).
+- field: visa_routes[Opportunity Card].official_url
+  claim: 'At a Glance: Opportunity Card PDF (changed from the HTML page)'
+  status: verified
+  source_title: 'At a Glance: Job Search Opportunity Card'
+  source_url: https://www.make-it-in-germany.com/fileadmin/1_Rebrush_2022/a_Fachkraefte/PDF-Dateien/3_Visum_u_Aufenthalt/Visagrafik_EN/Chancenkarte_zur_Jobsuche_EN.pdf
+  checked_on: '2026-10-31'
+  notes: HTML page could not be confirmed behind a bot wall.
+- field: visa_routes[*].sponsor_required
+  claim: No employer sponsorship needed
+  status: verified
+  source_title: 'At a Glance: Visa for Skilled Workers'
+  source_url: https://www.make-it-in-germany.com/fileadmin/1_Rebrush_2022/a_Fachkraefte/PDF-Dateien/3_Visum_u_Aufenthalt/Visagrafik_EN/Visum_Arbeiten_Fachkraefte_EN.pdf
+  checked_on: '2026-10-31'
+  notes: A job offer is needed for Blue Card and skilled worker routes, not a sponsor licence.
+- field: credential_recognition[software_it]
+  claim: ZAB / anabin rates foreign degrees
+  status: verified
+  source_title: anabin (KMK / ZAB)
+  source_url: https://anabin.kmk.org/
+  checked_on: '2026-10-31'
+  notes: ''
+- field: cv.term, cv.format
+  claim: Lebenslauf, tabular, reverse chronological
+  status: verified
+  source_title: 'Application: CV (Federal Employment Agency, ISS 01-2026)'
+  source_url: https://www.arbeitsagentur.de/vor-ort/zav/working-and-living-in-germany/iss-en/issue-01-2026/application-cv
+  checked_on: '2026-10-31'
+  notes: ''
+- field: cv.length_pages
+  claim: 1-2 pages
+  status: verified
+  source_title: 'Application: CV (Federal Employment Agency)'
+  source_url: https://www.arbeitsagentur.de/vor-ort/zav/working-and-living-in-germany/iss-en/issue-01-2026/application-cv
+  checked_on: '2026-10-31'
+  notes: '''should not be longer than two pages''.'
+- field: cv.photo_customary
+  claim: Photo customary, not mandatory
+  status: verified
+  source_title: 'Application: CV (Federal Employment Agency)'
+  source_url: https://www.arbeitsagentur.de/vor-ort/zav/working-and-living-in-germany/iss-en/issue-01-2026/application-cv
+  checked_on: '2026-10-31'
+  notes: '''not mandatory, but still expected by most employers''. Pack keeps it off by default (privacy
+    rule).'
+- field: cv.fields_default_off (date_of_birth, marital_status, nationality)
+  claim: Off by default
+  status: secondary
+  source_title: 'Application: CV (Federal Employment Agency)'
+  source_url: https://www.arbeitsagentur.de/vor-ort/zav/working-and-living-in-germany/iss-en/issue-01-2026/application-cv
+  checked_on: '2026-10-31'
+  notes: BA lists date of birth as normally included and marital status as not required; default off is
+    the privacy rule (ADR-0010).
+- field: notice_period_norm (statutory)
+  claim: Four weeks to the 15th or month end; only employer notice grows with tenure (corrected)
+  status: verified
+  source_title: § 622 BGB
+  source_url: https://www.gesetze-im-internet.de/bgb/__622.html
+  checked_on: '2026-10-31'
+  notes: Corrected 2026-10-31; probation (max 6 months) two weeks.
+- field: notice_period_norm (contractual)
+  claim: Contracts often set 1-3 months, to month or quarter end
+  status: secondary
+  source_title: Kündigungsfrist Arbeitnehmer (arbeitsrechte.de)
+  source_url: https://arbeitsrechte.de/kuendigungsfrist-arbeitnehmer
+  checked_on: '2026-10-31'
+  notes: ''
+- field: language_notes
+  claim: German often required; English alone often not enough
+  status: verified
+  source_title: How well do I need to know German? (Federal Employment Agency)
+  source_url: https://www.arbeitsagentur.de/int/en/german-language-skills
+  checked_on: '2026-10-31'
+  notes: Official. The claim that many big-city tech teams work in English rests on secondary knowledge.
+- field: locales
+  claim: de-DE and en-DE, left to right
+  status: unverified
+  source_title: null
+  source_url: null
+  checked_on: '2026-10-31'
+  notes: Technical choice; check en-DE against the i18n library (CLDR) in Phase 4.
+- field: sources (linkedin, stepstone, xing, indeed)
+  claim: These boards are widely used in Germany
+  status: secondary
+  source_title: Job board usage survey (t3n)
+  source_url: https://t3n.de/news/?p=1586574
+  checked_on: '2026-10-31'
+  notes: XING declining but used in DACH.

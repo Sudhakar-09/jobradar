@@ -27,7 +27,7 @@ cv:
   format: de
   term: Lebenslauf (CV)
   length_pages: [1, 2]
-  photo_customary: true
+  photo_customary: true  # "not mandatory, but still expected" (BA); off by default (privacy rule)
   fields_default_on: [current_location, visa_status, notice_period]
   fields_default_off: [photo, date_of_birth, marital_status, nationality, driving_licence]
   section_order: [summary, experience, education, skills, certifications]
@@ -42,20 +42,26 @@ visa_routes:
       professional experience without a degree. Verify the current thresholds before relying on
       them.
     sponsor_required: false
-    official_url: https://www.make-it-in-germany.com/en/visa-residence/types/eu-blue-card
+    official_url: https://www.make-it-in-germany.com/fileadmin/1_Rebrush_2022/a_Fachkraefte/PDF-Dateien/3_Visum_u_Aufenthalt/Visagrafik_EN/Visum_Blaue_Karte_EN.pdf
     salary_thresholds: germany/eu_blue_card.yaml
   - name: Skilled worker residence permit
     summary: >-
-      For non-EU skilled workers with a recognised qualification and a concrete job offer that
-      matches it. Verify current requirements with the German authorities.
+      For non-EU skilled workers with a recognised vocational qualification or a recognised or
+      comparable degree and a concrete job offer for any qualified employment (§§ 18a, 18b
+      AufenthG; since 2023 the job no longer has to match the qualification). Federal
+      Employment Agency approval is usually needed. First-time applicants aged 45 or over need a
+      salary of at least 55,770 EUR (2026) or proof of pension provision.
     sponsor_required: false
     official_url: https://www.make-it-in-germany.com/en/visa-residence/types/work-qualified-professionals
   - name: Opportunity Card (Chancenkarte)
     summary: >-
-      A points-based permit to come to Germany and look for work for up to a year, with limited
-      part-time work allowed meanwhile. Verify current eligibility rules.
+      A points-based permit (§ 20a AufenthG) to look for work in Germany for up to one year,
+      extendable by up to two more years with a qualifying job. Part-time work of up to 20 hours
+      a week on average plus trial work of up to two weeks at a time. Six points are needed
+      unless the qualification is fully recognised; A1 German or B2 English; proof of funds
+      (1,091 EUR a month in 2026).
     sponsor_required: false
-    official_url: https://www.make-it-in-germany.com/en/visa-residence/types/job-search-opportunity-card
+    official_url: https://www.make-it-in-germany.com/fileadmin/1_Rebrush_2022/a_Fachkraefte/PDF-Dateien/3_Visum_u_Aufenthalt/Visagrafik_EN/Chancenkarte_zur_Jobsuche_EN.pdf
 sponsor_register_source: null
 nationality_restricted_programmes: []
 
@@ -86,13 +92,17 @@ sources:
     access_modes: [alert_email, one_tap]
 
 notice_period_norm: >-
-  Statutory notice is four weeks for new employees and grows with tenure; contracts for
-  experienced staff often set one to three months, frequently to the end of a month or quarter.
-  Use the candidate's stated notice period and earliest joining date.
+  Statutory notice (§ 622 BGB) is four weeks to the 15th or the end of a calendar month, two
+  weeks during probation (at most six months). Only the employer's statutory notice grows with
+  tenure; an employee resigning keeps four weeks unless the contract or a collective agreement
+  sets more. Contracts for experienced staff often set one to three months, frequently to the
+  end of a month or quarter. Use the candidate's stated notice period and earliest joining date.
 hiring_seasons: []
 language_notes: >-
-  Many tech teams in Berlin, Munich and Hamburg work in English, but German is often required or
-  preferred, especially outside large tech companies and for customer-facing roles. Use language
+  The Federal Employment Agency notes that many companies expect at least basic German and that
+  English alone is often not enough. Many tech teams in Berlin, Munich and Hamburg work in
+  English, but German is often required or preferred, especially outside large tech companies
+  and for customer-facing roles. Use language
   requirements from each individual job posting.
 credential_recognition:
   - field: software_it
@@ -104,7 +114,21 @@ credential_recognition:
       specialists can sometimes qualify by experience instead.
 
 provenance:
-  last_verified: null
+  last_verified: 2026-10-31  # per-value record: packs/verification/germany.yaml
   references:
     - title: Make it in Germany (official portal for skilled workers)
       url: https://www.make-it-in-germany.com/en/
+    - title: BMI notice on EU Blue Card salaries 2026 (BAnz AT 18.12.2025 B3)
+      url: https://bundesanzeiger.de/pub/publication/REViP4bN6jVdpGxPaiQ/content/REViP4bN6jVdpGxPaiQ/BAnz%20AT%2018.12.2025%20B3.pdf
+    - title: § 18g AufenthG (EU Blue Card)
+      url: https://www.gesetze-im-internet.de/aufenthg_2004/__18g.html
+    - title: § 18b AufenthG (skilled workers with a degree)
+      url: https://www.gesetze-im-internet.de/aufenthg_2004/__18b.html
+    - title: § 20a AufenthG (Opportunity Card)
+      url: https://www.gesetze-im-internet.de/aufenthg_2004/__20a.html
+    - title: § 622 BGB (notice periods)
+      url: https://www.gesetze-im-internet.de/bgb/__622.html
+    - title: Application CV (Federal Employment Agency)
+      url: https://www.arbeitsagentur.de/vor-ort/zav/working-and-living-in-germany/iss-en/issue-01-2026/application-cv
+    - title: anabin (KMK / ZAB)
+      url: https://anabin.kmk.org/

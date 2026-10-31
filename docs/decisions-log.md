@@ -279,3 +279,12 @@ available in the repository.
   unverified for the owner (states without professional tax; no visa routes or credential
   recognition listed, since the pack targets Indian citizens). Pack corrected: concrete PF, PT
   and regime notes; notice-period norm with IT figures; photo scoped to IT/private sector.
+- **Germany pack verified (2026-10-31):** 32 values in `packs/verification/germany.yaml` — 26
+  official (Bundesanzeiger BMI notices for all Blue Card figures; AufenthG §§ 18b, 18g, 20a;
+  BGB § 622; EStG §§ 32a, 38b; SolZG; DRV; Federal Employment Agency CV and language guidance;
+  anabin), 5 secondary, 1 unverified for the owner (en-DE locale, checked in Phase 4). Two
+  statements were wrong and are corrected: skilled worker permits no longer require the job to
+  match the qualification (§ 18b, since 2023); statutory notice grows with tenure only for the
+  employer (§ 622 BGB). The Blue Card table now cites the official notices and stores the
+  § 18g(2) IT-without-degree minimum (equal to the reduced value). Blue Card and Opportunity Card
+  links point to the official Make it in Germany PDFs (the HTML pages sit behind a bot wall).

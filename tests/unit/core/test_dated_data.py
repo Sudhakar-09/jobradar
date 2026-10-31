@@ -21,8 +21,16 @@ def table_data() -> dict[str, object]:
 def test_blue_card_thresholds_by_effective_date() -> None:
     table = load_dated_table(BLUE_CARD)
 
-    assert table.values_on(date(2025, 6, 1)) == {"standard": 48300, "reduced": 43759.80}
-    assert table.values_on(date(2026, 10, 31)) == {"standard": 50700, "reduced": 45934.20}
+    assert table.values_on(date(2025, 6, 1)) == {
+        "standard": 48300,
+        "reduced": 43759.80,
+        "it_no_degree": 43759.80,
+    }
+    assert table.values_on(date(2026, 10, 31)) == {
+        "standard": 50700,
+        "reduced": 45934.20,
+        "it_no_degree": 45934.20,
+    }
     assert table.values_on(date(2024, 12, 31)) is None
     assert (table.currency, table.period, table.basis) == ("EUR", "year", "gross_base")
 

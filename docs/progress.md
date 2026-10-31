@@ -225,6 +225,10 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
 - **India pack verified (2026-10-31):** per-value record (8 official, 14 secondary, 3 unverified
   for owner review); pack money notes, notice norm and CV photo scope corrected.
 
+- **Germany pack verified (2026-10-31):** 32 values (26 official, 5 secondary, 1 unverified);
+  skilled-worker and notice-period statements corrected; Blue Card thresholds now on official
+  Bundesanzeiger notices incl. the IT-without-degree minimum. 345 tests pass.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:

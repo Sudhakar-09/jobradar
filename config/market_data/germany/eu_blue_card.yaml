@@ -1,11 +1,9 @@
 # EU Blue Card minimum salaries in Germany (core.dated_data). Gross annual BASE salary: bonuses
 # and commissions do not count. Recalculated every year from the general pension insurance
-# contribution ceiling (standard 50 %, reduced 45.3 %) and announced by the Federal Ministry of
-# the Interior around December. Add next year's entry when it is published; lookups warn once
-# today is past the newest entry or `last_verified` is older than 90 days.
-#
-# Not stored, because sources disagree: the threshold for IT specialists who qualify through
-# professional experience without a degree. Check it case by case.
+# contribution ceiling (standard 50 %, reduced 45.3 %) and published by the Federal Ministry of
+# the Interior in the Bundesanzeiger by 31 December of the previous year (§ 18g(7) AufenthG).
+# Add next year's entry when it is published; lookups warn once today is past the newest entry
+# or `last_verified` is older than 90 days. Values verified: packs/verification/germany.yaml.
 name: EU Blue Card salary thresholds (Germany)
 market: germany
 currency: EUR
@@ -14,18 +12,23 @@ basis: gross_base
 value_notes:
   standard: Minimum gross annual base salary for most occupations.
   reduced: >-
-    Lower minimum for shortage occupations (including IT specialists, ISCO 133 and 25) and for
-    recent graduates (degree within the last three years); the job must still pay the usual
-    salary for comparable German employees.
+    Lower minimum (§ 18g(1) sentence 2) for shortage occupations (ISCO-08 132, 133, 134, 21,
+    221, 222, 225, 226, 23, 25; IT is 133 and 25) and for recent graduates (degree within the
+    last three years). Needs Federal Employment Agency approval, unlike the standard minimum.
+  it_no_degree: >-
+    Minimum for IT specialists without a degree (§ 18g(2)): at least three years of
+    academic-level IT experience in the last seven, ISCO 133 or 25, agency approval. Equal to
+    the reduced value in the official notices.
 last_verified: 2026-10-31
 sources:
-  - https://www.make-it-in-germany.com/en/visa-residence/types/eu-blue-card
-  - https://www.thelocal.de/20251217/the-salary-you-need-in-germany-in-2026-to-get-an-eu-blue-card
-  - https://www.rtpartner.de/en/immigration/blaue-karte-eu-mindestgehalt-2026/
+  - https://www.bundesanzeiger.de/pub/publication/6yuuiNCa7LgGKapMrQK/content/6yuuiNCa7LgGKapMrQK/BAnz%20AT%2004.12.2024%20B2.pdf
+  - https://bundesanzeiger.de/pub/publication/REViP4bN6jVdpGxPaiQ/content/REViP4bN6jVdpGxPaiQ/BAnz%20AT%2018.12.2025%20B3.pdf
+  - https://www.gesetze-im-internet.de/aufenthg_2004/__18g.html
+  - https://www.make-it-in-germany.com/fileadmin/1_Rebrush_2022/a_Fachkraefte/PDF-Dateien/3_Visum_u_Aufenthalt/Visagrafik_EN/Visum_Blaue_Karte_EN.pdf
 entries:
   - effective_from: 2025-01-01
     effective_to: 2025-12-31
-    values: {standard: 48300, reduced: 43759.80}
+    values: {standard: 48300, reduced: 43759.80, it_no_degree: 43759.80}
   - effective_from: 2026-01-01
     effective_to: 2026-12-31
-    values: {standard: 50700, reduced: 45934.20}
+    values: {standard: 50700, reduced: 45934.20, it_no_degree: 45934.20}
