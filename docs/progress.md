@@ -2,8 +2,9 @@
 
 ## Current phase
 
-Phase 1 — Profile & packs is implemented and validated. Phase 2 — Discovery has not started; the
-engineering documentation listed below must be completed first. The active checkout is
+Phase 1 — Profile & packs is implemented and validated. The engineering documentation step is
+in progress (Steps 1–5 done; Step 6 waiting for the owner's brand choice; Step 7 next). Phase 2 —
+Discovery starts after Step 7. The active checkout is
 `C:\dev\jobradar`; do not continue work from the retained OneDrive copy.
 
 ## Done (with commit hashes)
@@ -39,24 +40,43 @@ engineering documentation listed below must be completed first. The active check
     Phase 2.
   - `cf59d0a` — `chore: align target packs and isolate tests`
 
+- Engineering documentation, Steps 1–5 (approved by the owner; committed 2026-10-30 as separate
+  conventional commits — see `git log`):
+  - `docs: PRD` — `docs/prd.md` v0.4 (product for everyone; India + UAE / Java backend is the first
+    configuration; stories by phase; multi-market quality gates).
+  - `docs: HLD and ADRs` — `docs/architecture.md` v0.3 and ADR-0001 … ADR-0024.
+  - `docs: LLD` — `docs/lld/` (database incl. per-phase migration plan, state machine, 16 module
+    designs, canonical identifiers, traceability).
+  - `docs: API contract` — `docs/api.md`, `docs/openapi.yaml` (hand-maintained), archived generator.
+  - `chore: coding standards and tooling` — `docs/coding-standards.md`, ruff/mypy strict/
+    import-linter/pre-commit, CI (quality, tests with coverage gates, contract, security with
+    pinned actions, PR title), Dependabot, PR template; existing code conformed (Celery app moved
+    to `jobradar.core.queue`).
+  - `build: use the official pgvector PostgreSQL 16 image` and `chore(packs): add mid persona pack`.
+  - Local, git-ignored `config/profile.yaml` sets persona and seniority `mid` for the owner.
+
 ## In progress
 
-- None. `main` tracks `origin/main`; the current project changes have been pushed.
+- Step 6 — UX and design system: three brand directions proposed and previewed in
+  `docs/design/brand-directions.html`; waiting for the owner's choice before writing
+  `docs/design-system.md` and `docs/ux.md`.
 
 ## Next steps
 
-- Before Phase 2 — Discovery:
-  - Complete the skipped engineering documentation: PRD, HLD, LLD, API contract, coding standards,
-    and UX. This is a hard prerequisite; do not begin Phase 2 until these documents are complete.
-  - Replace the plain-text resume parser placeholder with LLM-based PDF and DOCX parsing after the
-    LLM wrapper exists; add `pypdf` and `python-docx` at that time.
-- After the prerequisite work, start Phase 2 — Discovery:
- - Implement the connector base plus Greenhouse, Lever, Ashby, Adzuna, and Remotive.
- - Add the jobs table, deduplication, source-run tracking, fixture tests, and CLI discovery.
+- Step 6: after the brand choice, write `docs/design-system.md` and `docs/ux.md`; commit and push.
+- Step 7: update `CLAUDE.md` (workflow per phase, revised phases 0–11, stack and layout changes,
+  scratch-folder rule, commit and push after every step), remove the documentation gate below,
+  commit and push.
+- Phase 2 — Discovery (after Step 7), starting with the Phase 1 follow-ups: extend the
+  `MarketPack`/`RolePack`/`PersonaPack` schemas (US-1.2 AC2/AC3), add Naukrigulf and channel
+  access modes to the UAE pack, then connectors, alert ingestion, company catalogue, source
+  policies, golden datasets and conformance v1 (US-2.1 … US-2.9).
+- Replace the plain-text resume parser placeholder with LLM-based PDF and DOCX parsing after the
+  LLM wrapper exists (Phase 3/4, US-1.4); add `pypdf` and `python-docx` at that time.
 
 ## Open questions/decisions waiting on me
 
-- None.
+- Step 6: choose one of the three brand directions in `docs/design/brand-directions.html`.
 
 ## Known issues
 
@@ -68,6 +88,8 @@ engineering documentation listed below must be completed first. The active check
   the containers' normal ports (5432 and 6379); do not stop the unrelated containers. Tests now
   disable `.env` loading so their results do not depend on these local overrides.
 - The previous OneDrive checkout remains on disk and must not be used for future work.
-- The engineering documentation listed under Next steps is a release gate before Phase 2.
+- The engineering documentation (Steps 6–7 remaining) is a release gate before Phase 2.
+- The first GitHub Actions run of the new CI (pinned actions, gitleaks, coverage gates) has not
+  been verified yet; check it after the 2026-10-30 push.
 - The plain-text resume parser is a placeholder until the LLM wrapper and PDF/DOCX parsing are
   available.
