@@ -243,6 +243,10 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   on LinkedIn and create company job alerts, so their jobs (on systems JobRadar cannot read)
   arrive as LinkedIn alert emails. Tick each company in that file when done.
 
+- **Manual task for the owner (open):** follow the employers in `docs/research/india-follow-list.md`
+  on LinkedIn (or Naukri / Instahyre / Foundit) and create company job alerts, so jobs from
+  India employers on unreadable systems arrive as alert emails. Tick each company when done.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:
