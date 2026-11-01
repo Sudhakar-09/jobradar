@@ -5,6 +5,8 @@
 # Etihad Airways and Masdar added 2026-10-31 from the round-3 research (owner approval).
 # India: 51 companies approved by the owner on 2026-10-31 (config/company_candidates/india.*);
 # five already listed for the UAE (Elastic, GitLab, InMobi, MongoDB, Snowflake) gained IN.
+# Germany: 62 companies approved by the owner on 2026-11-01 (config/company_candidates/germany.*);
+# ImmoScout24 board dropped in favour of Scout24 (15 of 19 jobs shared); existing entries gained DE.
 companies:
 - name: Binance
   ats: greenhouse
@@ -19,7 +21,8 @@ companies:
   ats_slug: deliveryhero
   countries:
   - AE
-  source: 'ats probe 2026-10-31: 53 postings in AE'
+  - DE
+  source: 'ats probe 2026-10-31: 53 postings in AE; ats probe 2026-11-01: 22 postings in DE'
 - name: Aldar
   ats: lever
   ats_slug: aldar
@@ -99,7 +102,8 @@ companies:
   ats_slug: cohere
   countries:
   - AE
-  source: 'ats probe 2026-10-31: 5 postings in AE'
+  - DE
+  source: 'ats probe 2026-10-31: 5 postings in AE; ats probe 2026-11-01: 6 postings in DE'
 - name: Airwallex
   ats: ashby
   ats_slug: airwallex
@@ -139,14 +143,17 @@ companies:
   ats_slug: celonis
   countries:
   - AE
-  source: 'ats probe 2026-10-31: 2 postings in AE'
+  - DE
+  source: 'ats probe 2026-10-31: 2 postings in AE; ats probe 2026-11-01: 56 postings in DE'
 - name: Elastic
   ats: greenhouse
   ats_slug: elastic
   countries:
   - AE
+  - DE
   - IN
-  source: 'ats probe 2026-10-31: 2 postings in AE; ats probe 2026-11-01: 16 postings in IN'
+  source: 'ats probe 2026-10-31: 2 postings in AE; ats probe 2026-11-01: 16 postings in IN; ats probe
+    2026-11-01: 7 postings in DE'
 - name: Fireblocks
   ats: greenhouse
   ats_slug: fireblocks
@@ -168,8 +175,10 @@ companies:
   ats_slug: gitlab
   countries:
   - AE
+  - DE
   - IN
-  source: 'ats probe 2026-10-31: 2 postings in AE; ats probe 2026-11-01: 30 postings in IN'
+  source: 'ats probe 2026-10-31: 2 postings in AE; ats probe 2026-11-01: 30 postings in IN; ats probe
+    2026-11-01: 8 postings in DE'
 - name: Group-IB
   ats: greenhouse
   ats_slug: groupib
@@ -222,8 +231,10 @@ companies:
   ats_slug: mongodb
   countries:
   - AE
+  - DE
   - IN
-  source: 'ats probe 2026-10-31: 1 postings in AE; ats probe 2026-11-01: 83 postings in IN'
+  source: 'ats probe 2026-10-31: 1 postings in AE; ats probe 2026-11-01: 83 postings in IN; ats probe
+    2026-11-01: 9 postings in DE'
   notes: only 1 UAE posting at probe time; may drop out
 - name: Palantir
   ats: lever
@@ -237,8 +248,10 @@ companies:
   ats_slug: snowflake
   countries:
   - AE
+  - DE
   - IN
-  source: 'ats probe 2026-10-31: 1 postings in AE; ats probe 2026-11-01: 8 postings in IN'
+  source: 'ats probe 2026-10-31: 1 postings in AE; ats probe 2026-11-01: 8 postings in IN; ats probe 2026-11-01:
+    7 postings in DE'
   notes: only 1 UAE posting at probe time; may drop out
 - name: Thunes
   ats: greenhouse
@@ -290,14 +303,16 @@ companies:
   ats: greenhouse
   ats_slug: okta
   countries:
+  - DE
   - IN
-  source: 'ats probe 2026-11-01: 103 postings in IN'
+  source: 'ats probe 2026-11-01: 103 postings in IN; ats probe 2026-11-01: 2 postings in DE'
 - name: Databricks
   ats: greenhouse
   ats_slug: databricks
   countries:
+  - DE
   - IN
-  source: 'ats probe 2026-11-01: 85 postings in IN'
+  source: 'ats probe 2026-11-01: 85 postings in IN; ats probe 2026-11-01: 31 postings in DE'
 - name: Zscaler
   ats: greenhouse
   ats_slug: zscaler
@@ -308,8 +323,9 @@ companies:
   ats: smartrecruiters
   ats_slug: servicenow
   countries:
+  - DE
   - IN
-  source: 'ats probe 2026-11-01: 81 postings in IN'
+  source: 'ats probe 2026-11-01: 81 postings in IN; ats probe 2026-11-01: 12 postings in DE'
 - name: Tekion
   ats: ashby
   ats_slug: tekion
@@ -332,8 +348,9 @@ companies:
   ats: greenhouse
   ats_slug: stripe
   countries:
+  - DE
   - IN
-  source: 'ats probe 2026-11-01: 47 postings in IN'
+  source: 'ats probe 2026-11-01: 47 postings in IN; ats probe 2026-11-01: 10 postings in DE'
 - name: Highradius
   ats: greenhouse
   ats_slug: highradius
@@ -422,8 +439,9 @@ companies:
   ats: greenhouse
   ats_slug: datadog
   countries:
+  - DE
   - IN
-  source: 'ats probe 2026-11-01: 10 postings in IN'
+  source: 'ats probe 2026-11-01: 10 postings in IN; ats probe 2026-11-01: 2 postings in DE'
 - name: SpotDraft
   ats: ashby
   ats_slug: spotdraft
@@ -434,8 +452,9 @@ companies:
   ats: greenhouse
   ats_slug: airbnb
   countries:
+  - DE
   - IN
-  source: 'ats probe 2026-11-01: 9 postings in IN'
+  source: 'ats probe 2026-11-01: 9 postings in IN; ats probe 2026-11-01: 3 postings in DE'
 - name: Endava
   ats: smartrecruiters
   ats_slug: endava
@@ -550,3 +569,358 @@ companies:
   - IN
   source: 'ats probe 2026-11-01: 1 postings in IN'
   notes: only 1 India posting(s) at probe time; may drop out
+- name: Auto1
+  ats: smartrecruiters
+  ats_slug: auto1
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 266 postings in DE'
+  industries: []
+- name: Continental
+  ats: smartrecruiters
+  ats_slug: continental
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 139 postings in DE'
+  industries: []
+- name: Enpal
+  ats: ashby
+  ats_slug: enpal
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 122 postings in DE'
+  industries: []
+- name: Helsing
+  ats: greenhouse
+  ats_slug: helsing
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 116 postings in DE'
+  industries:
+  - weapons_defence
+- name: Isar Aerospace
+  ats: greenhouse
+  ats_slug: isaraerospace
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 113 postings in DE'
+  industries: []
+- name: HelloFresh
+  ats: greenhouse
+  ats_slug: hellofresh
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 88 postings in DE'
+  industries: []
+- name: Doctolib
+  ats: greenhouse
+  ats_slug: doctolib
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 71 postings in DE'
+  industries: []
+- name: GetYourGuide
+  ats: greenhouse
+  ats_slug: getyourguide
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 56 postings in DE'
+  industries: []
+- name: SumUp
+  ats: greenhouse
+  ats_slug: sumup
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 49 postings in DE'
+  industries: []
+- name: Flix
+  ats: greenhouse
+  ats_slug: flix
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 42 postings in DE'
+  industries: []
+- name: Ionos
+  ats: greenhouse
+  ats_slug: ionos
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 38 postings in DE'
+  industries: []
+- name: n8n
+  ats: ashby
+  ats_slug: n8n
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 31 postings in DE'
+  industries: []
+- name: Moss
+  ats: ashby
+  ats_slug: moss
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 23 postings in DE'
+  industries: []
+- name: Pliant
+  ats: ashby
+  ats_slug: pliant
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 22 postings in DE'
+  industries: []
+- name: Raisin
+  ats: greenhouse
+  ats_slug: raisin
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 22 postings in DE'
+  industries: []
+- name: N26
+  ats: greenhouse
+  ats_slug: n26
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 20 postings in DE'
+  industries: []
+- name: Upvest
+  ats: ashby
+  ats_slug: upvest
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 20 postings in DE'
+  industries: []
+- name: JetBrains
+  ats: greenhouse
+  ats_slug: jetbrains
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 19 postings in DE'
+  industries: []
+- name: Parloa
+  ats: greenhouse
+  ats_slug: parloa
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 19 postings in DE'
+  industries: []
+- name: Wolt
+  ats: greenhouse
+  ats_slug: wolt
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 19 postings in DE'
+  industries: []
+- name: Scout24
+  ats: greenhouse
+  ats_slug: scout24
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 18 postings in DE'
+  industries: []
+  notes: Scout24 SE (operates ImmoScout24); the ImmoScout24 board shares 15 of its 19 jobs and was not
+    added
+- name: Trivago
+  ats: greenhouse
+  ats_slug: trivago
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 16 postings in DE'
+  industries: []
+- name: Staffbase
+  ats: greenhouse
+  ats_slug: staffbase
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 14 postings in DE'
+  industries: []
+- name: Commercetools
+  ats: greenhouse
+  ats_slug: commercetools
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 13 postings in DE'
+  industries: []
+- name: Immowelt
+  ats: ashby
+  ats_slug: immowelt
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 13 postings in DE'
+  industries: []
+- name: Black Forest Labs
+  ats: ashby
+  ats_slug: black-forest-labs
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 10 postings in DE'
+  industries: []
+- name: Grafana Labs
+  ats: greenhouse
+  ats_slug: grafanalabs
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 10 postings in DE'
+  industries: []
+- name: Grover
+  ats: greenhouse
+  ats_slug: grover
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 10 postings in DE'
+  industries: []
+- name: Babbel
+  ats: ashby
+  ats_slug: babbel
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 9 postings in DE'
+  industries: []
+- name: Home24
+  ats: smartrecruiters
+  ats_slug: home24
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 9 postings in DE'
+  industries: []
+- name: Qonto
+  ats: ashby
+  ats_slug: qonto
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 7 postings in DE'
+  industries: []
+- name: Adyen
+  ats: greenhouse
+  ats_slug: adyen
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 6 postings in DE'
+  industries: []
+- name: Agicap
+  ats: lever
+  ats_slug: agicap
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 6 postings in DE'
+  industries: []
+- name: Forto
+  ats: ashby
+  ats_slug: forto
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 6 postings in DE'
+  industries: []
+- name: Canva
+  ats: smartrecruiters
+  ats_slug: canva
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 5 postings in DE'
+  industries: []
+- name: Aleph Alpha
+  ats: ashby
+  ats_slug: alephalpha
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 4 postings in DE'
+  industries: []
+- name: Free Now
+  ats: greenhouse
+  ats_slug: freenow
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 4 postings in DE'
+  industries: []
+- name: Thoughtworks
+  ats: greenhouse
+  ats_slug: thoughtworks
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 4 postings in DE'
+  industries: []
+- name: Tourlane
+  ats: ashby
+  ats_slug: tourlane
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 4 postings in DE'
+  industries: []
+- name: Billie
+  ats: ashby
+  ats_slug: billie
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 3 postings in DE'
+  industries: []
+- name: Contentful
+  ats: greenhouse
+  ats_slug: contentful
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 3 postings in DE'
+  industries: []
+- name: Bitpanda
+  ats: greenhouse
+  ats_slug: bitpanda
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 2 postings in DE'
+  industries:
+  - crypto
+  notes: only 2 Germany posting(s) at probe time; may drop out
+- name: Omio
+  ats: smartrecruiters
+  ats_slug: omio
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 2 postings in DE'
+  industries: []
+  notes: only 2 Germany posting(s) at probe time; may drop out
+- name: Pleo
+  ats: ashby
+  ats_slug: pleo
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 2 postings in DE'
+  industries: []
+  notes: only 2 Germany posting(s) at probe time; may drop out
+- name: HeyJobs
+  ats: ashby
+  ats_slug: heyjobs
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 1 postings in DE'
+  industries: []
+  notes: only 1 Germany posting(s) at probe time; may drop out
+- name: Mirakl
+  ats: greenhouse
+  ats_slug: mirakl
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 1 postings in DE'
+  industries: []
+  notes: only 1 Germany posting(s) at probe time; may drop out
+- name: Miro
+  ats: ashby
+  ats_slug: miro
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 1 postings in DE'
+  industries: []
+  notes: only 1 Germany posting(s) at probe time; may drop out
+- name: ResearchGate
+  ats: lever
+  ats_slug: researchgate
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 1 postings in DE'
+  industries: []
+  notes: only 1 Germany posting(s) at probe time; may drop out
+- name: Spotify
+  ats: lever
+  ats_slug: spotify
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 1 postings in DE'
+  industries: []
+  notes: only 1 Germany posting(s) at probe time; may drop out

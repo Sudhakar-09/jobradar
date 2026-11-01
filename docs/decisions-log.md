@@ -349,3 +349,11 @@ available in the repository.
   already UAE entries (Elastic, GitLab, InMobi, MongoDB, Snowflake) and gained `IN`; the
   catalogue now has 84 companies (51 India, 38 UAE). Re-check before copying: 50 of 51 boards
   listed India jobs (the one that did not is identified by the next catalogue verify).
+- **Germany catalogue approved (owner, 2026-11-01):** all 63 proposed boards, including the ten
+  with 1–2 German postings. ImmoScout24 / Scout24: the boards share 15 of 19 jobs and each names
+  itself as employer, so the rule "keep the one matching the employer in the postings" did not
+  decide; Scout24 (Scout24 SE, the legal employer operating ImmoScout24) was kept and the
+  ImmoScout24 board dropped (its 4 unique jobs are not covered; flagged to the owner). Tags:
+  Helsing `weapons_defence`, Bitpanda `crypto` (labels only; nothing is excluded unless a user
+  chooses to). Catalogue: 133 companies (62 Germany, 51 India, 38 UAE). Germany follow list
+  added for employers on unreadable systems with English-speaking JVM teams.

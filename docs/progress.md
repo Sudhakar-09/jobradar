@@ -256,6 +256,12 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   (Helsing `weapons_defence` and Bitpanda `crypto` tags proposed; ImmoScout24/Scout24 likely
   duplicates) awaits the owner's approval.
 
+- **Germany catalogue (2026-11-01):** 62 companies approved and synced (133 in total: 62 Germany,
+  51 India, 38 UAE); Helsing and Bitpanda tagged. Germany conformance now fails only on the
+  StepStone, XING and Indeed alert parsers.
+- **Manual task for the owner (open):** follow the employers in `docs/research/germany-follow-list.md`
+  on LinkedIn and create company job alerts (English-speaking JVM teams on unreadable systems).
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:
