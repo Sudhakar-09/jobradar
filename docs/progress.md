@@ -278,6 +278,11 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   - When the samples arrive: pause Phase 3, fix and verify the readers, rerun conformance and
     close Phase 2 formally.
 
+- **Phase 3 started (2026-11-01): design check done** (`docs/research/phase3-design-check-2026-11-01.md`):
+  14 gaps/conflicts between the PRD, LLDs, database plan, OpenAPI and the Phase 2 decisions;
+  owner decisions requested (market gate, LLM/embedding provider, dependency pins, budget,
+  Germany net-pay defaults, synthetic-user scope, FX seed rates) before 3a doc fixes.
+
 ## Next steps
 
 **Phase 3 — Normalize & match** has started (design check against the LLD first).
