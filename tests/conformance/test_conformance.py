@@ -107,7 +107,7 @@ def test_verified_values_need_a_source(tmp_path: Path) -> None:
 def test_germany_cannot_be_enabled_yet_and_says_why() -> None:
     report = check_market(market("germany"), INPUTS)
 
-    assert failing(report) >= {"sources", "catalogue", "golden_datasets"}
+    assert failing(report) == {"sources", "golden_datasets"}  # catalogue approved 2026-11-01
     sources = next(c for c in report.checks if c.check == "sources")
     assert "stepstone: no alert parser" in sources.detail
     assert "xing: no alert parser" in sources.detail
