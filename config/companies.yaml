@@ -6,7 +6,8 @@
 # India: 51 companies approved by the owner on 2026-10-31 (config/company_candidates/india.*);
 # five already listed for the UAE (Elastic, GitLab, InMobi, MongoDB, Snowflake) gained IN.
 # Germany: 62 companies approved by the owner on 2026-11-01 (config/company_candidates/germany.*);
-# ImmoScout24 board dropped in favour of Scout24 (15 of 19 jobs shared); existing entries gained DE.
+# ImmoScout24 and Scout24 both kept (owner, 2026-11-01; dedupe handles the 15 shared jobs);
+# existing entries gained DE.
 companies:
 - name: Binance
   ats: greenhouse
@@ -717,8 +718,7 @@ companies:
   - DE
   source: 'ats probe 2026-11-01: 18 postings in DE'
   industries: []
-  notes: Scout24 SE (operates ImmoScout24); the ImmoScout24 board shares 15 of its 19 jobs and was not
-    added
+  notes: Scout24 SE; shares 15 of 19 jobs with the ImmoScout24 board (dedupe handles the overlap)
 - name: Trivago
   ats: greenhouse
   ats_slug: trivago
@@ -924,3 +924,11 @@ companies:
   source: 'ats probe 2026-11-01: 1 postings in DE'
   industries: []
   notes: only 1 Germany posting(s) at probe time; may drop out
+- name: ImmoScout24
+  ats: greenhouse
+  ats_slug: immoscout24
+  countries:
+  - DE
+  source: 'ats probe 2026-11-01: 18 postings in DE'
+  industries: []
+  notes: ImmoScout24 (Scout24 SE); 4 jobs not on the Scout24 board; dedupe handles the shared 15

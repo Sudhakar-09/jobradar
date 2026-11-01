@@ -357,3 +357,8 @@ available in the repository.
   Helsing `weapons_defence`, Bitpanda `crypto` (labels only; nothing is excluded unless a user
   chooses to). Catalogue: 133 companies (62 Germany, 51 India, 38 UAE). Germany follow list
   added for employers on unreadable systems with English-speaking JVM teams.
+- **Scout24 (owner, 2026-11-01):** keep both the ImmoScout24 and Scout24 boards (ImmoScout24 has
+  4 unique jobs; dedupe handles the 15 shared). Catalogue: 134 companies (63 Germany).
+- **Phase 2 plan (owner, 2026-11-01):** Indeed waits for a real alert email (option a); run the
+  acceptance check for everything that does not need alert samples; record Phase 2 as "complete
+  except real alert samples"; start Phase 3 and pause it to fix readers when samples arrive.
