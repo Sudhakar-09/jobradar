@@ -18,6 +18,8 @@
   India, UAE and Germany, and the audited, conformance-gated flag service.
 - Fixed a rate-limiter spin caused by float rounding; lowered the Workable request budget.
 
+### Phase 1 — Profile and packs
+
 - Added validated profile and answer-bank YAML loaders, market/role/persona pack schemas, India and
   UAE market packs, and a Java Backend role pack.
 - Added the `jobradar profile show` CLI and a conservative plain-text resume parser.
