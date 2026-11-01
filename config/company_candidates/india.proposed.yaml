@@ -1,0 +1,317 @@
+# Proposed India-hiring companies (owner request 2026-10-31: Adzuna is off), from the probe of
+# config/company_candidates/india.txt. Every board listed at least one India job on 2026-10-31;
+# duplicates (Freshworks India, Paytm Money, Swiggy Instamart, Zenoti India) merged. Awaiting the
+# owner's approval; approved entries are copied to config/companies.yaml.
+companies:
+- name: Paytm
+  ats: lever
+  ats_slug: paytm
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 190 postings in IN'
+- name: Swiggy
+  ats: smartrecruiters
+  ats_slug: swiggy
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 183 postings in IN'
+- name: Apna
+  ats: workable
+  ats_slug: apna
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 149 postings in IN'
+- name: Okta
+  ats: greenhouse
+  ats_slug: okta
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 103 postings in IN'
+- name: Databricks
+  ats: greenhouse
+  ats_slug: databricks
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 85 postings in IN'
+- name: Zscaler
+  ats: greenhouse
+  ats_slug: zscaler
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 84 postings in IN'
+- name: MongoDB
+  ats: greenhouse
+  ats_slug: mongodb
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 83 postings in IN'
+- name: ServiceNow
+  ats: smartrecruiters
+  ats_slug: servicenow
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 81 postings in IN'
+- name: Tekion
+  ats: ashby
+  ats_slug: tekion
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 65 postings in IN'
+- name: Hevo Data
+  ats: lever
+  ats_slug: hevodata
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 51 postings in IN'
+- name: Meesho
+  ats: lever
+  ats_slug: meesho
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 49 postings in IN'
+- name: InMobi
+  ats: greenhouse
+  ats_slug: inmobi
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 47 postings in IN'
+- name: Stripe
+  ats: greenhouse
+  ats_slug: stripe
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 47 postings in IN'
+- name: Highradius
+  ats: greenhouse
+  ats_slug: highradius
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 46 postings in IN'
+- name: Sarvam AI
+  ats: ashby
+  ats_slug: sarvam
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 46 postings in IN'
+- name: Sigmoid
+  ats: greenhouse
+  ats_slug: sigmoid
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 40 postings in IN'
+- name: Freshworks
+  ats: smartrecruiters
+  ats_slug: freshworks
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 35 postings in IN'
+- name: Zeta Global
+  ats: greenhouse
+  ats_slug: zetaglobal
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 35 postings in IN'
+- name: Zenoti
+  ats: greenhouse
+  ats_slug: zenoti
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 34 postings in IN'
+- name: Rubrik India
+  ats: greenhouse
+  ats_slug: rubrik
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 32 postings in IN'
+- name: GitLab
+  ats: greenhouse
+  ats_slug: gitlab
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 30 postings in IN'
+- name: Zeta
+  ats: lever
+  ats_slug: zeta
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 27 postings in IN'
+- name: Glance
+  ats: greenhouse
+  ats_slug: glance
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 21 postings in IN'
+- name: Mindtickle
+  ats: lever
+  ats_slug: mindtickle
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 17 postings in IN'
+- name: Commvault
+  ats: greenhouse
+  ats_slug: commvault
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 16 postings in IN'
+- name: Elastic
+  ats: greenhouse
+  ats_slug: elastic
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 16 postings in IN'
+- name: CRED
+  ats: lever
+  ats_slug: cred
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 14 postings in IN'
+- name: Agoda
+  ats: greenhouse
+  ats_slug: agoda
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 13 postings in IN'
+- name: Druva
+  ats: greenhouse
+  ats_slug: druva
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 12 postings in IN'
+- name: Datadog
+  ats: greenhouse
+  ats_slug: datadog
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 10 postings in IN'
+- name: SpotDraft
+  ats: ashby
+  ats_slug: spotdraft
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 10 postings in IN'
+- name: Airbnb
+  ats: greenhouse
+  ats_slug: airbnb
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 9 postings in IN'
+- name: Endava
+  ats: smartrecruiters
+  ats_slug: endava
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 9 postings in IN'
+- name: Groww
+  ats: greenhouse
+  ats_slug: groww
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 9 postings in IN'
+- name: Twilio
+  ats: greenhouse
+  ats_slug: twilio
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 9 postings in IN'
+- name: Snowflake
+  ats: ashby
+  ats_slug: snowflake
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 8 postings in IN'
+- name: ixigo
+  ats: smartrecruiters
+  ats_slug: ixigo
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 7 postings in IN'
+- name: Jumio
+  ats: greenhouse
+  ats_slug: jumio
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 7 postings in IN'
+- name: Turing
+  ats: greenhouse
+  ats_slug: turing
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 6 postings in IN'
+- name: Atlan
+  ats: ashby
+  ats_slug: atlan
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 5 postings in IN'
+- name: Gainsight
+  ats: ashby
+  ats_slug: gainsight
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 4 postings in IN'
+- name: Observe.AI
+  ats: greenhouse
+  ats_slug: observeai
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 4 postings in IN'
+- name: Instahyre
+  ats: smartrecruiters
+  ats_slug: instahyre
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 3 postings in IN'
+- name: New Relic
+  ats: greenhouse
+  ats_slug: newrelic
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 3 postings in IN'
+- name: Unacademy
+  ats: smartrecruiters
+  ats_slug: unacademy
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 3 postings in IN'
+- name: Pocket FM
+  ats: lever
+  ats_slug: pocketfm
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 2 postings in IN'
+  notes: only 2 India posting(s) at probe time; may drop out
+- name: Cars24
+  ats: smartrecruiters
+  ats_slug: cars24
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 1 postings in IN'
+  notes: only 1 India posting(s) at probe time; may drop out
+- name: Lendingkart
+  ats: smartrecruiters
+  ats_slug: lendingkart
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 1 postings in IN'
+  notes: only 1 India posting(s) at probe time; may drop out
+- name: NoBroker
+  ats: smartrecruiters
+  ats_slug: nobroker
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 1 postings in IN'
+  notes: only 1 India posting(s) at probe time; may drop out
+- name: Upstox
+  ats: smartrecruiters
+  ats_slug: upstox
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 1 postings in IN'
+  notes: only 1 India posting(s) at probe time; may drop out
+- name: Whatfix
+  ats: smartrecruiters
+  ats_slug: whatfix
+  countries:
+  - IN
+  source: 'ats probe 2026-11-01: 1 postings in IN'
+  notes: only 1 India posting(s) at probe time; may drop out

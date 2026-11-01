@@ -344,3 +344,8 @@ available in the repository.
   `java_backend` ranges set for the owner: mid 2–5 (postings asking up to "4+ years" = target),
   senior 5–7 ("5+"/"6+" = stretch with a score penalty), staff 7–15 ("7+" = ineligible); junior
   0–2 and executive 10+ unchanged. Title placements unchanged.
+- **India catalogue approved (owner, 2026-10-31):** all 51 proposed companies, including the six
+  with 1–2 India postings (re-verified automatically) and Instahyre as an employer. Five were
+  already UAE entries (Elastic, GitLab, InMobi, MongoDB, Snowflake) and gained `IN`; the
+  catalogue now has 84 companies (51 India, 38 UAE). Re-check before copying: 50 of 51 boards
+  listed India jobs (the one that did not is identified by the next catalogue verify).

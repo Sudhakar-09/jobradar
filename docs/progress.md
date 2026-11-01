@@ -247,6 +247,10 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   on LinkedIn (or Naukri / Instahyre / Foundit) and create company job alerts, so jobs from
   India employers on unreadable systems arrive as alert emails. Tick each company when done.
 
+- **India catalogue (2026-10-31):** probe of ~300 candidates found 55 boards (51 unique) with
+  India postings; owner approved all 51; merged into `config/companies.yaml` (84 companies:
+  51 India, 38 UAE) and synced. India conformance now fails only on the Indeed alert parser.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:

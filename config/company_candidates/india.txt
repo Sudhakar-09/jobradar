@@ -1,0 +1,299 @@
+# Candidate employers hiring in India, for `jobradar companies probe --country IN` (US-2.7).
+# Requested by the owner on 2026-10-31 because Adzuna (the India aggregator) is disabled in
+# Stage 1. Product companies, startups and global companies with Indian tech centres. Only boards
+# that list India jobs at probe time are proposed; the owner approves before anything is added.
+
+# --- Indian product companies and unicorns ---
+Razorpay
+CRED
+Zerodha
+Groww
+PhonePe
+Paytm
+Meesho
+Swiggy
+Zomato
+Zepto
+Blinkit
+Flipkart
+Myntra
+Ola
+Rapido
+Dream11
+Dream Sports
+MPL
+Games24x7
+ShareChat
+Moj
+InMobi
+Glance
+Dailyhunt
+Nykaa
+Lenskart
+Urban Company
+Udaan
+Licious
+Delhivery
+Shiprocket
+BlackBuck
+Rivigo
+Porter
+Freshworks
+Zoho
+Chargebee
+Postman
+BrowserStack
+Hasura
+Druva
+Icertis
+Innovaccer
+Darwinbox
+Whatfix
+MoEngage
+CleverTap
+WebEngage
+Hevo Data
+Atlan
+Sprinklr
+Highradius
+Mindtickle
+LeadSquared
+Exotel
+Kaleyra
+Gupshup
+Haptik
+Yellow.ai
+Uniphore
+Observe.AI
+Sarvam AI
+Krutrim
+Ola Electric
+Ather Energy
+Cars24
+Spinny
+CarDekho
+OYO
+MakeMyTrip
+ixigo
+Cleartrip
+EaseMyTrip
+PolicyBazaar
+PB Fintech
+Acko
+Digit Insurance
+Ditto
+Upstox
+Angel One
+Smallcase
+Jupiter
+Fi
+Slice
+Uni
+OneCard
+Jar
+Khatabook
+OkCredit
+BharatPe
+Pine Labs
+Juspay
+Cashfree
+PayU
+Mobikwik
+Perfios
+Setu
+M2P Fintech
+Zeta
+Lendingkart
+KreditBee
+Navi
+Paisabazaar
+InCred
+Scripbox
+INDmoney
+Dhan
+Unacademy
+upGrad
+Byju's
+Vedantu
+PhysicsWallah
+Eruditus
+Scaler
+Simplilearn
+Classplus
+Testbook
+Practo
+PharmEasy
+Tata 1mg
+Cult.fit
+HealthifyMe
+Innovaccer India
+Pristyn Care
+Ninjacart
+DeHaat
+Jumbotail
+Dunzo
+BigBasket
+Country Delight
+FirstCry
+Purplle
+Mamaearth
+Sugar Cosmetics
+boAt
+Pepperfry
+Livspace
+NoBroker
+Housing.com
+Square Yards
+Magicbricks
+Info Edge
+Naukri
+Apna
+Instahyre
+Hirect
+Pocket FM
+Kuku FM
+Josh
+Rooter
+Loco
+Eloelo
+Nazara
+Zupee
+WinZO
+Junglee Games
+Mobile Premier League
+CoinDCX
+CoinSwitch
+WazirX
+Polygon Labs
+Mudrex
+Gojek India
+Atlassian India
+Thoughtspot
+Rubrik India
+Nutanix
+Cohesity
+Commvault
+Couchbase
+Confluent
+Databricks
+Snowflake
+MongoDB
+Elastic
+Okta
+Twilio
+Zscaler
+CrowdStrike
+Palo Alto Networks
+Cloudflare
+Datadog
+New Relic
+Dynatrace
+Splunk
+GitLab
+HashiCorp
+Postman India
+Intuit
+Adobe
+Salesforce
+ServiceNow
+Workday
+Atlassian
+Uber
+Lyft
+Airbnb
+Booking.com
+Expedia
+Agoda
+Stripe
+PayPal
+Visa
+Mastercard
+American Express
+Goldman Sachs
+Morgan Stanley
+JPMorgan Chase
+Deutsche Bank
+Barclays
+HSBC
+Wells Fargo
+Citi
+BlackRock
+Fidelity
+State Street
+Northern Trust
+DE Shaw
+Tower Research
+Graviton
+Quadeye
+AlphaGrep
+Optiver
+Jane Street
+Media.net
+Directi
+Sprinklr India
+Rakuten
+Walmart Global Tech
+Target
+Lowe's
+Tesco
+Sainsbury's
+Ikea
+Nike
+Swiggy Instamart
+Tekion
+Zenoti
+Amagi
+Gainsight
+Freshworks India
+Chargebee India
+Capillary Technologies
+Unbxd
+Vymo
+Signzy
+IDfy
+Hyperverge
+Jumio
+Sumsub
+Signeasy
+Leena AI
+Rocketlane
+Spyne
+Gan.ai
+Murf
+Rephrase.ai
+Fractal
+Tredence
+LatentView
+Mu Sigma
+Tiger Analytics
+Quantiphi
+Sigmoid
+Thoughtworks
+EPAM
+Globant
+Endava
+Nagarro
+Publicis Sapient
+Grid Dynamics
+Zeta Global
+Wingify
+VWO
+Paytm Money
+Ola Krutrim
+Toplyne
+Zluri
+SpotDraft
+Clear
+ClearTax
+Zenoti India
+Deel
+Remote
+Turing
+Andela
+Toptal
+Canonical
+Automattic
+Zapier
+GitHub
+Red Hat
+SUSE
