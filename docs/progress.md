@@ -251,6 +251,11 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   India postings; owner approved all 51; merged into `config/companies.yaml` (84 companies:
   51 India, 38 UAE) and synced. India conformance now fails only on the Indeed alert parser.
 
+- **Germany company probe (2026-11-01):** ~200 candidates probed; 63 boards with jobs in Germany,
+  all re-verified (63/63). Proposed list `config/company_candidates/germany.proposed.yaml`
+  (Helsing `weapons_defence` and Bitpanda `crypto` tags proposed; ImmoScout24/Scout24 likely
+  duplicates) awaits the owner's approval.
+
 ## Next steps
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:

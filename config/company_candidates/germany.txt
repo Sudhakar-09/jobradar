@@ -1,0 +1,200 @@
+# Candidate employers hiring in Germany, for `jobradar companies probe --country DE` (US-2.7).
+# Requested by the owner on 2026-10-31 when Germany became a market. German tech companies and
+# scale-ups, fintechs, and global companies with German engineering offices. Only boards that list
+# Germany jobs at probe time are proposed; the owner approves before anything is added.
+# Many German employers use Personio, SAP SuccessFactors or Workday, which are not read here.
+
+# --- German tech and scale-ups ---
+Zalando
+Delivery Hero
+HelloFresh
+Celonis
+Personio
+N26
+Trade Republic
+Scalable Capital
+Raisin
+Solaris
+Mambu
+Contentful
+GetYourGuide
+Babbel
+SumUp
+Auto1
+Check24
+Flix
+FlixBus
+Wolt
+Gorillas
+Flink
+Wefox
+Clark
+Taxfix
+Billie
+Pliant
+Qonto
+Moss
+Pleo
+Upvest
+Lilium
+Isar Aerospace
+Helsing
+Quantum Systems
+Aleph Alpha
+DeepL
+Parloa
+Langfuse
+n8n
+Staffbase
+LeanIX
+Commercetools
+Sennder
+Forto
+Trade Machines
+Enpal
+1Komma5
+Sunfire
+Tado
+Thermondo
+Ottonova
+Doctolib
+Kry
+Ada Health
+Doctorly
+Agicap
+Spryker
+Shopware
+Ionos
+Hetzner
+Jimdo
+Freeletics
+Komoot
+Blinkist
+Ecosia
+ResearchGate
+SoundCloud
+Native Instruments
+Idealo
+Mobile.de
+Kleinanzeigen
+Immowelt
+ImmoScout24
+Scout24
+About You
+Home24
+Westwing
+Mister Spex
+Grover
+Choco
+Planetly
+Tier
+Bolt
+Miles Mobility
+Share Now
+Free Now
+Holidu
+Tourlane
+Omio
+Trivago
+HeyJobs
+Join
+Workwise
+Instaffo
+Kenjo
+Factorial
+Circula
+Candis
+Finom
+Penta
+Kontist
+Vivid Money
+Bitpanda
+Nuri
+Bison
+Boerse Stuttgart Digital
+Mondu
+Ratepay
+Unzer
+Adyen
+Klarna
+Stripe
+
+# --- Global software with German engineering offices ---
+SAP
+Siemens
+Bosch
+Zeiss
+Infineon
+BMW
+Mercedes-Benz
+Volkswagen
+Cariad
+Porsche
+Continental
+Allianz
+Munich Re
+Deutsche Bank
+Commerzbank
+Deutsche Telekom
+Vodafone
+Lufthansa
+DHL
+Otto
+Rewe
+Lidl
+Schwarz IT
+Aldi
+MediaMarktSaturn
+Datadog
+MongoDB
+Elastic
+Confluent
+Databricks
+Snowflake
+GitLab
+HashiCorp
+Grafana Labs
+Camunda
+Mirakl
+Contentsquare
+Miro
+Canva
+Spotify
+Amazon
+Google
+Microsoft
+Apple
+Meta
+Uber
+Airbnb
+Booking.com
+Expedia
+Wayfair
+Zendesk
+HubSpot
+Salesforce
+Workday
+ServiceNow
+Atlassian
+JetBrains
+Red Hat
+SUSE
+Canonical
+Thoughtworks
+EPAM
+Globant
+Endava
+Nagarro
+Publicis Sapient
+Accenture
+Capgemini
+Cloudflare
+Fastly
+Okta
+Twilio
+Palantir
+Scale AI
+Cohere
+Mistral AI
+Hugging Face
+Black Forest Labs
