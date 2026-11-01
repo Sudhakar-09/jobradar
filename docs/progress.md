@@ -262,7 +262,27 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
 - **Manual task for the owner (open):** follow the employers in `docs/research/germany-follow-list.md`
   on LinkedIn and create company job alerts (English-speaking JVM teams on unreadable systems).
 
+- **Phase 2 acceptance check (2026-11-01): COMPLETE EXCEPT REAL ALERT SAMPLES.**
+  - `jobradar discover`: 136 runs, all ok (incl. the previously rate-limited Workable boards
+    Apna, Foodics, Hex Trust, Tamatem); 15,248 deduplicated jobs from 16,736 sightings; alert
+    inbox run ok (LinkedIn).
+  - 371 tests pass, coverage 96 %; pre-commit, OpenAPI validation and CI green.
+  - Conformance: UAE, `java_backend`, `mid` PASS; India and Germany fail only on alert readers.
+  - ≥ 30 verified UAE companies: 38. README Phase 2 section and CHANGELOG entry written.
+  - **Pending real alert samples (owner sends one email each; same anonymize-and-fix process as
+    LinkedIn):**
+    - **Indeed** (India and Germany): no reader yet; blocks India and Germany conformance.
+    - **StepStone** and **XING** (Germany): no readers yet; block Germany conformance.
+    - **Naukri, Instahyre, Foundit** (India) and **Naukrigulf, Bayt, GulfTalent** (UAE): readers
+      exist but are tested only on synthetic samples; each must read one real alert.
+  - When the samples arrive: pause Phase 3, fix and verify the readers, rerun conformance and
+    close Phase 2 formally.
+
 ## Next steps
+
+**Phase 3 — Normalize & match** has started (design check against the LLD first).
+Phase 2 items below are done unless listed as pending above.
+
 
 **Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:
 1. ~~Pack schemas and UAE pack (US-1.2 AC2/AC3)~~ — done in 2a.

@@ -3,8 +3,10 @@
 JobRadar is a job search operating system for anyone, in any role and country: it discovers jobs,
 explains matches, prepares and tracks applications, and never fabricates facts or spams
 employers. Phase 0 provides the development scaffold; Phase 1 adds validated profile,
-answer-bank, and pack loading, plus conservative plain-text resume parsing. The full design is
-documented and approved; Phase 2 (Discovery) is next.
+answer-bank, and pack loading, plus conservative plain-text resume parsing; Phase 2 adds
+discovery from ATS boards, aggregators and job-alert emails, a verified company catalogue, pack
+verification and the conformance suite. Phase 2 is complete except real alert samples for some
+boards (see [docs/progress.md](docs/progress.md)); Phase 3 (normalize and match) is next.
 
 - Start here: [CLAUDE.md](CLAUDE.md) (rules, phases, workflow) and [docs/prd.md](docs/prd.md).
 - Architecture: [docs/architecture.md](docs/architecture.md), [docs/adr/](docs/adr/README.md),
@@ -14,6 +16,39 @@ documented and approved; Phase 2 (Discovery) is next.
 - Design: [docs/design-system.md](docs/design-system.md), [docs/ux.md](docs/ux.md).
 - Contributing: `uv sync --group dev && uv run pre-commit install`, then
   `uv run pre-commit run --all-files`.
+
+## Phase 2 — Discovery
+
+Discovery fills a shared, deduplicated job corpus from public sources, within the source
+policies in `config/source_policies.yaml` (unknown hosts and LinkedIn, Indeed, Naukri, Bayt and
+similar boards are alert-email and one-tap only).
+
+```powershell
+uv run jobradar companies sync                 # load config/companies.yaml into the database
+uv run jobradar discover                       # ATS boards, aggregators and your alert inbox
+uv run jobradar discover --source greenhouse   # one connector
+uv run jobradar companies verify               # check catalogue boards (cached for 24 hours)
+uv run jobradar companies probe "Acme" --country DE   # find a company's public ATS board
+uv run jobradar companies suggestions list     # employers seen in your alerts, for review
+uv run jobradar packs check                    # pack conformance suite
+uv run jobradar flags set market.uae.enabled true --reason "..."   # gated by conformance
+```
+
+- **Sources:** Greenhouse, Lever, Ashby, Workable and SmartRecruiters boards for the 134 catalogue
+  companies (India, UAE, Germany); Remotive; Adzuna (built, disabled: paid plan).
+- **Job-alert emails (Gmail, read-only, with consent):** set `GOOGLE_OAUTH_CLIENT_FILE` and
+  `TOKEN_ENCRYPTION_KEY` (`uv run jobradar keys generate`) in `.env`, then
+  `uv run jobradar users bootstrap-owner --email you@example.org`,
+  `uv run jobradar inbox connect gmail` and `uv run jobradar alerts ingest`. Email bodies are
+  never stored; `uv run jobradar alerts reprocess` re-reads emails a reader could not parse.
+- **Packs and verification:** `packs/verification/` records a source and date for every factual
+  pack value; `docs/markets/` holds rollout checklists; golden datasets live in `tests/golden/`.
+- **Follow lists:** `docs/research/*-follow-list.md` list employers on hiring systems JobRadar
+  cannot read; follow them on LinkedIn so their jobs arrive as alerts.
+
+Acceptance run (2026-11-01): 136 source runs, all ok; 15,248 deduplicated jobs from 16,736
+source sightings; 371 tests, coverage 96 %; conformance passes for the UAE, `java_backend` and
+`mid`; India and Germany wait only for alert-reader samples.
 
 ## Phase 1 — Profile and packs
 
@@ -37,7 +72,7 @@ uv run jobradar profile show --profile .\config\profile.yaml
 ```
 
 The market and role packs in `packs\` are validated with strict Pydantic schemas. The current
-target packs cover India, UAE, and Java Backend. Market packs without a `last_verified` date, or
+target packs cover India, the UAE, Germany, and Java Backend. Market packs without a `last_verified` date, or
 with a date older than 90 days, produce a warning.
 
 `jobradar profile parse-resume <path>` accepts a UTF-8 plain-text file and extracts only explicitly
