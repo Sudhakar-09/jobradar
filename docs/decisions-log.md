@@ -362,3 +362,12 @@ available in the repository.
 - **Phase 2 plan (owner, 2026-11-01):** Indeed waits for a real alert email (option a); run the
   acceptance check for everything that does not need alert samples; record Phase 2 as "complete
   except real alert samples"; start Phase 3 and pause it to fix readers when samples arrive.
+- **Alert sender addresses fixed (2026-11-06):** a From-address-only check of job-board mail in
+  the owner's inbox (`scripts/archive/alert_sender_check.py`) showed Naukri
+  (`naukrialerts@naukri.com`), Instahyre (`noreply@instahyre.com`) and Foundit
+  (`updates@alerts.foundit.in`, `opportunities@foundit.in`) alerts arriving from addresses the
+  config did not list, so Gmail never returned them; Indeed sends from
+  `donotreply@jobalert.indeed.com` and `donotreply@match.indeed.com` (no reader yet). No mail from
+  Naukrigulf, Bayt, GulfTalent, StepStone or XING in 10 days. Gmail look-back widened from 3 to 7
+  days (message IDs prevent double-reading). The fetched Naukri, Instahyre and Foundit alerts
+  yield 0 jobs: their readers need real samples, like LinkedIn did.

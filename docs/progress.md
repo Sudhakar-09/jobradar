@@ -269,12 +269,13 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
   - 371 tests pass, coverage 96 %; pre-commit, OpenAPI validation and CI green.
   - Conformance: UAE, `java_backend`, `mid` PASS; India and Germany fail only on alert readers.
   - ≥ 30 verified UAE companies: 38. README Phase 2 section and CHANGELOG entry written.
-  - **Pending real alert samples (owner sends one email each; same anonymize-and-fix process as
+  - **Pending real alert samples (updated 2026-11-06; same anonymize-and-fix process as
     LinkedIn):**
-    - **Indeed** (India and Germany): no reader yet; blocks India and Germany conformance.
-    - **StepStone** and **XING** (Germany): no readers yet; block Germany conformance.
-    - **Naukri, Instahyre, Foundit** (India) and **Naukrigulf, Bayt, GulfTalent** (UAE): readers
-      exist but are tested only on synthetic samples; each must read one real alert.
+    - **In the inbox, reader fails (0 jobs) — need one sample each:** Foundit (10 alerts),
+      Instahyre (2), Naukri (1). Sender addresses fixed 2026-11-06.
+    - **In the inbox, no reader yet:** Indeed (22 alerts; India and Germany).
+    - **Not arriving at all (check the alerts were created / confirmed on this Gmail):**
+      Naukrigulf, Bayt, GulfTalent (UAE); StepStone, XING (Germany).
   - When the samples arrive: pause Phase 3, fix and verify the readers, rerun conformance and
     close Phase 2 formally.
 

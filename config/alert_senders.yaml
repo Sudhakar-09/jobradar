@@ -39,7 +39,7 @@ parsers:
   naukri:
     name: Naukri job alerts
     markets: [india]
-    sender_addresses: [jobalert@naukri.com, info@naukri.com]
+    sender_addresses: [naukrialerts@naukri.com]  # seen in the owner's inbox 2026-11-06
     sender_domains: [naukri.com]
     job_url: '^https://(?:www\.)?naukri\.com/(?P<slug>job-listings-[^?#]*?)-(?P<id>\d{8,})'
     canonical_url: 'https://www.naukri.com/{slug}-{id}'
@@ -47,14 +47,14 @@ parsers:
   instahyre:
     name: Instahyre job alerts
     markets: [india]
-    sender_addresses: [jobs@instahyre.com, notifications@instahyre.com]
+    sender_addresses: [noreply@instahyre.com]  # seen in the owner's inbox 2026-11-06
     sender_domains: [instahyre.com]
     job_url: '^https://(?:www\.)?instahyre\.com/job-(?P<id>\d+)(?P<slug>-[^/?#]*)?/?'
     canonical_url: 'https://www.instahyre.com/job-{id}{slug}/'
   foundit:
     name: Foundit job alerts
     markets: [india]
-    sender_addresses: [jobalerts@foundit.in, alerts@foundit.in]
+    sender_addresses: [updates@alerts.foundit.in, opportunities@foundit.in]  # seen 2026-11-06
     sender_domains: [foundit.in]
     job_url: '^https://(?:www\.)?foundit\.in/job/(?P<slug>[^?#]*?)-(?P<id>\d+)(?:[?#/]|$)'
     canonical_url: 'https://www.foundit.in/job/{slug}-{id}'
