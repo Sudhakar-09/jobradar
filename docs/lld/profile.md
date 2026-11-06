@@ -523,6 +523,16 @@ Scope precedence: `company` (scope_value = company ID) > `market` (scope_value =
 | `answer_bank` | §3.4 | all | `question_fingerprint`, GIN trigram on `question_canonical` |
 | `files` (kind `resume_upload`, `photo`) | §3.4 | rows of these kinds | upload and delete only; storage via `core.files` (the shared `FileStore` used by every module) |
 
+Profile import (Phase 3, `jobradar profile import`, design check 2026-11-01): the YAML profile
+maps to `ProfileView` as follows — `languages` (ISO 639-1 codes) → `LanguageSkill(code,
+level=None)`; `locations` (free text) → `LocationPref` through the normalizer's location rules
+(country required; unresolved entries are reported, never guessed); `skills` → `Skill(name)`;
+`salary_expectations` (currency-keyed) → `SalaryExpectation` per market; `visa_status` keyed by
+market code → country codes of that market; `years_exp`, `excluded_industries`,
+`excluded_keywords`, `india_tax_regime` and `min_fit_score` are copied (the last three are added to
+the YAML schema, with defaults). Seniority uses the role-pack levels (junior / mid / senior /
+staff / executive).
+
 Phases: `profiles`, `profile_embeddings`, `files` arrive in Phase 3; `resume_variants` and
 `answer_bank` in Phase 5 (database.md §9). Until Phase 5, `list_resume_variants`, `find_answer`,
 `list_answers` and `save_answer` are not exposed.

@@ -286,32 +286,22 @@ Phase 2 — Discovery, worked in sub-steps 2a–2h (owner plan; STOP points at 2
 
 ## Next steps
 
-**Phase 3 — Normalize & match** has started (design check against the LLD first).
-Phase 2 items below are done unless listed as pending above.
-
-
-**Phase 2 — Discovery** (Stage 1). Work story by story using the workflow in `CLAUDE.md` §11:
-1. ~~Pack schemas and UAE pack (US-1.2 AC2/AC3)~~ — done in 2a.
-2. ~~Core building blocks~~ — done in 2b.
-3. ~~Phase 2 tables, roles, RLS, integration tests~~ — done in 2c.
-4. ~~Source policy registry (US-2.8)~~ — done in 2a (connectors re-export comes in 2d).
-5. ~~ATS connectors (US-2.1)~~ — done in 2d. ~~Adzuna and Remotive (US-2.2)~~ — done in 2e
-   (Adzuna live run waits for the owner's key).
-6. ~~Dedupe and ingest (US-2.3) and `jobradar discover` (US-2.4)~~ — done in 2d.
-7. Gmail job-alert ingestion and parsers for LinkedIn, Naukrigulf, Bayt, GulfTalent (US-2.5), with
-   consent and body discard.
-8. ~~Connector health and `degraded` detection (US-2.6)~~ — done in 2d (alerting arrives with ops).
-9. ~~Company catalogue, `jobradar companies verify`, suggestions from alerts~~ — done in 2g;
-   36 verified UAE-hiring companies approved and in the catalogue (US-2.7).
-10. Golden datasets for India and UAE and conformance suite v1 (US-2.9).
-New dependencies expected and needing approval when reached: Google API client (Gmail),
-an HTML parser for alert emails, testcontainers (or compose services) for integration tests.
+**Phase 3 — Normalize & match** (decisions of 2026-11-06 in `docs/decisions-log.md`; design
+check `docs/research/phase3-design-check-2026-11-01.md`):
+- ~~3a design docs fixed and decisions recorded~~ (2026-11-06).
+- 3b `core.plugins`, `core.llm` gateway (Anthropic SDK + Voyage AI), metering, migration 0003
+  part 1 · 3c migration 0003 part 2 and profile import · 3d rules-first normalizer · 3e LLM field
+  resolver · 3f FX and compensation models · 3g Tier 0 eligibility · 3h embeddings and Tier 1 ·
+  3i Tier 2 scoring and ranking · 3j CLI · 3k synthetic users syn-01 / syn-06 · 3l acceptance.
+- **Phase 2 interrupt:** when the owner delivers the alert samples, pause Phase 3, fix and verify
+  the readers, close Phase 2, resume.
 
 ## Open questions/decisions waiting on me
 
-- Save `ADZUNA_APP_ID`/`ADZUNA_APP_KEY` in `.env` so the single verification call can run.
-- Confirm `cryptography` as a direct dependency (token encryption).
-- Google Cloud setup for Gmail (2f STOP).
+- Alert samples: one real email each from Foundit, Instahyre, Naukri and Indeed (already in the
+  inbox); check why Naukrigulf, Bayt, GulfTalent, StepStone and XING alerts do not arrive.
+- API keys for Phase 3b: `ANTHROPIC_API_KEY` and `VOYAGE_API_KEY` in `.env`.
+- Manual tasks: UAE, India and Germany follow lists (LinkedIn company alerts).
 
 ## Known issues
 

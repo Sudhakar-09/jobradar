@@ -91,7 +91,7 @@ policies) or a registered plug-in**. Adding a country or role needs no core code
 | Validation / settings | Pydantic v2, pydantic-settings |
 | Browser automation | Playwright (Chromium) for server-side dry-run/apply on allowed ATSs |
 | HTTP | httpx (async, via `core.http` only), tenacity |
-| LLM | LiteLLM behind `core.llm` gateway; model tiers small/standard/premium/embedding; tiered matching (ADR-0023) |
+| LLM | `anthropic` SDK (Claude Haiku / Sonnet / Opus tiers) and `voyageai` (embeddings) behind the `core.llm` gateway; `pgvector` (Python); tiered matching (ADR-0023). Decision 2026-11-06, replacing LiteLLM |
 | Web app | React + TypeScript (Vite), Tailwind, shadcn/ui on Radix, Motion, TanStack Query, Lucide, Recharts, Storybook; installable PWA. **No Streamlit.** |
 | Extension | Manifest V3 (Chromium first, Firefox next), shares tokens/UI packages |
 | Notifications | Outbox + channels: in-app, email (transactional provider), web push (VAPID), Telegram (python-telegram-bot) |
@@ -103,7 +103,7 @@ policies) or a registered plug-in**. Adding a country or role needs no core code
 | Logging | structlog JSON, correlation IDs, no PII |
 
 Approved but deferred to the phase that needs them: auth libraries (argon2, OIDC, TOTP), transactional
-email and web-push libraries (Phase 4 approval), `pypdf` (resume parsing).
+email and web-push libraries (Phase 4 approval). `pypdf` (resume parsing) lands in Phase 3.
 
 ## 5. Repository layout
 
@@ -113,7 +113,8 @@ jobradar/
 ├── .github/            workflows/ci.yml, dependabot.yml, pull_request_template.md
 ├── config/             profile.example.yaml, answer_bank.example.yaml, companies.yaml,
 │                       source_policies.yaml, connectors.yaml, alert_senders.yaml,
-│                       compensation/<market>/<date>.yaml, consents/   (profile.yaml is git-ignored)
+│                       market_data/<market>/ (dated tables), language_requirements.yaml,
+│                       industries.yaml, consents/   (profile.yaml is git-ignored)
 ├── packs/              markets/, roles/, personas/   (validated YAML)
 ├── alembic/            migrations (one per phase, docs/lld/database.md §9)
 ├── src/jobradar/
@@ -163,7 +164,8 @@ entry points (`api`, `tasks`, `cli`) → domain services → repositories → mo
   Remotive; job-alert emails (LinkedIn, Naukrigulf, Bayt, GulfTalent) via `AlertInbox`; company
   catalogue; source policies; logo proxy.
 - **normalizer:** dedupe, rules-first normalization, small-model LLM fallback, taxonomy,
-  compensation models (India new/old regime, UAE tax-free monthly), FX, shared job embeddings.
+  compensation models (India new/old regime, UAE tax-free monthly, Germany gross), FX, shared
+  job embeddings.
 - **matching:** tiered pipeline: rules/eligibility → embedding similarity → batched LLM top N →
   ranking with reasons.
 - **documents / apply:** variants per market format, facts-only tailoring with claim check;

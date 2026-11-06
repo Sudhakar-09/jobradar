@@ -1272,7 +1272,7 @@ paths:
       summary: Usage meters vs plan limits and reset times
       tags:
       - controls
-      x-phase: 3
+      x-phase: 4
       x-story:
       - US-10.5
       x-scopes: []

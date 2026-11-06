@@ -297,7 +297,8 @@ quotas:
     applications.per_employer: 5        # rolling 30 days; plans default to 3
     documents.tailored: 20
     llm.tokens: 200000                  # per day
-    llm.cost_usd_micros: 1000000        # per month (US$1.00)
+    llm.cost_usd_micros: 10000000       # per user per month (US$10.00); owner plan soft budget
+                                        # 250000 per day (US$0.25), decision 2026-11-06
     llm.score_on_demand: 30
     matching.llm_top_n: 25
     documents.premium_model_allowed: 1
@@ -305,7 +306,7 @@ quotas:
 # the global fit-score floor is matching.global_min_fit_floor (60); users can only raise it
   degradation: {no_tailoring_at: 0.8, rules_only_at: 1.0}
   abuse: {burst_per_hour: 10, min_response_rate: 0.02, ...}
-  deployment_llm_budget_usd_month: ...  # alerts at 50/80/100%
+  deployment_llm_budget_usd_month: 15   # Stage 1 cap (decision 2026-11-06); alerts at 50/80/100%
 ```
 
 Flags: `quotas.enforce` (`soft` in Stage 1: log and notify, don't deny LLM metrics; apply metrics

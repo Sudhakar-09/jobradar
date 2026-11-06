@@ -290,7 +290,7 @@ Indexes: `ix_user_restrictions_user_id_ends_at`.
 | user_id | uuid | FK users, U |
 | version | integer | incremented on every change; part of cache keys (ADR-0023) |
 | persona | text | persona pack code |
-| seniority | text | CHECK in (`intern`,`entry`,`junior`,`mid`,`senior`,`lead`,`principal`,`manager`,`director`,`executive`) |
+| seniority | text | CHECK in (`junior`,`mid`,`senior`,`staff`,`executive`) — the role-pack levels (Phase 3a); intern/entry map to junior, lead to senior, principal/architect to staff, director/head of/VP to executive |
 | years_exp | numeric(4,1) | N |
 | field_code, role_family_code | text | N; taxonomy codes |
 | target_markets | text[] | market pack codes |
@@ -318,7 +318,7 @@ Indexes: `ix_user_restrictions_user_id_ends_at`.
 | user_id | uuid | FK users |
 | profile_version | integer | PK part |
 | model | text | embedding model ID |
-| embedding | vector(n) | pgvector (approved 2026-10-30) |
+| embedding | vector(n) | pgvector (approved 2026-10-30); n fixed in 3b by the chosen Voyage AI embedding model |
 | created_at | timestamptz | |
 
 **resume_variants** (RLS)
@@ -479,6 +479,10 @@ Indexes: `uq_alert_messages_inbox_id_provider_message_id`.
 | residency_required | boolean | N |
 | nationality_restricted | boolean | default false |
 | languages_required | text[] | N |
+| languages_preferred | text[] | N; "is a plus" languages (never block) |
+| posting_language | text | N; language the posting is written in |
+| min_years_experience | numeric(4,1) | N; stated minimum years |
+| required_skills, preferred_skills | text[] | N; role-pack skills found in the posting |
 | credentials_required | text[] | N; credential codes |
 | ghost_score, scam_score | smallint | N; 0–100 |
 | content_hash | bytea | hash of normalized title + description + key fields; cache key |
@@ -507,7 +511,7 @@ Indexes: `uq_job_sources_source_source_job_id`; `ix_job_sources_job_id`.
 | job_id | uuid | PK, FK jobs |
 | content_hash | bytea | must equal jobs.content_hash to be current |
 | model | text | |
-| embedding | vector(n) | pgvector; HNSW index (`vector_cosine_ops`) added at ~50k active jobs |
+| embedding | vector(n) | pgvector; n fixed in 3b (Voyage AI model); HNSW index (`vector_cosine_ops`) added at ~50k active jobs |
 | created_at | timestamptz | |
 
 ### 3.7 Matching (`matching` domain)
@@ -999,7 +1003,7 @@ phase needs are added in that later phase as an expand step.
 | 0 | `0001_phase0` (exists) | — (empty baseline) | Scaffold |
 | 1 | — | — | Profile and packs stay in YAML (US-1.1 … US-1.3) |
 | 2 | `0002_phase2_discovery` | Extension `citext`; DB roles `jobradar_app`, `jobradar_corpus`; **users** (minimal columns: id, email, role, status, locale, timezone, comparison_currency, preferences, timestamps); **companies**, **source_runs**, **jobs**, **job_sources**; **alert_inboxes** (Gmail columns only), **alert_messages**, **company_suggestions**; **consents**; **settings_flags**; **audit_log**; **dead_letters** | Discovery and dedupe (US-2.1 … US-2.4), Gmail alert ingestion with consent (US-2.5), connector health (US-2.6), company catalogue and suggestions (US-2.7), market flags gated by conformance (US-2.9), audited consent and flag changes, Celery dead letters. Policies and roles as §4. `jobs` gets discovery columns only (normalized columns arrive in Phase 3). No personal data in migrations: the owner's `users` row is created by `jobradar users bootstrap-owner` |
-| 3 | `0003_phase3_matching` | Extension `vector`; normalized columns on **jobs** (seniority, role taxonomy, employment/remote type, regions, salary fields, FX, visa/residency/nationality, languages, credentials, ghost/scam scores, `normalization`; expand step); **profiles** (imported from `config/profile.yaml`, incl. `excluded_industries`), `companies.industries` (expand; synced from `config/companies.yaml`), **profile_embeddings**, **files** (resume uploads for US-1.4), **job_embeddings**, **job_scores**, **llm_calls**, **plans**, **user_plans**, **usage_counters** | Normalization and matching (US-3.1 … US-3.5, US-3.7), LLM metering and soft per-user budget (US-3.6), resume draft parsing (US-1.4), synthetic users end to end (US-3.8). `matches --top` reads `job_scores`; no `applications` rows yet |
+| 3 | `0003_phase3_matching` | Extension `vector`; normalized columns on **jobs** (seniority, role taxonomy, employment/remote type, regions, salary fields, FX, visa/residency/nationality, languages, credentials, ghost/scam scores, `normalization`; expand step); **profiles** (imported from `config/profile.yaml`, incl. `excluded_industries`), `companies.industries` (expand; synced from `config/companies.yaml`), **profile_embeddings**, **files** (resume uploads for US-1.4), **job_embeddings**, **job_scores**, **llm_calls**, **plans**, **user_plans**, **usage_counters** (decisions 2026-11-06: jobs also get `languages_preferred`, `posting_language`, `min_years_experience`, `required_skills`, `preferred_skills`; `companies.industries`; profile `seniority` uses the role-pack levels; `vector(n)` fixed by the Voyage AI model; indexes `ix_jobs_role_family_code_status` and GIN on `jobs.allowed_regions`) |  Normalization and matching (US-3.1 … US-3.5, US-3.7), LLM metering and soft per-user budget (US-3.6), resume draft parsing (US-1.4), synthetic users end to end (US-3.8). `matches --top` reads `job_scores`; no `applications` rows yet |
 | 4 | `0004_phase4_web_notify` | **credentials** (incl. `totp_secret_enc`), **oauth_identities**, **sessions** (incl. `mfa_verified_at`), **auth_challenges**, **client_tokens** (Telegram first); **applications**, **application_events** (states `matched` … `queued`, `skipped` used); **job_feedback**; columns `companies.logo_*` (logo proxy); **notifications**, **notification_prefs**, **channel_links**, **push_subscriptions**; **product_events** | Sign-in with TOTP for the owner (US-4.2; the admin console is internet-facing from Phase 7), feed and job detail with Apply/Skip/Save (US-4.3), digest on chosen channels (US-4.4), pause (US-4.5), flags (US-4.6), thumbs feedback, usage events. Matching starts creating `matched` applications |
 | 5 | `0005_phase5_documents_apply` | Extension `pg_trgm`; **resume_variants**, **answer_bank**, **document_renders**, **apply_attempts**, **pending_questions** | Variants and tailoring (US-5.1, US-5.2), dry-run adapters with proof (US-5.3), unknown questions (US-5.4), one-tap packs (US-5.5) |
 | 6 | `0006_phase6_lifecycle` | **emails**, **interviews**, **offers**, **contacts** | Live apply (US-6.1, no new tables), inbox tracking (US-6.2), follow-ups and ghosting (US-6.3, uses `users.preferences`), recruiter contacts (US-6.4), interview and offer rows created by transitions, pipeline board (US-6.5) |

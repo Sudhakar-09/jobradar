@@ -448,9 +448,11 @@ assumption (FX rate + date, tax model + regime, deductions) shown; "not disclose
 estimated. Implemented by per-market `CompensationModel` plug-ins (India and UAE first).
 
 **US-3.8** Synthetic users end to end (§8a.2).
-- AC1: `syn-01` … `syn-10` run discover (fixtures) → normalize → match in CI with expected
-  eligible sets and reasons; documents, dry-run apply and digest stages are added as Phases 4–5
-  land.
+- AC1: each synthetic user runs discover (fixtures) → normalize → match in CI with expected
+  eligible sets and reasons **once its packs exist**: Phase 3 runs `syn-01` (Bengaluru Java
+  backend → India + UAE) and `syn-06` (Berlin Java backend, English only → Germany); the others
+  join with their packs (Phase 10). Documents, dry-run apply and digest stages are added as
+  Phases 4–5 land.
 - AC2: Conformance checks for salary conversion and eligibility are added to the suite.
 
 **US-3.6** Per-user LLM metering from the first LLM call.

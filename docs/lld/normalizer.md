@@ -78,6 +78,16 @@ class NormalizedJob(BaseModel):  # read model of the normalized columns of jobs
     scam_score: int | None
     content_hash: bytes
     apply_host: str | None
+    # Added in Phase 3a (design check 2026-11-01) so matching rules have what they need:
+    title: str
+    description: Untrusted[str]  # data only; never logged or put into prompt instructions
+    company_id: UUID | None
+    company_industries: list[str]  # explicit catalogue tags (config/industries.yaml)
+    posting_language: LanguageCode | None  # from language_signals
+    languages_preferred: list[LanguageCode]  # "German is a plus": never blocks
+    min_years_experience: Decimal | None  # "3+ years" → 3
+    required_skills: list[str]  # role-pack core_skills found in the posting
+    preferred_skills: list[str]
 
 
 class ParsedSalary(BaseModel):
@@ -114,7 +124,7 @@ class CompBreakdown(BaseModel):
 
 
 class CompensationModel(Protocol):  # entry point "jobradar.compensation"
-    code: ClassVar[str]  # "india", "uae"
+    code: ClassVar[str]  # pack money.compensation_model: "india_ctc", "uae_package", "germany_gross"
 
     def to_comparable(
         self,
@@ -171,7 +181,9 @@ async def expire_unseen(older_than: timedelta) -> int: ...
 ```python
 class CompProfile(BaseModel):  # built by callers from profile.ProfileView
     india_tax_regime: Literal["new", "old"] = "new"
-    # further per-market tax inputs are added here as markets need them; never personal data
+    # Germany: gross only in Phase 3 (owner decision 2026-11-06). A later net estimate assumes tax
+    # class I and no church tax, both shown as assumptions; religion is never asked or inferred.
+    # Further per-market tax inputs are added here as markets need them; never personal data.
 
 
 class JobDimensions(BaseModel):  # insights reporting
@@ -323,12 +335,15 @@ classDiagram
 |---|---|---|
 | `LocationRule` | country, city | gazetteer per market pack (cities, emirates, states) + ISO lookup |
 | `RemoteTypeRule` | remote_type, allowed_regions | keywords and structured source fields ("Remote — EMEA", "Hybrid") |
-| `SeniorityRule` | seniority | title tokens per language (Senior, Lead, Jr, Principal, Head of …) |
+| `SeniorityRule` | seniority | role pack `seniority_signals.level_for(title)` once the role is known; levels junior / mid / senior / staff / executive (one vocabulary for jobs and profiles) |
+| `MinYearsRule` | min_years_experience | "3+ years", "3-5 years", "at least 5 years", "mindestens 3 Jahre" → the minimum; the role pack's `level_for_years` maps it to a level, and the higher of title level and years level is the job's seniority |
 | `SalaryParser` | salary_* | regex grammar per currency/locale: ranges, "k", "LPA", "AED 15,000/month", "per annum", "package", "basic" |
 | `VisaSignalRule` | visa_sponsorship, residency_required, nationality_restricted | phrase lists per market pack ("visa provided", "UAE residents only", "must be in UAE", "Emirati nationals", "Saudi nationals only") with confidence |
-| `LanguageRule` | languages_required | phrase lists + script detection ("Arabic speaker required") |
+| `LanguageRule` | languages_required, languages_preferred, posting_language | `language_signals` over `config/language_requirements.yaml` (requirement vs "is a plus" per sentence; stopwords and title words for the posting language) |
 | `CredentialRule` | credentials_required | role pack credential aliases per market (e.g. "DHA licence", "CA qualified") |
-| `TaxonomyMapper` | field/role_family/role | role pack `title_aliases` (multi-language) → exact; then ISCO-08 title index fuzzy match; else unresolved |
+| `TaxonomyMapper` | field/role_family/role | role pack `title_aliases` (multi-language) → exact; then `conditional_title_aliases` when their `requires_description` matches (e.g. "Software Engineer" + Java + Spring/JVM); else unresolved (no ISCO fuzzy step in Phase 3) |
+| `SkillRule` | required_skills, preferred_skills | role pack `core_skills` and their aliases found in the requirements; "nice to have" sections → preferred |
+| `RegionRule` | allowed_regions | `config/regions.yaml` region codes (EU, EEA, EMEA, GCC, APAC, …) → country lists; "Remote (EU)" → [EU] |
 | `GhostScamScorer` | ghost_score, scam_score | reposting frequency, age, missing company, fee requests, personal-email apply links, too-good salary |
 
 Phrase lists live in packs (market/role), not code. Each decision records `rule_id` and
@@ -378,16 +393,27 @@ sequenceDiagram
   gross; deduct employee PF (rate × basic, basic share from config if not stated — shown as an
   assumption), professional tax (per state table, config), income tax by **regime from
   `CompProfile.india_tax_regime` (default `new`)** using slab tables, standard deduction and cess
-  from `config/compensation/india/<effective_date>.yaml`. If the variable component is unknown,
+  from `config/market_data/india/` dated tables. If the variable component is unknown,
   in-hand is computed on the stated fixed amount and the variable is listed in `not_disclosed`.
 - **UAE (`uae`)**: monthly package (or annual ÷ 12); income tax 0%; components (basic, housing,
   transport) shown when stated; `in_hand_monthly` = total monthly package; no estimate of
   allowances not stated (`not_disclosed`). End-of-service gratuity, flights and medical are
   listed as notes only, never priced.
-- **FX** (`ConfigFxTable`): manual dated rates from config (`fx.rates`, e.g. `AED_INR`,
-  `USD_INR` with `as_of`); derived pairs through a peg (`fx.pegs.AED_USD = 3.6725`) when a direct
-  rate is missing; `stale_fx = as_of older than fx.max_age_days (30)`. Every `CompBreakdown`
-  lists the rate, its date and whether it was derived.
+- **Germany (`germany_gross`)**, Phase 3: annual gross (monthly × 12 when quoted monthly; 13th
+  month only when stated); no net estimate (owner decision 2026-11-06) — `in_hand_monthly =
+  None` with assumption `net_not_estimated`. The EU Blue Card threshold in force
+  (`config/market_data/germany/eu_blue_card.yaml`) is shown next to the gross for users who need
+  a visa. A later net model (income tax § 32a EStG, solidarity surcharge, employee social
+  contributions with ceilings, tax class I, no church tax) uses dated tables only.
+- **FX** (`ConfigFxTable`): manual dated rates from `config/market_data/fx/usd_rates.yaml`
+  (dated data: units per USD for INR, AED, EUR, …, each with official source and `as_of`);
+  cross rates through USD; the AED/USD peg (3.6725) is recorded there as the AED rate;
+  `stale_fx = as_of older than fx.max_age_days (30)`. Every `CompBreakdown` lists the rate, its
+  date and whether it was derived.
+- **Structured tables:** tax slabs and contribution schedules need lists of brackets with
+  `Decimal` amounts, which `core.dated_data`'s flat values cannot hold; 3f adds a typed
+  `DatedSchedule` (brackets, Decimal) in the same dated-data module and home
+  (`config/market_data/<market>/`).
 - Tax tables and rates are **dated config**, chosen by `on` date; a missing table for the date →
   `in_hand_monthly = None` with assumption `tax_table_missing`, never a guess.
 
@@ -425,9 +451,10 @@ embedding keyed by `content_hash` (+ prompt/model version); re-running is a no-o
 | `normalizer.description_max_tokens` | 1500 | LLM job view size |
 | `normalizer.embedding_text_max_tokens` | 512 | embedding input: title + skills + summary |
 | `normalizer.expire_after_days` | 7 unseen | `expire_unseen` |
-| `fx.rates`, `fx.pegs`, `fx.max_age_days` | manual, AED_USD 3.6725, 30 | ADR-0009 |
-| `config/compensation/<market>/<date>.yaml` | — | tax slabs, PF, professional tax |
-| `llm.models.small`, `llm.models.embedding` | config | model tiers |
+| `config/market_data/fx/usd_rates.yaml`, `fx.max_age_days` | manual dated rates (AED 3.6725 peg), 30 | ADR-0009 |
+| `config/market_data/<market>/*.yaml` | — | dated tax slabs, PF, professional tax, visa thresholds |
+| `config/regions.yaml` | EU, EEA, EMEA, GCC, … | region code → countries (`RegionRule`, `remote_region`) |
+| `llm.models.small`, `llm.models.embedding` | `claude-haiku-5-5`, Voyage AI | model tiers (decision 2026-11-06) |
 | flag `normalizer.llm.enabled` | on | kill switch → rules only |
 | Packs | market (gazetteer, phrase lists, currency conventions, `compensation_model`), role (`title_aliases`, credential aliases) | rules |
 

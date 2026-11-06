@@ -35,7 +35,7 @@ flowchart LR
     mail["Transactional email<br/>provider"]
     push["Web Push services<br/>(browser vendors)"]
     gmail["Gmail API (read-only)<br/>/ inbound forwarding mail"]
-    llm["LLM providers<br/>(via LiteLLM)"]
+    llm["LLM providers<br/>(Anthropic, Voyage AI)"]
     ats["Public ATS boards<br/>Greenhouse · Lever · Ashby ·<br/>Workable · SmartRecruiters"]
     agg["Aggregator APIs<br/>Adzuna · Remotive · …"]
     boards["One-tap-only hosts<br/>LinkedIn · Indeed · Gulf boards"]
@@ -620,7 +620,8 @@ checklist status.
 - **Observability:** structlog JSON with correlation IDs (web → API → task → outbound call);
   user IDs as opaque IDs only; Prometheus metrics (queues, sources, apply outcomes, quota denials,
   LLM tokens/cost per plan, Web Vitals from the client); Loki; GlitchTip for API and frontend.
-- **LLM gateway:** LiteLLM behind an interface; versioned prompt files; strict schemas + one
+- **LLM gateway:** the Anthropic SDK (completions) and Voyage AI (embeddings) behind `core.llm`
+  (decision 2026-11-06, replacing LiteLLM); versioned prompt files; strict schemas + one
   repair retry; cache by (prompt version, input hash); per-call metering with user attribution.
 - **Proof and audit:** screenshots + payload snapshots + prompt/model versions per submission;
   `audit_log` for all sensitive actions.

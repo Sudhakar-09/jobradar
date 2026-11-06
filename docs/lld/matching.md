@@ -378,10 +378,10 @@ sequenceDiagram
 
 | Code | Blocks when | Reason key |
 |---|---|---|
-| `market_enabled` | job country's market flag `market.<code>.enabled` is off for this user | `eligibility.market_not_enabled` |
+| `market_enabled` | job country's market is enabled neither globally (`market.<code>.enabled`, conformance-gated) nor for this user by an owner-only, audited user-scoped override (Stage 1: the owner may enable the owner's own markets before their alert readers pass conformance; decision 2026-11-06) | `eligibility.market_not_enabled` |
 | `role_enabled` | job role's `role.<code>.enabled` is off | `eligibility.role_not_enabled` |
 | `location` | job is onsite or hybrid outside the user's locations and remote isn't allowed | `eligibility.location_mismatch` |
-| `remote_region` | `remote_region` job whose `allowed_regions` excludes the user's country | `eligibility.remote_region_excluded` |
+| `remote_region` | `remote_region` job whose `allowed_regions` (codes from `config/regions.yaml`, expanded to countries) excludes the user's country | `eligibility.remote_region_excluded` |
 | `visa` | user's `visa_status[country]` needs sponsorship and `visa_sponsorship = no` | `eligibility.visa_required` |
 | `visa_salary` | the user needs a visa for the job's country and the route has `salary_thresholds` (e.g. EU Blue Card): a stated base salary below the threshold in force on the posting date warns; no stated salary never blocks; stale threshold data adds a note (`core.dated_data`) | `eligibility.visa_salary_below_threshold` (warn; params: route, threshold, currency) |
 | `residency` | `residency_required = true` and user isn't resident | `eligibility.residents_only` |
@@ -584,3 +584,18 @@ Log events (structlog; IDs only):
    and job embeddings exist.
 2. Should Tier 1 use a per-market minimum similarity floor rather than a fixed K? Decide after
    Stage 1 data.
+
+## 11. Phase 3 CLI (added in 3a, 2026-11-06)
+
+Phase 3 runs without Celery tasks; the operator CLI drives each step (tasks arrive with the
+schedules in Phase 4):
+
+| Command | Does |
+|---|---|
+| `jobradar normalize [--since]` | normalize new / changed jobs (rules first, then small-tier LLM for unresolved fields) |
+| `jobradar embed` | embed jobs and the active profile version that have no embedding |
+| `jobradar match` | run Tier 0 → Tier 1 → Tier 2 for the owner and store `job_scores` |
+| `jobradar matches --top 20` | ranked list: title, company, location, fit score, eligibility status and reasons, pay line (original amount and the comparison in the user's currency with the FX date and assumptions) |
+| `jobradar matches --possible` | Tier 1 "possible matches" (similarity only, capped at 0.6) |
+| `jobradar score <job_id>` | on-demand Tier 2 score for one job (counts toward the budget) |
+| `jobradar usage --daily` | LLM tokens and cost per user per day from `llm_calls` (US-3.7 AC7) |

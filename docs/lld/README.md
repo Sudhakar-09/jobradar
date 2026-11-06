@@ -103,7 +103,13 @@ async with system_session(scope) as session: ...  # no user bound: RLS hides use
 # core/logging.py — redact_pii processor: PII keys → "[redacted]", emails masked
 class BudgetExceededError(QuotaExceededError)
 
-# core/llm.py (gateway used by every LLM-using module)
+# core/llm.py (gateway used by every LLM-using module). Providers (decision 2026-11-06): the
+# official `anthropic` SDK for completions (tiers small = claude-haiku-5-5, standard =
+# claude-sonnet-5-5, premium = claude-opus-5-5) and Voyage AI for embeddings; keys ANTHROPIC_API_KEY
+# and VOYAGE_API_KEY in .env. The SDKs use their own HTTP clients: a recorded exemption from
+# 'httpx via core.http only' limited to the provider hosts in source_policies.yaml, with explicit
+# timeouts, no URL logging and no user-supplied URLs. CI replays recorded responses
+# (tests/llm_recordings/, refreshed with `tasks.ps1 record-llm`).
 class LlmGateway(Protocol):
     async def complete_json[T: BaseModel](
         self, scope: UserScope | SystemScope, *, task: str, prompt: PromptRef,

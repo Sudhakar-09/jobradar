@@ -371,3 +371,32 @@ available in the repository.
   Naukrigulf, Bayt, GulfTalent, StepStone or XING in 10 days. Gmail look-back widened from 3 to 7
   days (message IDs prevent double-reading). The fetched Naukri, Instahyre and Foundit alerts
   yield 0 jobs: their readers need real samples, like LinkedIn did.
+- **Phase 3 decisions (owner "ok" to all recommendations, 2026-11-06):**
+  1. **Market gate:** an owner-only, audited user-scoped override lets the owner enable India and
+     Germany for the owner's own matching before their alert readers pass conformance; enabling a
+     market for other users still needs full conformance (matching LLD `market_enabled`).
+  2. **Models:** small tier `claude-haiku-5-5` ($0.10 / $0.50 per million input / output tokens),
+     standard `claude-sonnet-5-5` ($2 / $10) for fit scoring, premium `claude-opus-5-5` ($4 / $20)
+     on demand. Estimated (not measured) cost: owner scoring ≈ $0.04/day; shared normalization
+     ≈ $0.10/day.
+  3. **Embeddings:** Voyage AI (Anthropic's recommended embedding provider); the model, dimension
+     and price are confirmed when the key is created, and fix `vector(n)` in migration 0003.
+  4. **Dependencies (CLAUDE.md rule 13):** approved `anthropic` (official SDK) and `voyageai`,
+     replacing LiteLLM in CLAUDE.md §4; `pgvector` (Python, ADR-0023) and `pypdf` (resume parsing,
+     previously deferred) land in Phase 3. The provider SDKs use their own HTTP clients: a
+     recorded exemption from "httpx via `core.http` only", limited to provider hosts listed in
+     `source_policies.yaml`, with explicit timeouts and no URL logging. CI replays recorded
+     responses.
+  5. **Budget:** owner soft budget US$0.25/day (degrade to rules + embeddings when reached, never
+     stop); per-user monthly ceiling US$10; Stage 1 deployment cap US$15/month.
+  6. **Germany pay:** gross only in Phase 3, with the Blue Card threshold alongside; a later net
+     estimate assumes tax class I and no church tax, shown as assumptions (religion never asked or
+     inferred).
+  7. **Synthetic users in Phase 3:** syn-01 and syn-06 (PRD US-3.8 AC1 amended); the others with
+     their packs.
+  8. **FX:** official reference rates (RBI, CBUAE peg, ECB) fetched and recorded as dated data in
+     `config/market_data/fx/usd_rates.yaml` for the owner's confirmation (in 3f).
+  Also from the design check: one seniority vocabulary (junior / mid / senior / staff /
+  executive) for jobs and profiles; tax data and FX live in `config/market_data/` (CLAUDE.md §5
+  updated); `GET /me/usage` moved to Phase 4 (needs sign-in), Phase 3 reports cost through
+  `jobradar usage --daily`; Phase 3 CLI specified in the matching LLD §11.
